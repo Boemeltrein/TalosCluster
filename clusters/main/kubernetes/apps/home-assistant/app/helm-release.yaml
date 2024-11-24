@@ -89,8 +89,8 @@ spec:
           enabled: true
           credentials: minio
           retentionPolicy: "14d"
-          revision: 1
+          revision: "1"
         recovery:
           method: object_store
           credentials: minio
-          # revision: 1
+          # revision: "1"

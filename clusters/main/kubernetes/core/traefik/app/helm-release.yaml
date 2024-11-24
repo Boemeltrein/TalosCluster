@@ -50,12 +50,13 @@ spec:
       tcp:
         loadBalancerIP: ${IP_TRAEFIK}
 
-    ingress:
-      main:
-        enabled: true
-        hosts:
-          - host: traefik.${BASE_DOMAIN}
-        integrations:
+## When bootstrap new cluster, comment complete ingress section.
+#    ingress:
+#      main:
+#        enabled: true
+#        hosts:
+#          - host: traefik.${BASE_DOMAIN}
+#        integrations:
 #          traefik:
 #            enabled: true
 #            middlewares:
@@ -63,9 +64,9 @@ spec:
 #                namespace: traefik
 #              - name: traefik-redirect
 #                namespace: traefik  
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+#          certManager:
+#            enabled: true
+#            certificateIssuer: cloudflare
 
     middlewares:
       ipWhiteList:
