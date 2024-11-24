@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -9,7 +10,7 @@ spec:
   chart:
     spec:
       chart: traefik
-      version: 30.0.3
+      version: 29.5.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -30,11 +31,52 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    ## set stopAll to "true" if you do not want to use traefik
-    # and/or disable its service
-    global:
-      stopAll: false
-    defaultCertificate: "domain-0-wildcard"
+    
+    TZ: Europe/Amsterdam
+    
+    logs:
+      # Traefik logs concern everything that happens to Traefik itself (startup, configuration, events, shutdown, and so on).
+      general:
+        # By default, the level is set to ERROR. Alternative logging levels are DEBUG, PANIC, FATAL, ERROR, WARN, and INFO.
+        level: ERROR
+        # -- Set the format of General Logs to be either Common Log Format or JSON. For more information: https://doc.traefik.io/traefik/observability/logs/#format
+        format: common
+      access:
+        enabled: true
+
     service:
+      main:
+        type: ClusterIP
       tcp:
-        loadBalancerIP: ${TRAEFIK_IP}
+        loadBalancerIP: ${IP_TRAEFIK}
+
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: traefik.${BASE_DOMAIN}
+        integrations:
+#          traefik:
+#            enabled: true
+#            middlewares:
+#              - name: local
+#                namespace: traefik
+#              - name: traefik-redirect
+#                namespace: traefik  
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    middlewares:
+      ipWhiteList:
+        - name: local
+          sourceRange:
+            - 172.16.0.0/16
+            - 172.17.0.0/16
+            - 192.168.1.0/24
+            - 192.168.2.0/24
+      redirectRegex:
+        - name: traefik-redirect
+          regex: ${TRAEFIK_REGEX}
+          replacement: ${TRAEFIK_REPLACEMENT}
+          permanent: true

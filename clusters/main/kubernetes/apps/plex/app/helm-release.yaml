@@ -1,0 +1,93 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: plex
+  namespace: plex
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: plex
+      version: 19.3.5
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    TZ: Europe/Amsterdam
+
+    plex:
+      # User Defined
+      serverIP: "${IP_PLEX}"
+      additionalAdvertiseURL: ""     # http://${IP_PLEX}:32400,https://${IP_PLEX}:443,https://${IP_PLEX}:32400   <-- configured automaticly
+      disableGDM: true
+      requireHTTPS: true             # First Deploy set to false, till remote acces is configured and working
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+    
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: ${IP_PLEX}        
+    
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: plex.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest:               #VolSync Destination (Restore)
+              enabled: true
+            src:                #VolSync Source (Backup)
+              enabled: true
+      videos:
+        enabled: true
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/HDD_Cluster/Videos
+        mountPath: /data/videos
+      muziek:
+        enabled: true
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/HDD_Cluster/Muziek
+        mountPath: /data/muziek

@@ -18,37 +18,104 @@ spec:
       interval: 15m
   timeout: 20m
   maxHistory: 3
+  driftDetection:
+    mode: warn
   install:
     createNamespace: true
+    crds: CreateReplace
     remediation:
       retries: 3
   upgrade:
     cleanupOnFail: true
+    crds: CreateReplace
     remediation:
       retries: 3
   uninstall:
     keepHistory: false
   values:
-    ## set stopAll to "true" if you do not want to use blocky
-    # and/or disable its service
-    global:
-      stopAll: false
+    
+    TZ: Europe/Amsterdam
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"    
+
     service:
       dns:
+        enabled: true
         externalTrafficPolicy: Local
-        loadBalancerIP: ${BLOCKY_IP}
+        loadBalancerIP: ${IP_BLOCKY}
         type: LoadBalancer
-    k8sgateway:
-      # -- list of processed domains
-      domains:
-      - domain: "${DOMAIN_0}"
-        # -- Optional configuration option for DNS01 challenge that will redirect all acme
-        # challenge requests to external cloud domain (e.g. managed by cert-manager)
-        # See: https://cert-manager.io/docs/configuration/acme/dns01/
-        dnsChallenge:
-          enabled: false
-          domain: dns01.clouddns.com
 
+    # -- set the default DNS upstream servers
+    defaultUpstreams:
+      - tcp-tls:1.1.1.1:853
+      - tcp-tls:1.0.0.1:853
+
+    # -- Set manual custom DNS resolution
+    customDNS:
+      rewrite: []
+      # - in: something.com
+      #   out: somethingelse.com
+      mapping:
+        - domain: truenas.${DOMAIN}
+          dnsserver: 192.168.1.50
+
+    # -- set conditional settings
+    # Primarily designed for inclusion in the TrueNAS SCALE GUI
+    conditional:
+      rewrite: []
+      # - in: something.com
+      #   out: somethingelse.com
+      mapping:
+        - domain: thuis
+          dnsserver: 192.168.1.1
+
+    # -- set blocking settings using Lists
+    # Primarily designed for inclusion in the TrueNAS SCALE GUI
+    blocking:
+      # --  Add blocky whitelists
+      # `default` name is reservered for TrueCharts included default whitelist
+      # example shows the structure, though name should be changed when used
+      whitelist:
+        []
+        # - name: default
+        #  lists:
+        #   - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/optional-list.txt
+        #   - https://raw.githubusercontent.com/anudeepND/whitelist/master/domains/whitelist.txt
+        #   - https://raw.githubusercontent.com/rahilpathan/pihole-whitelist/main/1.LowWL.txt
+
+      # -- Blocky blacklists
+      # `default` name is reservered for TrueCharts included default blacklist
+      # example shows the structure, though name should be changed when used
+      blacklist:
+        []
+        # - name: default
+        #  lists:
+        #   - https://big.oisd.nl/domainswild
+        #   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+
+      # -- Blocky clientGroupsBlock
+      clientGroupsBlock:
+        - name: default
+          groups:
+            - default
+
+    k8sgateway:
+       # -- list of processed domains
+      domains: 
+        - domain: ${BASE_DOMAIN}
+          # -- Optional configuration option for DNS01 challenge that will redirect all acme
+          # challenge requests to external cloud domain (e.g. managed by cert-manager)
+          # See: https://cert-manager.io/docs/configuration/acme/dns01/
+          dnsChallenge:
+           enabled: false
+           domain: dns01.clouddns.com
       forward:
         enabled: false
         primary: tls://1.1.1.1
@@ -59,15 +126,20 @@ spec:
 
     # CANNOT be defined in above yaml section
     queryLog:
-      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console only
-      type: ""
-
-    configmap:
-      dashboard:
-        enabled: false
-      datasource:
-        enabled: false
+      # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
+      type: "postgresql"
 
     cnpg:
       main:
-        enabled: false
+        cluster:
+          singleNode: true
+        mode: standalone   # Set to 'recovery' when recovery from S3, also change the revisions 
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: 1
+        recovery:
+          method: object_store
+          credentials: minio
+          # revision: 1

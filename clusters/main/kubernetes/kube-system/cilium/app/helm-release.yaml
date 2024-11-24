@@ -13,7 +13,7 @@ spec:
     chart:
         spec:
             chart: cilium
-            version: 1.16.3
+            version: 1.16.4
             sourceRef:
                 kind: HelmRepository
                 name: cilium
@@ -77,4 +77,5 @@ spec:
       localRedirectPolicy: true
       operator:
         rollOutPods: true
+        replicas: 1
       rollOutCiliumPods: true

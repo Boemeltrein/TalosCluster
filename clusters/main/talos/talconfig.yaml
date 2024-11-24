@@ -29,7 +29,7 @@ nodes:
         - 1.1.1.1
         - 8.8.8.8
       installDiskSelector:
-        size: <= 1600GB
+        size: <= 3TB
       networkInterfaces:
         # suffix is the adapter mac adres.
         - interface: eth0

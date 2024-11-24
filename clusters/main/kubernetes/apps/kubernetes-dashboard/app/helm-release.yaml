@@ -30,6 +30,9 @@ spec:
   uninstall:
     keepHistory: false
   values:
+
+    TZ: Europe/Amsterdam
+
     service:
       main:
         type: LoadBalancer
@@ -37,3 +40,18 @@ spec:
         ports:
           main:
             port: 80
+
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: dashboard.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
