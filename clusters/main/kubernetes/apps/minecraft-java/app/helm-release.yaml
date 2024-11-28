@@ -36,16 +36,16 @@ spec:
     global:
       stopAll: false    
 
-    service:
-      dynmap:
-        enabled: true
-        type: LoadBalancer
-        loadBalancerIP: ${IP_DYNMAP}
-        ports:
-          dynmap:
-            enabled: true
-            protocol: tcp
-            port: 8123
+    #service:
+    # dynmap:
+    #    enabled: true
+    #    type: LoadBalancer
+    #    loadBalancerIP: ${IP_DYNMAP}
+    #    ports:
+    #      dynmap:
+    #        enabled: true
+    #        protocol: tcp
+    #        port: 8123
 
     workload:
       main:
@@ -127,23 +127,23 @@ spec:
       backups:
         enabled: false
 
-    ingress:
-      dynmap:
-        enabled: true
-        primary: true
-        targetSelector:
-          dynmap: dynmap
-        hosts:
-          -  host: dynmap.${BASE_DOMAIN}
-        integrations:
-          traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+    #ingress:
+    #  dynmap:
+    #    enabled: true
+    #    primary: true
+    #    targetSelector:
+    #      dynmap: dynmap
+    #    hosts:
+    #      -  host: dynmap.${BASE_DOMAIN}
+    #    integrations:
+    #      traefik:
+    #        enabled: true
+    #        middlewares:
+    #          - name: local
+    #            namespace: traefik
+    #      certManager:
+    #        enabled: true
+    #        certificateIssuer: cloudflare
 
     resources:
       limits:

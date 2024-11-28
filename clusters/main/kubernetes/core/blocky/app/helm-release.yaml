@@ -47,37 +47,22 @@ spec:
 
     service:
       dns:
-        enabled: true
         externalTrafficPolicy: Local
-        loadBalancerIP: ${IP_BLOCKY}
         type: LoadBalancer
+        loadBalancerIP: ${IP_BLOCKY}
 
     # -- set the default DNS upstream servers
     defaultUpstreams:
       - tcp-tls:1.1.1.1:853
       - tcp-tls:1.0.0.1:853
 
-    # -- Set manual custom DNS resolution
-    customDNS:
-      rewrite: []
-      # - in: something.com
-      #   out: somethingelse.com
-      mapping:
-        - domain: truenas.${DOMAIN}
-          dnsserver: 192.168.1.50
-
     # -- set conditional settings
-    # Primarily designed for inclusion in the TrueNAS SCALE GUI
     conditional:
-      rewrite: []
-      # - in: something.com
-      #   out: somethingelse.com
       mapping:
         - domain: thuis
           dnsserver: 192.168.1.1
 
     # -- set blocking settings using Lists
-    # Primarily designed for inclusion in the TrueNAS SCALE GUI
     blocking:
       # --  Add blocky whitelists
       # `default` name is reservered for TrueCharts included default whitelist
@@ -124,7 +109,6 @@ spec:
           - name: tls_servername
             value: cloudflare-dns.com
 
-    # CANNOT be defined in above yaml section
     queryLog:
       # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
       type: "postgresql"

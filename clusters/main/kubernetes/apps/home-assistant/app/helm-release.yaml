@@ -91,6 +91,5 @@ spec:
           retentionPolicy: "14d"
           revision: "1"
         recovery:
-          method: object_store
           credentials: minio
           # revision: "1"
