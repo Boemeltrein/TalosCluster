@@ -42,10 +42,10 @@ spec:
                 PUBLIC_DASHBOARD: false
                 #CHART_DATETIME_FORMAT: "d.m H:i"
                 #DATETIME_FORMAT: "d.m.Y H:i"
-                #SPEEDTEST_SCHEDULE: "0 * * * *"
+                SPEEDTEST_SCHEDULE: "0 * * * *"
                 PRUNE_RESULTS_OLDER_THAN: 90
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
-                #SPEEDTEST_SERVERS: "1973"
+                SPEEDTEST_SERVERS: "32582"
 
     credentials:
       minio:
