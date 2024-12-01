@@ -40,8 +40,8 @@ spec:
             main:
               env:
                 PUBLIC_DASHBOARD: false
-                #CHART_DATETIME_FORMAT: "d.m H:i"
-                #DATETIME_FORMAT: "d.m.Y H:i"
+                CHART_DATETIME_FORMAT: "d.m H:i"
+                DATETIME_FORMAT: "d.m.Y H:i"
                 SPEEDTEST_SCHEDULE: "0 * * * *"
                 PRUNE_RESULTS_OLDER_THAN: 90
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
