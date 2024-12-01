@@ -91,7 +91,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Welcome to Minecraft on Talos!"
+                MOTD: "\u00a7c\u266b \u00a73Zie de \u00a76maan \u00a73schijnt door de \u00a7abomen\u00a7r.... \u00a7c\u266b"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
