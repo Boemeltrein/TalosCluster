@@ -40,6 +40,12 @@ spec:
         loadBalancerIP: ${IP_MINECRAFT}
         ports:
           main:
+            enabled: true
+            protocol: tcp
+            port: 25565
+          query:
+            enabled: true
+            protocol: udp
             port: 25565
 
     mcrouter:
