@@ -6,9 +6,8 @@ metadata:
   annotations:
       cert-manager.io/cluster-issuer: cloudflare
       cert-manager.io/private-key-rotation-policy: Always
-      # traefik.frontend.passHostHeader: "false"
       traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-github@kubernetescrd
       traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
@@ -26,7 +25,3 @@ spec:
     - hosts:
       - flux-webhook.${DOMAIN}
       secretName: flux-webhook-tls-0
-#status:
-#    loadBalancer:
-#     ingress:
-#      - ip: ${IP_TRAEFIK}
