@@ -28,5 +28,5 @@ spec:
       secretName: flux-webhook-tls-0
 #status:
 #    loadBalancer:
- #     ingress:
+#     ingress:
 #      - ip: ${IP_TRAEFIK}
