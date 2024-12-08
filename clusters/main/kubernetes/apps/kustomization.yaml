@@ -20,3 +20,4 @@ resources:
   - zwave-js-ui/ks.yaml
   - webserver-dynmap/ks.yaml
   - speedtest-tracker
+  - homepage/ks.yaml
