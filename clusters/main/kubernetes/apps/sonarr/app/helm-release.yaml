@@ -47,6 +47,9 @@ spec:
         enabled: true
         hosts:
           - host: sonarr.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix   
         integrations:
           traefik:
             enabled: true
@@ -58,7 +61,6 @@ spec:
             certificateIssuer: cloudflare
           homepage:
             enabled: true
-            name: "Sonarr"
             group: "Arr"          
 #            widget:
 #                enabled: false
