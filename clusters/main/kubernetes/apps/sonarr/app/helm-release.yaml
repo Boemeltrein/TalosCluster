@@ -59,7 +59,7 @@ spec:
           homepage:
             enabled: true
             name: "Sonarr"
-            group: "arr"          
+            group: "Arr"          
             widget:
                 enabled: false
 
