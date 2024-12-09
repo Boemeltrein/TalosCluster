@@ -67,3 +67,20 @@ spec:
               enabled: true
             src:                #VolSync Source (Backup)
               enabled: true
+
+    addons:
+      codeserver:
+        enabled: true
+        ingress:
+          enabled: true
+          hosts:
+            - host: cs-homepage.${BASE_DOMAIN}
+          integrations:
+            certManager:
+              enabled: true
+              certificateIssuer: cloudflare
+            traefik:
+              enabled: true
+              middlewares:
+                - name: local
+                  namespace: traefik

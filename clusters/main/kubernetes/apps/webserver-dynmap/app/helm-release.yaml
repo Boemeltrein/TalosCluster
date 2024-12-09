@@ -63,20 +63,3 @@ spec:
               env:
                 SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 SERVER_ROOT: "/dynmap"
-
-    addons:
-      codeserver:
-        enabled: true
-        ingress:
-          enabled: true
-          hosts:
-            - host: codedynmap.${BASE_DOMAIN}
-          integrations:
-            certManager:
-              enabled: true
-              certificateIssuer: cloudflare
-            traefik:
-              enabled: true
-              middlewares:
-                - name: local
-                  namespace: traefik
