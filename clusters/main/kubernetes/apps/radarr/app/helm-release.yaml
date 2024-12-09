@@ -57,7 +57,8 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
           homepage:
-            enabled: false
+            enabled: true
+            group: "Arr" 
 
     persistence:
       config:
