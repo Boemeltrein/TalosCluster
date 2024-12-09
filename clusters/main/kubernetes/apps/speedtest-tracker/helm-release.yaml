@@ -71,7 +71,7 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
           homepage:
-            enabled: true
+            enabled: false
             group: "Network - Performance"
             widget:
               type: "speedtest"
