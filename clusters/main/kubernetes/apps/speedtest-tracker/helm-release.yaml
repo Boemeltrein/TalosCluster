@@ -61,7 +61,7 @@ spec:
         enabled: true
         hosts:
           - host: speedtest-tracker.${BASE_DOMAIN}
-            path:
+            paths:
               - path: /
                 pathType: Prefix          
         integrations:
