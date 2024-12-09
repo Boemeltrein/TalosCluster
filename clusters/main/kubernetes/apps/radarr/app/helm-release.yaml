@@ -57,7 +57,7 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
           homepage:
-            enabled: false
+            enabled: true
             # Default: chart name
             name: ""
             # Default: chart description
