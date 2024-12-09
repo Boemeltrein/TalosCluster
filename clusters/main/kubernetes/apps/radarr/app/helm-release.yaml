@@ -57,7 +57,7 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
           homepage:
-            enabled: true
+            enabled: false
 
     persistence:
       config:
