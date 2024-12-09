@@ -60,8 +60,8 @@ spec:
             enabled: true
             name: "Sonarr"
             group: "Arr"          
-            widget:
-                enabled: false
+#            widget:
+#                enabled: false
 
 #      homepage:
 #        enabled: false
