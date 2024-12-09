@@ -56,6 +56,26 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: false
+            # Default: chart name
+            name: ""
+            # Default: chart description
+            description: ""
+            # Default: no group
+            group: ""
+            # Default: chart icon
+            icon: ""
+            widget:
+              # Default: chartname
+              type: ""
+              # Default to ingress host 0
+              url: ""
+              custom:
+                # somesetting: some value
+              customkv:
+                # - key: some key
+                #   value: some value
 
     persistence:
       config:
