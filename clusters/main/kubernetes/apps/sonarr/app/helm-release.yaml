@@ -58,6 +58,8 @@ spec:
             certificateIssuer: cloudflare
           homepage:
             enabled: true          
+            widget:
+                enabled: false
 
     persistence:
       config:
