@@ -57,7 +57,8 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
           homepage:
-            enabled: true          
+            enabled: true
+            group: "arr"          
             widget:
                 enabled: false
 
