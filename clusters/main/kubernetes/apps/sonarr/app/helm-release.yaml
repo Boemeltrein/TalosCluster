@@ -63,7 +63,7 @@ spec:
             enabled: true
             group: "Arr"          
             widget:
-                enabled: false
+              enabled: false
 
 #      homepage:
 #        enabled: false
