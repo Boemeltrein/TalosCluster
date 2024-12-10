@@ -63,7 +63,8 @@ spec:
             enabled: true
             group: "Arr"          
             widget:
-              enabled: false
+              custom:
+                key: "${HP_API_SONARR}"
 
 #      homepage:
 #        enabled: false
