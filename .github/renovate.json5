@@ -8,6 +8,7 @@
     "packageRules": [
       {
         "matchPackageNames": ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
+        "labels": ["system-upgrade"],
         "automerge": false
       }
     ]
