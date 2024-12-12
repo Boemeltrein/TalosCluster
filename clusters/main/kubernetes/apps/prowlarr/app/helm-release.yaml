@@ -47,6 +47,9 @@ spec:
         enabled: true
         hosts:
           - host: prowlarr.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix           
         integrations:
           traefik:
             enabled: true
