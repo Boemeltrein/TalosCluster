@@ -56,6 +56,12 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Arr"          
+            widget:
+              custom:
+                key: "${HP_API_PROWLARR}"
 
     persistence:
       config:
