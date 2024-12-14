@@ -72,7 +72,7 @@ spec:
             group: "Arr"          
             widget:
               custom:
-                key: "${HP_API_SABNZBD}"
+                key: ${HP_API_SABNZBD}
 
     persistence:
       config:
