@@ -55,6 +55,9 @@ spec:
         enabled: true
         hosts:
           - host: sabnzbd.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix 
         integrations:
           traefik:
             enabled: true
@@ -64,6 +67,12 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Arr"          
+            widget:
+              custom:
+                key: "${HP_API_SABNZBD}"
 
     persistence:
       config:
