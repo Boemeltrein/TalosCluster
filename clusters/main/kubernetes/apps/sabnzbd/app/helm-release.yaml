@@ -39,7 +39,7 @@ spec:
           containers:
             main:
               env:
-                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}"
+                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN},http://sabnzbd.sabnzbd.svc"
 
     credentials:
       minio:
@@ -72,7 +72,7 @@ spec:
             group: "Arr"          
             widget:
               custom:
-                key: ${HP_API_SABNZBD}
+                key: "${HP_API_SABNZBD}"
 
     persistence:
       config:
