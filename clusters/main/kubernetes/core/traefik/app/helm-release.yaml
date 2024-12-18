@@ -45,6 +45,8 @@ spec:
         enabled: true
 
     service:
+      main:
+        loadBalancerIP: ${IP_TRAEFIK}
       tcp:
         loadBalancerIP: ${IP_TRAEFIK}
 
