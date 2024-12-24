@@ -34,7 +34,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: true    
 
     #service:
     # dynmap:
@@ -91,7 +91,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Op naar kerst..."
+                MOTD: "\u00a73Fijne \u00a7aKerstdagen\u00a73!"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
