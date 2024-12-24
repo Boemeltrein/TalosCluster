@@ -109,8 +109,9 @@ spec:
                 # ICON: http://..../some/image.png
                 # OVERRIDE_ICON: true
                 ALLOW_FLIGHT: "false"
-                CURSEFORGE_FILES: "lithium,fabric-api"
-                CF_API_KEY: ${MINECRAFT_CF_API_KEY}
+                # CURSEFORGE_FILES: "lithium,fabric-api"
+                # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
+                MODRINTH_PROJECTS: "lithium,fabric-api"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
