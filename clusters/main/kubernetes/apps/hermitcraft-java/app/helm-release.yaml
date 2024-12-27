@@ -34,7 +34,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true   
+      stopAll: false   
 
     service:
       bluemap:
@@ -82,7 +82,7 @@ spec:
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
                 ONLINE_MODE: "true"
-                MEMORY: 12G      
+                MEMORY: 6G      
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 # RCON_PASSWORD: "secretrconpass"
                 OPS: ${MINECRAFT_OPS}
