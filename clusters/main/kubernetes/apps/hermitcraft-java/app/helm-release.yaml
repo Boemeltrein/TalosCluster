@@ -34,7 +34,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true   
+      stopAll: false   
 
     service:
       bluemap:
@@ -74,9 +74,7 @@ spec:
                 GENERATE_STRUCTURES: "true"
                 HARDCORE: "false"
                 MAX_BUILD_HEIGHT: 320
-                SPAWN_ANIMALS: "true"
                 SPAWN_MONSTERS: "true"
-                SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
                 MOTD: "Testing"
