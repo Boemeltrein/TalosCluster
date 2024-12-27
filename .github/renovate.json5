@@ -3,6 +3,7 @@
   "extends": [
     "config:recommended",
     "github>truecharts/public//.github/renovate/main.json5",
-    "github>Boemeltrein/TalosCluster//.github/special_talos.json5"
+    "github>Boemeltrein/TalosCluster//.github/renovate/special_talos.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5"
   ]
 }
