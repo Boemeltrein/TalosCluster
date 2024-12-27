@@ -34,7 +34,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true   
+      stopAll: false   
 
     service:
       bluemap:
@@ -46,12 +46,6 @@ spec:
             enabled: true
             protocol: tcp
             port: 8100
-            targetSelector: bluemap
-
-    bluemap:
-      repository: ghcr.io/bluemap-minecraft/bluemap
-      tag: v5.4
-      pullPolicy: Always
 
     workload:
       main:
@@ -68,7 +62,7 @@ spec:
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.1"
+                VERSION: "1.21.4"
                 TYPE: "FABRIC"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
@@ -80,16 +74,15 @@ spec:
                 GENERATE_STRUCTURES: "true"
                 HARDCORE: "false"
                 MAX_BUILD_HEIGHT: 320
-                MAX_TICK_TIME: 60000
                 SPAWN_ANIMALS: "true"
                 SPAWN_MONSTERS: "true"
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Welcome to Hermitcraft!"
+                MOTD: "Testing"
                 PVP: "true"
                 LEVEL_TYPE: normal
-                LEVEL: Hermitcraft
+                LEVEL: Utopia
                 ONLINE_MODE: "true"
                 MEMORY: 12G      
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
@@ -104,67 +97,30 @@ spec:
                 # ICON: http://..../some/image.png
                 # OVERRIDE_ICON: true
                 ALLOW_FLIGHT: "false"
-                CURSEFORGE_FILES: "lithium,fabric-api"
-                CF_API_KEY: ${MINECRAFT_CF_API_KEY}
+                # CURSEFORGE_FILES: "lithium,fabric-api"
+                # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
+                MODRINTH_PROJECTS: "lithium,fabric-api"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
+
             mcbackup:
              enabled: false
-            bluemap:
-              enabled: true
-              imageSelector: bluemap
-              # command:
-              #  - -r
-              #  - -u
-              #  - -w
-              probes:
-                liveness:
-                  enabled: false
-                readiness:
-                  enabled: false
-                startup:
-                  enabled: false
     
     persistence:
       data:
         enabled: true
-        targetSelector:
-          main:
-            main:
-              mountPath: /data
-            bluemap:
-              mountPath: /world
-              readOnly: true
-      bm-config:
-        enabled: true
-        targetSelector:
-          main:
-            bluemap: 
-              mountPath: /app/config	
-      bm-web:
-        enabled: true
-        targetSelector:
-          main:
-            bluemap: 
-              mountPath: /app/web	
-      bm-data:
-        enabled: true
-        targetSelector:
-          main:
-            bluemap: 
-              mountPath: /app/data	
+        type: nfs
+        path: /mnt/SSD_Cluster/app_minecraft_test
+        server: 192.168.1.50
+
       backups:
         enabled: false
-        targetSelector:
-          main:
-            mcbackup:
-              mountPath: /backups
 
     resources:
       limits:
-        cpu: 8000m
-        memory: 16Gi
+        cpu: 4000m
+        memory: 8Gi
       requests:
         cpu: 10m
         memory: 50Mi
