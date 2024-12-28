@@ -52,18 +52,18 @@ spec:
         podSpec:
           containers:
             main:
-              securityContext:
-                allowPrivilegeEscalation: true
-                privileged: false
-                capabilities:
-                  add:
-                    - NET_RAW
+              #securityContext:
+              #  allowPrivilegeEscalation: true
+              #  privileged: false
+              #  capabilities:
+              #    add:
+              #      - NET_RAW
               env:
-                MAX_TICK_TIME: -1
-                ENABLE_AUTOPAUSE: "true"
-                AUTOPAUSE_KNOCK_INTERFACE: "eth0"
-                AUTOPAUSE_TIMEOUT_EST: "1800"
-                SKIP_SUDO: "true"
+              #  MAX_TICK_TIME: -1
+              #  ENABLE_AUTOPAUSE: "true"
+              #  AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+              #  AUTOPAUSE_TIMEOUT_EST: "1800"
+              #  SKIP_SUDO: "true"
                 STOP_SERVER_ANNOUNCE_DELAY: 60
                 SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
@@ -91,7 +91,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "\u00a73Fijne \u00a7aKerstdagen\u00a73!"
+                MOTD: "\u00A74Working on \u00A79something \u00A7eNICE\u00A76 :-)"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
