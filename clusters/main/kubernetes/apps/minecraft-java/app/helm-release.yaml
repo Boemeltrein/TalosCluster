@@ -111,7 +111,7 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: "lithium,fabric-api"
+                MODRINTH_PROJECTS: "lithium,fabric-api,armor-poser"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
