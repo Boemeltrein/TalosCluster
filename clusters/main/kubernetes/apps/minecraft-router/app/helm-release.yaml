@@ -41,6 +41,7 @@ spec:
         enabled: true
         type: LoadBalancer
         loadBalancerIP: ${IP_MINECRAFT}
+        externalTrafficPolicy: Local
         ports:
           main:
             enabled: true
