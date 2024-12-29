@@ -36,16 +36,14 @@ spec:
     global:
       stopAll: false    
 
-    #service:
-    # dynmap:
-    #    enabled: true
-    #    type: LoadBalancer
-    #    loadBalancerIP: ${IP_DYNMAP}
-    #    ports:
-    #      dynmap:
-    #        enabled: true
-    #        protocol: tcp
-    #        port: 8123
+    service:
+      bluemap:
+        enabled: true
+        ports:
+          bluemap:
+            enabled: true
+            protocol: tcp
+            port: 8100
 
     workload:
       main:
@@ -111,7 +109,7 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: "lithium,fabric-api,armor-poser:beta,cloth-config"
+                MODRINTH_PROJECTS: "fabric-api,lithium,bluemap,armor-poser:beta,cloth-config"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
@@ -129,23 +127,23 @@ spec:
       backups:
         enabled: false
 
-    #ingress:
-    #  dynmap:
-    #    enabled: true
-    #    primary: true
-    #    targetSelector:
-    #      dynmap: dynmap
-    #    hosts:
-    #      -  host: dynmap.${BASE_DOMAIN}
-    #    integrations:
-    #      traefik:
-    #        enabled: true
-    #        middlewares:
-    #          - name: local
-    #            namespace: traefik
-    #      certManager:
-    #        enabled: true
-    #        certificateIssuer: cloudflare
+    ingress:
+      bluemap:
+        enabled: true
+        primary: true
+        targetSelector:
+          bluemap: bluemap
+        hosts:
+          -  host: bluemap.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
 
     resources:
       limits:
