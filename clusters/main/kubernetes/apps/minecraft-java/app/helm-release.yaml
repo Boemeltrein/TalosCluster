@@ -134,13 +134,10 @@ spec:
         targetSelector:
           bluemap: bluemap
         hosts:
-          -  host: bluemap.${BASE_DOMAIN}
+          -  host: ${MINECRAFT_URL}
         integrations:
           traefik:
             enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare
