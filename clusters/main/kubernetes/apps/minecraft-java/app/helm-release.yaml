@@ -91,7 +91,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "\u00A74Working on \u00A79something \u00A7eNICE\u00A76 :-)"
+                MOTD: "Op naar 2025..."
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
