@@ -33,6 +33,9 @@ spec:
 
     TZ: Europe/Amsterdam
 
+    global:
+      stopAll: true   
+
     ingress:
       main:
         enabled: true

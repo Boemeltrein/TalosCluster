@@ -34,11 +34,9 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false   
+      stopAll: true   
 
     service:
-      main:
-        externalTrafficPolicy: Local
       bluemap:
         enabled: true
         ports:

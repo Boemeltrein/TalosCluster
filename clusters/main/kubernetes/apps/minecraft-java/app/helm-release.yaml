@@ -37,8 +37,6 @@ spec:
       stopAll: false    
 
     service:
-      main:
-        externalTrafficPolicy: Local
       bluemap:
         enabled: true
         ports:
