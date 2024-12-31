@@ -33,7 +33,7 @@ spec:
     keepHistory: false
   values:
 
-    #TZ: Europe/Amsterdam
+    TZ: Europe/Amsterdam
 
     credentials:
       minio:
