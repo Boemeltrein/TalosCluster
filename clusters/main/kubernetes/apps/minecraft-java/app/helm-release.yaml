@@ -89,7 +89,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Op naar 2025..."
+                MOTD: "\u00A74Boemeltrein's Minecraft Server\u00A7r\n         \u00A7bHappy \u00A7e2025"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
