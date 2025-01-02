@@ -109,7 +109,7 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: "fabric-api,lithium,bluemap,armor-poser:beta,cloth-config"
+                MODRINTH_PROJECTS: "fabric-api,lithium,bluemap,armor-poser:beta,cloth-config,servux"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
