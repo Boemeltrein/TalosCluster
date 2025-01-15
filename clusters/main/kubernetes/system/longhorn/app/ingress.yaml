@@ -11,7 +11,7 @@ metadata:
       traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
-  - host: longhorn.${DOMAIN}
+  - host: longhorn.${BASE_DOMAIN}
     http:
       paths:
       - pathType: Prefix
