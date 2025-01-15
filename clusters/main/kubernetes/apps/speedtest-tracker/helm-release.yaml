@@ -34,7 +34,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true    
+      stopAll: false    
 
     workload:
       main:
