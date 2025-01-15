@@ -23,5 +23,5 @@ spec:
               number: 80
   tls:
     - hosts:
-      - longhorn.${DOMAIN}
+      - longhorn.${BASE_DOMAIN}
       secretName: longhorn-tls-0
