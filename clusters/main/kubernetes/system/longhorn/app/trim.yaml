@@ -1,0 +1,13 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: trim
+  namespace: longhorn-system
+spec:
+  concurrency: 1
+  cron: 0 3 * * *
+  groups:
+  - default
+  name: trim
+  retain: 0
+  task: filesystem-trim
