@@ -21,3 +21,4 @@ resources:
   - webserver-dynmap/ks.yaml
   - speedtest-tracker
   - homepage/ks.yaml
+  - minecraft-bedrock/ks.yaml
