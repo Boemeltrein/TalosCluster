@@ -79,35 +79,10 @@ spec:
             mcbackup:
              enabled: false
 
-    persistence:
-      data:
-        enabled: true
-        type: nfs
-        path: /mnt/SSD_Cluster/app_minecraft_data
-        server: 192.168.1.50
-
-      backups:
-        enabled: false
-
-    ingress:
-      bluemap:
-        enabled: true
-        primary: true
-        targetSelector:
-          bluemap: bluemap
-        hosts:
-          -  host: ${MINECRAFT_URL}
-        integrations:
-          traefik:
-            enabled: true
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-
     resources:
       limits:
-        cpu: 8000m
-        memory: 16Gi
+        cpu: 4000m
+        memory: 8Gi
       requests:
         cpu: 10m
         memory: 50Mi
