@@ -74,10 +74,7 @@ spec:
                 PLAYER_MOVEMENT_DISTANCE_THRESHOLD: 0.3
                 PLAYER_MOVEMENT_DURATION_THRESHOLD_IN_MS: 500
                 CORRECT_PLAYER_MOVEMENT: false
-                OPS: "497d6257-d336-4922-b5e0-3ee0fbe2b3d3"
-                
-            mcbackup:
-             enabled: false
+                OPS: "2535464599960554"
 
     resources:
       limits:
