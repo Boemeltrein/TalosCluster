@@ -89,7 +89,7 @@ spec:
     - patch: |
         - op: add
           path: /spec/template/spec/containers/0/args/-
-          value: --log-level="debug"
+          value: --log-level=debug
       target:
         kind: Deployment
         name: (kustomize-controller|helm-controller|source-controller)
