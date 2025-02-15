@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: external-service
-      version: 15.6.1
+      version: 15.6.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
