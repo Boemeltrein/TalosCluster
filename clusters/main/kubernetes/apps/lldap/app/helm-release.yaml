@@ -52,7 +52,7 @@ spec:
                 LLDAP_SMTP_OPTIONS__PORT: 465
                 LLDAP_SMTP_OPTIONS__REPLY_TO: Do not reply <lldap@${BASE_DOMAIN}>
                 LLDAP_SMTP_OPTIONS__SERVER: ${SMTP_HOST}
-                LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: SSL
+                LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: TLS
                 LLDAP_SMTP_OPTIONS__USER: ${SMTP_USER_LLDAP}
                 LLDAP_VERBOSE: false
                 LLDAP_key_file: /data/private_key
@@ -89,8 +89,6 @@ spec:
         volsync:
           - name: data
             type: restic
-            #cleanupTempPVC: true
-            #cleanupCachePVC: true
             credentials: minio
             dest:               #VolSync Destination (Restore)
               enabled: true
