@@ -1,0 +1,112 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: lldap
+  namespace: lldap
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: lldap
+      version: 7.6.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false    
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                LLDAP_HTTP_URL: https://lldap.${BASE_DOMAIN}
+                LLDAP_LDAP_BASE_DN: dc=${DN},dc=${DC}
+                LLDAP_LDAP_USER_DN: admin
+                LLDAP_LDAP_USER_EMAIL: admin@${BASE_DOMAIN}
+                LLDAP_LDAP_USER_PASS: ${LLDAP_PASSWORD}
+                LLDAP_SMTP_OPTIONS__FROM: LLDAP Admin <lldap@${BASE_DOMAIN}>
+                LLDAP_SMTP_OPTIONS__PASSWORD: ${SMTP_PASSWORD_LLDAP}
+                LLDAP_SMTP_OPTIONS__PORT: 465
+                LLDAP_SMTP_OPTIONS__REPLY_TO: Do not reply <lldap@${BASE_DOMAIN}>
+                LLDAP_SMTP_OPTIONS__SERVER: ${SMTP_HOST}
+                LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: SSL
+                LLDAP_SMTP_OPTIONS__USER: ${SMTP_USER_LLDAP}
+                LLDAP_VERBOSE: false
+                LLDAP_key_file: /data/private_key
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+        
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: lldap.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix          
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      data:
+        volsync:
+          - name: data
+            type: restic
+            cleanupTempPVC: true
+            cleanupCachePVC: true
+            credentials: minio
+            dest:               #VolSync Destination (Restore)
+              enabled: true
+            src:                #VolSync Source (Backup)
+              enabled: true
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions 
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: minio
+          # revision: "1"
