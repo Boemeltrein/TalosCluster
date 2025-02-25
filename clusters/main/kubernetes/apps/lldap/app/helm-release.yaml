@@ -89,8 +89,8 @@ spec:
         volsync:
           - name: data
             type: restic
-            cleanupTempPVC: true
-            cleanupCachePVC: true
+            #cleanupTempPVC: true
+            #cleanupCachePVC: true
             credentials: minio
             dest:               #VolSync Destination (Restore)
               enabled: true
