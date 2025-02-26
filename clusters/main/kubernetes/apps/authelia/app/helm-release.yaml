@@ -1,0 +1,133 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: authelia
+  namespace: authelia
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: authelia
+      version: 26.4.7
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false    
+
+    credentials:
+      minio:
+        type: s3
+        url: "${S3_URL}"
+        bucket: "taloscluster"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+        
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: authelia.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: Prefix          
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest:               #VolSync Destination (Restore)
+              enabled: true
+            src:                #VolSync Source (Backup)
+              enabled: true
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions 
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: minio
+          # revision: "1"
+
+    workload:
+      main:
+        replicas: 1
+    
+    domain: ${DOMAIN}
+    authentication_backend:
+      disable_reset_password: false
+      file:
+        enabled: false
+      ldap:
+        enabled: true
+        implementation: custom
+        url: ldap://lldap-ldap.lldap.svc.cluster.local:3890
+        base_dn: DC=${DN},DC=${DC}
+        username_attribute: uid
+        additional_users_dn: ou=people
+        users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
+        additional_groups_dn: ou=groups
+        groups_filter: (member={dn})
+        group_name_attribute: cn
+        mail_attribute: mail
+        display_name_attribute: displayName
+        # user with lldap_password_manager group
+        user: uid=manager,ou=people,dc=example,dc=com
+        # above user password in plain text
+        plain_password: ${ATHELIA_PASSWORD}
+    notifier:
+      filesystem:
+        enabled: false
+      smtp:
+        enabled: true
+        host: ${SMTP_HOST}
+        port: 465
+        username: ${SMTP_USER_LLDAP}
+        plain_password: ${SMTP_PASSWORD_LLDAP}
+        sender: no-reply@${DOMAIN}
+    access_control:
+      rules:
+        - domain:
+          - "*.${DOMAIN}"
+          - ${DOMAIN}
+          policy: one_factor
+          subject: "group:admin"
