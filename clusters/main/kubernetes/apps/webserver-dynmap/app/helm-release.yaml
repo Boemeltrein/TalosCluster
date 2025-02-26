@@ -34,13 +34,13 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true   
+      stopAll: false   
 
     ingress:
       main:
         enabled: true
         hosts:
-          - host: ${MINECRAFT_URL}
+          - host: dynmap.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: true
