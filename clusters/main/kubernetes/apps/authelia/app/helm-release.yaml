@@ -128,4 +128,4 @@ spec:
           - "*.${DOMAIN}"
           - ${DOMAIN}
           policy: one_factor
-          subject: "group:lldap_admin"
+          subject: "group:admin"
