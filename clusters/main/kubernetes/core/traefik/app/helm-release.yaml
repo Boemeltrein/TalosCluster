@@ -90,3 +90,12 @@ spec:
           regex: ${TRAEFIK_REGEX}
           replacement: ${TRAEFIK_REPLACEMENT}
           permanent: true
+      forwardAuth:
+        - name: auth
+          address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://authelia.${BASE_DOMAIN}
+          authResponseHeaders:
+            - Remote-User
+            - Remote-Group
+            - Remote-Name
+            - Remote-Email
+          trustForwardHeader: true
