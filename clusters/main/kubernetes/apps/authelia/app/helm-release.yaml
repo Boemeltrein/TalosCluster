@@ -110,9 +110,7 @@ spec:
         group_name_attribute: cn
         mail_attribute: mail
         display_name_attribute: displayName
-        # user with lldap_password_manager group
         user: uid=manager,ou=people,dc=${DN},dc=${DC}
-        # above user password in plain text
         plain_password: ${ATHELIA_PASSWORD}
     notifier:
       filesystem:
@@ -130,4 +128,4 @@ spec:
           - "*.${DOMAIN}"
           - ${DOMAIN}
           policy: one_factor
-          subject: "group:admin"
+          subject: "group:lldap_admin"
