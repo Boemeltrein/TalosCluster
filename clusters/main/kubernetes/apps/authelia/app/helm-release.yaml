@@ -124,7 +124,7 @@ spec:
         plain_password: ${SMTP_PASSWORD}
         sender: Authelia Admin <no-reply@${DOMAIN}>
     password_policy:
-      enabled: false
+      enabled: true
       standard:
         enabled: true
         min_length: 10
