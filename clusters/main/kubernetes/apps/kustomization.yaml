@@ -23,4 +23,4 @@ resources:
   - homepage/ks.yaml
   - metube/ks.yaml
   - lldap/ks.yaml
-#  - authelia/ks.yaml
+  - authelia/ks.yaml
