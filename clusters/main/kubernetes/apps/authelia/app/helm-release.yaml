@@ -93,6 +93,7 @@ spec:
         replicas: 1
     
     domain: ${DOMAIN}
+    default_redirection_url: https://authelia.${BASE_DOMAIN}
     authentication_backend:
       disable_reset_password: false
       file:
@@ -101,7 +102,7 @@ spec:
         enabled: true
         implementation: custom
         url: ldap://lldap-ldap.lldap.svc.cluster.local:3890
-        base_dn: DC=${DN},DC=${DC}
+        base_dn: dc=${DN},dc=${DC}
         username_attribute: uid
         additional_users_dn: ou=people
         users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
@@ -111,7 +112,7 @@ spec:
         mail_attribute: mail
         display_name_attribute: displayName
         user: uid=manager,ou=people,dc=${DN},dc=${DC}
-        plain_password: ${ATHELIA_PASSWORD}
+        plain_password: ${AUTHELIA_PASSWORD}
     notifier:
       filesystem:
         enabled: false
@@ -119,9 +120,18 @@ spec:
         enabled: true
         host: ${SMTP_HOST}
         port: 465
-        username: ${SMTP_USER_LLDAP}
-        plain_password: ${SMTP_PASSWORD_LLDAP}
-        sender: no-reply@${DOMAIN}
+        username: ${SMTP_USER}
+        plain_password: ${SMTP_PASSWORD}
+        sender: Authelia Admin <no-reply@${DOMAIN}>
+    password_policy:
+      standard:
+        enabled: true
+        min_length: 10
+        max_length: 0
+        require_uppercase: true
+        require_lowercase: true
+        require_number: true
+        require_special: true
     access_control:
       rules:
         - domain:
