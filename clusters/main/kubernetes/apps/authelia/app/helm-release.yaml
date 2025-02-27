@@ -138,4 +138,4 @@ spec:
           - "*.${DOMAIN}"
           - ${DOMAIN}
           policy: one_factor
-          subject: "group:admin"
+          subject: "group:all"
