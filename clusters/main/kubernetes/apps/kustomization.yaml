@@ -22,5 +22,5 @@ resources:
   - speedtest-tracker
   - homepage/ks.yaml
   - metube/ks.yaml
-  - lldap/ks.yaml
-  - authelia/ks.yaml
+#  - lldap/ks.yaml
+#  - authelia/ks.yaml
