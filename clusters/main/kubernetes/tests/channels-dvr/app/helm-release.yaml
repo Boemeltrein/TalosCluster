@@ -30,27 +30,25 @@ spec:
     keepHistory: false
   values:
 
-    TZ: Europe/Amsterdam
-
     global:
-      stopAll: true    
+      stopAll: false    
 
-#    ingress:
-#      main:
-#        enabled: true
-#        hosts:
-#          - host: channels-dvr.${BASE_DOMAIN}
-#        integrations:
-#          traefik:
-#            enabled: true
-#            middlewares:
-#              - name: local
-#                namespace: traefik
-#          certManager:
-#            enabled: true
-#            certificateIssuer: cloudflare
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: channels-dvr.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
 
-    service:
-     main:
-       type: LoadBalancer
-       loadBalancerIP: 192.168.1.216
+  #   service:
+  #    main:
+  #      type: LoadBalancer
+  #      loadBalancerIP: 192.168.1.216
