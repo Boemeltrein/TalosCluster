@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - minecraft-bedrock/ks.yaml
   - appdaemon/ks.yaml
+  - channels-dvr/ks.yaml
