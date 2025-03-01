@@ -93,7 +93,7 @@ spec:
         replicas: 1
     
     domain: ${DOMAIN}
-    default_redirection_url: https://auth.${BASE_DOMAIN}
+    default_redirection_url: https://auth.${DOMAIN}
     authentication_backend:
       disable_reset_password: false
       file:
