@@ -31,7 +31,7 @@ spec:
   values:
 
     global:
-      stopAll: stop    
+      stopAll: true    
 
     ingress:
       main:
