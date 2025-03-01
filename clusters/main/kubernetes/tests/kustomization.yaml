@@ -4,3 +4,4 @@ resources:
   - minecraft-bedrock/ks.yaml
   - appdaemon/ks.yaml
   - channels-dvr/ks.yaml
+  - duplicati/ks.yaml
