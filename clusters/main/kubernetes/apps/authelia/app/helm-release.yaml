@@ -49,7 +49,7 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: auth.${BASE_DOMAIN}
+          - host: auth.${DOMAIN}
             paths:
               - path: /
                 pathType: Prefix          
