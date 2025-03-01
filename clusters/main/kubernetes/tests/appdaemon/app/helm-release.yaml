@@ -32,7 +32,7 @@ spec:
 
 
     global:
-      stopAll: false    
+      stopAll: true    
 
     service:
       main:
