@@ -35,22 +35,22 @@ spec:
     global:
       stopAll: true    
 
-    ingress:
-      main:
-        enabled: true
-        hosts:
-          - host: channels-dvr.${BASE_DOMAIN}
-        integrations:
-          traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+#    ingress:
+#      main:
+#        enabled: true
+#        hosts:
+#          - host: channels-dvr.${BASE_DOMAIN}
+#        integrations:
+#          traefik:
+#            enabled: true
+#            middlewares:
+#              - name: local
+#                namespace: traefik
+#          certManager:
+#            enabled: true
+#            certificateIssuer: cloudflare
 
-  #   service:
-  #    main:
-  #      type: LoadBalancer
-  #      loadBalancerIP: 192.168.1.215
+    service:
+     main:
+       type: LoadBalancer
+       loadBalancerIP: 192.168.1.216
