@@ -92,7 +92,7 @@ spec:
           permanent: true
       forwardAuth:
         - name: auth
-          address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://authelia.${BASE_DOMAIN}
+          address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://auth.${DOMAIN}
           authResponseHeaders:
             - Remote-User
             - Remote-Group
