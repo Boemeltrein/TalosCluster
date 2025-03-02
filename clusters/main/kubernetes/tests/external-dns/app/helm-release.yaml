@@ -48,7 +48,7 @@ spec:
       cloudflareProxied: ""
       registry: "noop"
       policy: "upsert-only"  # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
-      piholeServer: "http://192.168.1.220:9089"
+      piholeServer: "http://192.168.1.220:9089/api"
       piholePassword: "DitIsSuperGeheim"
       triggerLoopOnEvent: "false"
       txtOwnerId: ""
