@@ -87,10 +87,9 @@ spec:
 
       # -- Blocky clientGroupsBlock
       clientGroupsBlock:
-          []
-        #- name: default
-        #  groups:
-        #    - default
+        - name: default
+          groups:
+            - default
 
     k8sgateway:
        # -- list of processed domains
