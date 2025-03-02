@@ -46,10 +46,7 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: prowlarr.${BASE_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix           
+          - host: prowlarr.${BASE_DOMAIN}      
         integrations:
           traefik:
             enabled: true
@@ -62,6 +59,7 @@ spec:
           homepage:
             enabled: true
             group: "Arr"          
+            weight: 3
             widget:
               custom:
                 key: "${HP_API_PROWLARR}"

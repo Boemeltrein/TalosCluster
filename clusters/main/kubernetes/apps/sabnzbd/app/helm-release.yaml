@@ -55,9 +55,6 @@ spec:
         enabled: true
         hosts:
           - host: sabnzbd.${BASE_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix 
         integrations:
           traefik:
             enabled: true
@@ -70,6 +67,7 @@ spec:
           homepage:
             enabled: true
             group: "Arr"          
+            weight: 4
             widget:
               custom:
                 key: "${HP_API_SABNZBD}"
