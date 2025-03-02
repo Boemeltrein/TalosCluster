@@ -38,7 +38,7 @@ spec:
     externaldns:
       logLevel: "info"
       logFormat: "text"
-      interval: "1m"
+      interval: "60m"
       provider: "cloudflare"
       sources:
         - "service"
@@ -56,21 +56,13 @@ spec:
       txtPrefix: ""
       txtSuffix: ""
 
-    service:
-      main:
-        ports:
-          main:
-            protocol: http
-            targetPort: 7979
-            port: 7979
-
     workload:
       main:
         podSpec:
           containers:
             main:
               env:
-                CF_API_TOKEN: "${CLOUDFLARE_TOKEN_DNS}"
+                CF_API_TOKEN: ""
                 CF_API_KEY: ""
                 CF_API_EMAIL: ""
                 DO_TOKEN: ""
