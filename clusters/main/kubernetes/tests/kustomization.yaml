@@ -5,5 +5,5 @@ resources:
   - appdaemon/ks.yaml
   - channels-dvr/ks.yaml
   - duplicati/ks.yaml
-  - pihole/ks.yaml
-  - external-dns/ks.yaml
+  # - pihole/ks.yaml
+  # - external-dns/ks.yaml
