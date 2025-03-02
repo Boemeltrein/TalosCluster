@@ -44,7 +44,7 @@ spec:
         - "service"
         - "ingress"
       domainFilters: 
-        - "${DOMAIN}"
+        - "${BASE_DOMAIN}"
       zoneidFilters: []
       cloudflareProxied: ""
       registry: "noop"
