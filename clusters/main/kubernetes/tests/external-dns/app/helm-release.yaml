@@ -72,4 +72,4 @@ spec:
                 OVH_CONSUMER_KEY: ""
                 SCW_ACCESS_KEY: ""
                 SCW_SECRET_KEY: ""
-                # EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY: "true"
+                EXTERNAL_DNS_PIHOLE_TLS_SKIP_VERIFY: true
