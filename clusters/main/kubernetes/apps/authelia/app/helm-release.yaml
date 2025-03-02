@@ -50,15 +50,9 @@ spec:
         enabled: true
         hosts:
           - host: auth.${DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix          
         integrations:
           traefik:
             enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare
