@@ -38,8 +38,8 @@ spec:
     externaldns:
       logLevel: "info"
       logFormat: "text"
-      interval: "60m"
-      provider: "cloudflare"
+      interval: "1m"
+      provider: "pihole"
       sources:
         - "service"
         - "ingress"
@@ -49,8 +49,8 @@ spec:
       cloudflareProxied: ""
       registry: "noop"
       policy: "upsert-only"  # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
-      piholeServer: ""
-      piholePassword: ""
+      piholeServer: "http://pihole.pihole.svc.cluster.local:9089"
+      piholePassword: "DitIsSuperGeheim"
       triggerLoopOnEvent: "false"
       txtOwnerId: ""
       txtPrefix: ""
