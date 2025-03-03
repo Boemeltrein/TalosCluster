@@ -8,4 +8,5 @@ resources:
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
   # - muse/ks.yaml
-  - nzbget/ks.yaml
+  # - nzbget/ks.yaml
+  - organizr/ks.yaml
