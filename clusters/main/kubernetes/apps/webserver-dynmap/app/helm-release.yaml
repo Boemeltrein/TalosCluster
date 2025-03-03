@@ -45,7 +45,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: auth
+              - name: organizr-admin
                 namespace: traefik
           certManager:
             enabled: true
