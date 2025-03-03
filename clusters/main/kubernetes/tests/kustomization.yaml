@@ -7,3 +7,4 @@ resources:
   - duplicati/ks.yaml
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
+  - muse/ks.yaml
