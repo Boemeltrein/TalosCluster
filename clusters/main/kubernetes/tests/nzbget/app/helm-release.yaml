@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: nzbget
-      version: 24.6.1
+      version: 24.6.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
