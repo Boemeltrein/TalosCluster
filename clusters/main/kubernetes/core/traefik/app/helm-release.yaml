@@ -104,7 +104,7 @@ spec:
           trustForwardHeader: true
 
         - name: authentik
-          address: http://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io    #/auth/traefik
+          address: http://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/traefik
           authResponseHeaders:
             - authorization
             - X-authentik-username
@@ -112,8 +112,8 @@ spec:
             - X-authentik-email
             - X-authentik-name
           trustForwardHeader: true
-          tls:
-            insecureSkipVerify: true
+          #tls:
+          #  insecureSkipVerify: true
 
         - name: auth
           address: http://authelia.authelia.svc.cluster.local:9091/api/verify?rd=https://auth.${DOMAIN}
