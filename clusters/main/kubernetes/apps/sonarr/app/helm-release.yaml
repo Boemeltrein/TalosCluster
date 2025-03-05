@@ -53,6 +53,8 @@ spec:
             middlewares:
               - name: local
                 namespace: traefik
+              - name: authentik
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare
