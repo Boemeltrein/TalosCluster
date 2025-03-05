@@ -9,4 +9,5 @@ resources:
   # - external-dns/ks.yaml
   # - muse/ks.yaml
   # - nzbget/ks.yaml
-  - organizr/ks.yaml
+  # - organizr/ks.yaml
+  - authentik/ks.yaml
