@@ -106,7 +106,7 @@ spec:
         - name: authentik
           address: http://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/traefik
           authResponseHeaders:
-            - authorization
+            #- authorization
             - X-authentik-username
             - X-authentik-groups
             - X-authentik-email
