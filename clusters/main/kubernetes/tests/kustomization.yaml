@@ -11,3 +11,4 @@ resources:
   # - nzbget/ks.yaml
   # - organizr/ks.yaml
   - authentik/ks.yaml
+  - redmine/ks.yaml
