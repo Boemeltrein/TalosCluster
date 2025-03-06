@@ -49,3 +49,28 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+    
+    persistence:
+      themes:
+        enabled: true
+        mountPath: "/usr/src/redmine/public/themes"
+      plugins:
+        enabled: true
+        mountPath: "/usr/src/redmine/plugins"
+
+    addons:
+      codeserver:
+        enabled: true
+        ingress:
+          enabled: true
+          hosts:
+            - host: cs-redmine.${BASE_DOMAIN}
+          integrations:
+            certManager:
+              enabled: true
+              certificateIssuer: cloudflare
+            traefik:
+              enabled: true
+              middlewares:
+                - name: local
+                  namespace: traefik
