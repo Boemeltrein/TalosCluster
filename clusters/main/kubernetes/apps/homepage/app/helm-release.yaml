@@ -71,6 +71,12 @@ spec:
     addons:
       codeserver:
         enabled: true
+      container:
+        readOnlyRootFilesystem: false
+        runAsUser: 999
+        runAsGroup: 999
+      pod:
+        fsGroup: 999
         ingress:
           enabled: true
           hosts:
