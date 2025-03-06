@@ -53,7 +53,7 @@ spec:
     persistence:
       themes:
         enabled: true
-        mountPath: "/usr/src/redmine/public/themes"
+        mountPath: "/usr/src/redmine/themes"
       plugins:
         enabled: true
         mountPath: "/usr/src/redmine/plugins"
