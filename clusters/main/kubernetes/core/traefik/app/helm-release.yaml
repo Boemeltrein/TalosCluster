@@ -106,7 +106,8 @@ spec:
         - name: authentik
           #1 OK address: http://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/traefik
           #2 NOT OK address: http://authentik.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
-          #3 NOT OK 500ERROR address: http://authentik.authentik.svc.cluster.local:10229/outpost.goauthentik.io/auth/traefik
+          #3 NOT OK http500ERROR address: http://authentik.authentik.svc.cluster.local:10229/outpost.goauthentik.io/auth/traefik
+          #4 NOT OK http500ERROR address: https://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/traefik
           address: https://authentik-http.authentik.svc.cluster.local:10230/outpost.goauthentik.io/auth/traefik
           authResponseHeaders:
             - X-authentik-username
