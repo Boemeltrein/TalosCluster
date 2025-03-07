@@ -52,7 +52,6 @@ spec:
 
     tfaAppOptions:
       secret: something-random
-      port: 4181
 
     tfaAuthOptions:
       authHost: traefikauth.${BASE_DOMAIN}
@@ -64,7 +63,7 @@ spec:
     
     tfaCookieOptions:
       cookieDomain:
-        - ${BASE_DOMAIN}
+        - ${DOMAIN}
 
     tfaGoogleOptions:
       clientId: ${GOOGLE_CLIENTID}
