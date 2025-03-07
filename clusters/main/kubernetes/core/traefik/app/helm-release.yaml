@@ -119,7 +119,7 @@ spec:
           trustForwardHeader: true
 
         - name: traefikauth
-          address: https://traefikauth.example.com/_oauth
+          address: https://traefikauth.boemeltrein.nl/_oauth
           authResponseHeaders:
             - X-Forwarded-User
           trustForwardHeader: true
