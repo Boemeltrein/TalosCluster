@@ -39,13 +39,10 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: traefikauth.${BASE_DOMAIN}
+          - host: traefikauth.${DOMAIN}
         integrations:
           traefik:
             enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare
@@ -54,7 +51,7 @@ spec:
       secret: something-random
 
     tfaAuthOptions:
-      authHost: traefikauth.${BASE_DOMAIN}
+      authHost: traefikauth.${DOMAIN}
       urlPath: /_oauth
       defaultAction: auth
       defaultProvider: google
