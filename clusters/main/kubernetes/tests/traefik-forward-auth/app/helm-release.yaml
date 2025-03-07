@@ -51,7 +51,7 @@ spec:
       secret: something-random
 
     tfaAuthOptions:
-      authHost: https://traefikauth.${DOMAIN}
+      authHost: traefikauth.${DOMAIN}
       urlPath: /_oauth
       defaultAction: auth
       defaultProvider: google
