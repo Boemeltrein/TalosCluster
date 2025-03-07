@@ -10,6 +10,7 @@ resources:
   # - muse/ks.yaml
   # - nzbget/ks.yaml
   # - organizr/ks.yaml
-  - authentik/ks.yaml
-  - redmine/ks.yaml
-  - seafile/ks.yaml
+  # - authentik/ks.yaml
+  # - redmine/ks.yaml
+  # - seafile/ks.yaml
+  - traefik-forward-auth/ks.yaml
