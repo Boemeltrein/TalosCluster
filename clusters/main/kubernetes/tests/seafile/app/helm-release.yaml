@@ -35,6 +35,14 @@ spec:
     global:
       stopAll: false    
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                SEAFILE_SERVER_HOSTNAME: "seafile.${BASE_DOMAIN}"
+
     ingress:
       main:
         enabled: true
