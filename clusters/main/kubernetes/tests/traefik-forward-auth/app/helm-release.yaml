@@ -66,4 +66,4 @@ spec:
     tfaGoogleOptions:
       clientId: ${GOOGLE_CLIENTID}
       clientSecret: ${GOOGLE_SECRET}
-      prompt: "changeme"
+      prompt: ""
