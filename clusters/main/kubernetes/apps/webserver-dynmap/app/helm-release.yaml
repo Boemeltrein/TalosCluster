@@ -40,10 +40,13 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: dynmap.${DOMAIN}
+          - host: dynmap.${DOMAIN} 
         integrations:
           traefik:
             enabled: true
+            middlewares:
+              - name: traefikauth
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare
