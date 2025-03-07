@@ -45,7 +45,7 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: authentik
+              - name: traefikauth
                 namespace: traefik
           certManager:
             enabled: true
