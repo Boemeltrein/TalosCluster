@@ -43,8 +43,6 @@ spec:
         integrations:
           traefik:
             enabled: true
-            entrypoints:
-              - websecure
           certManager:
             enabled: true
             certificateIssuer: cloudflare
@@ -53,7 +51,7 @@ spec:
       secret: something-random
 
     tfaAuthOptions:
-      authHost: traefikauth.${DOMAIN}
+      authHost: https://traefikauth.${DOMAIN}
       urlPath: /_oauth
       defaultAction: auth
       defaultProvider: google
