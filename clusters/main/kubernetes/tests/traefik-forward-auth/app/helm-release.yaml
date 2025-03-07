@@ -61,6 +61,7 @@ spec:
     tfaCookieOptions:
       cookieDomain:
         - ${DOMAIN}
+      insecureCookie: true
 
     tfaGoogleOptions:
       clientId: ${GOOGLE_CLIENTID}
