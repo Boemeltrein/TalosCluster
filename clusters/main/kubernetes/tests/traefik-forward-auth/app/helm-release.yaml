@@ -59,10 +59,12 @@ spec:
       urlPath: /_oauth
       defaultAction: auth
       defaultProvider: google
-      whitelist: ${EMAIL}
+      whitelist:
+        - ${EMAIL}
     
     tfaCookieOptions:
-      cookieDomain: ${BASE_DOMAIN}
+      cookieDomain:
+        - ${BASE_DOMAIN}
 
     tfaGoogleOptions:
       clientId: ${GOOGLE_CLIENTID}
