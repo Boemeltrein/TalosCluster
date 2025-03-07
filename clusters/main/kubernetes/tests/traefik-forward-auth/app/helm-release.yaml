@@ -57,7 +57,8 @@ spec:
       defaultProvider: google
       whitelist:
         - ${EMAIL}
-    
+        - ${EMAIL2}
+        - ${EMAIL3}
     tfaCookieOptions:
       cookieDomain:
         - ${DOMAIN}
