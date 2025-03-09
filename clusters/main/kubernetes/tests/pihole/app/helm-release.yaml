@@ -29,11 +29,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-  
-    image:
-      repository: ghcr.io/pi-hole/pihole
-      pullPolicy: IfNotPresent
-      tag: 2025.03.0
 
     TZ: Europe/Amsterdam
 
