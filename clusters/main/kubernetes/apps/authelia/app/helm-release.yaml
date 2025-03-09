@@ -131,5 +131,6 @@ spec:
       rules:
         - domain:
           - "${MINECRAFT_URL}"
+          - "dynmap.${MINECRAFT_URL}"
           policy: one_factor
           subject: "group:minecraft"
