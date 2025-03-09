@@ -73,6 +73,14 @@ spec:
                 WG_DEFAULT_ADDRESS: "10.8.0.x"
                 WG_DEFAULT_DNS: "${IP_BLOCKY}"
                 WG_ALLOWED_IPS: "0.0.0.0/0, ::/0"
-                PASSWORD_HASH: "$2y$12$iPAVrWmmVshBbr6CpJWGw.wlpaulOsVMpb.Tdo53xnNrpZt.T9odK"
+                PASSWORD_HASH: "$2y$10$R6Xabyf0JTxmGmCmtg7XNO45OpXpIwMgkO.AXBFlfohQBeTXz4oQy"
                 LANG: "en"
                 UI_TRAFFIC_STATS: "false"
+
+    securityContext:
+      container:
+        UMASK: '0022'
+#        advanced: false
+#        readOnlyRootFilesystem: false
+#        runAsNonRoot: false
+#        privileged: true
