@@ -45,8 +45,8 @@ spec:
           traefik:
             enabled: true
             middlewares:
-              - name: traefikauth
-                namespace: traefik
+              - name: auth
+                namespace: traefik 
           certManager:
             enabled: true
             certificateIssuer: cloudflare
@@ -67,5 +67,4 @@ spec:
           containers:
             main:
               env:
-                SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 SERVER_ROOT: "/dynmap"
