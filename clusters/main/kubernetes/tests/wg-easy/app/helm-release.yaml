@@ -79,9 +79,9 @@ spec:
 
     securityContext:
       container:
-       allowPrivilegeEscalation: true
+#        allowPrivilegeEscalation: true
 #        UMASK: '0022'
 #        advanced: false
 #        readOnlyRootFilesystem: false
 #        runAsNonRoot: false
-#        privileged: true
+       privileged: true
