@@ -38,8 +38,8 @@ spec:
       ##TESTING
       #cni:
       #  exclusive: false
-      l2announcements:
-        enabled: false
+      #l2announcements:
+      #  enabled: false
       socketLB:
         hostNamespaceOnly: true
       loadBalancer:
