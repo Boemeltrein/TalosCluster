@@ -46,8 +46,8 @@ spec:
       #  algorithm: maglev
       #  mode: snat
       #autoDirectNodeRoutes: true
-      bpf:
-        masquerade: true
+      #bpf:
+      #  masquerade: true
       #routingMode: native
 
       ##STOP TESTING
