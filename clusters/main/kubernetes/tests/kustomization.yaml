@@ -1,17 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  # - minecraft-bedrock/ks.yaml
-  # - appdaemon/ks.yaml
-  # - channels-dvr/ks.yaml
-  # - duplicati/ks.yaml
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
-  # - muse/ks.yaml
-  # - nzbget/ks.yaml
-  # - organizr/ks.yaml
-  # - authentik/ks.yaml
-  # - redmine/ks.yaml
-  # - seafile/ks.yaml
-  - traefik-forward-auth/ks.yaml
+  # - traefik-forward-auth/ks.yaml
   - wg-easy/ks.yaml
