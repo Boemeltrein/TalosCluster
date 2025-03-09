@@ -45,7 +45,7 @@ spec:
       #loadBalancer:
       #  algorithm: maglev
       #  mode: snat
-      autoDirectNodeRoutes: true
+      #autoDirectNodeRoutes: true
       bpf:
         masquerade: true
       routingMode: native
