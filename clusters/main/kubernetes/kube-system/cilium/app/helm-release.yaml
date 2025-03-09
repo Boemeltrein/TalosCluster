@@ -34,20 +34,20 @@ spec:
     uninstall:
         keepHistory: false
     values:
-    
+
       ##TESTING
-      ##cni:
-      ##  exclusive: false
-      ##l2announcements:
-      ##  enabled: false
-      ##socketLB:
-      ##  hostNamespaceOnly: true
-      #loadBalancer:
-      #  algorithm: maglev
-      #  mode: snat
-      # autoDirectNodeRoutes: true
-      #bpf:
-      #  masquerade: false
+      cni:
+        exclusive: false
+      l2announcements:
+        enabled: false
+      socketLB:
+        hostNamespaceOnly: true
+      loadBalancer:
+        algorithm: maglev
+        mode: snat
+      autoDirectNodeRoutes: true
+      bpf:
+        masquerade: false
       routingMode: native
 
       ##STOP TESTING
