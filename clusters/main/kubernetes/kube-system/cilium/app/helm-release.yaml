@@ -48,7 +48,7 @@ spec:
       #autoDirectNodeRoutes: true
       bpf:
         masquerade: true
-      routingMode: native
+      #routingMode: native
 
       ##STOP TESTING
       # autoDirectNodeRoutes: true
