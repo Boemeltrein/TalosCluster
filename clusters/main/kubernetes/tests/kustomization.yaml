@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
-  # - traefik-forward-auth/ks.yaml
   - wg-easy/ks.yaml
