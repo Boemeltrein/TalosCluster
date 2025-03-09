@@ -36,8 +36,8 @@ spec:
     values:
 
       ##TESTING
-      cni:
-        exclusive: false
+      #cni:
+      #  exclusive: false
       l2announcements:
         enabled: false
       socketLB:
