@@ -47,7 +47,7 @@ spec:
         mode: snat
       autoDirectNodeRoutes: true
       bpf:
-        masquerade: false
+        masquerade: true
       routingMode: native
 
       ##STOP TESTING
