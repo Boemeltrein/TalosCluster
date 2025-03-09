@@ -40,8 +40,8 @@ spec:
       #  exclusive: false
       #l2announcements:
       #  enabled: false
-      socketLB:
-        hostNamespaceOnly: true
+      #socketLB:
+      #  hostNamespaceOnly: true
       #loadBalancer:
       #  algorithm: maglev
       #  mode: snat
