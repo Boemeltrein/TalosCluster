@@ -1,0 +1,78 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wg-easy
+  namespace: wg-easy
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: wg-easy
+      version: 16.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+  
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false    
+
+    service:
+      vpn:
+        loadBalancerIP: 192.168.1.230
+        type: LoadBalancer
+        externalTrafficPolicy: Local
+        ports:
+          vpn:
+            enabled: true
+            protocol: udp
+            port: 51825
+
+    ingress:
+      main:
+        enabled: true
+        hosts:
+          - host: wg-easy.${BASE_DOMAIN}
+        integrations:
+          traefik:
+            enabled: true
+            middlewares:
+              - name: local
+                namespace: traefik
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                WG_HOST: "${WAN_IP}"
+                WG_MTU: 1420
+                WG_PERSISTENT_KEEPALIVE: 0
+                WG_DEFAULT_ADDRESS: "10.8.0.x"
+                WG_DEFAULT_DNS: "${IP_BLOCKY}"
+                WG_ALLOWED_IPS: "0.0.0.0/0, ::/0"
+                PASSWORD_HASH: "$2y$12$iPAVrWmmVshBbr6CpJWGw.wlpaulOsVMpb.Tdo53xnNrpZt.T9odK"
+                LANG: "en"
+                UI_TRAFFIC_STATS: "false"

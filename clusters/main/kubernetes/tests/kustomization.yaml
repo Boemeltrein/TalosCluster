@@ -12,5 +12,6 @@ resources:
   # - organizr/ks.yaml
   # - authentik/ks.yaml
   # - redmine/ks.yaml
-  - seafile/ks.yaml
+  # - seafile/ks.yaml
   - traefik-forward-auth/ks.yaml
+  - wg-easy/ks.yaml
