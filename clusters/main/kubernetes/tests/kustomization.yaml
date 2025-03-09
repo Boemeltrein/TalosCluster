@@ -14,4 +14,4 @@ resources:
   # - redmine/ks.yaml
   # - seafile/ks.yaml
   - traefik-forward-auth/ks.yaml
-  - wg-easy/ks.yaml
+  # - wg-easy/ks.yaml
