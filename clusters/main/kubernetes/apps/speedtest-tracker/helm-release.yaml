@@ -108,5 +108,5 @@ spec:
         recovery:
           credentials: minio
           # revision: "1"
-        monitoring:
-          enablePodMonitor: true
+  #      monitoring:
+  #        enablePodMonitor: true
