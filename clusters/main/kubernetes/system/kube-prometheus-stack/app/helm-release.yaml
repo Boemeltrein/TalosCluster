@@ -40,3 +40,34 @@ spec:
     ##test
         kubeProxy:
             enabled: false
+        prometheus:
+            prometheusSpec:
+                podMonitorSelectorNilUsesHelmValues: false
+                probeSelectorNilUsesHelmValues: false
+                ruleSelectorNilUsesHelmValues: false
+                scrapeConfigSelectorNilUsesHelmValues: false
+                serviceMonitorSelectorNilUsesHelmValues: false
+                enableAdminAPI: true
+        prometheus-node-exporter:
+            fullnameOverride: node-exporter
+            prometheus:
+                monitor:
+                    enabled: true
+                    relabelings:
+                        - action: replace
+                          regex: (.*)
+                          replacement: $1
+                          sourceLabels: ["__meta_kubernetes_pod_node_name"]
+                          targetLabel: kubernetes_node
+        kube-state-metrics:
+            fullnameOverride: kube-state-metrics
+      
+            prometheus:
+                monitor:
+                enabled: true
+                relabelings:
+                    - action: replace
+                      regex: (.*)
+                      replacement: $1
+                      sourceLabels: ["__meta_kubernetes_pod_node_name"]
+                      targetLabel: kubernetes_node
