@@ -50,7 +50,7 @@ spec:
       main:
         enabled: true
         hosts:
-          - host: wg-easy.${BASE_DOMAIN}
+          - host: wg-easy-test.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: true
