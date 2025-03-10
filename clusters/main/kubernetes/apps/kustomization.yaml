@@ -11,7 +11,6 @@ resources:
   - ext-denon/ks.yaml
   - ext-plugwise/ks.yaml
   - ext-unifi/ks.yaml
-  # - prometheus/ks.yaml
   - grafana/ks.yaml
   - hermitcraft-java/ks.yaml
   - minecraft-router/ks.yaml
