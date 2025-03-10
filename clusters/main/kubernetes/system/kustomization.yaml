@@ -8,7 +8,7 @@ resources:
   - longhorn/ks.yaml
   - metallb/ks.yaml
   - openebs/ks.yaml
-  - prometheus-operator/ks.yaml
+  # - prometheus-operator/ks.yaml
   - snapshot-controller/ks.yaml
   - spegel/ks.yaml
   - system-upgrade-controller/ks.yaml
