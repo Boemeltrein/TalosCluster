@@ -37,3 +37,6 @@ spec:
                 forceConflicts: true
         alertmanager:
             enabled: false
+    ##test
+        kubeProxy:
+            enabled: false
