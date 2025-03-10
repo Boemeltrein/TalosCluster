@@ -13,4 +13,4 @@ resources:
   - system-upgrade-controller/ks.yaml
   - traefik-crds/ks.yaml
   - volsync/ks.yaml
-  #- kube-prometheus-stack/ks.yaml
+  - kube-prometheus-stack/ks.yaml
