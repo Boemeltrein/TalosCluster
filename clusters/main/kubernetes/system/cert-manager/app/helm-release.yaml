@@ -31,5 +31,5 @@ spec:
         enableCertificateOwnerRef: true
         prometheus:
             enabled: true
-            podmonitor:
+            servicemonitor:
                 enabled: true
