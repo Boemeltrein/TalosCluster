@@ -3,4 +3,3 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - helm-release.yaml
-  - dashboardtest.json
