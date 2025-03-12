@@ -117,3 +117,12 @@ spec:
       main:
         cluster:
           singleNode: true
+
+    configmap:
+      dashboard:
+        enabled: true
+        labels:
+          grafana_dashboard: "1"
+        data:
+          blocky.json: >-
+            {{ .Files.Get "dashboardtest.json" | indent 8 }}
