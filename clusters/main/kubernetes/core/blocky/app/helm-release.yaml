@@ -125,4 +125,4 @@ spec:
           grafana_dashboard: "1"
         data:
           blocky.json: >-
-            {{ .Files.Get "dashboardtest.json" | indent 8 }}
+            {{ .Files.Get "https://raw.githubusercontent.com/0xERR0R/blocky/master/docs/blocky-grafana.json" | indent 8 }}
