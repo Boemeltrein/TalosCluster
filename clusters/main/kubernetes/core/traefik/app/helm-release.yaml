@@ -47,6 +47,12 @@ spec:
         loadBalancerIP: 192.168.1.230
       tcp:
         loadBalancerIP: ${IP_TRAEFIK}
+        ports:
+        websecure:
+          forwardedHeaders:
+            enabled: true
+            trustedIPs:
+              - 192.168.1.1
 
     ## When bootstrap new cluster, comment complete ingress section.
     ingress:
