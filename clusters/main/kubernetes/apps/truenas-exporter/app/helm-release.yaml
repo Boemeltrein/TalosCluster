@@ -52,21 +52,24 @@ spec:
             # memory mapping
             ################################################
 
-            - match: "truenas.*.system.ram.*"
+            - match: 'truenas\.(.*)\.system\.ram\.(.*)'
+              match_type: "regex"
               name: "physical_memory"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "${2}"
 
-            - match: "truenas.*.mem.*.*"
+            - match: 'truenas\.(.*)\.mem\.(.*)\.(.*)'
+              match_type: "regex"
               name: "memory_${2}"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "${3}"
 
-            - match: "truenas.*.system.swap.*"
+            - match: 'truenas\.(.*)\.system\.swap\.(.*)'
+              match_type: "regex"
               name: "swap"
               labels:
                 job: "truenas"
@@ -74,10 +77,75 @@ spec:
                 kind: "${2}"
 
             ################################################
+            # service mapping
+            ################################################
+
+            - match: 'truenas\.(.*)\.services\.cpu\.(.*)'
+              match_type: "regex"
+              name: "services_cpu"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                service: "${2}"
+
+            - match: 'truenas\.(.*)\.services\.io_ops_read\.(.*)'
+              match_type: "regex"
+              name: "services_iops"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                op: "read"
+                service: "${2}"
+
+            - match: 'truenas\.(.*)\.services\.io_ops_write\.(.*)'
+              match_type: "regex"
+              name: "services_iops"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                op: "write"
+                service: "${2}"
+
+            - match: 'truenas\.(.*)\.services\.io_read\.(.*)'
+              match_type: "regex"
+              name: "services_io"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                op: "read"
+                service: "${2}"
+
+            - match: 'truenas\.(.*)\.services\.io_write\.(.*)'
+              match_type: "regex"
+              name: "services_io"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                op: "write"
+                service: "${2}"
+
+            - match: 'truenas\.(.*)\.services\.mem_usage\.(.*)'
+              match_type: "regex"
+              name: "services_mem"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                service: "${2}"
+
+            ################################################
             # disk smart metrics
             ################################################
 
-            - match: "truenas.*.smart.log.smart.disktemp.*.*"
+            - match: 'truenas\.(.*)\.smart\.log\.smart\.disktemp\.(.*)\.(.*)'
+              match_type: "regex"
+              name: "disk_temperature"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                serial: "${2}"
+
+            - match: 'truenas\.(.*)\.smart_log_smart\.disktemp\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_temperature"
               labels:
                 job: "truenas"
@@ -88,7 +156,8 @@ spec:
             # disk operation mappings
             ################################################
 
-            - match: "truenas.*.disk.*.*"
+            - match: 'truenas\.(.*)\.disk\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io"
               labels:
                 job: "truenas"
@@ -96,7 +165,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ops.*.*"
+            - match: 'truenas\.(.*)\.disk_ops\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io_ops"
               labels:
                 job: "truenas"
@@ -104,7 +174,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ext.*.*"
+            - match: 'truenas\.(.*)\.disk_ext\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io"
               labels:
                 job: "truenas"
@@ -112,7 +183,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ext_ops.*.*"
+            - match: 'truenas\.(.*)\.disk_ext_ops\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io_ops"
               labels:
                 job: "truenas"
@@ -120,28 +192,32 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_backlog.*.backlog"
+            - match: 'truenas\.(.*)\.disk_backlog\.(.*)\.backlog'
+              match_type: "regex"
               name: "disk_io_backlog"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 disk: "${2}"
 
-            - match: "truenas.*.disk_busy.*.busy"
+            - match: 'truenas\.(.*)\.disk_busy\.(.*)\.busy'
+              match_type: "regex"
               name: "disk_busy"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 disk: "${2}"
 
-            - match: "truenas.*.disk_util.*.utilization"
+            - match: 'truenas\.(.*)\.disk_util\.(.*)\.utilization'
+              match_type: "regex"
               name: "disk_utilization"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 disk: "${2}"
 
-            - match: "truenas.*.disk_mops.*.*"
+            - match: 'truenas\.(.*)\.disk_mops\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io"
               labels:
                 job: "truenas"
@@ -149,7 +225,8 @@ spec:
                 disk: "${2}"
                 op: "merged_${3}"
 
-            - match: "truenas.*.disk_ext_mops.*.*"
+            - match: 'truenas\.(.*)\.disk_ext_mops\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io"
               labels:
                 job: "truenas"
@@ -157,7 +234,8 @@ spec:
                 disk: "${2}"
                 op: "merged_${3}"
 
-            - match: "truenas.*.disk_iotime.*.*"
+            - match: 'truenas\.(.*)\.disk_iotime\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_iotime"
               labels:
                 job: "truenas"
@@ -165,7 +243,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ext_iotime.*.*"
+            - match: 'truenas\.(.*)\.disk_ext_iotime\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_iotime"
               labels:
                 job: "truenas"
@@ -173,14 +252,16 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_qops.*.operations"
+            - match: 'truenas\.(.*)\.disk_qops\.(.*)\.operations'
+              match_type: "regex"
               name: "disk_qops"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 disk: "${2}"
 
-            - match: "truenas.*.disk_await.*.*"
+            - match: 'truenas\.(.*)\.disk_await\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_await"
               labels:
                 job: "truenas"
@@ -188,7 +269,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ext_await.*.*"
+            - match: 'truenas\.(.*)\.disk_ext_await\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_await"
               labels:
                 job: "truenas"
@@ -196,7 +278,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_avgsz.*.*"
+            - match: 'truenas\.(.*)\.disk_avgsz\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io_size"
               labels:
                 job: "truenas"
@@ -204,7 +287,8 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_ext_avgsz.*.*"
+            - match: 'truenas\.(.*)\.disk_ext_avgsz\.(.*)\.(.*)'
+              match_type: "regex"
               name: "disk_io_size"
               labels:
                 job: "truenas"
@@ -212,14 +296,16 @@ spec:
                 disk: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.disk_svctm.*.svctm"
+            - match: 'truenas\.(.*)\.disk_svctm\.(.*)\.svctm'
+              match_type: "regex"
               name: "disk_svctm"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 disk: "${2}"
 
-            - match: "truenas.*.system.io.*"
+            - match: 'truenas\.(.*)\.system\.io\.(.*)'
+              match_type: "regex"
               name: "system_io"
               labels:
                 job: "truenas"
@@ -230,55 +316,63 @@ spec:
             # CPU mapping
             ################################################
 
-            - match: "truenas.*.system.intr.interrupts"
+            - match: 'truenas\.(.*)\.system\.intr\.interrupts'
+              match_type: "regex"
               name: "interrupts"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "hard"
 
-            - match: "truenas.*.system.cpu.softirq"
+            - match: 'truenas\.(.*)\.system\.cpu\.softirq'
+              match_type: "regex"
               name: "interrupts"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "soft"
 
-            - match: "truenas.*.cpu.*.softirq"
+            - match: 'truenas\.(.*)\.cpu\.(.*)\.softirq'
+              match_type: "regex"
               name: "cpu_softirq"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 cpu: "${2}"
 
-            - match: "truenas.*.system.ctxt.switches"
+            - match: 'truenas\.(.*)\.system\.ctxt\.switches'
+              match_type: "regex"
               name: "context_switches"
               labels:
                 job: "truenas"
                 instance: "${1}"
 
-            - match: "truenas.*.system.cpu.*"
+            - match: 'truenas\.(.*)\.system\.cpu\.(.*)'
+              match_type: "regex"
               name: "cpu_total"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "${2}"
 
-            - match: "truenas.*.cputemp.temperatures.*"
+            - match: 'truenas\.(.*)\.cputemp\.temperatures\.(.*)'
+              match_type: "regex"
               name: "cpu_temperature"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 cpu: "cpu${2}"
 
-            - match: "truenas.*.cpu.core_throttling.*"
+            - match: 'truenas\.(.*)\.cpu\.core_throttling\.(.*)'
+              match_type: "regex"
               name: "cpu_throttling"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 cpu: "${2}"
 
-            - match: "truenas.*.cpu.cpufreq.*"
+            - match: 'truenas\.(.*)\.cpu\.cpufreq\.(.*)'
+              match_type: "regex"
               name: "cpu_frequency"
               labels:
                 job: "truenas"
@@ -307,20 +401,23 @@ spec:
             # process mapping
             ################################################
 
-            - match: "truenas.*.system.forks.started"
+            - match: 'truenas\.(.*)\.system\.forks\.started'
+              match_type: "regex"
               name: "processes_forks"
               labels:
                 job: "truenas"
                 instance: "${1}"
 
-            - match: "truenas.*.system.processes.*"
+            - match: 'truenas\.(.*)\.system\.processes\.(.*)'
+              match_type: "regex"
               name: "processes"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 kind: "${2}"
 
-            - match: "truenas.*.system.active_processes.*"
+            - match: 'truenas\.(.*)\.system\.active_processes\.(.*)'
+              match_type: "regex"
               name: "processes"
               labels:
                 job: "truenas"
@@ -331,26 +428,30 @@ spec:
             # uptime mapping
             ################################################
 
-            - match: "truenas.*.system.uptime.uptime"
+            - match: 'truenas\.(.*)\.system\.uptime\.uptime'
+              match_type: "regex"
               name: "uptime"
               labels:
                 job: "truenas"
                 instance: "${1}"
 
-            - match: "truenas.*.system.clock_sync_state.state"
+            - match: 'truenas\.(.*)\.system\.clock_sync_state\.state'
+              match_type: "regex"
               name: "clock_synced"
               labels:
                 job: "truenas"
                 instance: "${1}"
 
-            - match: "truenas.*.system.clock_status.*"
+            - match: 'truenas\.(.*)\.system\.clock_status\.(.*)'
+              match_type: "regex"
               name: "clock_status"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 state: "${2}"
 
-            - match: "truenas.*.system.clock_sync_offset.offset"
+            - match: 'truenas\.(.*)\.system\.clock_sync_offset\.offset'
+              match_type: "regex"
               name: "clock_offset"
               labels:
                 job: "truenas"
@@ -360,7 +461,8 @@ spec:
             # load mapping
             ################################################
 
-            - match: "truenas.*.system.load.*"
+            - match: 'truenas\.(.*)\.system\.load\.(.*)'
+              match_type: "regex"
               name: "system_load"
               labels:
                 job: "truenas"
@@ -371,7 +473,8 @@ spec:
             # nsfd mappings
             ################################################
 
-            - match: "truenas.*.nfsd.*.*"
+            - match: 'truenas\.(.*)\.nfsd\.(.*)\.(.*)'
+              match_type: "regex"
               name: "nfs_${2}"
               labels:
                 job: "truenas"
@@ -382,7 +485,8 @@ spec:
             # zfs mappings
             ################################################
 
-            - match: "truenas.*.zfs.*.*"
+            - match: 'truenas\.(.*)\.zfs\.(.*)\.(.*)'
+              match_type: "regex"
               name: "zfs_${2}"
               labels:
                 job: "truenas"
@@ -402,7 +506,8 @@ spec:
             # network mappings
             ################################################
 
-            - match: "truenas.*.net.*.*"
+            - match: 'truenas\.(.*)\.net\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_io"
               labels:
                 job: "truenas"
@@ -410,14 +515,16 @@ spec:
                 interface: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.net_speed.*.speed"
+            - match: 'truenas\.(.*)\.net_speed\.(.*)\.speed'
+              match_type: "regex"
               name: "interface_speed"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 interface: "${2}"
 
-            - match: "truenas.*.net_duplex.*.*"
+            - match: 'truenas\.(.*)\.net_duplex\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_duplex"
               labels:
                 job: "truenas"
@@ -425,7 +532,8 @@ spec:
                 interface: "${2}"
                 state: "${3}"
 
-            - match: "truenas.*.net_operstate.*.*"
+            - match: 'truenas\.(.*)\.net_operstate\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_operationstate"
               labels:
                 job: "truenas"
@@ -433,7 +541,8 @@ spec:
                 interface: "${2}"
                 state: "${3}"
 
-            - match: "truenas.*.net_carrier.*.*"
+            - match: 'truenas\.(.*)\.net_carrier\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_carrierstate"
               labels:
                 job: "truenas"
@@ -441,14 +550,16 @@ spec:
                 interface: "${2}"
                 state: "${3}"
 
-            - match: "truenas.*.net_mtu.*.mtu"
+            - match: 'truenas\.(.*)\.net_mtu\.(.*)\.mtu'
+              match_type: "regex"
               name: "interface_mtu"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 interface: "${2}"
 
-            - match: "truenas.*.net_packets.*.*"
+            - match: 'truenas\.(.*)\.net_packets\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_packets"
               labels:
                 job: "truenas"
@@ -456,7 +567,8 @@ spec:
                 interface: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.net_errors.*.*"
+            - match: 'truenas\.(.*)\.net_errors\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_errors"
               labels:
                 job: "truenas"
@@ -464,7 +576,8 @@ spec:
                 interface: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.net_drops.*.*"
+            - match: 'truenas\.(.*)\.net_drops\.(.*)\.(.*)'
+              match_type: "regex"
               name: "interface_drops"
               labels:
                 job: "truenas"
@@ -472,9 +585,249 @@ spec:
                 interface: "${2}"
                 op: "${3}"
 
-            - match: "truenas.*.system.net.*"
+            - match: 'truenas\.(.*)\.system\.net\.(.*)'
+              match_type: "regex"
               name: "system_net_io"
               labels:
                 job: "truenas"
                 instance: "${1}"
                 op: "${2}"
+
+            ################################################
+            # k3s mappings
+            ################################################
+
+            - match: 'truenas\.(.*)\.k3s_stats\.k3s_pod_stats\.(.*)\.cpu'
+              match_type: "regex"
+              name: "k3s_pod_cpu"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                pod: "${2}"
+
+            - match: 'truenas\.(.*)\.k3s_stats\.k3s_pod_stats\.(.*)\.mem'
+              match_type: "regex"
+              name: "k3s_pod_mem"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                pod: "${2}"
+
+            - match: 'truenas\.(.*)\.k3s_stats\.k3s_pod_stats\.(.*)\.net\.(.*)'
+              match_type: "regex"
+              name: "k3s_pod_net"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                pod: "${2}"
+                direction: "${3}"
+
+            ################################################
+            # cgroup mappings
+            ################################################
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu_full_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_cpu_full_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu_full_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_cpu_full_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu_limit\.used'
+              match_type: "regex"
+              name: "cgroup_cpu_limit"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu_some_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_cpu_some_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu_some_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_cpu_some_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.cpu\.(.*)'
+              match_type: "regex"
+              name: "cgroup_cpu_usage"
+              labels:
+                job: "truenas"
+                type: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.io_full_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_io_full_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.io_full_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_io_full_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.io_some_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_io_some_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.io_some_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_io_some_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_full_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_mem_full_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_full_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_mem_full_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_some_pressure\.(.*)'
+              match_type: "regex"
+              name: "cgroup_mem_some_pressure"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_some_pressure_stall_time\.time'
+              match_type: "regex"
+              name: "cgroup_mem_some_pressure_stall_time"
+              labels:
+                job: "truenas"
+                dimension: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_usage\.(.*)'
+              match_type: "regex"
+              name: "cgroup_mem_usage"
+              labels:
+                job: "truenas"
+                type: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "MiB"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_usage_limit\.(.*)'
+              match_type: "regex"
+              name: "cgroup_mem_usage_limit"
+              labels:
+                job: "truenas"
+                type: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "MiB"
+
+            - match: 'truenas\.(.*)\.(.*)\.mem_utilization'
+              match_type: "regex"
+              name: "cgroup_mem_utilization"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.pgfaults\.(.*)'
+              match_type: "regex"
+              name: "cgroup_pgfaults"
+              labels:
+                job: "truenas"
+                type: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "MiB/s"
+
+            - match: 'truenas\.(.*)\.(.*)\.throttled'
+              match_type: "regex"
+              name: "cgroup_cpu_throttled"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "percent"
+
+            - match: 'truenas\.(.*)\.(.*)\.throttled_duration'
+              match_type: "regex"
+              name: "cgroup_cpu_throttled_duration"
+              labels:
+                job: "truenas"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "ms"
+
+            - match: 'truenas\.(.*)\.(.*)\.writeback\.(.*)'
+              match_type: "regex"
+              name: "cgroup_writeback"
+              labels:
+                job: "truenas"
+                type: "${3}"
+                instance: "${1}"
+                cgroup: "${2}"
+                unit: "MiB"
