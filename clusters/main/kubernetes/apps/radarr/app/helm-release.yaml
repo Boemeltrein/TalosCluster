@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: radarr
-      version: 23.19.0
+      version: 23.20.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
