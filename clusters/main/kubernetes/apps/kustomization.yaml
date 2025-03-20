@@ -24,3 +24,4 @@ resources:
   - lldap/ks.yaml
   - authelia/ks.yaml
   - truenas-exporter/ks.yaml
+  - jellyfin/ks.yaml
