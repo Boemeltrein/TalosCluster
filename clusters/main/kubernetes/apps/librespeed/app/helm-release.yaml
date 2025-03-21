@@ -32,7 +32,12 @@ spec:
   values:
 
     TZ: Europe/Amsterdam
-  
+
+    service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: 192.168.1.214
+
     ingress:
       main:
         enabled: true
