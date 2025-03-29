@@ -84,3 +84,12 @@ spec:
               middlewares:
                 - name: local
                   namespace: traefik
+
+    workload:
+      main:
+        podSpec:
+          automountServiceAccountToken: true
+          containers:
+            main:
+              env:
+                HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
