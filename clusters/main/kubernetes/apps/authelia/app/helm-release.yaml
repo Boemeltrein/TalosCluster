@@ -110,7 +110,7 @@ spec:
           password: ${AUTHELIA_PASSWORD}
       notifier:
         smtp:
-          address: smtp://${SMTP_HOST}:465
+          address: submissions://${SMTP_HOST}:465
           username: ${SMTP_USER}
           password: ${SMTP_PASSWORD}
           sender: Authelia Admin <no-reply@${DOMAIN}>
