@@ -114,6 +114,8 @@ spec:
           username: ${SMTP_USER}
           password: ${SMTP_PASSWORD}
           sender: Authelia Admin <no-reply@${DOMAIN}>
+          tls:
+            server_name: ${SMTP_HOST}
       password_policy:
         standard:
           enabled: true
