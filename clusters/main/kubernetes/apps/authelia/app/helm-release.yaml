@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: authelia
-      version: 26.4.8
+      version: 27.1.3
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -85,52 +85,41 @@ spec:
     workload:
       main:
         replicas: 1
-    
-    domain: ${DOMAIN}
-    default_redirection_url: https://auth.${DOMAIN}
-    authentication_backend:
-      disable_reset_password: false
-      file:
-        enabled: false
-      ldap:
-        enabled: true
-        implementation: custom
-        url: ldap://lldap-ldap.lldap.svc.cluster.local:3890
-        base_dn: dc=${DN},dc=${DC}
-        username_attribute: uid
-        additional_users_dn: ou=people
-        users_filter: (&(|({username_attribute}={input})({mail_attribute}={input}))(objectClass=person))
-        additional_groups_dn: ou=groups
-        groups_filter: (member={dn})
-        group_name_attribute: cn
-        mail_attribute: mail
-        display_name_attribute: displayName
-        user: uid=manager,ou=people,dc=${DN},dc=${DC}
-        plain_password: ${AUTHELIA_PASSWORD}
-    notifier:
-      filesystem:
-        enabled: false
-      smtp:
-        enabled: true
-        host: ${SMTP_HOST}
-        port: 465
-        username: ${SMTP_USER}
-        plain_password: ${SMTP_PASSWORD}
-        sender: Authelia Admin <no-reply@${DOMAIN}>
-    password_policy:
-      enabled: true
-      standard:
-        enabled: true
-        min_length: 10
-        max_length: 0
-        require_uppercase: true
-        require_lowercase: true
-        require_number: true
-        require_special: true
-    access_control:
-      rules:
-        - domain:
-          - "${MINECRAFT_URL}"
-          - "dynmap.${DOMAIN}"
-          policy: one_factor
-          subject: "group:minecraft"
+
+    # All configuration options should be put under this. Supports all upstream options
+    authelia:
+      session:
+        cookies:
+          - domain: ${DOMAIN}
+            authelia_url: https://auth.${DOMAIN}
+      authentication_backend:
+        # lldap setup
+        # https://github.com/lldap/lldap/blob/main/example_configs/authelia_config.yml
+        ldap:
+          implementation: lldap
+          address: ldap://lldap-ldap.lldap.svc.cluster.local:3890
+          base_dn: dc=${DN},dc=${DC}
+          user: uid=manager,ou=people,dc=${DN},dc=${DC}
+          password: ${AUTHELIA_PASSWORD}
+      notifier:
+        smtp:
+          address: smtp://${SMTP_HOST}:465
+          username: ${SMTP_USER}
+          password: ${SMTP_PASSWORD}
+          sender: Authelia Admin <no-reply@${DOMAIN}>
+      password_policy:
+        standard:
+          enabled: true
+          min_length: 10
+          max_length: 0
+          require_uppercase: true
+          require_lowercase: true
+          require_number: true
+          require_special: true      
+      access_control:
+        rules:
+          - domain:
+            - "${MINECRAFT_URL}"
+            - "dynmap.${DOMAIN}"
+            policy: one_factor
+            subject: "group:minecraft"
