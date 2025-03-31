@@ -35,3 +35,15 @@ spec:
                                 - "--tls-min-version=VersionTLS12"
                                 - --v=0
                                 - --ignore-paths=/metrics
+
+        metrics:
+            main:
+                enabled: true
+                type: servicemonitor
+                endpoints:
+                    - port: metrics
+                      path: /metrics
+                scheme: https
+                tlsConfig:
+                    insecureSkipVerify: true
+                targetSelector: metrics
