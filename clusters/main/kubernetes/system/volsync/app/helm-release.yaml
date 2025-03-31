@@ -47,3 +47,9 @@ spec:
                 tlsConfig:
                     insecureSkipVerify: true
                 targetSelector: metrics
+
+        service:
+            metrics:   
+                ports:
+                    metrics:
+                        protocol: http
