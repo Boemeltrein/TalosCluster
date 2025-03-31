@@ -41,11 +41,11 @@ spec:
                 enabled: true
                 type: servicemonitor
                 endpoints:
-                    - port: metrics
-                      path: /metrics
-                scheme: https
-                tlsConfig:
-                    insecureSkipVerify: true
+                    -   port: metrics
+                        path: /metrics
+                        scheme: https
+                        tlsConfig:
+                            insecureSkipVerify: true
                 targetSelector: metrics
 
         service:
