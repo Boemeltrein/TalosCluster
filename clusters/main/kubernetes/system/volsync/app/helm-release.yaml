@@ -34,7 +34,7 @@ spec:
                                 - --logtostderr=true
                                 - "--tls-min-version=VersionTLS12"
                                 - --v=0
-                                #- --ignore-paths=/metrics
+                                - --ignore-paths=/metrics
 
         metrics:
             main:
