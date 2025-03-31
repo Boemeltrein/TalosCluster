@@ -52,4 +52,4 @@ spec:
             metrics:   
                 ports:
                     metrics:
-                        protocol: http
+                        protocol: https
