@@ -69,6 +69,17 @@ spec:
             cpu: 100m
           limits:
             memory: 2000Mi
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
       ingress:
         enabled: true
         annotations:
