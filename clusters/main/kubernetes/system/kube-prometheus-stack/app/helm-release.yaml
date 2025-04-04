@@ -82,8 +82,8 @@ spec:
           - prometheus.${BASE_DOMAIN}
         paths:
           - /
+        pathType: Prefix
         tls:
         - secretName: prometheus-general-tls
-          pathType: Prefix
           hosts:
             - prometheus.${BASE_DOMAIN}
