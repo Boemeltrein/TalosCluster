@@ -30,7 +30,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     credentials:
@@ -41,7 +40,7 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-        
+
     ingress:
       main:
         enabled: true
@@ -49,7 +48,7 @@ spec:
           - host: metube.${BASE_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix          
+                pathType: Prefix
         integrations:
           traefik:
             enabled: true
@@ -66,9 +65,9 @@ spec:
           - name: config
             type: restic
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
       downloads:
         type: nfs

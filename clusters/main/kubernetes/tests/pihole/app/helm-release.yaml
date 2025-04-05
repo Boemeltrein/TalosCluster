@@ -29,19 +29,18 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     service:
       main:
-       type: LoadBalancer
-       loadBalancerIP: 192.168.1.220
+        type: LoadBalancer
+        loadBalancerIP: 192.168.1.220
       dns:
-       type: LoadBalancer
-       loadBalancerIP: 192.168.1.220
+        type: LoadBalancer
+        loadBalancerIP: 192.168.1.220
 
     workload:
       main:

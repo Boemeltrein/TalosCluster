@@ -30,11 +30,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     workload:
       main:
@@ -65,12 +64,12 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-        
+
     ingress:
       main:
         enabled: true
         hosts:
-          - host: lldap.${BASE_DOMAIN} 
+          - host: lldap.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: true
@@ -87,16 +86,16 @@ spec:
           - name: data
             type: restic
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
 
     cnpg:
       main:
         cluster:
           singleNode: true
-        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions 
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: minio

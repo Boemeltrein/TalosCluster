@@ -9,9 +9,9 @@ spec:
   version: ${KUBERNETES_VERSION}
   serviceAccountName: system-upgrade
   secrets:
-  - name: talos
-    path: /var/run/secrets/talos.dev
-    ignoreUpdates: true
+    - name: talos
+      path: /var/run/secrets/talos.dev
+      ignoreUpdates: true
   concurrency: 1
   exclusive: true
   nodeSelector:
@@ -28,11 +28,11 @@ spec:
         operator: In
         values: ["k8s-control-1"]
   tolerations:
-  - key: CriticalAddonsOnly
-    operator: Exists
-  - key: node-role.kubernetes.io/control-plane
-    operator: Exists
-    effect: NoSchedule
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
   prepare: &prepare
     image: ghcr.io/siderolabs/talosctl:${TALOS_VERSION}
     envs:

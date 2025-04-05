@@ -33,7 +33,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    
     TZ: Europe/Amsterdam
 
     credentials:
@@ -43,7 +42,7 @@ spec:
         bucket: "taloscluster"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
-        encrKey: "${S3_ENCRKEY}"    
+        encrKey: "${S3_ENCRKEY}"
 
     service:
       dns:
@@ -92,15 +91,15 @@ spec:
             - default
 
     k8sgateway:
-       # -- list of processed domains
-      domains: 
+      # -- list of processed domains
+      domains:
         - domain: ${BASE_DOMAIN}
           # -- Optional configuration option for DNS01 challenge that will redirect all acme
           # challenge requests to external cloud domain (e.g. managed by cert-manager)
           # See: https://cert-manager.io/docs/configuration/acme/dns01/
           dnsChallenge:
-           enabled: false
-           domain: dns01.clouddns.com
+            enabled: false
+            domain: dns01.clouddns.com
       forward:
         enabled: false
         primary: tls://1.1.1.1

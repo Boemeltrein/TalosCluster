@@ -30,11 +30,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true   
+      stopAll: true
 
     service:
       bluemap:
@@ -80,7 +79,7 @@ spec:
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
                 ONLINE_MODE: "true"
-                MEMORY: 6G      
+                MEMORY: 6G
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 # RCON_PASSWORD: "secretrconpass"
                 OPS: ${MINECRAFT_OPS}
@@ -101,8 +100,8 @@ spec:
                 USE_SIMD_FLAGS: "false"
 
             mcbackup:
-             enabled: false
-    
+              enabled: false
+
     persistence:
       data:
         enabled: true
@@ -120,7 +119,7 @@ spec:
         targetSelector:
           bluemap: bluemap
         hosts:
-          -  host: bluemaptest.${BASE_DOMAIN}
+          - host: bluemaptest.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: true

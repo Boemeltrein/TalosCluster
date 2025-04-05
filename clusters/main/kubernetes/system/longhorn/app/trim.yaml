@@ -7,7 +7,7 @@ spec:
   concurrency: 1
   cron: 0 3 * * *
   groups:
-  - default
+    - default
   name: trim
   retain: 0
   task: filesystem-trim

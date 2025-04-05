@@ -29,11 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     externaldns:
       logLevel: "info"
@@ -47,7 +46,7 @@ spec:
       zoneidFilters: []
       cloudflareProxied: ""
       registry: "noop"
-      policy: "upsert-only"  # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
+      policy: "upsert-only" # would prevent ExternalDNS from deleting any records, omit to enable full synchronization
       piholeServer: "http://pihole.pihole.svc.cluster.local:9089"
       piholePassword: "DitIsSuperGeheim"
       triggerLoopOnEvent: "false"

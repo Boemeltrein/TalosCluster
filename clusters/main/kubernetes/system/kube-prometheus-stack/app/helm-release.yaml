@@ -89,7 +89,7 @@ spec:
           traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
           traefik.ingress.kubernetes.io/router.tls: "true"
         labels: {}
-        hosts: 
+        hosts:
           - prometheus.${BASE_DOMAIN}
         paths:
           - /

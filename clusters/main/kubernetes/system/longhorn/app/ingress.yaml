@@ -4,24 +4,24 @@ metadata:
   name: longhorn
   namespace: longhorn-system
   annotations:
-      cert-manager.io/cluster-issuer: cloudflare
-      cert-manager.io/private-key-rotation-policy: Always
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
-      traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: cloudflare
+    cert-manager.io/private-key-rotation-policy: Always
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
-  - host: longhorn.${BASE_DOMAIN}
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: longhorn-frontend
-            port:
-              number: 80
+    - host: longhorn.${BASE_DOMAIN}
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: longhorn-frontend
+                port:
+                  number: 80
   tls:
     - hosts:
-      - longhorn.${BASE_DOMAIN}
+        - longhorn.${BASE_DOMAIN}
       secretName: longhorn-tls-0

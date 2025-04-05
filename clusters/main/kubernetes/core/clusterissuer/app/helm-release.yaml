@@ -34,8 +34,8 @@ spec:
     TZ: Europe/Amsterdam
     clusterIssuer:
       ACME:
-      - name: cloudflare
-        email: "${EMAIL}"
-        server: 'https://acme-v02.api.letsencrypt.org/directory'
-        type: cloudflare
-        cfapitoken: "${CLOUDFLARE_TOKEN}"
+        - name: cloudflare
+          email: "${EMAIL}"
+          server: "https://acme-v02.api.letsencrypt.org/directory"
+          type: cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN}"

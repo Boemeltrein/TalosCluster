@@ -31,7 +31,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     crds:
       install: true
     grafana:
@@ -96,19 +95,19 @@ spec:
       # These are joined together without spaces, run through `tpl`, and the result is set in the config map.
       # @default -- See [values.yaml](values.yaml)
       resourceFilters:
-        - '[Event,*,*]'
-        - '[*/*,kube-system,*]'
-        - '[*/*,kube-public,*]'
-        - '[*/*,kube-node-lease,*]'
-        - '[Node,*,*]'
-        - '[Node/*,*,*]'
-        - '[APIService,*,*]'
-        - '[APIService/*,*,*]'
-        - '[TokenReview,*,*]'
-        - '[SubjectAccessReview,*,*]'
-        - '[SelfSubjectAccessReview,*,*]'
-        - '[ReplicaSet,*,*]'
-        - '[ReplicaSet/*,*,*]'
+        - "[Event,*,*]"
+        - "[*/*,kube-system,*]"
+        - "[*/*,kube-public,*]"
+        - "[*/*,kube-node-lease,*]"
+        - "[Node,*,*]"
+        - "[Node/*,*,*]"
+        - "[APIService,*,*]"
+        - "[APIService/*,*,*]"
+        - "[TokenReview,*,*]"
+        - "[SubjectAccessReview,*,*]"
+        - "[SelfSubjectAccessReview,*,*]"
+        - "[ReplicaSet,*,*]"
+        - "[ReplicaSet/*,*,*]"
         # exclude resources from the chart
         - '[ClusterRole,*,{{ template "kyverno.admission-controller.roleName" . }}]'
         - '[ClusterRole,*,{{ template "kyverno.admission-controller.roleName" . }}:core]'

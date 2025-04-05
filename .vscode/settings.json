@@ -12,5 +12,7 @@
           "path": "/usr/bin/fish"
         }
       },
-    "terminal.integrated.defaultProfile.linux": "fish"
+    "terminal.integrated.defaultProfile.linux": "fish",
+    "editor.tabSize": 2,
+    "editor.detectIndentation": false
 }

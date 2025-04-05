@@ -30,11 +30,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     credentials:
       minio:
@@ -44,7 +43,7 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-        
+
     ingress:
       main:
         enabled: true
@@ -62,8 +61,8 @@ spec:
 
     homeassistant:
       trusted_proxies:
-      - 172.16.0.0/16
-      - 172.17.0.0/16
+        - 172.16.0.0/16
+        - 172.17.0.0/16
 
     persistence:
       config:
@@ -71,9 +70,9 @@ spec:
           - name: config
             type: restic
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
       p1meter:
         enabled: true
@@ -84,7 +83,7 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions 
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: minio

@@ -30,7 +30,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     credentials:
@@ -41,12 +40,12 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-        
+
     ingress:
       main:
         enabled: true
         hosts:
-          - host: radarr.${BASE_DOMAIN}    
+          - host: radarr.${BASE_DOMAIN}
         integrations:
           traefik:
             enabled: true
@@ -58,7 +57,7 @@ spec:
             certificateIssuer: cloudflare
           homepage:
             enabled: true
-            group: "Arr"          
+            group: "Arr"
             weight: 2
             widget:
               custom:
@@ -70,9 +69,9 @@ spec:
           - name: config
             type: restic
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
       downloads:
         enabled: true

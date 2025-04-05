@@ -30,23 +30,22 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false   
+      stopAll: false
 
     ingress:
       main:
         enabled: true
         hosts:
-          - host: dynmap.${DOMAIN} 
+          - host: dynmap.${DOMAIN}
         integrations:
           traefik:
             enabled: true
             middlewares:
               - name: auth
-                namespace: traefik 
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare

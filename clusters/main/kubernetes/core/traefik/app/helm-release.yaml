@@ -31,9 +31,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    
     TZ: Europe/Amsterdam
-    
+
     logs:
       general:
         level: ERROR
@@ -61,7 +60,7 @@ spec:
               - name: local
                 namespace: traefik
               - name: traefik-redirect
-                namespace: traefik  
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare

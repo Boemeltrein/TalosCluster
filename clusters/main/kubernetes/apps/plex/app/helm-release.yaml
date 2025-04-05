@@ -30,15 +30,14 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     plex:
       # User Defined
       serverIP: "${IP_PLEX}"
-      additionalAdvertiseURL: ""     # https://${IP_PLEX}:32400, https://${DOMAIN}:443, https://${DOMAIN}:32400   <-- configured automaticly
+      additionalAdvertiseURL: "" # https://${IP_PLEX}:32400, https://${DOMAIN}:443, https://${DOMAIN}:32400   <-- configured automaticly
       disableGDM: true
-      requireHTTPS: true             # First Deploy set to false, till remote acces is configured and working
+      requireHTTPS: true # First Deploy set to false, till remote acces is configured and working
 
     credentials:
       minio:
@@ -48,12 +47,12 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-    
+
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: ${IP_PLEX}        
-    
+        loadBalancerIP: ${IP_PLEX}
+
     ingress:
       main:
         enabled: true
@@ -75,9 +74,9 @@ spec:
           - name: config
             type: restic
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
       videos:
         enabled: true

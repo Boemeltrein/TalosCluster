@@ -30,11 +30,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     workload:
       main:
@@ -58,7 +57,7 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
-        
+
     ingress:
       main:
         enabled: true
@@ -66,7 +65,7 @@ spec:
           - host: speedtest-tracker.${BASE_DOMAIN}
             paths:
               - path: /
-                pathType: Prefix          
+                pathType: Prefix
         integrations:
           traefik:
             enabled: true
@@ -90,16 +89,16 @@ spec:
             cleanupTempPVC: true
             cleanupCachePVC: true
             credentials: minio
-            dest:               #VolSync Destination (Restore)
+            dest: #VolSync Destination (Restore)
               enabled: true
-            src:                #VolSync Source (Backup)
+            src: #VolSync Source (Backup)
               enabled: true
 
     cnpg:
       main:
         cluster:
           singleNode: true
-        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions 
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: minio

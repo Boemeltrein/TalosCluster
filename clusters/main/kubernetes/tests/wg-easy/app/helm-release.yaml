@@ -29,11 +29,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-  
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     service:
       vpn:
@@ -79,9 +78,9 @@ spec:
 
     securityContext:
       container:
-#        allowPrivilegeEscalation: true
-#        UMASK: '0022'
-#        advanced: false
-#        readOnlyRootFilesystem: false
-#        runAsNonRoot: false
-       privileged: true
+        #        allowPrivilegeEscalation: true
+        #        UMASK: '0022'
+        #        advanced: false
+        #        readOnlyRootFilesystem: false
+        #        runAsNonRoot: false
+        privileged: true

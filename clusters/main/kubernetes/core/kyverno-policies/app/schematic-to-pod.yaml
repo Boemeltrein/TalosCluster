@@ -17,20 +17,20 @@ spec:
     - name: project-foo
       match:
         any:
-        - resources:
-            kinds:
-            - Pod/binding
-            names:
-            - apply-talos*
+          - resources:
+              kinds:
+                - Pod/binding
+              names:
+                - apply-talos*
       context:
-      - name: node
-        variable:
-          jmesPath: request.object.target.name
-          default: ''
-      - name: schematic
-        apiCall:
-          urlPath: "/api/v1/nodes/{{node}}"
-          jmesPath: "metadata.annotations.\"extensions.talos.dev/schematic\" || 'empty'"
+        - name: node
+          variable:
+            jmesPath: request.object.target.name
+            default: ""
+        - name: schematic
+          apiCall:
+            urlPath: "/api/v1/nodes/{{node}}"
+            jmesPath: 'metadata.annotations."extensions.talos.dev/schematic" || ''empty'''
       mutate:
         patchStrategicMerge:
           metadata:

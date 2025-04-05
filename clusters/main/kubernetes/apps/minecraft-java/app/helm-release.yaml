@@ -30,11 +30,10 @@ spec:
   uninstall:
     keepHistory: false
   values:
-
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false    
+      stopAll: false
 
     service:
       bluemap:
@@ -68,11 +67,11 @@ spec:
               #    add:
               #      - NET_RAW
               env:
-              #  MAX_TICK_TIME: -1
-              #  ENABLE_AUTOPAUSE: "true"
-              #  AUTOPAUSE_KNOCK_INTERFACE: "eth0"
-              #  AUTOPAUSE_TIMEOUT_EST: "1800"
-              #  SKIP_SUDO: "true"
+                #  MAX_TICK_TIME: -1
+                #  ENABLE_AUTOPAUSE: "true"
+                #  AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+                #  AUTOPAUSE_TIMEOUT_EST: "1800"
+                #  SKIP_SUDO: "true"
                 STOP_SERVER_ANNOUNCE_DELAY: 60
                 SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
@@ -105,7 +104,7 @@ spec:
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
                 ONLINE_MODE: "true"
-                MEMORY: 12G      
+                MEMORY: 12G
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 # RCON_PASSWORD: "secretrconpass"
                 OPS: ${MINECRAFT_OPS}
@@ -120,13 +119,13 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'  
+                MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
-                
+
             mcbackup:
-             enabled: false
+              enabled: false
 
     persistence:
       data:
@@ -145,13 +144,13 @@ spec:
         targetSelector:
           bluemap: bluemap
         hosts:
-          -  host: ${MINECRAFT_URL}
+          - host: ${MINECRAFT_URL}
         integrations:
           traefik:
             enabled: true
             middlewares:
               - name: auth
-                namespace: traefik            
+                namespace: traefik
           certManager:
             enabled: true
             certificateIssuer: cloudflare

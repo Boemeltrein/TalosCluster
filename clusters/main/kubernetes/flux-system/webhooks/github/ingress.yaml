@@ -4,24 +4,24 @@ metadata:
   name: webhook-receiver
   namespace: flux-system
   annotations:
-      cert-manager.io/cluster-issuer: cloudflare
-      cert-manager.io/private-key-rotation-policy: Always
-      traefik.ingress.kubernetes.io/router.entrypoints: websecure
-      traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-github@kubernetescrd
-      traefik.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: cloudflare
+    cert-manager.io/private-key-rotation-policy: Always
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-github@kubernetescrd
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
   rules:
-  - host: flux-webhook.${DOMAIN}
-    http:
-      paths:
-      - pathType: Prefix
-        path: /
-        backend:
-          service:
-            name: webhook-receiver
-            port:
-              number: 80
+    - host: flux-webhook.${DOMAIN}
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: webhook-receiver
+                port:
+                  number: 80
   tls:
     - hosts:
-      - flux-webhook.${DOMAIN}
+        - flux-webhook.${DOMAIN}
       secretName: flux-webhook-tls-0

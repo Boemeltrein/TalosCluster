@@ -21,33 +21,33 @@ metadata:
 spec:
   background: false
   rules:
-  - name: resolve-to-digest
-    match:
-      any:
-      - resources:
-          kinds:
-          - Pod
-    exclude:
+    - name: resolve-to-digest
+      match:
         any:
           - resources:
               kinds:
                 - Pod
-              name: '*cnpg*'
-    preconditions:
-      all:
-      - key: "{{request.operation || 'BACKGROUND'}}"
-        operator: NotEquals
-        value: DELETE
-    mutate:
-      foreach:
-      - list: "request.object.spec.containers"
-        context:
-          - name: resolvedRef
-            imageRegistry:
-              reference: "{{ element.image }}"
-              jmesPath: "resolvedImage"
-        patchStrategicMerge:
-          spec:
-            containers:
-            - name: "{{ element.name }}"
-              image: "{{ resolvedRef }}"
+      exclude:
+        any:
+          - resources:
+              kinds:
+                - Pod
+              name: "*cnpg*"
+      preconditions:
+        all:
+          - key: "{{request.operation || 'BACKGROUND'}}"
+            operator: NotEquals
+            value: DELETE
+      mutate:
+        foreach:
+          - list: "request.object.spec.containers"
+            context:
+              - name: resolvedRef
+                imageRegistry:
+                  reference: "{{ element.image }}"
+                  jmesPath: "resolvedImage"
+            patchStrategicMerge:
+              spec:
+                containers:
+                  - name: "{{ element.name }}"
+                    image: "{{ resolvedRef }}"
