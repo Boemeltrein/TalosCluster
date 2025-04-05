@@ -41,11 +41,7 @@ spec:
         enabled: true
 
     service:
-      main:
-        type: LoadBalancer
-        loadBalancerIP: ${IP_TRAEFIK}
       tcp:
-        externalTrafficPolicy: ""
         loadBalancerIP: ${IP_TRAEFIK}
 
     ## When bootstrap new cluster, comment complete ingress section.
