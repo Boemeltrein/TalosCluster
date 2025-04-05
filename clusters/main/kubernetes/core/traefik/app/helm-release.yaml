@@ -45,7 +45,7 @@ spec:
         type: LoadBalancer
         loadBalancerIP: ${IP_TRAEFIK}
       tcp:
-        externalTrafficPolicy: {}
+        externalTrafficPolicy: []
         loadBalancerIP: ${IP_TRAEFIK}
 
     ## When bootstrap new cluster, comment complete ingress section.
