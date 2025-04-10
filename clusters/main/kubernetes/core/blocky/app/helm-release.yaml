@@ -61,7 +61,7 @@ spec:
         - domain: thuis
           dnsserver: 192.168.1.1
         - domain: test.$(DOMAIN)
-          dnsserver: 192.168.1.157
+          dnsserver: 192.168.1.155
 
     # -- set blocking settings using Lists
     blocking:
