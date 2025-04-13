@@ -5,7 +5,6 @@ resources:
   - cloudnative-pg/ks.yaml
   - kube-prometheus-stack/ks.yaml
   - kubernetes-reflector/ks.yaml
-  - kyverno/ks.yaml
   - longhorn/ks.yaml
   - metallb/ks.yaml
   - openebs/ks.yaml

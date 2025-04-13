@@ -22,7 +22,7 @@ spec:
   timeout: 20m
   maxHistory: 3
   driftDetection:
-    mode: enabled
+    mode: warn
   install:
     remediation:
       retries: 3
@@ -34,22 +34,6 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    ##TESTING
-    #cni:
-    #  exclusive: false
-    #l2announcements:
-    #  enabled: false
-    socketLB:
-      hostNamespaceOnly: true
-    #loadBalancer:
-    #  algorithm: maglev
-    #  mode: snat
-    #autoDirectNodeRoutes: true
-    #bpf:
-    #  masquerade: true
-    #routingMode: native
-
-    ##STOP TESTING
     # autoDirectNodeRoutes: true
     # routingMode: native
     hubble:

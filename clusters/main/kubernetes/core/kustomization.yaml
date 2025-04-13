@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - blocky/ks.yaml
   - clusterissuer/ks.yaml
-  - kyverno-policies/ks.yaml
   - metallb-config/ks.yaml
   - system-upgrade-controller-plans/ks.yaml
   - traefik/ks.yaml
