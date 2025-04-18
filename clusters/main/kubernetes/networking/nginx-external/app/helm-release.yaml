@@ -63,7 +63,7 @@ spec:
       metrics:
         enabled: true
       extraArgs:
-        # default-ssl-certificate: "clusterissuer/certificate-issuer-general-wildcard"
+        default-ssl-certificate: "clusterissuer/certificate-issuer-domain-wildcard"
         publish-status-address: ${NGINX_EXTERNAL_IP}
       terminationGracePeriodSeconds: 120
       publishService:
