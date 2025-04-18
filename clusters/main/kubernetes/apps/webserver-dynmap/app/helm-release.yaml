@@ -41,7 +41,7 @@ spec:
         ingressClassName: external
         annotations:
           nginx.ingress.kubernetes.io/auth-method: 'GET'
-          nginx.ingress.kubernetes.io/auth-url: 'http://authelia.authelia.svc.cluster.local:9091/api/authz/auth-request'
+          nginx.ingress.kubernetes.io/auth-url: 'http://authelia.authelia.svc.cluster.local:9091/api/authz/auth-requst'
           nginx.ingress.kubernetes.io/auth-signin: 'https://auth.${DOMAIN}?rm=$request_method'
           nginx.ingress.kubernetes.io/auth-response-headers: 'Remote-User,Remote-Name,Remote-Groups,Remote-Email'
         hosts:
