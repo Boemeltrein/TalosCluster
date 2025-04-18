@@ -141,16 +141,14 @@ spec:
       bluemap:
         enabled: true
         primary: true
+        ingressClassName: external
         targetSelector:
           bluemap: bluemap
         hosts:
           - host: ${MINECRAFT_URL}
         integrations:
           traefik:
-            enabled: true
-            middlewares:
-              - name: auth
-                namespace: traefik
+            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare
