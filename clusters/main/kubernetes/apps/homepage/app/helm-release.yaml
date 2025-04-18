@@ -70,6 +70,7 @@ spec:
         enabled: true
         ingress:
           enabled: true
+          ingressClassName: internal
           hosts:
             - host: cs-homepage.${BASE_DOMAIN}
           integrations:
@@ -77,10 +78,7 @@ spec:
               enabled: true
               certificateIssuer: cloudflare
             traefik:
-              enabled: true
-              middlewares:
-                - name: local
-                  namespace: traefik
+              enabled: false
 
     workload:
       main:
