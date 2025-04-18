@@ -39,3 +39,14 @@ spec:
           server: "https://acme-v02.api.letsencrypt.org/directory"
           type: cloudflare
           cfapitoken: "${CLOUDFLARE_TOKEN}"
+    clusterCertificates:
+      # Namespaces in which the certificates must be available
+      # Accepts comma-separated regex expressions
+      replicationNamespaces: '.*'
+      certificates:
+        - name: domain-wildcard
+          enabled: true
+          certificateIssuer: cloudflare
+          hosts:
+            - ${DOMAIN}
+            - '*.${DOMAIN}'
