@@ -61,17 +61,12 @@ spec:
     ingress:
       main:
         enabled: true
+        ingressClassName: internal
         hosts:
           - host: speedtest-tracker.${BASE_DOMAIN}
-            paths:
-              - path: /
-                pathType: Prefix
         integrations:
           traefik:
-            enabled: true
-            middlewares:
-              - name: local
-                namespace: traefik
+            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare
