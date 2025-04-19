@@ -53,7 +53,7 @@ spec:
           component: kube-apiserver # etcd runs on control plane nodes
       serviceMonitor:
         scheme: https
-        # insecureSkipVerify: true
+        insecureSkipVerify: true
         # port: http-metrics
     prometheus:
       prometheusSpec:
