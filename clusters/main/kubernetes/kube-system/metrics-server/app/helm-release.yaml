@@ -27,6 +27,4 @@ spec:
     remediation:
       retries: 3
   uninstall:
-    keepHistory: false
-  values:
-  
+    keepHistory: false  
