@@ -49,3 +49,8 @@ spec:
       main:
         cluster:
           singleNode: true
+    
+    configmap:
+      dashboard-nginx:
+        enabled: true
+
