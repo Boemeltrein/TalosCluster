@@ -11,5 +11,4 @@ resources:
   - snapshot-controller/ks.yaml
   - spegel/ks.yaml
   - system-upgrade-controller/ks.yaml
-  - traefik-crds/ks.yaml
   - volsync/ks.yaml
