@@ -70,6 +70,21 @@ spec:
             memory: 500Mi
           limits:
             memory: 2000Mi
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          cert-manager.io/cluster-issuer: cloudflare
+          cert-manager.io/private-key-rotation-policy: Always
+        hosts:
+          - prometheus.${BASE_DOMAIN}
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - secretName: prometheus-general-tls
+            hosts:
+              - prometheus.${BASE_DOMAIN}
     prometheus-node-exporter:
       fullnameOverride: node-exporter
       prometheus:
@@ -81,21 +96,4 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
-      ingress:
-        enabled: true
-        annotations:
-          cert-manager.io/cluster-issuer: cloudflare
-          cert-manager.io/private-key-rotation-policy: Always
-          traefik.ingress.kubernetes.io/router.entrypoints: websecure
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-chain-basic@kubernetescrd,traefik-local@kubernetescrd
-          traefik.ingress.kubernetes.io/router.tls: "true"
-        labels: {}
-        hosts:
-          - prometheus.${BASE_DOMAIN}
-        paths:
-          - /
-        pathType: Prefix
-        tls:
-          - secretName: prometheus-general-tls
-            hosts:
-              - prometheus.${BASE_DOMAIN}
+
