@@ -62,6 +62,10 @@ spec:
         use-forwarded-headers: "true"
       metrics:
         enabled: true
+        serviceMonitor:
+          enabled: true
+          namespaceSelector:
+            any: true
       extraArgs:
         default-ssl-certificate: "clusterissuer/certificate-issuer-domain-wildcard"
         publish-status-address: ${NGINX_EXTERNAL_IP}
