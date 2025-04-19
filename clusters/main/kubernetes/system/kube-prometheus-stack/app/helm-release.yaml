@@ -54,6 +54,7 @@ spec:
       serviceMonitor:
         scheme: https
         insecureSkipVerify: true
+        port: https-metrics
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
