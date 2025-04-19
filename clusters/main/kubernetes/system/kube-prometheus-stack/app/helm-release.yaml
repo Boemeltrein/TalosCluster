@@ -49,14 +49,17 @@ spec:
       enabled: false
     kubeEtcd:
       service:
-        port: 2380
-        targetPort: 2380
+        port: 2379
+        targetPort: 2379
         selector:
           component: kube-apiserver # etcd runs on control plane nodes
       serviceMonitor:
         scheme: https
-        insecureSkipVerify: true
-        # port: http-metrics
+        insecureSkipVerify: false
+        serverName: "localhost"
+        caFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-ca.crt"
+        certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
+        keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
@@ -76,6 +79,8 @@ spec:
             memory: 500Mi
           limits:
             memory: 2000Mi
+        secrets:
+          - etcd-client-cert
       ingress:
         enabled: true
         ingressClassName: internal
