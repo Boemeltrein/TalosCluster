@@ -51,6 +51,9 @@ spec:
       service:
         selector:
           component: kube-apiserver # etcd runs on control plane nodes
+      serviceMonitor:
+        scheme: https
+        insecureSkipVerify: true
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
