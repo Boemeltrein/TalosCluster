@@ -45,6 +45,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
+          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           nginx.ingress.kubernetes.io/configuration-snippet: |
             rewrite ^/$ /#/workloads?namespace=_all permanent;
         hosts:
