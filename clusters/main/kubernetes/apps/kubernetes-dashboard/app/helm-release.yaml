@@ -45,7 +45,7 @@ spec:
         enabled: true
         ingressClassName: internal
         annotations:
-          nginx.ingress.kubernetes.io/app-root: "/#/workloads?namespace=_all" 
+          nginx.ingress.kubernetes.io/app-root: "/#/workloads?namespace=blocky" 
         hosts:
           - host: dashboard.${BASE_DOMAIN}
         integrations:
