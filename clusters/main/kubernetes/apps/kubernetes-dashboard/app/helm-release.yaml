@@ -32,6 +32,9 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    global:
+      stopAll: true
+
     service:
       main:
         type: LoadBalancer
