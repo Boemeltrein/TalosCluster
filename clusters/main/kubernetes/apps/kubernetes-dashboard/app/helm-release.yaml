@@ -59,4 +59,4 @@ spec:
     configmap:
       kubernetes-dashboard-settings:
         data:
-          settings: '{"itemsPerPage":100},"defaultNamespace":"_all"'
+          settings: '{"itemsPerPage":100,"defaultNamespace":"_all"}'
