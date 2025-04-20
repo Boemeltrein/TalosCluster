@@ -44,9 +44,6 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
-        annotations:
-          nginx.ingress.kubernetes.io/configuration-snippet: |
-            rewrite ^/#/workloads$ /brrr permanent;
         hosts:
           - host: dashboard.${BASE_DOMAIN}
         integrations:
