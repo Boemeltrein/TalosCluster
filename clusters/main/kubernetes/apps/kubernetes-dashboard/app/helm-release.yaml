@@ -46,7 +46,7 @@ spec:
         ingressClassName: internal
         annotations:
           nginx.ingress.kubernetes.io/configuration-snippet: |
-            rewrite ^/$ /brrrt permanent;
+            rewrite ^default$ brrr permanent;
         hosts:
           - host: dashboard.${BASE_DOMAIN}
         integrations:
