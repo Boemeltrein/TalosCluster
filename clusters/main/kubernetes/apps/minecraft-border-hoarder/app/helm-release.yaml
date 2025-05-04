@@ -62,7 +62,7 @@ spec:
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.4"
+                VERSION: "1.19.4"
                 TYPE: "VANILLA"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
