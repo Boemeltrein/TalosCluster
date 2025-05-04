@@ -1,0 +1,116 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minecraft-border-hoarder
+  namespace: minecraft-border-hoarder
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: minecraft-java
+      version: 22.34.11
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    modrinth:
+      - fabric-api
+      - lithium
+      - bluemap
+      - armor-poser:beta
+      - cloth-config
+      - servux
+      - sdlink
+      - craterlib
+      - reusable-vault-blocks
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                STOP_SERVER_ANNOUNCE_DELAY: 60
+                SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
+                QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
+                RCON_PORT: "{{ .Values.service.rcon.ports.rcon.port }}"
+                ENABLE_QUERY: "true"
+                EULA: "true"
+                GUI: "false"
+                SNOOPER_ENABLED: "false"
+                OVERRIDE_SERVER_PROPERTIES: "true"
+                DUMP_SERVER_PROPERTIES: "true"
+                VERSION: "1.21.4"
+                TYPE: "VANILLA"
+                DIFFICULTY: "hard"
+                MAX_PLAYERS: 20
+                MAX_WORLD_SIZE: 50000
+                ALLOW_NETHER: "true"
+                ANNOUNCE_PLAYER_ACHIEVEMENTS: "true"
+                ENABLE_COMMAND_BLOCK: "false"
+                FORCE_GAMEMODE: "false"
+                GENERATE_STRUCTURES: "true"
+                HARDCORE: "false"
+                MAX_BUILD_HEIGHT: 320
+                SPAWN_ANIMALS: "true"
+                SPAWN_MONSTERS: "true"
+                SPAWN_NPCS: "true"
+                VIEW_DISTANCE: 32
+                MODE: survival
+                MOTD: "Welcome to Border Hoarder"
+                PVP: "true"
+                LEVEL_TYPE: normal
+                ONLINE_MODE: "true"
+                MEMORY: 6G
+                OPS: ${MINECRAFT_OPS}
+                OVERRIDE_OPS: "true"
+                ENABLE_WHITELIST: "true"
+                WHITELIST: ${MINECRAFT_WHITELIST}
+                OVERRIDE_WHITELIST: "true"
+                ENABLE_ROLLING_LOGS: "true"
+                ALLOW_FLIGHT: "false"
+                # MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
+                USE_FLARE_FLAGS: "false"
+                USE_AIKAR_FLAGS: "true"
+                USE_SIMD_FLAGS: "false"
+                WORLD: "https://github.com/SimonDMC/BorderHoarder-Map/releases/latest/download/BorderHoarder.zip"
+
+            mcbackup:
+              enabled: false
+
+    persistence:
+      data:
+        enabled: true
+
+      backups:
+        enabled: false
+
+    resources:
+      limits:
+        cpu: 4000m
+        memory: 8Gi
+      requests:
+        cpu: 10m
+        memory: 50Mi
