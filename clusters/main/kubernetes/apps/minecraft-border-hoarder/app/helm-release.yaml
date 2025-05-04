@@ -52,7 +52,7 @@ spec:
           containers:
             main:
               env:
-                STOP_SERVER_ANNOUNCE_DELAY: 60
+                STOP_SERVER_ANNOUNCE_DELAY: 10
                 SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
                 RCON_PORT: "{{ .Values.service.rcon.ports.rcon.port }}"
@@ -96,6 +96,7 @@ spec:
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
                 WORLD: "https://github.com/SimonDMC/BorderHoarder-Map/releases/latest/download/BorderHoarder.zip"
+                SPAWN_PROTECTION: 0
 
             mcbackup:
               enabled: false
