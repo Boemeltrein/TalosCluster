@@ -26,4 +26,4 @@ resources:
   - truenas-exporter/ks.yaml
   - jellyfin/ks.yaml
   - librespeed/ks.yaml
-  #- minecraft-border-hoarder/ks.yaml
+  - minecraft-border-hoarder/ks.yaml
