@@ -55,8 +55,8 @@ spec:
                 allowPrivilegeEscalation: true
                 privileged: false
                 capabilities:
-                add:
-                  - NET_RAW
+                  add:
+                    - NET_RAW
               env:
                 MAX_TICK_TIME: -1
                 ENABLE_AUTOPAUSE: "true"
