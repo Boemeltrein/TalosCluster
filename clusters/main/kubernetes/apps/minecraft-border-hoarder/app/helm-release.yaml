@@ -51,7 +51,18 @@ spec:
         podSpec:
           containers:
             main:
+              securityContext:
+                allowPrivilegeEscalation: true
+                privileged: false
+                capabilities:
+                add:
+                  - NET_RAW
               env:
+                MAX_TICK_TIME: -1
+                ENABLE_AUTOPAUSE: "true"
+                AUTOPAUSE_KNOCK_INTERFACE: "eth0"
+                AUTOPAUSE_TIMEOUT_EST: "1800"
+                SKIP_SUDO: "true"
                 STOP_SERVER_ANNOUNCE_DELAY: 10
                 SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
                 QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
