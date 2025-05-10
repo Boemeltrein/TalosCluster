@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 27.4.4
+      version: 27.5.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
