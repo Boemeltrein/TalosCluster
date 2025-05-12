@@ -9,3 +9,5 @@ sopssecret.yaml
 sopssecret*
 *sopssecret*
 mounts/
+kubeconfig
+.decrypted~*.yaml
