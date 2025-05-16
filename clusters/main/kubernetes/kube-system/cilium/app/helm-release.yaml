@@ -13,7 +13,7 @@ spec:
   chart:
     spec:
       chart: cilium
-      version: 1.17.4
+      version: 1.17.3
       sourceRef:
         kind: HelmRepository
         name: home-ops-mirror
@@ -78,11 +78,4 @@ spec:
     operator:
       rollOutPods: true
       replicas: 1
-      image:
-        pullPolicy: "Always" 
     rollOutCiliumPods: true
-    envoy:
-      image:
-        pullPolicy: "Always"
-    image:
-      pullPolicy: "Always"
