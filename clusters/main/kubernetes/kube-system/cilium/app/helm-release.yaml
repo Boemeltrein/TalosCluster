@@ -36,8 +36,6 @@ spec:
   values:
     # autoDirectNodeRoutes: true
     # routingMode: native
-    image:
-      pullPolicy: Always
     hubble:
       enabled: false
     cluster:
