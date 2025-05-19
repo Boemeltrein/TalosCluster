@@ -84,9 +84,9 @@ worker:
         customization:
             systemExtensions:
                 officialExtensions:
-                    - siderolabs/util-linux-tools
                     - siderolabs/iscsi-tools
-                    - siderolabs/qemu-guest-agent
+                    - siderolabs/util-linux-tools
+                    # - siderolabs/qemu-guest-agent
     machineFiles:
     - content: |
         [plugins."io.containerd.cri.v1.images"]
