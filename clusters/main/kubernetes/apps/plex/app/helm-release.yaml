@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: plex
-      version: 19.6.11
+      version: 19.6.12
       sourceRef:
         kind: HelmRepository
         name: truecharts
