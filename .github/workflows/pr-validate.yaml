@@ -30,6 +30,8 @@ jobs:
     name: Flux Local - Test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Setup Flux CLI
         uses: fluxcd/flux2/action@8d5f40dca5aa5d3c0fc3414457dda15a0ac92fa4 # v2.5.1
       - uses: allenporter/flux-local/action/test@4.3.1
