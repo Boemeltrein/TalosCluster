@@ -30,7 +30,6 @@ spec:
     keepHistory: false
   values:
     TZ: Europe/Amsterdam
-
     global:
       stopAll: true
 
