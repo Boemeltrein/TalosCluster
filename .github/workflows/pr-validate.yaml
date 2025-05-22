@@ -19,11 +19,12 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
       - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@master
-      - name: Setup kubeconform
-        run: brew install kubeconform
+      - name: Setup Workflow Tools
+        run: brew install fluxcd/tap/flux kubeconform kustomize
       - name: Run kubeconform
         shell: bash
         run: bash ./scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
+
 
   test:
     name: Flux Local - Test
