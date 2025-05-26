@@ -93,7 +93,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           message-id: "${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resources }}"
-          header: ${{ github.event.pull_request.number }}/kubernetes/${{ matrix.resource }}
           message-failure: Diff was not successful
           message: |
             ```diff
