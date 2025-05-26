@@ -45,7 +45,7 @@ spec:
     credentials:
       minio:
         type: s3
-        url: http://"${S3_URL}"
+        url: "http://${S3_URL}"
         bucket: "taloscluster"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
