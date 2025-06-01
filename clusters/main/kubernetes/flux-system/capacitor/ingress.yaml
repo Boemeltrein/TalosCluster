@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: capacitor.${BASE_DOMAINAIN}
+    - host: capacitor.${BASE_DOMAIN}
       http:
         paths:
           - pathType: Prefix
