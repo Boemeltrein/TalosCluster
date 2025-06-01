@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: internal
   rules:
-    - host: capacitor.${DOMAIN}
+    - host: capacitor.${BASE_DOMAINAIN}
       http:
         paths:
           - pathType: Prefix
@@ -21,5 +21,5 @@ spec:
                   number: 9000
   tls:
     - hosts:
-      - capacitor.${DOMAIN}
+      - capacitor.${BASE_DOMAIN}
       secretName: capacitor-tls-0
