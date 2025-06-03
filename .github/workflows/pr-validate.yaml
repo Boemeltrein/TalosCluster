@@ -67,6 +67,7 @@ jobs:
         with:
           args: >-
             diff ${{ matrix.resources }}
+            --debug true
             --unified 6
             --path /github/workspace/pull/
             --path-orig /github/workspace/default/
