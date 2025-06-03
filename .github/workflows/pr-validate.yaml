@@ -75,6 +75,7 @@ jobs:
             --all-namespaces
             --sources "cluster"
             --output-file diff.patch
+            --verbosity 1
       - name: Generate Diff
         id: diff
         run: |
