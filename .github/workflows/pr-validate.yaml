@@ -63,10 +63,11 @@ jobs:
           ref: "${{ github.event.repository.default_branch }}"
           path: default
       - name: Diff Resources
-        uses: docker://ghcr.io/allenporter/flux-local --log-level DEBUG:v7.5.4@sha256:72dbdeabca1eb4d1a053c78dfa0d1d8e2a4c4aee2c8d3938db1a382d22b0a6f9
+        uses: docker://ghcr.io/allenporter/flux-local:v7.5.4@sha256:72dbdeabca1eb4d1a053c78dfa0d1d8e2a4c4aee2c8d3938db1a382d22b0a6f9
         with:
           args: >-
             diff ${{ matrix.resources }}
+            --log-level "DEBUG"
             --unified 6
             --path /github/workspace/pull/
             --path-orig /github/workspace/default/
