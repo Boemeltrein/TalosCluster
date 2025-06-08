@@ -74,8 +74,8 @@ spec:
         runAsUser: 568
         runAsGroup: 568
         readOnlyRootFilesystem: false
-        allowPrivilegeEscalation: false
-        privileged: false
+        allowPrivilegeEscalation: true
+        privileged: true
         seccompProfile:
           type: RuntimeDefault
         capabilities:
