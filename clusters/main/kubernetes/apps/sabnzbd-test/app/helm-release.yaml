@@ -38,7 +38,13 @@ spec:
           containers:
             main:
               env:
-                SABNZBD__HOST_WHITELIST_ENTRIES: "sabtest.${BASE_DOMAIN}"
+                SABNZBD__HOST_WHITELIST_ENTRIES: >-
+                  sabnzbd-test,
+                  sabnzbd-test.sabnzbd-test,
+                  sabnzbd-test.sabnzbd-test.svc,
+                  sabnzbd-test.sabnzbd-test.svc.cluster,
+                  sabnzbd-test.sabnzbd-test.svc.cluster.local,
+                  sabtest.${BASE_DOMAIN}
 
     ingress:
       main:
