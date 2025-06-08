@@ -29,3 +29,4 @@ resources:
 
   - grafana-alloy/ks.yaml
   - grafana-loki/ks.yaml
+  - sabnzbd-test/ks.yaml
