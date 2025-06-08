@@ -1,0 +1,38 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: grafana-alloy
+  namespace: grafana-alloy
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: alloy
+      version: 1.9.1
+      sourceRef:
+        kind: HelmRepository
+        name: grafana
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    alloy:
+      configMap:
+        # -- Create a new ConfigMap for the config file.
+        create: true
+        # -- Content to assign to the new ConfigMap.  This is passed into `tpl` allowing for templating from values.
+        content: ''
