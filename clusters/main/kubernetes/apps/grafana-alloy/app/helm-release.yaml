@@ -38,7 +38,7 @@ spec:
         content: |
           loki.write "default" {
             endpoint {
-              url = "http://loki-headless.grafana-loki.svc.cluster.local:3100"
+              url = "http://loki-headless.grafana-loki.svc.cluster.local:3100/loki/api/v1/push"
             }
           }
           // discovery.kubernetes allows you to find scrape targets from Kubernetes resources.
