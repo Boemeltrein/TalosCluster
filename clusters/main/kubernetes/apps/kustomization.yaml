@@ -26,3 +26,4 @@ resources:
   - librespeed/ks.yaml
   - minecraft-border-hoarder/ks.yaml
   - speedtest-tracker/ks.yaml
+  - loki
