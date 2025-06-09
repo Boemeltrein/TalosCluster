@@ -53,7 +53,7 @@ spec:
               enabled: true
               imageSelector: proxyImage
               args:
-                - --secure-listen-address=0.0.0.0
+                - --secure-listen-address=0.0.0.0:8080
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
