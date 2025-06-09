@@ -68,8 +68,8 @@ spec:
                   memory: 64Mi
               probes:
                 liveness:
-                  type: null
-                  port: null
+                  type: tcp
+                  port: 1000
                 readiness:
                   type: tcp
                   port: 8443
