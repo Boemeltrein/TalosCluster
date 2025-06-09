@@ -58,7 +58,7 @@ spec:
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
                 - --v=0
-                - --ignore-paths=/metrics,/healtz
+                - --ignore-paths=/metrics,/healthz,/readyz
               resources:
                 limits:
                   cpu: 500m
