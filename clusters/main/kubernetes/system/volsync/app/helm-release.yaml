@@ -22,7 +22,10 @@ spec:
     remediation:
       retries: 3
   values:
- 
+
+    manageCRDs: true
+    manageVSCCRD: true
+
     workload:
       main:
         replicas: 1
@@ -54,11 +57,10 @@ spec:
               imageSelector: proxyImage
               args:
                 - --secure-listen-address=0.0.0.0:8443
-                # - --proxy-endpoints-port=8444
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
-                - --v=10
+                - --v=0
                 - --ignore-paths=/metrics
               resources:
                 limits:
@@ -77,3 +79,39 @@ spec:
                 startup:
                   type: tcp
                   port: 8443
+
+    # -- Options for all pods
+    # Can be overruled per pod
+    podOptions:
+      automountServiceAccountToken: true
+
+    metrics:
+      main:
+        enabled: true
+        type: servicemonitor
+        endpoints:
+          - port: metrics
+            path: /metrics
+            scheme: https
+            tlsConfig:
+              insecureSkipVerify: true
+        targetSelector: metrics
+
+    # -- Options for the main traefik service, where the entrypoints traffic comes from
+    # from.
+    service:
+      main:
+        ports:
+          main:
+            port: 8081
+            targetPort: 8081
+            protocol: https
+      metrics:
+        enabled: true
+        type: ClusterIP
+        ports:
+          metrics:
+            enabled: true
+            port: 8443
+            targetPort: 8443
+            protocol: https
