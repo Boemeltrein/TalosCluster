@@ -57,7 +57,7 @@ spec:
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
-                - --v=0
+                - --v=10
                 - --ignore-paths=/metrics
               resources:
                 limits:
@@ -69,7 +69,7 @@ spec:
               probes:
                 liveness:
                   type: tcp
-                  port: 1000
+                  port: 8443
                 readiness:
                   type: tcp
                   port: 8443
