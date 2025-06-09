@@ -71,13 +71,13 @@ spec:
                   memory: 64Mi
               probes:
                 liveness:
-                  type: https
+                  type: http
                   port: 8443
                 readiness:
-                  type: https
+                  type: http
                   port: 8443
                 startup:
-                  type: https
+                  type: http
                   port: 8443
 
     # -- Options for all pods
