@@ -53,12 +53,13 @@ spec:
               enabled: true
               imageSelector: proxyImage
               args:
-                - --insecure-listen-address=0.0.0.0:8443
+                - --secure-listen-address=0.0.0.0:8443
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
                 - --v=10
                 - --ignore-paths=/metrics
+                - --proxy-endpoints-port=8443
               resources:
                 limits:
                   cpu: 500m
