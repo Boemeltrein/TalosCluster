@@ -21,3 +21,59 @@ spec:
   upgrade:
     remediation:
       retries: 3
+  values:
+ 
+    workload:
+      main:
+        replicas: 1
+        strategy: RollingUpdate
+        podSpec:
+          containers:
+            main:
+              args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --leader-elect
+                - --rclone-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --restic-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --rsync-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --rsync-tls-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --syncthing-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --scc-name=volsync-privileged-mover
+              command:
+                - /manager
+              probes:
+                liveness:
+                  path: "/healthz"
+                readiness:
+                  path: "/readyz"
+                startup:
+                  path: "/readyz"
+            kube-rbac-proxy:
+              enabled: true
+              imageSelector: proxyImage
+              args:
+                - --secure-listen-address=0.0.0.0:8443
+                - --upstream=http://127.0.0.1:8080/
+                - --logtostderr=true
+                - "--tls-min-version=VersionTLS12"
+                - --v=0
+                - --ignore-paths=/metrics
+                - --ignore-paths=/healtz
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 128Mi
+                requests:
+                  cpu: 5m
+                  memory: 64Mi
+              probes:
+                liveness:
+                  type: tcp
+                  port: 8443
+                readiness:
+                  type: tcp
+                  port: 8443
+                startup:
+                  type: tcp
+                  port: 8443
