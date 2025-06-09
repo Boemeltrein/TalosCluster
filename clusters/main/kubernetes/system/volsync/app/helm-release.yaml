@@ -54,7 +54,7 @@ spec:
               imageSelector: proxyImage
               args:
                 - --secure-listen-address=0.0.0.0:8443
-                - --proxy-endpoints-port=8444
+                # - --proxy-endpoints-port=8444
                 - --upstream=http://127.0.0.1:8080/
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
@@ -70,10 +70,10 @@ spec:
               probes:
                 liveness:
                   type: tcp
-                  port: 8444
+                  port: 8443
                 readiness:
                   type: tcp
-                  port: 8444
+                  port: 8443
                 startup:
                   type: tcp
-                  port: 8444
+                  port: 8443
