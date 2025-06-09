@@ -58,7 +58,7 @@ spec:
                 - --logtostderr=true
                 - "--tls-min-version=VersionTLS12"
                 - --v=0
-                - --ignore-paths=/metrics,/healthz,/readyz
+                - --ignore-paths=/metrics
               resources:
                 limits:
                   cpu: 500m
@@ -68,8 +68,7 @@ spec:
                   memory: 64Mi
               probes:
                 liveness:
-                  type: tcp
-                  port: 8443
+                  []
                 readiness:
                   type: tcp
                   port: 8443
