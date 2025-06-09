@@ -71,16 +71,13 @@ spec:
                   memory: 64Mi
               probes:
                 liveness:
-                  enabled: false
-                  type: tcp
+                  type: https
                   port: 8443
                 readiness:
-                  enabled: false
-                  type: tcp
+                  type: https
                   port: 8443
                 startup:
-                  enabled: false
-                  type: tcp
+                  type: https
                   port: 8443
 
     # -- Options for all pods
