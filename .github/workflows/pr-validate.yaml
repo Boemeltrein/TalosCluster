@@ -5,8 +5,8 @@ on:
   pull_request:
 
 concurrency:
-  group: ${{ github.head_ref }}-pr-validate
-  cancel-in-progress: true  
+  group: ${{ github.workflow }}
+  cancel-in-progress: false  
   
 env:
   KUBERNETES_DIR: ./clusters/main/kubernetes
