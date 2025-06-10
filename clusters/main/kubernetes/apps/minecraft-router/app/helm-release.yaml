@@ -32,6 +32,28 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              probes:
+                liveness:
+                  port: "{{ .Values.service.api.ports.api.port }}"
+                  path: /routes
+                  httpHeaders:
+                    Accept: application/json
+                readiness:
+                  port: "{{ .Values.service.api.ports.api.port }}"
+                  path: /routes
+                  httpHeaders:
+                    Accept: application/json
+                startup:
+                  port: "{{ .Values.service.api.ports.api.port }}"
+                  path: /routes
+                  httpHeaders:
+                    Accept: application/json
+
     global:
       stopAll: false
 
