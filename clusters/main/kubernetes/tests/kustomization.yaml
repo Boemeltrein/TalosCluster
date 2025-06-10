@@ -4,4 +4,3 @@ resources:
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
   - wg-easy/ks.yaml
-  - kube-state-metrics/ks.yaml
