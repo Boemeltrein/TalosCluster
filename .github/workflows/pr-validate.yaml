@@ -50,7 +50,7 @@ jobs:
     strategy:
       matrix:
         resources: ["helmrelease", "kustomization"]
-      max-parallel: 4
+      max-parallel: 1
       fail-fast: false
     steps:
       - name: Checkout
