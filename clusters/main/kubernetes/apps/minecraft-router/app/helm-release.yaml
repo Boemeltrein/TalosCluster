@@ -39,16 +39,19 @@ spec:
             main:
               probes:
                 liveness:
+                  type: http
                   port: "{{ .Values.service.api.ports.api.port }}"
                   path: /routes
                   httpHeaders:
                     Accept: application/json
                 readiness:
+                  type: http
                   port: "{{ .Values.service.api.ports.api.port }}"
                   path: /routes
                   httpHeaders:
                     Accept: application/json
                 startup:
+                  type: http
                   port: "{{ .Values.service.api.ports.api.port }}"
                   path: /routes
                   httpHeaders:
