@@ -39,11 +39,14 @@ spec:
             main:
               probes:
                 liveness:
-                  enabled: false
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /api?mode=version
                 readiness:
-                  enabled: false
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /api?mode=version
                 startup:
-                  enabled: false
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /api?mode=version
               env:
                 SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc"
 
