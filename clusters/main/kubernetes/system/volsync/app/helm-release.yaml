@@ -21,36 +21,4 @@ spec:
   upgrade:
     remediation:
       retries: 3
-  values:
-    workload:
-      main:
-        podSpec:
-          containers:
-            kube-rbac-proxy:
-              args:
-                - --secure-listen-address=0.0.0.0:8443
-                - --upstream=http://127.0.0.1:8080/
-                - --proxy-endpoints-port=8888
-                - "--tls-min-version=VersionTLS12"
-                - --v=0
-                - --ignore-paths=/metrics
-              resources:
-                limits:
-                  cpu: 500m
-                  memory: 128Mi
-                requests:
-                  cpu: 5m
-                  memory: 64Mi
-              probes:
-                liveness:
-                  type: https
-                  port: 8888
-                  path: /healthz
-                readiness:
-                  type: https
-                  port: 8888
-                  path: /healthz
-                startup:
-                  type: https
-                  port: 8888
-                  path: /healthz
+  values: {}
