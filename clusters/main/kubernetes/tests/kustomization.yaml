@@ -4,4 +4,4 @@ resources:
   # - pihole/ks.yaml
   # - external-dns/ks.yaml
   - wg-easy/ks.yaml
-  - dashtest/ks.yaml
+  # - dashtest/ks.yaml
