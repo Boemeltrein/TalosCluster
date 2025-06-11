@@ -9,6 +9,7 @@ resources:
   - grafana.yaml
   - home-ops-mirror.yaml
   - jetstack.yaml
+  - kubernetes-dashboard.yaml
   - kustomization.yaml
   - metallb.yaml
   - prometheus-community.yaml
