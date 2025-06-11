@@ -42,8 +42,9 @@ spec:
         ports:
           main:
             port: 80
-        kubernetes-dashboard-scraper:
-          expandObjectName: true
+
+    podOptions:
+      enableServiceLinks: true
 
     ingress:
       main:
