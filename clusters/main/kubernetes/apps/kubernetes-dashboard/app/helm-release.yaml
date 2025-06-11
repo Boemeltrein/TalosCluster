@@ -63,3 +63,18 @@ spec:
       kubernetes-dashboard-settings:
         data:
           settings: '{"itemsPerPage":100,"defaultNamespace":"_all"}'
+  
+    workload:
+      api:
+        enabled: true
+        type: Deployment
+        podSpec:
+          containers:
+            api:
+              enabled: true
+              primary: true
+              imageSelector: apiImage
+              args:
+                - --namespace={{ .Release.Namespace }}
+                - --metrics-scraper-service-name=kubernetes-dashboard-scraper
+                - --sidecar-host=http://kubernetes-dashboard-scraper.{{ .Release.Namespace }}.svc.cluster.local:8000
