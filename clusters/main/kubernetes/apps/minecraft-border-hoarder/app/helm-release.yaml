@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: minecraft-java
-      version: 22.54.0
+      version: 22.54.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
