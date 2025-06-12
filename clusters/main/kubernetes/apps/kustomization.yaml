@@ -28,3 +28,4 @@ resources:
   - speedtest-tracker/ks.yaml
   - grafana-alloy/ks.yaml
   - grafana-loki/ks.yaml
+  - guacamole/ks.yaml
