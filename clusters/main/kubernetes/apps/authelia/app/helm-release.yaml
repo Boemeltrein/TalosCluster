@@ -169,10 +169,10 @@ spec:
                 vsXP+HGgsckOl/amElV6jA==
                 -----END PRIVATE KEY-----
           authorization_policies:
-            policy_name:
+            guacamole:
               default_policy: 'deny'
               rules:
-                - policy: 'guacamole'
+                - policy: 'one-factor'
                   subject: 'group:minecraft'
           clients:
             - client_id: 'guacamole'
