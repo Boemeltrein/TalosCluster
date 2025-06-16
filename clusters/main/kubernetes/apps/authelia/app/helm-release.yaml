@@ -126,6 +126,7 @@ spec:
           require_number: true
           require_special: true
       access_control:
+        default_policy: 'deny'
         rules:
           - domain:
               - "${MINECRAFT_URL}"
