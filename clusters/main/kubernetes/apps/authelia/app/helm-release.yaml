@@ -168,11 +168,17 @@ spec:
                 +M1Pc6dq1U8g7pYVeNabWBJCmSBdh3sv9D9MfYa4jsqI6m2uoY58PSfQbx04J7XF
                 vsXP+HGgsckOl/amElV6jA==
                 -----END PRIVATE KEY-----
+          authorization_policies:
+            policy_name:
+              default_policy: 'deny'
+              rules:
+                - policy: 'guacamole'
+                  subject: 'group:minecraft'
           clients:
             - client_id: 'guacamole'
               client_name: 'Apache Guacamole'
               public: true
-              authorization_policy: 'one_factor'
+              authorization_policy: 'guacamole'
               require_pkce: false
               pkce_challenge_method: ''
               redirect_uris:
