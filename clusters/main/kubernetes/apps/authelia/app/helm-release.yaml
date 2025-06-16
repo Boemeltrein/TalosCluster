@@ -136,6 +136,37 @@ spec:
         oidc:
           ## The other portions of the mandatory OpenID Connect 1.0 configuration go here.
           ## See: https://www.authelia.com/c/oidc
+          hmac_secret: 'this_is_a_secret_abc123abc123abc'
+          jwks:
+            - key: |
+                -----BEGIN PRIVATE KEY-----
+                MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC4uV/MfUC/FL2C
+                8BHn2VyZD4BoF7CKlIKYG6h45etGZLDGyPAqI/l3NGrKTD1IDykq5dfoTb5CkRO+
+                fGMfAxNPgQbCfLdx1+34Psv3bUWQxvTbyvVlnUfRxVAvV1kxnp9IjtXkTDSaFC5A
+                xXDlPKiccz7kIarbSNEpvPcu58CcvrbPDDctbs7jevwzEUOpe84+HDN7Ilgh91ml
+                35mV+OXVXIWNDKNfRW8kHIEiugaYy1sQwZRUCqRvk/YUsC7KCZ+257ebxHBQTeCt
+                UwwIvYCYAu0yxYpQ8h1Ot7w5h1LaYvMDJ7NGLsf2HzjLUveDwRtZKA5rnrfAjO7p
+                XPcB+xdZAgMBAAECggEAAM3TwCraZYqEUaXUWh880zC5VRqnSs8fK2TRbKdJiR6m
+                k1LsEq7h5tYsUdGXobDpM7XY5PqzpYwGmzlk4A1uH9Y2rpGG5eCz+TTiw+KunxTy
+                m2NMgqL23U+fy/j0Gy5u0IzImwwG3ZXRZrhFR8YmELpCr5EC8p3kRSt8ovBgyv3a
+                mQSclEF4ou1+deAvxENxtd455ml/fCtePqiJ09bxfi3Rk5btI792Q7iTW3QUL2ff
+                NO2wvjk2gNtTb7H5QuavO9KQ2EGn6TnphGjYEYOxzYmwAmHszs9GesH/ITVo6Ow2
+                1FQ27oK1OOtMEKZm+VI3HCMvU7Cy1594RSkHhhlA4QKBgQD9f7Yd/uv+vsitgr8v
+                nXg7mSsP+hUhMprhKMtL+tE0AJCuLgwJwp6+jdzlA3xQLXQ/g3WPDs5vtViV0qdo
+                CLTGS+9on4oa+2a9nn5nT/mN26OE7FTQkeEfAe8ugTUXlhqwpLR0yvOUi9fICsfw
+                27H68Xh5iNrqvce5SvwMOqMuaQKBgQC6i/OD37a88E1xlQpg0w980zfMGijnXBXf
+                crqR7CHJgQ2TPyPYDaPDC4Kf6QCPnjhEyjEq0Q3IhW9j1C0plobC+Z8V7oqBabP8
+                2gFP0IlUIDk5GIEoXzAlFdXkXWsHlryz29Sb1t8AmEGfBMd+REV8E/Uqpinbh8NJ
+                PvqqftljcQKBgGXRbQGhSYK5eHsQn9/tHMS7Yat6JBCAdern6rfq1ypO6826GwW0
+                kPQyoL2vZ7gAecek8ovyQ4Jk0V7kDG9hx9I538AjDGKIBZ010smGOtL6nDQghHR9
+                k3FT4pDIPt3pYXD/xqd+eNV6UcI8alBYvaTwZhZSnLNaZKUM9C2pQ6+5AoGAXjbO
+                fvzeot/OjR3TxwDxon5egNN5cxe76EVeWtJiYg2umH5cEQMagShwCWk5Ik+rZXqk
+                iFZa2rohfs6rHITsfM5rfT0jcKa9A2frH69XnEhF/kMVABnLC//SLerMYmHL3h6Z
+                azeDGx7KjZBxXKEIYtkFikuvejM/+t825CL6kdECgYADVllF885HRuvYqpcfmpCW
+                KoQvifgL4AOnW2rlh+h3Rs8rKDdA4HsjYWU7pytH6Z8dWYBqDCAi9a7shkHJzpyM
+                +M1Pc6dq1U8g7pYVeNabWBJCmSBdh3sv9D9MfYa4jsqI6m2uoY58PSfQbx04J7XF
+                vsXP+HGgsckOl/amElV6jA==
+                -----END PRIVATE KEY-----
           clients:
             - client_id: 'guacamole'
               client_name: 'Apache Guacamole'
