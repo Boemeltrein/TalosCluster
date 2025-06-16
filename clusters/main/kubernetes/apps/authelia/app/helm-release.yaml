@@ -132,3 +132,28 @@ spec:
               - "dynmap.${DOMAIN}"
             policy: one_factor
             subject: "group:minecraft"
+      identity_providers:
+        oidc:
+          ## The other portions of the mandatory OpenID Connect 1.0 configuration go here.
+          ## See: https://www.authelia.com/c/oidc
+          clients:
+            - client_id: 'guacamole'
+              client_name: 'Apache Guacamole'
+              public: true
+              authorization_policy: 'one_factor'
+              require_pkce: false
+              pkce_challenge_method: ''
+              redirect_uris:
+                - 'https://guacamole.${BASE_DOMAIN}'
+              scopes:
+                - 'openid'
+                - 'profile'
+                - 'groups'
+                - 'email'
+              response_types:
+                - 'id_token'
+              grant_types:
+                - 'implicit'
+              access_token_signed_response_alg: 'none'
+              userinfo_signed_response_alg: 'none'
+              token_endpoint_auth_method: 'client_secret_basic'
