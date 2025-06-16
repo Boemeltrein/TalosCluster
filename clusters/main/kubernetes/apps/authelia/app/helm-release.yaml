@@ -172,7 +172,7 @@ spec:
             guacamole:
               default_policy: 'deny'
               rules:
-                - policy: 'one-factor'
+                - policy: 'one_factor'
                   subject: 'group:minecraft'
           clients:
             - client_id: 'guacamole'
