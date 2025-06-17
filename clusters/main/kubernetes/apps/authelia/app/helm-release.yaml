@@ -91,17 +91,17 @@ spec:
               env:
                 AUTHELIA_SESSION_SECRET:
                   secretKeyRef:
-                    name: boemel-secret
+                    name: authelia-secret
                     key: "AUTHELIA_SESSION_KEY"
                     expandObjectName: false
                 AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET:
                   secretKeyRef:
-                    name: boemel-secret
+                    name: authelia-secret
                     key: "AUTHELIA_JWT_KEY"
                     expandObjectName: false
                 AUTHELIA_STORAGE_ENCRYPTION_KEY:
                   secretKeyRef:
-                    name: boemel-secret
+                    name: authelia-secret
                     key: "AUTHELIA_ENCRYPTION_KEY"
                     expandObjectName: false
 
