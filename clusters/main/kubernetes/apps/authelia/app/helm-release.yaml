@@ -5,7 +5,7 @@ metadata:
   name: authelia
   namespace: authelia
 spec:
-  interval: 15m
+  interval: 5m
   chart:
     spec:
       chart: authelia
@@ -14,8 +14,8 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-      interval: 15m
-  timeout: 20m
+      interval: 5m
+  #timeout: 20m
   maxHistory: 3
   driftDetection:
     mode: warn
@@ -174,6 +174,9 @@ spec:
                 +M1Pc6dq1U8g7pYVeNabWBJCmSBdh3sv9D9MfYa4jsqI6m2uoY58PSfQbx04J7XF
                 vsXP+HGgsckOl/amElV6jA==
                 -----END PRIVATE KEY-----
+          #jwks:
+          #  - key: |
+          #      '{{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}'
           authorization_policies:
             guacamole:
               default_policy: 'deny'
@@ -201,5 +204,3 @@ spec:
               access_token_signed_response_alg: 'none'
               userinfo_signed_response_alg: 'none'
               token_endpoint_auth_method: 'none'   # 'client_secret_basic'
-          test: |
-            '{{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}'
