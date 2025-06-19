@@ -39,7 +39,7 @@ access_control:
       subject: "group:minecraft"
 identity_providers:
   oidc:
-    hmac_secret: |
+    hmac_secret: >
       {{- fileContent "/config/secret/hmac_secret" }}
     jwks:
       - key: |
