@@ -5,9 +5,9 @@ resources:
   - namespace.yaml
   - helm-release.yaml
   - authelia-oidc.secret.yaml
-# configMapGenerator:
-#  - name: authelia-configfile
-#    files:
-#      - ./config/configuration.yaml
-# generatorOptions:
-#   disableNameSuffixHash: true
+configMapGenerator:
+  - name: authelia-configfile
+    files:
+      - ./config/configuration.yaml
+generatorOptions:
+  disableNameSuffixHash: true
