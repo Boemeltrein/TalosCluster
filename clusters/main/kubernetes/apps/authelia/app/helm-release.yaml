@@ -114,5 +114,4 @@ spec:
                 X_AUTHELIA_CONFIG_FILTERS: template
 
     test:
-      releasename: {{ .Release.Name }}
-      
+      releasename: "{{ .Release.Name }}"
