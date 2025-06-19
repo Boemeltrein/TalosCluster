@@ -39,11 +39,10 @@ access_control:
       subject: "group:minecraft"
 identity_providers:
   oidc:
-    hmac_secret: >
-      {{- fileContent "/config/secret/hmac_secret" }}
+    hmac_secret: {{ secret "/config/secret/hmac_secret" }}
     jwks:
       - key: |
-          {{- fileContent "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
+          {{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
     authorization_policies:
       guacamole:
         default_policy: 'deny'
