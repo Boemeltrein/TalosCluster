@@ -42,7 +42,7 @@ identity_providers:
     hmac_secret: {{ fileContent "/config/secret/hmac_secret" }}
     jwks:
       - key: |
-          {{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
+          {{ fileContent "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
     authorization_policies:
       guacamole:
         default_policy: 'deny'
