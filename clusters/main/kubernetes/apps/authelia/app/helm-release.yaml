@@ -39,7 +39,7 @@ spec:
       minio:
         type: s3
         url: "http://${S3_URL}"
-        bucket: "taloscluster"
+        bucket: "${S3_BUCKET}-authelia"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
@@ -91,12 +91,12 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: minio
           retentionPolicy: "14d"
-          revision: "1"
+          # revision: "1"
         recovery:
           credentials: minio
           # revision: "1"
@@ -112,6 +112,3 @@ spec:
                 AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: ${AUTHELIA_JWT_KEY}
                 AUTHELIA_STORAGE_ENCRYPTION_KEY: ${AUTHELIA_ENCRYPTION_KEY}
                 X_AUTHELIA_CONFIG_FILTERS: template
-
-    test:
-      releasename: '{{ include "tc.v1.common.lib.chart.names.fullname" $ }}'

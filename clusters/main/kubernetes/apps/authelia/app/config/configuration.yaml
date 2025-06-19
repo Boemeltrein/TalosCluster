@@ -44,16 +44,16 @@ identity_providers:
       - key: |
           {{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
     authorization_policies:
-      guacamole:
+      apps:
         default_policy: 'deny'
         rules:
           - policy: 'one_factor'
-            subject: 'group:minecraft'
+            subject: 'group:apps'
     clients:
       - client_id: 'guacamole'
         client_name: 'Apache Guacamole'
         public: true
-        authorization_policy: 'guacamole'
+        authorization_policy: 'apps'
         require_pkce: false
         pkce_challenge_method: ''
         redirect_uris:
