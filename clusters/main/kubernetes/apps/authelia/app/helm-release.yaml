@@ -72,8 +72,8 @@ spec:
         type: configmap
         objectName: authelia-configfile  
         expandObjectName: false
-        mountPath: /config
-        subPath: configuration.yaml
+        mountPath: /config/configuration.yaml
+        subPath: ""
         readOnly: true
       secrets:
         enabled: true
