@@ -60,7 +60,7 @@ data:
             client_name: 'Apache Guacamole'
             public: true
             authorization_policy: 'apps'
-            pre_configured_consent_duration: '1 month'
+            # pre_configured_consent_duration: '1 month'
             require_pkce: false
             pkce_challenge_method: ''
             redirect_uris:
