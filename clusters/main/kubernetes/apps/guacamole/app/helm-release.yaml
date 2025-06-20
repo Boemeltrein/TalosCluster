@@ -68,7 +68,7 @@ spec:
 
     guacamole:
       openid:
-        OPENID_AUTHORIZATION_ENDPOINT: "https://auth.${DOMAIN}/api/oidc/authorization?state=1234abcedfdhf"
+        OPENID_AUTHORIZATION_ENDPOINT: "https://auth.${DOMAIN}/api/oidc/authorization"    # ?state=1234abcedfdhf"
         OPENID_JWKS_ENDPOINT: "https://auth.${DOMAIN}/jwks.json"
         OPENID_ISSUER: "https://auth.${DOMAIN}"
         OPENID_CLIENT_ID: "guacamole"
