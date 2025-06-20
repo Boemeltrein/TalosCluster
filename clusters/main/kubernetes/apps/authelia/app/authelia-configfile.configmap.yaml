@@ -76,4 +76,26 @@ data:
               - 'implicit'
             access_token_signed_response_alg: 'none'
             userinfo_signed_response_alg: 'none'
-            token_endpoint_auth_method: 'none'   # 'client_secret_basic'
+            token_endpoint_auth_method: 'none'
+        clients:
+          - client_id: 'grafana'
+            client_name: 'Grafana'
+            client_secret: {{ secret "/config/secret/clients_grafana_client_secret" }}
+            public: false
+            authorization_policy: 'apps'
+            require_pkce: true
+            pkce_challenge_method: 'S256'
+            redirect_uris:
+              - 'https://grafana.${BASE_DOMAIN}/login/generic_oauth'
+            scopes:
+              - 'openid'
+              - 'profile'
+              - 'groups'
+              - 'email'
+            response_types:
+              - 'code'
+            grant_types:
+              - 'authorization_code'
+            access_token_signed_response_alg: 'none'
+            userinfo_signed_response_alg: 'none'
+            token_endpoint_auth_method: 'client_secret_basic'
