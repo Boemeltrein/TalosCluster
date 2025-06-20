@@ -67,6 +67,8 @@ spec:
       tag: 1.6.0-RC1
 
     guacamole:
+      general:
+        EXTENSION_PRIORITY: "openid"
       openid:
         OPENID_AUTHORIZATION_ENDPOINT: "https://auth.${DOMAIN}/api/oidc/authorization?state=1234abcedfdhf"
         OPENID_JWKS_ENDPOINT: "https://auth.${DOMAIN}/jwks.json"
@@ -79,11 +81,3 @@ spec:
         OPENID_ALLOWED_CLOCK_SKEW: 30
         OPENID_MAX_TOKEN_VALIDITY: 300
         OPENID_MAX_NONCE_VALIDITY: 300
-
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                EXTENSION-PRIORITY: openid
