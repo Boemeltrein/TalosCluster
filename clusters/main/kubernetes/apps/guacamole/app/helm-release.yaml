@@ -68,7 +68,7 @@ spec:
 
     guacamole:
       general:
-        EXTENSION_PRIORITY: "*, openid"
+        EXTENSION_PRIORITY: "openid"
       openid:
         OPENID_AUTHORIZATION_ENDPOINT: "https://auth.${DOMAIN}/api/oidc/authorization?state=1234abcedfdhf"
         OPENID_JWKS_ENDPOINT: "https://auth.${DOMAIN}/jwks.json"
