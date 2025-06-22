@@ -1,0 +1,172 @@
+image:
+    repository: ghcr.io/immich-app/immich-server
+    tag: v1.135.3@sha256:df5bbf4e29eff4688063a005708f8b96f13073200b4a7378f7661568459b31e9
+    pullPolicy: IfNotPresent
+mlImage:
+    repository: ghcr.io/immich-app/immich-machine-learning
+    pullPolicy: IfNotPresent
+    tag: v1.131.3@sha256:d6f07b454c0ec7e4ba3a5926fff2482f8fd1a9922b489122dec33b11a4f37bdd
+mlCudaImage:
+    repository: ghcr.io/immich-app/immich-machine-learning
+    pullPolicy: IfNotPresent
+    tag: v1.131.3-cuda@sha256:1f3aa5246df8a10ba5cb1cf7299342c77b89a4d0a0d9a1c3a0148ec018594e66
+mlOpenvinoImage:
+    repository: ghcr.io/immich-app/immich-machine-learning
+    pullPolicy: IfNotPresent
+    tag: v1.131.3-openvino@sha256:0e3702a223f7e30b83051b613223de911ecbe1d1a7d072d793c24ccf07db66d9
+mlRocmImage:
+    repository: ghcr.io/immich-app/immich-machine-learning
+    pullPolicy: IfNotPresent
+    tag: v1.131.3-rocm@sha256:51c08286f827722366b3352cb25d1cf11bb09c1fede3befa86612d897d65ba67
+securityContext:
+    container:
+        readOnlyRootFilesystem: false
+        runAsNonRoot: false
+        runAsUser: 0
+        runAsGroup: 0
+immich:
+    enable_ml: true
+    mlImageType: mlImage
+    log_level: log
+service:
+    main:
+        # Main service targets the server
+        targetSelector: main
+        ports:
+            main:
+                port: 10323
+                protocol: http
+                targetSelector: main
+    microservices:
+        enabled: true
+        type: ClusterIP
+        targetSelector: microservices
+        ports:
+            microservices:
+                enabled: true
+                primary: true
+                port: 10004
+                protocol: http
+                targetSelector: microservices
+    machinelearning:
+        enabled: true
+        type: ClusterIP
+        targetSelector: machinelearning
+        ports:
+            machinelearning:
+                enabled: true
+                primary: true
+                port: 10003
+                protocol: http
+                targetSelector: machinelearning
+persistence:
+    mlcache:
+        enabled: ENC[AES256_GCM,data:fjmcRQ==,iv:zlMnlEfBHRzgq9mXeeE8noRA6LvAnLptqIj+6q4IH+U=,tag:vV7DyQRUpkVXAXT9W78tdA==,type:bool]
+        type: ENC[AES256_GCM,data:zFr6CLG2JMw=,iv:5E2/ZCc7JVqANp5DyQ11CXl5IBqWhxk8Jlk9iqydDHg=,tag:6WJ+cWVFoic2Qh3PIfAuvw==,type:str]
+        targetSelector:
+            machinelearning:
+                machinelearning:
+                    mountPath: ENC[AES256_GCM,data:MQbTB0Z96V0=,iv:+Ch+pemPjT11uR6CMMHmdd6upDOQ3xmWe3R+ZElBYfk=,tag:0b0XkuMbVlhimyYybhy6fQ==,type:str]
+    microcache:
+        enabled: ENC[AES256_GCM,data:EqFJpA==,iv:qbqxCEL/dxAsVHxoPItCBr8KHaNNEjDHPdPXQCTiuEc=,tag:4mS/jdFtd/bLIMtIqP/TwQ==,type:bool]
+        type: ENC[AES256_GCM,data:Xv1cbSVB6+Q=,iv:3KgN6QXQhduV33xSFdwp2WYiY6K9ILCGfpSRLr7ymUc=,tag:mw59mmbLcZxbTLzqGMxwCg==,type:str]
+        targetSelector:
+            microservices:
+                microservices:
+                    mountPath: ENC[AES256_GCM,data:JTdamEYNCT8H4gg=,iv:kn/eAXjeTAWxEgJ8RyHi1xgqKR1msmb+q5NRV1BSbGM=,tag:w2StozsHyL94QUqdfLxsBw==,type:str]
+    library:
+        enabled: true
+        mountPath: /usr/src/app/upload/library
+        targetSelector:
+            # Main pod/container is server
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+    uploads:
+        enabled: true
+        mountPath: /usr/src/app/upload/upload
+        targetSelector:
+            # Main pod/container is server
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+    backups:
+        enabled: true
+        mountPath: /usr/src/app/upload/backups
+        targetSelector:
+            # Main pod/container is server
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+    thumbs:
+        enabled: true
+        mountPath: /usr/src/app/upload/thumbs
+        targetSelector:
+            # Main pod/container is server
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+    profile:
+        enabled: true
+        mountPath: /usr/src/app/upload/profile
+        targetSelector:
+            # Main pod/container is server
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+    video:
+        enabled: ENC[AES256_GCM,data:/vyECg==,iv:iRCSBPABVsq3tAJ3Hahy9gPN2tLqHnsWkAK6XXQibJE=,tag:3Dy+jyvwmIJH0ftv3Sc6bA==,type:bool]
+        mountPath: ENC[AES256_GCM,data:RFXugwAbEUa5QPJBUaFQ2XbhEf1xtnuoehnqhedp0m6X,iv:/5bLIRWJ0IanJByIwWNtoRFKgOfJjLwmQOxCNACAwqk=,tag:cMXe3ubBoJ2S4CROS8nntg==,type:str]
+        targetSelector:
+            #ENC[AES256_GCM,data:TRZx4BaEuypEGAEOvuJhmmiGRNdoy4wbcZ2sZLA=,iv:3+JF/Ys0hGy0OnERFNGyI23WzXvPHRB9Pbq8HERu2zA=,tag:sdFIRoPtk6BZiv+1uxAZWA==,type:comment]
+            main:
+                main: {}
+            microservices:
+                microservices: {}
+cnpg:
+    main:
+        enabled: true
+        user: immich
+        database: immich
+        type: vectors
+        cluster:
+            initdb:
+                postInitApplicationSQL:
+                    - ENC[AES256_GCM,data:XdcdtrsiU+/dH+u9vT+kfPCVrN1fTpGcnKBFJDYdcJ+9r0Vd,iv:lWqoenCvfEHHvab+G/o50a8wHPDNzoAX/hoYpBqv8Qk=,tag:zg/gmK0WcNI6C6Yi7M7RqQ==,type:str]
+                    - ENC[AES256_GCM,data:7SPzxaGX3WtOsSFVDDEavt8JTj+hvOu1SzmRsRih2oMsKZ5IlxycxXXJmqqE,iv:ttVRdHIlZvuoFlCRXnv1RcohG80wkqAE6WA5s2GCCq4=,tag:eoZRraa0lc+UqeKGPj+fCQ==,type:str]
+                    - ENC[AES256_GCM,data:O9lmt0XsqZAe/YuIHokDCv+7CGjhQZf34z4l/u3zR1NBPMqS,iv:WH95w6hUJMOmWZgqUM3uyvEnE/CKdpxBQZUCa312VlA=,tag:RAtjSljY5hHzKb2QjQ+8og==,type:str]
+                    - ENC[AES256_GCM,data:mq1TE9M8vPfv3lfNeoSw2lSkxVF4BGyfoUeoFJfnultNGfUowZ8FUZcj56fB8gKmhqGkDrvnSXc11qQgtkPcu/T58g==,iv:gZD9lNMbzgeSDoTizTsIa6aMx8I95e0YRPSyWPZIj9E=,tag:V8j81qNIgsdxGuLmL8CuCA==,type:str]
+                    - ENC[AES256_GCM,data:gmWW81c/4q5LiRtleek5I3WRbfLYwnGQNClyf64OWI/aXnr3bCzVYIljZxj2,iv:JhKtj9mUmfCgzEjJTPILAB9ojzIfQb1b9j3CfchcBwg=,tag:6HP6Mws08x0xLKwSwaGMEg==,type:str]
+                    - ENC[AES256_GCM,data:+SmCRx8UrRdtr74/z5bP6g17Bu0e9tzq2Bud9Qp32/v4wtqHOtFDHd7V1y4a7wCPYkni7zQ=,iv:eNwwGUS6uGOoqzQcI6W6ZlPXGFR2UO404ZQEcpnfxaM=,tag:Y90wLYO8L8DgSg1idds6wQ==,type:str]
+                    - ENC[AES256_GCM,data:AcxsTe7NpJRjmkDt8siFNTSZm9Vg3b9qHfVQMzKnm8sxhXrykg==,iv:5Ii26/MOLPoQ3dVMmgZj0elcZJc13RB1n4yX1iz1xP0=,tag:zuTKJZVN7NWfJLDRvGHzhQ==,type:str]
+redis:
+    enabled: true
+    includeCommon: true
+    redisUsername: default
+ingress:
+    main:
+        integrations:
+            homepage:
+                widget:
+                    version: ENC[AES256_GCM,data:sg==,iv:UBWwb2BIgR6ydCBumVToCmAllqOtPMlTRKphOr14sZI=,tag:M3ovyOtA7O9CFW1YXPuu4Q==,type:int]
+sops:
+    shamir_threshold: 3
+    age:
+        - recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB2cVp2b1phaldkK2tUNFp4
+            Z05JNERnVmUwR3JFQnpjT0toSzJBcHlPRjJjClNZRDUrWGNYUTdoYlVXQ3VPbGlF
+            anlEUG90T2RDMCtRdzNvTUNGUWppWncKLS0tIFlGalNKWDdtcVBjc1JLSjRmaDN0
+            ZXJldFB0Nlc5Zng1TmxLMjNncmY1Y3MKITwalSDXL4gmM+QF9D0eaWcfbr8EFIWA
+            qhrwoxq1h4htXyFZhO7xigJhbgzj3QSXlsYUhL7eyZqXkoAVzwufeA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-06-22T16:01:58Z"
+    mac: ENC[AES256_GCM,data:gSM4B4L4S9w2dwrrPCqICiCeL1uKgMCr92nqC5/BINMLlyVQx6LojQjW48QtfdVYobOtLjBjJIN+/4AirUNinmKsYq0AMahRAofJ5p8Y/Z/S/NwuRSNvdX174u5KnvfxBLoO11J2dN2yjiRn8UEQMG+wVlfMas6hbTwbSwASgIw=,iv:kWVbhWXTQo8YKONcwlFDTS4mjfjIUU26vFr7XmdHkAw=,tag:73jj/a9fB2HGGHdP+krL1g==,type:str]
+    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.10.1
