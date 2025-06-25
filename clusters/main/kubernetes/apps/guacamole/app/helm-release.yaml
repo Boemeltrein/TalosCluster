@@ -57,15 +57,6 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
-    image:
-      repository: docker.io/guacamole/guacamole
-      pullPolicy: IfNotPresent
-      tag: 1.6.0-RC1
-    guacdImage:
-      repository: docker.io/guacamole/guacd
-      pullPolicy: IfNotPresent
-      tag: 1.6.0-RC1
-
     guacamole:
       general:
         EXTENSION_PRIORITY: "openid"
