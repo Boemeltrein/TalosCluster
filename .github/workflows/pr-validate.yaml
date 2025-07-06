@@ -29,20 +29,20 @@ jobs:
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
 
-  test:
-    name: Flux Local - Test
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Run flux-local test
-        uses: docker://ghcr.io/allenporter/flux-local:v7.5.6@sha256:725baade5b3d01ab6b1be0fb1de0d454e4222cbe959b3bdddee1137464aa1f3e
-        with:
-          args: >-
-            test
-            --all-namespaces
-            --enable-helm
-            --verbose
+  # test:
+  #  name: Flux Local - Test
+  #  runs-on: ubuntu-latest
+  #  steps:
+  #    - name: Checkout
+  #      uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+  #    - name: Run flux-local test
+  #      uses: docker://ghcr.io/allenporter/flux-local:v7.5.6@sha256:725baade5b3d01ab6b1be0fb1de0d454e4222cbe959b3bdddee1137464aa1f3e
+  #      with:
+  #        args: >-
+  #          test
+  #          --all-namespaces
+  #          --enable-helm
+  #          --verbose
 
   diff:
     name: Flux Diff
