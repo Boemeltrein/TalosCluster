@@ -38,7 +38,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: ${DASHBOARD_IP}
+        loadBalancerIP: 192.168.1.222 #${DASHBOARD_IP}
         ports:
           main:
             port: 80
