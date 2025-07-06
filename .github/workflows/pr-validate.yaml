@@ -5,8 +5,11 @@ on:
   pull_request:
 
 concurrency:
-  group: ${{ github.workflow }}
-  cancel-in-progress: false  
+  group: ${{ github.workflow }}-${{ github.event.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
   
 env:
   KUBERNETES_DIR: ./clusters/main/kubernetes
