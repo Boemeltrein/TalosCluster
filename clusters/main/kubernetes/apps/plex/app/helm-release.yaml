@@ -55,6 +55,9 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: ${IP_PLEX}
+        integrations:
+          metallb:
+            enabled: true
 
     ingress:
       main:

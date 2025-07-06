@@ -38,9 +38,15 @@ spec:
       main:
         type: LoadBalancer
         loadBalancerIP: 192.168.1.220
+        integrations:
+          metallb:
+            enabled: true
       dns:
         type: LoadBalancer
         loadBalancerIP: 192.168.1.220
+        integrations:
+          metallb:
+            enabled: true
 
     workload:
       main:
