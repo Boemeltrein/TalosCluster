@@ -49,6 +49,9 @@ spec:
         externalTrafficPolicy: Local
         type: LoadBalancer
         loadBalancerIP: ${IP_BLOCKY}
+        integrations:
+          metallb:
+            enabled: true
 
     # -- set the default DNS upstream servers
     defaultUpstreams:
