@@ -47,8 +47,6 @@ spec:
         hosts:
           - host: dynmap.${DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

@@ -51,8 +51,6 @@ spec:
         hosts:
           - host: guacamole.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

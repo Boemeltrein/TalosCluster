@@ -61,8 +61,6 @@ spec:
         hosts:
           - host: grafana.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

@@ -39,8 +39,6 @@ spec:
         hosts:
           - host: librespeed.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

@@ -55,8 +55,6 @@ spec:
         hosts:
           - host: wg-easy-test.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

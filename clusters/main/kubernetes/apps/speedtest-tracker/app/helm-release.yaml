@@ -65,8 +65,6 @@ spec:
         hosts:
           - host: speedtest-tracker.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

@@ -72,8 +72,6 @@ spec:
         hosts:
           - host: lldap.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

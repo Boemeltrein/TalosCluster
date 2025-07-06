@@ -48,8 +48,6 @@ spec:
         hosts:
           - host: homepage.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare
@@ -77,8 +75,6 @@ spec:
             certManager:
               enabled: true
               certificateIssuer: cloudflare
-            traefik:
-              enabled: false
 
     workload:
       main:

@@ -152,8 +152,6 @@ spec:
         hosts:
           - host: ${MINECRAFT_URL}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

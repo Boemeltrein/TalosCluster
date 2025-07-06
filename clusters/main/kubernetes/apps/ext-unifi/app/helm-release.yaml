@@ -50,8 +50,6 @@ spec:
         hosts:
           - host: unifi.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

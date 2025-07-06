@@ -68,8 +68,6 @@ spec:
         hosts:
           - host: plex.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

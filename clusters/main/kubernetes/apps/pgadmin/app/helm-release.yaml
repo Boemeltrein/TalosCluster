@@ -48,8 +48,6 @@ spec:
         hosts:
           - host: pgadmin.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

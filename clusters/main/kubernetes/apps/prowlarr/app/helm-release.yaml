@@ -48,8 +48,6 @@ spec:
         hosts:
           - host: prowlarr.${BASE_DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare

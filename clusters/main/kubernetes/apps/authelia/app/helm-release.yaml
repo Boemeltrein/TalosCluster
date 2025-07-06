@@ -51,8 +51,6 @@ spec:
         hosts:
           - host: auth.${DOMAIN}
         integrations:
-          traefik:
-            enabled: false
           certManager:
             enabled: true
             certificateIssuer: cloudflare
