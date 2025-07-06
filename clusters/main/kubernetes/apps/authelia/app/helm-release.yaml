@@ -103,7 +103,7 @@ spec:
 
     workload:
       main:
-        replicas: 1
+        # replicas: 1
         podSpec:
           containers:
             main:
