@@ -24,7 +24,6 @@ resources:
   - authelia/ks.yaml
   - truenas-exporter/ks.yaml
   - librespeed/ks.yaml
-  - minecraft-border-hoarder/ks.yaml
   - speedtest-tracker/ks.yaml
   - grafana-alloy/ks.yaml
   - grafana-loki/ks.yaml
