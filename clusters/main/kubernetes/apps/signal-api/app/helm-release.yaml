@@ -51,7 +51,8 @@ spec:
               env:
                 MODE: normal
                 SIGNAL_CLI_UID: 568
-                SIGNAL_CLI_GID: 568            
+                SIGNAL_CLI_GID: 568
+                LOG_LEVEL: DEBUG            
               probes:
                 liveness:
                   type: tcp
