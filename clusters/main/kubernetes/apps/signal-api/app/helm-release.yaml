@@ -73,5 +73,9 @@ spec:
       # -- Container security context for all containers
       # Can be overruled per container
       container:
-        runAsUser: 1000
-        runAsGroup: 1000
+        runAsNonRoot: false
+        runAsUser: 568
+        runAsGroup: 568
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        privileged: false
