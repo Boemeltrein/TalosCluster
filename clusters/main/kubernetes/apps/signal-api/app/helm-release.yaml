@@ -74,8 +74,8 @@ spec:
       # Can be overruled per container
       container:
         # runAsNonRoot: false
-        # runAsUser: 568
-        # runAsGroup: 568
+        runAsUser: 0
+        runAsGroup: 0
         # readOnlyRootFilesystem: false
         # allowPrivilegeEscalation: true
         privileged: true
