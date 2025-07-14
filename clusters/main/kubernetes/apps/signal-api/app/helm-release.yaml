@@ -50,8 +50,8 @@ spec:
             main:
               env:
                 MODE: normal
-                # SIGNAL_CLI_UID: 568
-                # SIGNAL_CLI_GID: 568
+                SIGNAL_CLI_UID: 568
+                SIGNAL_CLI_GID: 568
                 LOG_LEVEL: DEBUG            
               probes:
                 liveness:
@@ -76,6 +76,6 @@ spec:
         runAsNonRoot: false
         runAsUser: 0
         runAsGroup: 0
-        readOnlyRootFilesystem: false
+        # readOnlyRootFilesystem: false
         # allowPrivilegeEscalation: true
         privileged: true
