@@ -49,7 +49,9 @@ spec:
           containers:
             main:
               env:
-                MODE: normal            
+                MODE: normal
+                SIGNAL_CLI_UID: 568
+                SIGNAL_CLI_GID: 568            
               probes:
                 liveness:
                   type: tcp
