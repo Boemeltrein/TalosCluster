@@ -76,4 +76,4 @@ spec:
         runAsGroup: 0
         readOnlyRootFilesystem: false  #nodig
         # allowPrivilegeEscalation: true
-        privileged: true
+        # privileged: true
