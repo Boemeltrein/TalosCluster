@@ -50,8 +50,8 @@ spec:
             main:
               env:
                 MODE: normal
-                SIGNAL_CLI_UID: 568
-                SIGNAL_CLI_GID: 568
+                # SIGNAL_CLI_UID: 568
+                # SIGNAL_CLI_GID: 568
                 LOG_LEVEL: DEBUG            
               probes:
                 liveness:
@@ -68,3 +68,10 @@ spec:
           main:
             main:
               mountPath: /home/.local/share/signal-cli
+
+    securityContext:
+      # -- Container security context for all containers
+      # Can be overruled per container
+      container:
+        runAsUser: 1000
+        runAsGroup: 1000
