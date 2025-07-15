@@ -54,17 +54,26 @@ spec:
           containers:
             main:
               env:
-                MODE: normal
+                MODE: normal  ## normal, native or json-rpc
+                # AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 SIGNAL_CLI_UID: 568
                 SIGNAL_CLI_GID: 568
-                DEFAULT_SIGNAL_TEXT_MODE: styled            
+                # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
+                # LOG_LEVEL: info  ## debug, info, warn, error
+                # SWAGGER_HOST: 
+                # SWAGGER_IP: 
+                # SWAGGER_USE_HTTPS_AS_PREFERRED_SCHEME:
+                PORT: {{ .Values.service.main.ports.main.port }}
               probes:
                 liveness:
-                  type: tcp
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /v1/health
                 readiness:
-                  type: tcp
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /v1/health
                 startup:
-                  type: tcp
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                  path: /v1/health
 
     persistence:
       config:
