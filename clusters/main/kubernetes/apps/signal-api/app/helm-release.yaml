@@ -41,7 +41,7 @@ spec:
       main:
         ports:
           main:
-            port: 8080
+            port: 8090
         type: LoadBalancer
         loadBalancerIP: 192.168.1.230
         integrations:
@@ -55,14 +55,14 @@ spec:
             main:
               env:
                 MODE: normal  ## normal, native or json-rpc
-                # AUTO_RECEIVE_SCHEDULE: 0 5 * * *
-                SIGNAL_CLI_UID: 568
-                SIGNAL_CLI_GID: 568
+                AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
-                # LOG_LEVEL: info  ## debug, info, warn, error
+                LOG_LEVEL: debug  ## debug, info, warn, error
                 # SWAGGER_HOST: 
                 # SWAGGER_IP: 
                 # SWAGGER_USE_HTTPS_AS_PREFERRED_SCHEME:
+                SIGNAL_CLI_UID: 568
+                SIGNAL_CLI_GID: 568
                 PORT: "{{ .Values.service.main.ports.main.port }}"
               probes:
                 liveness:
@@ -85,9 +85,6 @@ spec:
 
     securityContext:
       container:
-        # runAsNonRoot: false
         runAsUser: 0
         runAsGroup: 0
-        readOnlyRootFilesystem: false  #nodig
-        # allowPrivilegeEscalation: true
-        # privileged: true
+        readOnlyRootFilesystem: false
