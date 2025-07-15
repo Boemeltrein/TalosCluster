@@ -35,7 +35,7 @@ spec:
     image:
       repository: docker.io/bbernhard/signal-cli-rest-api
       pullPolicy: IfNotPresent
-      tag: "0.93@sha256:3ba77735ca84265dfe1b709b5a57c75b4708e540182aa07132553dfdefdaaa7a"
+      tag: "0.92"
 
     service:
       main:
@@ -54,7 +54,7 @@ spec:
           containers:
             main:
               env:
-                MODE: normal  ## normal, native or json-rpc  ### json-rpc, will not work because of "start-stop-daemon: matching only on non-root pidfile /var/run/supervisord.pid is insecure"
+                MODE: json-rpc  ## normal, native or json-rpc  ### json-rpc, will not work because of "start-stop-daemon: matching only on non-root pidfile /var/run/supervisord.pid is insecure"
                 AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
                 # LOG_LEVEL: info  ## debug, info, warn, error
