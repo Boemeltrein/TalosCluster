@@ -59,7 +59,7 @@ spec:
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
                 # LOG_LEVEL: info  ## debug, info, warn, error
                 # SWAGGER_HOST: 
-                SWAGGER_IP: "{{ .Values.service.main.loadBalancerIP }}"
+                # SWAGGER_IP: "{{ .Values.service.main.loadBalancerIP }}"
                 # SWAGGER_USE_HTTPS_AS_PREFERRED_SCHEME:
                 SIGNAL_CLI_UID: 568
                 SIGNAL_CLI_GID: 568
@@ -85,6 +85,6 @@ spec:
 
     securityContext:
       container:
-        runAsUser: 0
-        runAsGroup: 0
+        # runAsUser: 0
+        # runAsGroup: 0
         readOnlyRootFilesystem: false
