@@ -41,7 +41,7 @@ spec:
       main:
         ports:
           main:
-            port: 8090
+            port: 8080
         type: LoadBalancer
         loadBalancerIP: 192.168.1.230
         integrations:
@@ -54,7 +54,7 @@ spec:
           containers:
             main:
               env:
-                MODE: normal  ## normal, native or json-rpc
+                MODE: native  ## normal, native or json-rpc
                 AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
                 LOG_LEVEL: debug  ## debug, info, warn, error
