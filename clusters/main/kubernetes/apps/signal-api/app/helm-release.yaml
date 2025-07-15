@@ -87,6 +87,7 @@ spec:
       container:
         runAsUser: 0
         runAsGroup: 0
-        # readOnlyRootFilesystem: false
+        readOnlyRootFilesystem: false
+        # PUID: 0
       pod:
-        fsGroup: 0
+        # fsGroup: 0
