@@ -54,7 +54,7 @@ spec:
           containers:
             main:
               env:
-                MODE: json-rpc  ## normal, native or json-rpc
+                MODE: normal  ## normal, native or json-rpc
                 AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
                 # LOG_LEVEL: info  ## debug, info, warn, error
