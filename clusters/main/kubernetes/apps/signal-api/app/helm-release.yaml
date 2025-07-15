@@ -54,12 +54,12 @@ spec:
           containers:
             main:
               env:
-                MODE: normal  ## normal, native or json-rpc
+                MODE: normal  ## normal, native or json-rpc  ### json-rpc, will not work because of "start-stop-daemon: matching only on non-root pidfile /var/run/supervisord.pid is insecure"
                 AUTO_RECEIVE_SCHEDULE: 0 5 * * *
                 # DEFAULT_SIGNAL_TEXT_MODE: normal  ## normal or styled
                 # LOG_LEVEL: info  ## debug, info, warn, error
                 # SWAGGER_HOST: 
-                # SWAGGER_IP: 
+                SWAGGER_IP: "{{ .Values.service.main.loadBalancerIP }}"
                 # SWAGGER_USE_HTTPS_AS_PREFERRED_SCHEME:
                 SIGNAL_CLI_UID: 568
                 SIGNAL_CLI_GID: 568
