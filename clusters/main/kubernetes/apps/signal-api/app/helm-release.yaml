@@ -89,5 +89,5 @@ spec:
         runAsGroup: 0
         # readOnlyRootFilesystem: false
         PUID: 0
-      pod:
+      # pod:
         # fsGroup: 0
