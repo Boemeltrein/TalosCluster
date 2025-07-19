@@ -35,6 +35,14 @@ spec:
     global:
       stopAll: false
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                AUTO_RECEIVE_SCHEDULE: 0 4 * * *
+
     credentials:
       minio:
         type: s3

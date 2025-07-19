@@ -29,5 +29,4 @@ resources:
   - grafana-loki/ks.yaml
   - guacamole/ks.yaml
   - pgadmin/ks.yaml
-  - signal-api/ks.yaml
   - signal-cli-rest-api/ks.yaml
