@@ -52,7 +52,7 @@ spec:
             auth:
               type: "authentik"
               internalHost: "authentik-http.authentik.svc.cluster.local:10230"
-              externalHost: "authentik.${BASE_DOMAIN}"
+              externalHost: "librespeed.${BASE_DOMAIN}"
 
     resources:
       requests:
