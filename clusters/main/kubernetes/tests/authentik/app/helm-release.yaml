@@ -46,6 +46,10 @@ spec:
           nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
         hosts:
           - host: authentik.${BASE_DOMAIN}
+          - host: librespeed.${BASE_DOMAIN}
+            paths:
+              - path: /outpost.goauthentik.io
+                pathType: ImplementationSpecific
         integrations:
           certManager:
             enabled: true
