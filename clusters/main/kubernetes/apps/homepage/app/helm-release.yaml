@@ -84,3 +84,7 @@ spec:
             main:
               env:
                 HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
+
+    resources:
+      requests:
+        cpu: 10m

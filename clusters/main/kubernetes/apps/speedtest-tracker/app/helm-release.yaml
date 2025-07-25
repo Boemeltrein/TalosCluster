@@ -100,3 +100,7 @@ spec:
           revision: "1"
         monitoring:
           enablePodMonitor: true
+
+    resources:
+      requests:
+        cpu: 10m

@@ -42,3 +42,7 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+
+    resources:
+      requests:
+        cpu: 10m

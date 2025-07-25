@@ -100,3 +100,7 @@ spec:
         recovery:
           credentials: minio
           # revision: "1"
+
+    resources:
+      requests:
+        cpu: 10m

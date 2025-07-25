@@ -66,3 +66,7 @@ spec:
         type: nfs
         server: 192.168.1.50
         path: /mnt/HDD_Cluster/Usenet/MeTube
+
+    resources:
+      requests:
+        cpu: 10m

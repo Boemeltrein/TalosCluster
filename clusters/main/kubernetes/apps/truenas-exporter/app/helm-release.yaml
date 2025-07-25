@@ -42,3 +42,7 @@ spec:
         integrations:
           metallb:
             enabled: true
+
+    resources:
+      requests:
+        cpu: 10m
