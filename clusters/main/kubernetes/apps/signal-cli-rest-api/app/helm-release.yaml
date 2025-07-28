@@ -73,7 +73,3 @@ spec:
               enabled: true
             src: #VolSync Source (Backup)
               enabled: true
-
-    resources:
-      requests:
-        cpu: 10m
