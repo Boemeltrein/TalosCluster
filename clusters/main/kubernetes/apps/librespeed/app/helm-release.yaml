@@ -47,12 +47,12 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-          nginx:
-            enabled: true
-            auth:
-              type: "authentik"
-              internalHost: "authentik-http.authentik.svc.cluster.local:10230"
-              externalHost: "librespeed.${BASE_DOMAIN}"
+#          nginx:
+#            enabled: true
+#            auth:
+#              type: "authentik"
+#              internalHost: "authentik-http.authentik.svc.cluster.local:10230"
+#              externalHost: "librespeed.${BASE_DOMAIN}"
 
     resources:
       requests:
