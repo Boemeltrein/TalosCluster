@@ -15,4 +15,5 @@ resources:
   - prometheus-community.yaml
   - spegel.yaml
   - truecharts.yaml
+  - test.yaml
 # more goes here!
