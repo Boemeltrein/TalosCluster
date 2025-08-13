@@ -13,9 +13,9 @@ jobs:
     name: Label Sync
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4
+      - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           sparse-checkout: .github/labels.yaml
-      - uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2
+      - uses: EndBug/label-sync@52074158190acb45f3077f9099fea818aa43f97a # v2.3.3
         with:
           config-file: .github/labels.yaml
