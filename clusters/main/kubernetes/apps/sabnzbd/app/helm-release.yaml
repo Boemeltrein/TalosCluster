@@ -84,6 +84,6 @@ spec:
         path: /mnt/HDD_Cluster/Usenet
         mountPath: /data/usenet
 
-      resources:
-        limits:
-          memory: 4000Mi
+    resources:
+      limits:
+        memory: 4000Mi
