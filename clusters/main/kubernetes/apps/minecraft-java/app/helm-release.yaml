@@ -134,6 +134,13 @@ spec:
         type: nfs
         path: /mnt/SSD_Cluster/app_minecraft_data
         server: 192.168.1.50
+      vt-datapacks:
+        enabled: true
+        mountPath: /config/vt-datapacks.json
+        subPath: vt-datapacks.json
+        readOnly: true
+        type: configmap
+        objectName: vanillatweaks
 
       backups:
         enabled: false
@@ -165,3 +172,29 @@ spec:
       requests:
         cpu: 1000m
         memory: 4Gi
+
+    configmap:
+      vanillatweaks:
+        enabled: true
+        data:
+          vt-datapacks.json: |
+            {
+              "type": "datapacks",
+              "version": "1.21",
+              "packs": {
+                "gameplay changes": [
+                  "graves",
+                  "multiplayer sleep",
+                  "armored elytra"
+                ],
+                "teleport commands": ["tpa"]
+              }
+            }
+          vt-resourcepacks.json: |
+            {
+              "type": "resourcepacks",
+              "version": "1.21",
+              "packs": {
+                  "aesthetic": ["CherryPicking", "BlackNetherBricks", "AlternateBlockDestruction"]
+              }
+            }
