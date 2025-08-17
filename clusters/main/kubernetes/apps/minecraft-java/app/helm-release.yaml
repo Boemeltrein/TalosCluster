@@ -104,7 +104,7 @@ spec:
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
                 ONLINE_MODE: "true"
-                MEMORY: 12G
+                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 # RCON_PASSWORD: "secretrconpass"
                 OPS: ${MINECRAFT_OPS}
@@ -123,7 +123,8 @@ spec:
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
-
+                # MEMORY: 12G
+                
             mcbackup:
               enabled: false
 
