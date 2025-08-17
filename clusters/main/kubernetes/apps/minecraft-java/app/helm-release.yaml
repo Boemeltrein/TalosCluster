@@ -120,6 +120,7 @@ spec:
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
                 MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
+                VANILLATWEAKS_FILE: "/config/vt-datapacks.json"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
@@ -195,7 +196,7 @@ spec:
                   "multiplayer sleep",
                   "spectator conduit power",
                   "spectator night vision",
-                  "unlock all recipes"                  
+                  "unlock all recipes"
                 ],
                 "Gameplay Changes": [
                   "anti enderman grief",
@@ -213,6 +214,6 @@ spec:
                 ],
                 "Admin Tools": [
                   "kill empty boats"
-                ]                
+                ]
               }
             }
