@@ -141,13 +141,6 @@ spec:
         readOnly: true
         type: configmap
         objectName: vanillatweaks
-      vt-resourcepacks:
-        enabled: true
-        mountPath: /config/vt-resourcepacks.json
-        subPath: vt-resourcepacks.json
-        readOnly: true
-        type: configmap
-        objectName: vanillatweaks
 
       backups:
         enabled: false
@@ -189,19 +182,37 @@ spec:
               "type": "datapacks",
               "version": "{{ .Values.workload.main.podSpec.containers.main.env.VERSION }}",
               "packs": {
-                "gameplay changes": [
-                  "graves",
-                  "multiplayer sleep",
-                  "armored elytra"
+                "Decorative/Cosmetic": [
+                  "armor statues",
+                  "mini blocks",
+                  "more mob heads",
+                  "player head drops",
+                  "silence mobs",
+                  "wandering trades"
                 ],
-                "teleport commands": ["tpa"]
-              }
-            }
-          vt-resourcepacks.json: |
-            {
-              "type": "resourcepacks",
-              "version": "1.21",
-              "packs": {
-                  "aesthetic": ["CherryPicking", "BlackNetherBricks", "AlternateBlockDestruction"]
+                "Convenience": [
+                  "double shulker shells",
+                  "multiplayer sleep",
+                  "spectator conduit power",
+                  "spectator night vision",
+                  "unlock all recipes"                  
+                ],
+                "Gameplay Changes": [
+                  "anti enderman grief",
+                  "graves"
+                ],
+                "Gameplay Changes": [
+                  "afk display",
+                  "durability ping",
+                  "nether portal coords",
+                  "real time clock",
+                  "track raw statistics",
+                  "track statistics",
+                  "villager death messages",
+                  "villager workstation highlights"
+                ],
+                "Admin Tools": [
+                  "kill empty boats"
+                ]                
               }
             }
