@@ -181,7 +181,7 @@ spec:
           vt-datapacks.json: |
             {
               "type": "datapacks",
-              "version": "{{ .Values.workload.main.podSpec.containers.main.env.VERSION }}",
+              "version": "1.21",
               "packs": {
                 "Decorative/Cosmetic": [
                   "armor statues",
