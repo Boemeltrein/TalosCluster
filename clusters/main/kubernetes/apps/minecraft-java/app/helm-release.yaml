@@ -141,6 +141,13 @@ spec:
         readOnly: true
         type: configmap
         objectName: vanillatweaks
+      vt-resourcepacks:
+        enabled: true
+        mountPath: /config/vt-resourcepacks.json
+        subPath: vt-resourcepacks.json
+        readOnly: true
+        type: configmap
+        objectName: vanillatweaks
 
       backups:
         enabled: false
@@ -180,7 +187,7 @@ spec:
           vt-datapacks.json: |
             {
               "type": "datapacks",
-              "version": "1.21",
+              "version": "{{ .Values.workload.main.podSpec.containers.main.env.VERSION }}",
               "packs": {
                 "gameplay changes": [
                   "graves",
