@@ -68,6 +68,9 @@ spec:
           - sourceLabels: [__name__, service]
             action: drop
             regex: 'container_memory_working_set_bytes;(prometheus-operator-kube-p-kubelet|kube-prometheus-kubelet|prometheus-stack-kube-prom-kubelet)'
+          - source_labels: [container, __name__, pod]
+            action: drop
+            regex: ";container_.+;.+"          
     kubeStateMetrics:
       enabled: true
     kubeApiServer:
