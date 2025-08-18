@@ -19,7 +19,7 @@ spec:
   timeout: 20m
   maxHistory: 3
   driftDetection:
-    mode: enabled
+    mode: warn
   install:
     createNamespace: true
     remediation:
@@ -60,17 +60,6 @@ spec:
         caFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-ca.crt"
         certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
         keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
-    kubelet:
-      enabled: true
-      serviceMonitor:
-        resource: true
-        # From kubernetes 1.18, /metrics/resource/v1alpha1 renamed to /metrics/resource
-        resourcePath: "/metrics/resource"
-        cAdvisor: false     
-    kubeStateMetrics:
-      enabled: true
-    kubeApiServer:
-      enabled: false
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
@@ -121,10 +110,10 @@ spec:
               targetLabel: kubernetes_node
     kube-state-metrics:
       fullnameOverride: kube-state-metrics
-      # metricLabelsAllowlist:
-      #   - pods=[*]
-      #   - deployments=[*]
-      #   - persistentvolumeclaims=[*]
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
       prometheus:
         monitor:
           enabled: true

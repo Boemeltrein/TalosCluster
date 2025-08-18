@@ -5,8 +5,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/system/kube-prometheus-stack/app
+  path: clusters/main/kubernetes/observability/kube-prometheus-stack/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: cluster
+
