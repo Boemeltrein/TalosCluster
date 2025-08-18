@@ -61,7 +61,7 @@ spec:
         certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
         keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
     kubelet:
-      enabled: false
+      enabled: true
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
