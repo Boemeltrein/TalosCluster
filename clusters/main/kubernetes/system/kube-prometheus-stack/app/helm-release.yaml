@@ -69,7 +69,7 @@ spec:
             action: drop
             regex: 'container_memory_working_set_bytes;(prometheus-operator-kube-p-kubelet|kube-prometheus-kubelet|prometheus-stack-kube-prom-kubelet)'
     kubeStateMetrics:
-      enabled: false
+      enabled: true
     kubeApiServer:
       enabled: false
     prometheus:
