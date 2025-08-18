@@ -68,6 +68,8 @@ spec:
           - sourceLabels: [__name__, service]
             action: drop
             regex: 'container_memory_working_set_bytes;(prometheus-operator-kube-p-kubelet|kube-prometheus-kubelet|prometheus-stack-kube-prom-kubelet)'
+    kubeStateMetrics:
+      enabled: false
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
@@ -104,40 +106,4 @@ spec:
           - secretName: prometheus-general-tls
             hosts:
               - prometheus.${BASE_DOMAIN}
-#    prometheus-node-exporter:
-#      fullnameOverride: node-exporter
-#      prometheus:
-#        monitor:
-#          enabled: true
-#          relabelings:
-#            - action: replace
-#              regex: (.*)
-#              replacement: $1
-#              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-#              targetLabel: kubernetes_node
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
-    kube-state-metrics:
-      fullnameOverride: kube-state-metrics
-      # metricLabelsAllowlist:
-      #   - pods=[*]
-      #   - deployments=[*]
-      #   - persistentvolumeclaims=[*]
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
+
