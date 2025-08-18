@@ -3,7 +3,6 @@ kind: Kustomization
 resources:
   - cert-manager/ks.yaml
   - cloudnative-pg/ks.yaml
-  - kube-prometheus-stack/ks.yaml
   - kubernetes-reflector/ks.yaml
   - longhorn/ks.yaml
   - metallb/ks.yaml
