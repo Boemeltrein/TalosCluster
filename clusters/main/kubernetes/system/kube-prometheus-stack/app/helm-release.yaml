@@ -63,14 +63,10 @@ spec:
     kubelet:
       enabled: true
       serviceMonitor:
-        cAdvisorMetricRelabelings:
-          # Drop less useful container CPU metrics.
-          - sourceLabels: [__name__, service]
-            action: drop
-            regex: 'container_memory_working_set_bytes;(prometheus-operator-kube-p-kubelet|kube-prometheus-kubelet|prometheus-stack-kube-prom-kubelet)'
-          - source_labels: [container, __name__, pod]
-            action: drop
-            regex: ";container_.+;.+"          
+        resource: true
+        # From kubernetes 1.18, /metrics/resource/v1alpha1 renamed to /metrics/resource
+        resourcePath: "/metrics/resource"
+        cAdvisor: false     
     kubeStateMetrics:
       enabled: true
     kubeApiServer:
