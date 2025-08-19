@@ -33,7 +33,7 @@ metadata:
   namespace: flux-system
 spec:
   providerRef:
-    name: discord
+    name: discord-helm
   eventSeverity: info
   eventSources:
     - kind: HelmRelease
