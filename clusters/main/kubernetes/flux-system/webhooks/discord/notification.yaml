@@ -25,3 +25,17 @@ spec:
       name: '*'
     - kind: Kustomization
       name: '*'
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: discord
+  namespace: flux-system
+spec:
+  providerRef:
+    name: discord
+  eventSeverity: info
+  eventSources:
+    - kind: HelmRelease
+      name: "*"
+      namespace: "*"
