@@ -41,5 +41,3 @@ spec:
       namespace: "sonarr"
     - kind: HelmRelease
       name: "*"
-      namespace: "*"
-
