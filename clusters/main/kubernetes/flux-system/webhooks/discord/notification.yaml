@@ -29,11 +29,11 @@ spec:
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
-  name: discord
+  name: discord-helm
   namespace: flux-system
 spec:
   providerRef:
-    name: discord-helm
+    name: discord
   eventSeverity: info
   eventSources:
     - kind: HelmRelease
