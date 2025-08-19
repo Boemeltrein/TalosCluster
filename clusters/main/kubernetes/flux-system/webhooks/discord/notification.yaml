@@ -132,7 +132,7 @@ spec:
     - kind: HelmRelease
       name: "*"
       namespace: "cert-manager"
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "cloudnative-pg"
     - kind: HelmRelease
