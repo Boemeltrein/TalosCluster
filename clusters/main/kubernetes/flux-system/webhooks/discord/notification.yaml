@@ -135,29 +135,29 @@ spec:
       - kind: HelmRelease
       name: "*"
       namespace: "cloudnative-pg"
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "kubernetes-reflector" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "longhorn" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "metallb" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "openebs" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "snapshot-controller" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "spegel" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "system-upgrade-controller" 
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
       namespace: "volsync"
-      - kind: HelmRelease
+    - kind: HelmRelease
       name: "*"
