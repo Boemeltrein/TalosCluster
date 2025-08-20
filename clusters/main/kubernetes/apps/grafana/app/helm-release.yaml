@@ -78,7 +78,7 @@ spec:
         labels:
           grafana_dashboard: "1"
         data:
-          cloudflare.yaml: |-
+          cloudflare:
             # renovate: depName="Cloudflare Tunnels (cloudflared)"
             gnetId: 17457
             revision: 6
