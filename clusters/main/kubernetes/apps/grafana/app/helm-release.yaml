@@ -74,6 +74,7 @@ spec:
       dashboard-nginx:
         enabled: true
       dashboard-test:
+        enabled: true
         labels:
           grafana_dashboard: "1"
         data:
