@@ -128,6 +128,12 @@ spec:
       namespace: "kube-system"
     - kind: HelmRelease
       name: "*"
+      namespace: "nginx-external"
+    - kind: HelmRelease
+      name: "*"
+      namespace: "nginx-internal"
+    - kind: HelmRelease
+      name: "*"
       namespace: "kube-prometheus-stack"
     - kind: HelmRelease
       name: "*"
