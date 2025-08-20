@@ -73,14 +73,3 @@ spec:
     configmap:
       dashboard-nginx:
         enabled: true
-      dashboard-test:
-        enabled: true
-        labels:
-          grafana_dashboard: "1"
-        data:
-          cloudflare:
-            # renovate: depName="Cloudflare Tunnels (cloudflared)"
-            gnetId: "17457"
-            revision: "6"
-            datasource:
-              - { name: DS_PROMETHEUS, value: Prometheus }
