@@ -30,3 +30,4 @@ resources:
   - guacamole/ks.yaml
   - pgadmin/ks.yaml
   - signal-cli-rest-api/ks.yaml
+  - bazarr/ks.yaml
