@@ -14,6 +14,8 @@ spec:
         name: truecharts
         namespace: flux-system
       interval: 5m
+  driftDetection:
+    mode: warn
   install:
     createNamespace: true
     remediation:
