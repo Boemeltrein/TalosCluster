@@ -15,7 +15,7 @@ spec:
         namespace: flux-system
       interval: 5m
   driftDetection:
-    mode: enabled
+    mode: warn
   install:
     createNamespace: true
     remediation:
