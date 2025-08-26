@@ -57,6 +57,11 @@ spec:
     defaultUpstreams:
       - tcp-tls:1.1.1.1:853
       - tcp-tls:1.0.0.1:853
+    upstreams:
+      - name: 111.222.333.444/24
+        dnsservers:
+          - tcp-tls:dns.mullvad.net:853
+          - https://dns.mullvad.net/dns-query
 
     # -- set conditional settings
     conditional:
