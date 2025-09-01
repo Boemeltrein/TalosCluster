@@ -20,3 +20,12 @@ metadata:
 spec:
   roles:
     - os:admin
+---
+apiVersion: talos.dev/v1alpha1
+kind: ServiceAccount
+metadata:
+  name: talosbdvtest
+  namespace: system-upgrade
+spec:
+  roles:
+    - os:admin
