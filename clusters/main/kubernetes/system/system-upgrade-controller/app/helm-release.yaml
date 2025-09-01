@@ -41,7 +41,7 @@ spec:
               SYSTEM_UPGRADE_JOB_IMAGE_PULL_POLICY: IfNotPresent
               SYSTEM_UPGRADE_JOB_KUBECTL_IMAGE: registry.k8s.io/kubectl:v1.34.0
               SYSTEM_UPGRADE_JOB_POD_REPLACEMENT_POLICY: Failed
-              SYSTEM_UPGRADE_JOB_PRIVILEGED: false
+              SYSTEM_UPGRADE_JOB_PRIVILEGED: true  #Deze naar false hielp voor 1.34.0 update
               SYSTEM_UPGRADE_JOB_TTL_SECONDS_AFTER_FINISH: 900
               SYSTEM_UPGRADE_PLAN_POLLING_INTERVAL: 15m
               SYSTEM_UPGRADE_CONTROLLER_NAME: system-update-controller
