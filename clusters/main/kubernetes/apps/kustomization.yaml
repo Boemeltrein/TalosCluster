@@ -20,7 +20,7 @@ resources:
   - webserver-dynmap/ks.yaml
   - homepage/ks.yaml
   - metube/ks.yaml
-  - lldap/ks.yaml
+  #- lldap/ks.yaml
   - authelia/ks.yaml
   - truenas-exporter/ks.yaml
   - librespeed/ks.yaml
