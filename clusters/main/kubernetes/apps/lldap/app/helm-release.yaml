@@ -91,15 +91,15 @@ spec:
       main:
         cluster:
           singleNode: true
-        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
           credentials: minio
           retentionPolicy: "14d"
-          # revision: "1"
+          revision: "2"
         recovery:
           credentials: minio
-          # revision: "1"
+          revision: "1"
 
     resources:
       requests:

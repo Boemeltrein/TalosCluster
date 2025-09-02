@@ -94,10 +94,10 @@ spec:
           enabled: true
           credentials: minio
           retentionPolicy: "14d"
-          # revision: "1"
+          revision: "2"
         recovery:
           credentials: minio
-          # revision: "1"
+          revision: "1"
 
     workload:
       main:
