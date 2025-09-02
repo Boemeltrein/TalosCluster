@@ -15,7 +15,7 @@ resources:
   - hermitcraft-java/ks.yaml
   - minecraft-router/ks.yaml
   - ext-truenas/ks.yaml
-  #- home-assistant/ks.yaml
+  - home-assistant/ks.yaml
   - zwave-js-ui/ks.yaml
   - webserver-dynmap/ks.yaml
   - homepage/ks.yaml
