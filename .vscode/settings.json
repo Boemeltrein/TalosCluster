@@ -14,5 +14,6 @@
       },
     "terminal.integrated.defaultProfile.linux": "fish",
     "editor.tabSize": 2,
-    "editor.detectIndentation": false
+    "editor.detectIndentation": false,
+    "search.useIgnoreFiles": false
 }
