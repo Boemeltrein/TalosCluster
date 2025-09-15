@@ -32,10 +32,10 @@ spec:
               probes:
                 liveness:
                   path: /livez
-                  type: tcp
+                  type: http
                 readiness:
                   path: /readyz
-                  type: tcp
+                  type: http
                 startup:
                   path: /readyz
-                  type: tcp
+                  type: http
