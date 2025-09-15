@@ -31,8 +31,8 @@ spec:
             main:
               probes:
                 liveness:
-                  path: /readyz
+                  path: /livez
                 readiness:
                   path: /readyz
                 startup:
-                  path: /livez
+                  path: /readyz
