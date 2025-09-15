@@ -32,10 +32,7 @@ spec:
               probes:
                 liveness:
                   path: /livez
-                  port: 5000
                 readiness:
                   path: /readyz
-                  port: 5000
                 startup:
                   path: /readyz
-                  port: 5000
