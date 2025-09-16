@@ -23,16 +23,4 @@ spec:
     remediation:
       strategy: rollback
       retries: 3
-  values:
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              probes:
-                liveness:
-                  path: /livez
-                readiness:
-                  path: /readyz
-                startup:
-                  path: /readyz
+  values: {}
