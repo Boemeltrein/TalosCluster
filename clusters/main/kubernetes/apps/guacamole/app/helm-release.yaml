@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: guacamole
-      version: 16.5.2
+      version: 16.6.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
