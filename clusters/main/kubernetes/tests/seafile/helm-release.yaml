@@ -51,3 +51,8 @@ spec:
                 SEAFILE_SERVER_HOSTNAME: "seafile.${BASE_DOMAIN}"
                 INIT_SEAFILE_ADMIN_EMAIL: test@test.com
                 INIT_SEAFILE_ADMIN_PASSWORD: testtest
+
+    image:
+      repository: docker.io/seafileltd/seafile-mc
+      tag: 13.0.8@sha256:53ced96482bbe8ee8f2dd8c0acc7763edef56f4fc415b70dfb24a31be1079fa6
+      pullPolicy: IfNotPresent
