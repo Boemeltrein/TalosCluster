@@ -146,7 +146,7 @@ spec:
       namespace: "kubernetes-reflector" 
     - kind: HelmRelease
       name: "*"
-      namespace: "longhorn" 
+      namespace: "longhorn-system" 
     - kind: HelmRelease
       name: "*"
       namespace: "metallb" 
