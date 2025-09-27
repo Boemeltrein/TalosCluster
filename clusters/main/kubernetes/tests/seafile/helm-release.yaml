@@ -87,11 +87,11 @@ spec:
                 # for cached
                 CACHE_PROVIDER: "memcached" # or "memcached"
                 ## for redis
-                REDIS_HOST:
-                  secretKeyRef:
-                    expandObjectName: false
-                    name: '{{ printf "%s-%s" .Release.Name "rediscreds" }}'
-                    key: plainhost
+#                REDIS_HOST:
+#                  secretKeyRef:
+#                    expandObjectName: false
+#                    name: '{{ printf "%s-%s" .Release.Name "rediscreds" }}'
+#                    key: plainhost
                 REDIS_PASSWORD: "{{ .Values.redis.creds.redisPassword }}"
                 REDIS_PORT: "6379"
                 ## for memcached
