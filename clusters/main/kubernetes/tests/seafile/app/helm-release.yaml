@@ -36,7 +36,7 @@ spec:
         enabled: true
         ingressClassName: internal
         hosts:
-          - host: seafile.${BASE_DOMAIN}
+          - host: sea.${BASE_DOMAIN}
         integrations:
           certManager:
             enabled: true
@@ -70,7 +70,7 @@ spec:
                 TIME_ZONE: "UTC"
                 SEAFILE_LOG_TO_STDOUT: "true"
                 SITE_ROOT: "/"
-                SEAFILE_SERVER_HOSTNAME: "seafile.${BASE_DOMAIN}"
+                SEAFILE_SERVER_HOSTNAME: "sea.{BASE_DOMAIN}"
                 SEAFILE_SERVER_PROTOCOL: "http"
                 # for database
                 SEAFILE_MYSQL_DB_HOST:
