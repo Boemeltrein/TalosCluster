@@ -1,0 +1,53 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: seafile
+  namespace: seafile
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: seafile
+      version: 11.4.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    TZ: Europe/Amsterdam
+    
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: seafile.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                SEAFILE_SERVER_HOSTNAME: "seafile.${BASE_DOMAIN}"
+                INIT_SEAFILE_ADMIN_EMAIL: test@test.com
+                INIT_SEAFILE_ADMIN_PASSWORD: testtest
