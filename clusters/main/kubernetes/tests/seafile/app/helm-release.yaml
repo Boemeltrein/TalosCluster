@@ -80,7 +80,7 @@ spec:
                     key: plainhost
                 SEAFILE_MYSQL_DB_PORT: "3306"
                 SEAFILE_MYSQL_DB_USER: "seafile"
-                SEAFILE_MYSQL_DB_PASSWORD: "supersupersecret"
+                SEAFILE_MYSQL_DB_PASSWORD: "{{ .Values.mariadb.password }}"
                 SEAFILE_MYSQL_DB_CCNET_DB_NAME: "ccnet_db"
                 SEAFILE_MYSQL_DB_SEAFILE_DB_NAME: "seafile_db"
                 SEAFILE_MYSQL_DB_SEAHUB_DB_NAME: "seahub_db"
@@ -111,7 +111,7 @@ spec:
                 # Init
                 ## for Seafile admin
                 INIT_SEAFILE_ADMIN_EMAIL: "test@test.com"
-                INIT_SEAFILE_MYSQL_ROOT_PASSWORD: "supersupersecret"
+                INIT_SEAFILE_MYSQL_ROOT_PASSWORD: "{{ .Values.mariadb.rootPassword }}"
 
 #                DB_ROOT_PASSWD: "{{ .Values.mariadb.rootPassword }}"
 #                DB_PASSWORD: "{{ .Values.mariadb.password }}"
