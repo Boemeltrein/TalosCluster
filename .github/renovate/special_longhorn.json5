@@ -1,0 +1,12 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "packageRules": [
+    {
+      "description": ["Block automerge for Lonhorn Minor"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": false,
+      "matchPackageNames": ["longhorn"],
+      "labels": ["type/minor", "longhorn-update"]
+    }
+  ]
+}
