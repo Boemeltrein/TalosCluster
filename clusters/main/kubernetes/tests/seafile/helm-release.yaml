@@ -85,7 +85,7 @@ spec:
                 SEAFILE_MYSQL_DB_SEAFILE_DB_NAME: "seafile_db"
                 SEAFILE_MYSQL_DB_SEAHUB_DB_NAME: "seahub_db"
                 # for cached
-                CACHE_PROVIDER: "redis" # or "memcached"
+                CACHE_PROVIDER: "memcached" # or "memcached"
                 ## for redis
                 REDIS_HOST:
                   secretKeyRef:
@@ -94,6 +94,9 @@ spec:
                     key: plainhost
                 REDIS_PASSWORD: "{{ .Values.redis.creds.redisPassword }}"
                 REDIS_PORT: "6379"
+                ## for memcached
+                MEMCACHED_HOST: '{{ printf "%v-%v" .Release.Name "memcached" }}'
+                MEMCACHED_PORT: "11211"
                 # for notification
                 ENABLE_NOTIFICATION_SERVER: "false"
                 NOTIFICATION_SERVER_URL: ""
@@ -125,7 +128,7 @@ spec:
         enabled: true
         data:
           env: |
-            CACHE_PROVIDER=redis
+            CACHE_PROVIDER=memcached
             TIME_ZONE={{ .Values.TZ }}
             JWT_PRIVATE_KEY={{ .Values.workload.main.podSpec.containers.main.env.JWT_PRIVATE_KEY }}
             SEAFILE_SERVER_PROTOCOL=http
@@ -163,7 +166,4 @@ spec:
       mariadbDatabase: seafile
 
     memcached:
-      enabled: false
-
-    redis:
       enabled: true
