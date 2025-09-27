@@ -14,14 +14,14 @@ spec:
         name: truecharts
         namespace: flux-system
       interval: 15m
-    dependencies:
-      - name: redis
-        version: 17.8.1
-        repository: oci://oci.trueforge.org/truecharts
-        condition: "redis.enabled"
-        alias: ""
-        tags: []
-        import-values: []
+  dependencies:
+    - name: redis
+      version: 17.8.1
+      repository: oci://oci.trueforge.org/truecharts
+      condition: "redis.enabled"
+      alias: ""
+      tags: []
+      import-values: []
 
   timeout: 20m
   maxHistory: 3
