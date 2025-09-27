@@ -177,3 +177,6 @@ spec:
 
     memcached:
       enabled: true
+
+    redis:
+      enabled: true
