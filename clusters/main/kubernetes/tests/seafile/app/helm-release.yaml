@@ -47,6 +47,15 @@ spec:
       tag: 13.0.11@sha256:4dd0e2e737bce194fc576d008d14346d85f10f632862d9758e6fb79546d85ae4
       pullPolicy: IfNotPresent
 
+    dependencies:
+      - name: redis
+        version: 17.8.1
+        repository: oci://oci.trueforge.org/truecharts
+        condition: "redis.enabled"
+        alias: ""
+        tags: []
+        import-values: []
+
     service:
       main:
         ports:
@@ -171,4 +180,3 @@ spec:
 
     redis:
       enabled: true
-      includeCommon: true
