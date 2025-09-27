@@ -162,8 +162,8 @@ spec:
       mariadbUsername: seafile
       mariadbDatabase: seafile
 
-    #memcached:
-    #  enabled: true
+    memcached:
+      enabled: false
 
     redis:
       enabled: true
