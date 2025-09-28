@@ -96,7 +96,7 @@ spec:
                 SEAFILE_MYSQL_DB_SEAHUB_DB_NAME: "seahub_db"
 
                 # for cached
-                CACHE_PROVIDER: "redis"
+                CACHE_PROVIDER: "memcached"
 
                 ## for redis
                 REDIS_HOST:
