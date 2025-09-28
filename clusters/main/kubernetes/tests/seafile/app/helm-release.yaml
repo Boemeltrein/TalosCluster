@@ -52,9 +52,8 @@ spec:
       main:
         ports:
           main:
-            port: 13080
+            port: 80
             protocol: http
-            targetPort: 80
 
     securityContext:
       container:
@@ -81,7 +80,7 @@ spec:
                 SEAFILE_LOG_TO_STDOUT: "true"
                 SITE_ROOT: "/"
                 SEAFILE_SERVER_HOSTNAME: "sea.${BASE_DOMAIN}"
-                SEAFILE_SERVER_PROTOCOL: "https"
+                SEAFILE_SERVER_PROTOCOL: "https"       
 
 
                 # for database
