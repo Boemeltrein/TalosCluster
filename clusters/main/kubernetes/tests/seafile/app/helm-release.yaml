@@ -81,7 +81,7 @@ spec:
                 SEAFILE_LOG_TO_STDOUT: "true"
                 SITE_ROOT: "/"
                 SEAFILE_SERVER_HOSTNAME: "sea.${BASE_DOMAIN}"
-                SEAFILE_SERVER_PROTOCOL: "http"
+                SEAFILE_SERVER_PROTOCOL: "https"
 
 
                 # for database
