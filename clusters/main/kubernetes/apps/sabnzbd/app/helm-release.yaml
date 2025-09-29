@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: sabnzbd
-      version: 22.7.0
+      version: 22.7.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
