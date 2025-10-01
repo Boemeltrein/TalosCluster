@@ -21,3 +21,4 @@ spec:
   eventSources:
     - kind: HelmRelease
       name: "*"
+      
