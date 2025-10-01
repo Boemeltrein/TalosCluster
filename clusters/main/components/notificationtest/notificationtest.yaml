@@ -3,7 +3,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Provider
 metadata:
   name: discord
-  # namespace: librespeed
 spec:
   type: discord
   secretRef:
@@ -13,7 +12,6 @@ apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert
 metadata:
   name: discord-helm
-  # namespace: librespeed
 spec:
   providerRef:
     name: discord
