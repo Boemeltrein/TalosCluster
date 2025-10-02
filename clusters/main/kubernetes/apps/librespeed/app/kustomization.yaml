@@ -4,5 +4,5 @@ namespace: librespeed
 resources:
   - namespace.yaml
   - helm-release.yaml
-components:
-  - ../../../../components/notifications/discord
+# components:
+#  - ../../../../components/notifications/discord
