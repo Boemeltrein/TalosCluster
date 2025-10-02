@@ -31,8 +31,8 @@ spec:
     name: discord
   eventSeverity: error
   eventSources:
-    - kind: FluxInstance
-      name: "*"
+  #  - kind: FluxInstance
+  #    name: "*"
     - kind: GitRepository
       name: "*"
     - kind: HelmRepository
