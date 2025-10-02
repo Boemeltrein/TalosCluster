@@ -6,3 +6,5 @@ resources:
   - helm-release.yaml
   - authelia-oidc.secret.yaml
   - authelia-configfile.configmap.yaml
+components:
+  - ../../../../components/notifications/discord
