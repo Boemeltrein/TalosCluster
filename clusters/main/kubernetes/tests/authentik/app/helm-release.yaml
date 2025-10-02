@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 33.19.4
+      version: 33.19.5
       sourceRef:
         kind: HelmRepository
         name: truecharts
