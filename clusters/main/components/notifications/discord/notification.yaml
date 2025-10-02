@@ -5,8 +5,7 @@ metadata:
   name: discord
 spec:
   type: discord
-  secretRef:
-    name: discord-webhook
+  address: ${DISCORD_WEBHOOK_NOTIFICATION}
 ---
 apiVersion: notification.toolkit.fluxcd.io/v1beta3
 kind: Alert

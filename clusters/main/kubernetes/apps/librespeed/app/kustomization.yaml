@@ -5,4 +5,4 @@ resources:
   - namespace.yaml
   - helm-release.yaml
 components:
-  - ../../../../components/notificationtest
+  - ../../../../components/notifications/discord
