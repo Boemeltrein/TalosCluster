@@ -100,7 +100,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "A happy Ghast is a happy day!"
+                MOTD: "Soon time to update!"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
