@@ -61,22 +61,8 @@ spec:
         podSpec:
           containers:
             main:
-              #securityContext:
-              #  allowPrivilegeEscalation: true
-              #  privileged: false
-              #  capabilities:
-              #    add:
-              #      - NET_RAW
               env:
-                #  MAX_TICK_TIME: -1
-                #  ENABLE_AUTOPAUSE: "true"
-                #  AUTOPAUSE_KNOCK_INTERFACE: "eth0"
-                #  AUTOPAUSE_TIMEOUT_EST: "1800"
-                #  SKIP_SUDO: "true"
                 STOP_SERVER_ANNOUNCE_DELAY: 60
-                SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
-                QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
-                RCON_PORT: "{{ .Values.service.rcon.ports.rcon.port }}"
                 ENABLE_QUERY: "true"
                 EULA: "true"
                 GUI: "false"
@@ -104,10 +90,10 @@ spec:
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
-                ONLINE_MODE: "true"
-                
+                ONLINE_MODE: "true"                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
-                RCON_PASSWORD: []
+                RCON_PASSWORD:
+                MEMORY: ""
                 OPS: ${MINECRAFT_OPS}
                 OVERRIDE_OPS: "true"
                 ENABLE_WHITELIST: "true"
@@ -125,7 +111,6 @@ spec:
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
-                MEMORY: ""
                 
             mcbackup:
               enabled: false
