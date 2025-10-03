@@ -4,5 +4,3 @@ resources:
   - wg-easy/ks.yaml
   - authentik/ks.yaml
   - seafile/ks.yaml
-components:
-  - ../../components/notifications/discord
