@@ -10,3 +10,4 @@ spec:
   sourceRef:
     kind: GitRepository
     name: cluster
+    namespace: flux-system
