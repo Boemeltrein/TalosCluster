@@ -107,7 +107,7 @@ spec:
                 ONLINE_MODE: "true"
                 
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
-                RCON_PASSWORD: ""
+                RCON_PASSWORD:
                 OPS: ${MINECRAFT_OPS}
                 OVERRIDE_OPS: "true"
                 ENABLE_WHITELIST: "true"
