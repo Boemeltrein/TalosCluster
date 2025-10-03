@@ -5,3 +5,5 @@ resources:
   - alertmanagerconfig.yaml
   - etc.secret.yaml
   - helm-release.yaml
+components:
+  - ../../../../components/notifications/discord
