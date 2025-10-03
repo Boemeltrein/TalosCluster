@@ -33,7 +33,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: false
+      stopAll: true
 
     credentials:
       minio:
