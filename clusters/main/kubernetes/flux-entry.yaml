@@ -31,12 +31,15 @@ spec:
             provider: sops
             secretRef:
               name: sops-age
+              namespace: flux-system
           postBuild:
             substituteFrom:
               - kind: ConfigMap
                 name: cluster-config
+                namespace: flux-system
               - kind: ConfigMap
                 name: upgrade-settings
+                namespace: flux-system
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
