@@ -9,4 +9,4 @@ resources:
   - metrics-server/ks.yaml
   - node-feature-discovery/ks.yaml
 components:
-  - ../../../../components/notifications/discord
+  - ../../components/notifications/discord
