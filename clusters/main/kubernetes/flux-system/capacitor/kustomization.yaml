@@ -3,5 +3,3 @@ kind: Kustomization
 resources:
   - capacitor.yaml
   - ingress.yaml
-components:
-  - ../../../../components/notifications/discord
