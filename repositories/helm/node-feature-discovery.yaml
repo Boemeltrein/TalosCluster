@@ -8,4 +8,4 @@ metadata:
 spec:
   type: oci
   interval: 2h
-  url: oci://registry.k8s.io/nfd/charts/node-feature-discovery
+  url: oci://registry.k8s.io/nfd/charts
