@@ -3,4 +3,4 @@ kind: Kustomization
 resources:
   - ingress.yaml
   - receiver.yaml
-  - webhook.secret.yaml
+  #- webhook.secret.yaml
