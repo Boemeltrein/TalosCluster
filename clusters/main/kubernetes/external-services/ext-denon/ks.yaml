@@ -1,12 +1,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ext-plugwise
+  name: ext-denon
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/ext-plugwise/app
+  path: clusters/main/kubernetes/external-services/ext-denon/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: cluster
+

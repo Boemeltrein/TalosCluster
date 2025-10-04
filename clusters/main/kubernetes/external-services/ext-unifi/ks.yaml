@@ -5,8 +5,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/ext-unifi/app
+  path: clusters/main/kubernetes/external-services/ext-unifi/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: cluster
+

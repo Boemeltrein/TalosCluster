@@ -1,12 +1,13 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ext-truenas
+  name: ext-plugwise
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/apps/ext-truenas/app
+  path: clusters/main/kubernetes/external-services/ext-plugwise/app
   prune: true
   sourceRef:
     kind: GitRepository
     name: cluster
+

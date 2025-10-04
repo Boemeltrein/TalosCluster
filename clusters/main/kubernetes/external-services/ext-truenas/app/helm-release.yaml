@@ -2,8 +2,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: ext-unifi
-  namespace: ext-unifi
+  name: ext-truenas
+  namespace: external-services
 spec:
   interval: 15m
   chart:
@@ -35,7 +35,7 @@ spec:
     service:
       main:
         type: ExternalIP
-        externalIP: "192.168.1.1"
+        externalIP: "192.168.1.50"
         ports:
           main:
             protocol: https
@@ -48,7 +48,7 @@ spec:
         annotations:
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
-          - host: unifi.${BASE_DOMAIN}
+          - host: truenas.${BASE_DOMAIN}
         integrations:
           certManager:
             enabled: true

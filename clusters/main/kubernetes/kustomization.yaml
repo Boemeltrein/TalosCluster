@@ -8,4 +8,4 @@ resources:
   - kube-system
   - networking
   - system
-  - tests  
+  - tests    - external-services

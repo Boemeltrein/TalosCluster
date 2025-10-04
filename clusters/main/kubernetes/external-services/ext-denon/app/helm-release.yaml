@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: ext-denon
-  namespace: ext-denon
+  namespace: external-services
 spec:
   interval: 15m
   chart:
