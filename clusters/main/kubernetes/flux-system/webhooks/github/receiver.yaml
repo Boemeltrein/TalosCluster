@@ -8,7 +8,8 @@ spec:
   events:
     - "ping"
     - "push"
-  token: ${WEBHOOK_GITHUB_TOKEN}
+  secretRef:
+    name: webhook-token
   resources:
     - kind: GitRepository
       name: cluster
