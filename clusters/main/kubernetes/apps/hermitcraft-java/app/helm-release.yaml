@@ -36,13 +36,23 @@ spec:
       stopAll: true
 
     service:
-      bluemap:
+      voicechat:
         enabled: true
+        type: LoadBalancer
+        loadBalancerIP: ${IP_HERMITCRAFT}
         ports:
-          bluemap:
+          voicechat:
             enabled: true
-            protocol: tcp
-            port: 8100
+            protocol: udp
+            port: 24454
+        integrations:
+          metallb:
+            enabled: true
+    
+    modrinth:
+      - fabric-api
+      - AudioPlayer:beta
+      - simple-voice-chat:beta
 
     workload:
       main:
@@ -50,16 +60,15 @@ spec:
           containers:
             main:
               env:
-                SERVER_PORT: "{{ .Values.service.main.ports.main.port }}"
-                QUERY_PORT: "{{ .Values.service.main.ports.query.port }}"
-                RCON_PORT: "{{ .Values.service.rcon.ports.rcon.port }}"
+                STOP_SERVER_ANNOUNCE_DELAY: 60
                 ENABLE_QUERY: "true"
                 EULA: "true"
                 GUI: "false"
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.4"
+                VERSION: "1.21.8"
+                WORLD: "https://r2.hermitcraft.com/hermitcraft10.zip"
                 TYPE: "FABRIC"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
@@ -71,17 +80,19 @@ spec:
                 GENERATE_STRUCTURES: "true"
                 HARDCORE: "false"
                 MAX_BUILD_HEIGHT: 320
+                SPAWN_ANIMALS: "true"
                 SPAWN_MONSTERS: "true"
+                SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
-                MODE: survival
-                MOTD: "Testing"
+                MODE: "creative" 
+                MOTD: "Have fun with Hermitcraft Season 10!"
                 PVP: "true"
-                LEVEL_TYPE: normal
-                LEVEL: Utopia
-                ONLINE_MODE: "true"
-                MEMORY: 6G
+                LEVEL_TYPE: hard
+                LEVEL: "HermitcraftX"
+                ONLINE_MODE: "true"                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
-                # RCON_PASSWORD: "secretrconpass"
+                RCON_PASSWORD:
+                # MEMORY: ""
                 OPS: ${MINECRAFT_OPS}
                 OVERRIDE_OPS: "true"
                 ENABLE_WHITELIST: "true"
@@ -94,7 +105,8 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: "lithium,fabric-api,bluemap"
+                MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
+                # VANILLATWEAKS_FILE: "/config/vt-datapacks.json"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
@@ -102,34 +114,13 @@ spec:
             mcbackup:
               enabled: false
 
-    persistence:
-      data:
-        enabled: true
-        type: nfs
-        path: /mnt/SSD_Cluster/app_minecraft_test
-        server: 192.168.1.50
-
       backups:
         enabled: false
 
-    ingress:
-      bluemap:
-        enabled: true
-        primary: true
-        targetSelector:
-          bluemap: bluemap
-        ingressClassName: internal
-        hosts:
-          - host: bluemaptest.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-
     resources:
       limits:
-        cpu: 4000m
-        memory: 8Gi
+        cpu: 8000m
+        memory: 16Gi
       requests:
-        cpu: 10m
-        memory: 50Mi
+        cpu: 1000m
+        memory: 4Gi

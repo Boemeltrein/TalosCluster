@@ -9,7 +9,7 @@ resources:
   - sabnzbd/ks.yaml
   - sonarr/ks.yaml
   - grafana/ks.yaml
-  #- hermitcraft-java/ks.yaml
+  - hermitcraft-java/ks.yaml
   - minecraft-router/ks.yaml
   - home-assistant/ks.yaml
   - zwave-js-ui/ks.yaml
