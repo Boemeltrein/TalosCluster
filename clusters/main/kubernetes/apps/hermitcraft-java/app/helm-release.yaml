@@ -52,7 +52,7 @@ spec:
     modrinth:
       - fabric-api
       - simple-voice-chat:beta
-      - AudioPlayer:beta
+      - audioplayer:beta
 
     workload:
       main:
