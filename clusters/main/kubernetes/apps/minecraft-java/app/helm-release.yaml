@@ -54,7 +54,7 @@ spec:
       - sdlink
       - craterlib
       - reusable-vault-blocks
-      - dynmap:beta
+      # - dynmap:beta
 
     workload:
       main:
@@ -69,7 +69,7 @@ spec:
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.7"
+                VERSION: "1.21.9"
                 TYPE: "FABRIC"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
@@ -86,7 +86,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Soon time to update!"
+                MOTD: "Fire up the furnace for The Copper Age drop!"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
@@ -203,3 +203,6 @@ spec:
                 ]
               }
             }
+                  "villager workstation highlights"
+                ],
+                "Admin Tools": [
