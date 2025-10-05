@@ -26,4 +26,4 @@ resources:
   - pgadmin/ks.yaml
   - signal-cli-rest-api/ks.yaml
   - bazarr/ks.yaml
-  #- hermitcraft-java/ks.yaml
+  - hermitcraft-java/ks.yaml
