@@ -69,7 +69,7 @@ spec:
                 ALLOWED_HOSTS: "*"
                 COMMENT_PREF_DEFAULT: 1
                 CSRF_TRUSTED_ORIGINS: ""
-                DEBUG: 0
+                DEBUG: 1
                 FRACTION_PREF_DEFAULT: 0
                 GUNICORN_MEDIA: 1
                 SECRET_KEY:
