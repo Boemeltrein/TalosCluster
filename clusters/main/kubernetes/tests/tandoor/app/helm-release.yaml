@@ -45,4 +45,36 @@ spec:
         loadBalancerIP: 192.168.1.220
         integrations:
           metallb:
-            enabled: true    
+            enabled: true
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                DB_ENGINE: django.db.backends.postgresql
+                POSTGRES_HOST:
+                  secretKeyRef:
+                    name: cnpg-main-urls
+                    key: host
+                POSTGRES_PORT: 5432
+                POSTGRES_USER: "{{ .Values.cnpg.main.user }}"
+                POSTGRES_PASSWORD:
+                  secretKeyRef:
+                    name: cnpg-main-user
+                    key: password
+                POSTGRES_DB: "{{ .Values.cnpg.main.database }}"
+                TANDOOR_PORT:
+                ALLOWED_HOSTS: "*"
+                COMMENT_PREF_DEFAULT: 1
+                CSRF_TRUSTED_ORIGINS: ""
+                DEBUG: 0
+                FRACTION_PREF_DEFAULT: 0
+                GUNICORN_MEDIA: 1
+                SECRET_KEY:
+                  secretKeyRef:
+                    key: SECRET_KEY
+                    name: recipes-secrets
+                SHOPPING_MIN_AUTOSYNC_INTERVAL: 5
+                TIMEZONE:
