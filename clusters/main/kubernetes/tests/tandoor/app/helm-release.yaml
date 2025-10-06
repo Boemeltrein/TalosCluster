@@ -66,7 +66,7 @@ spec:
                     key: password
                 POSTGRES_DB: "{{ .Values.cnpg.main.database }}"
                 TANDOOR_PORT:
-                ALLOWED_HOSTS: "*"
+                ALLOWED_HOSTS:
                 COMMENT_PREF_DEFAULT: 1
                 CSRF_TRUSTED_ORIGINS: ""
                 DEBUG: 1
