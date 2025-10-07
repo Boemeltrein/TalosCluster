@@ -54,8 +54,6 @@ spec:
           main:
             port: 80
             protocol: http
-            forwardedHeaders:
-              enabled: true
 
     securityContext:
       container:
