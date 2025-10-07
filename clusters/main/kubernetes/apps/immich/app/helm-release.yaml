@@ -59,27 +59,27 @@ spec:
       library:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/library
+        path: /mnt/SSD_Cluster/app_immich/library
       uploads:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/uploads
+        path: /mnt/SSD_Cluster/app_immich/uploads
       backups:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/backups
+        path: /mnt/SSD_Cluster/app_immich/backups
       thumbs:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/thumbs
+        path: /mnt/SSD_Cluster/app_immich/thumbs
       profile:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/profile
+        path: /mnt/SSD_Cluster/app_immich/profile
       video:
         type: nfs
         server: 192.168.1.50
-        path: /mnt/SSD_Cluster/encoded-video
+        path: /mnt/SSD_Cluster/app_immich/encoded-video
 
     cnpg:
       main:
