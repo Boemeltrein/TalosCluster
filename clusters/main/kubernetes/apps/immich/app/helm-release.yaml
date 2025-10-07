@@ -1,0 +1,96 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: immich
+      version: 24.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    credentials:
+      minio:
+        type: s3
+        url: "http://${S3_URL}"
+        bucket: "${S3_BUCKET}-immich"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: immich.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      library:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/library
+      uploads:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/uploads
+      backups:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/backups
+      thumbs:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/thumbs
+      profile:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/profile
+      video:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/encoded-video
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: minio
+          # revision: ""
