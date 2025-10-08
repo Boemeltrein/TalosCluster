@@ -40,7 +40,7 @@ spec:
       main:
         ports:
           main:
-            port: 80
+            port: 10029
         type: LoadBalancer
         loadBalancerIP: 192.168.1.220
         integrations:
@@ -86,7 +86,7 @@ spec:
                     name: cnpg-main-user
                     key: password
                 POSTGRES_DB: "{{ .Values.cnpg.main.database }}"
-                TANDOOR_PORT:
+                TANDOOR_PORT: "{{ .Values.service.main.ports.main.port }}"
                 ALLOWED_HOSTS: "*"
                 COMMENT_PREF_DEFAULT: 1
                 CSRF_TRUSTED_ORIGINS: ""
