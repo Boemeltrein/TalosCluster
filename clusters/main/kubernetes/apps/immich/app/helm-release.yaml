@@ -80,7 +80,19 @@ spec:
         type: nfs
         server: 192.168.1.50
         path: /mnt/SSD_Cluster/app_immich/encoded-video
-
+      afbeeldingen:
+        enabled: true
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/HDD_Cluster/Afbeeldingen
+        mountPath: /mnt/afbeeldingen
+        readOnly: true
+        targetSelector:
+          main:
+            main: {}
+          microservices:
+            microservices: {}
+  
     cnpg:
       main:
         cluster:
