@@ -32,7 +32,7 @@ spec:
   values:
   
     image:
-      repository: docker.io/vabene1111/recipes
+      repository: ghcr.io/tandoorrecipes/recipes
       pullPolicy: IfNotPresent
       tag: 2.3.1@sha256:37dda040f6261c0312db27487c9e8f698b77ac0d4e5e7a4f4aebd8c4cbdd578b
 
