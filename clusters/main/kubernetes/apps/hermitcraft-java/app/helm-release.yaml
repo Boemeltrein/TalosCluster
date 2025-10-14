@@ -110,7 +110,8 @@ spec:
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
-                RESOURCE_PACK: "HermitcraftX/resources.zip"
+                RESOURCE_PACK: "https://${DOMAIN}/hermitcraft/resources.zip"
+                RESOURCE_PACK_ENFORCE: "true"
 
             mcbackup:
               enabled: false
