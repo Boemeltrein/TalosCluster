@@ -106,6 +106,7 @@ spec:
               - CREATE EXTENSION IF NOT EXISTS cube;
               - CREATE EXTENSION IF NOT EXISTS earthdistance;
               # - CREATE SCHEMA IF NOT EXISTS vchord;
+              ##TRUECHARTS OLD
               # - CREATE SCHEMA IF NOT EXISTS vectors;
               # - ALTER DATABASE immich SET search_path TO "immich", public, vectors;
               # - SET search_path TO "immich", public, vectors;
