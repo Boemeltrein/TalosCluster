@@ -59,7 +59,6 @@ spec:
               - CREATE EXTENSION IF NOT EXISTS cube;
               - CREATE EXTENSION IF NOT EXISTS earthdistance;
               - ALTER DATABASE immich OWNER TO immich;
-              # - CREATE SCHEMA IF NOT EXISTS vchord;
               ##TRUECHARTS OLD
               # - CREATE SCHEMA IF NOT EXISTS vectors;
               # - ALTER DATABASE immich SET search_path TO "immich", public, vectors;
