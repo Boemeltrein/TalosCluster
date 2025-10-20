@@ -57,8 +57,8 @@ spec:
             postInitApplicationSQL:
               - CREATE EXTENSION IF NOT EXISTS cube;
               - CREATE EXTENSION IF NOT EXISTS earthdistance;
-              - CREATE SCHEMA IF NOT EXISTS vectorchord;
+              - CREATE SCHEMA IF NOT EXISTS vchord;
               - ALTER DATABASE immich SET search_path TO "immich", public, vectorchord;
-              - SET search_path TO "immich", public, vectorchord;
-              - GRANT SELECT ON TABLE pg_vectorchord_index_stat TO PUBLIC;
-              - ALTER SCHEMA vectorchord OWNER TO immich;
+              - SET search_path TO "immich", public, vchord;
+              - GRANT SELECT ON TABLE pg_vchord_index_stat TO PUBLIC;
+              - ALTER SCHEMA vchord OWNER TO immich;
