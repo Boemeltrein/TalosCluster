@@ -35,6 +35,15 @@ spec:
     global:
       stopAll: false
 
+    credentials:
+      minio:
+        type: s3
+        url: "http://${S3_URL}"
+        bucket: "${S3_BUCKET}-immich"
+        accessKey: "${S3_ACCESKEY}"
+        secretKey: "${S3_SECRETKEY}"
+        encrKey: "${S3_ENCRKEY}"
+
     ingress:
       main:
         enabled: true
@@ -53,6 +62,7 @@ spec:
         database: immich
         type: vectorchord
         cluster:
+          singleNode: true
           initdb:
             postInitApplicationSQL:
               - CREATE EXTENSION IF NOT EXISTS cube;
@@ -62,3 +72,12 @@ spec:
               # - SET search_path TO "immich", public, vectors;
               # - GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
               # - ALTER SCHEMA vectors OWNER TO immich;
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: minio
+          # revision: ""
