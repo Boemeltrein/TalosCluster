@@ -35,16 +35,16 @@ spec:
     global:
       stopAll: false
 
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: immichtest.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+#    ingress:
+#      main:
+#        enabled: true
+#        ingressClassName: internal
+#        hosts:
+#          - host: immichtest.${BASE_DOMAIN}
+#        integrations:
+#          certManager:
+#            enabled: true
+#            certificateIssuer: cloudflare
   
     cnpg:
       main:
