@@ -98,20 +98,21 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectorchord
+        type: vectors
         cluster:
           singleNode: true
           initdb:
             postInitApplicationSQL:
-              - CREATE EXTENSION IF NOT EXISTS cube;
-              - CREATE EXTENSION IF NOT EXISTS earthdistance;
-              # - CREATE SCHEMA IF NOT EXISTS vchord;
-              ##TRUECHARTS OLD
-              # - CREATE SCHEMA IF NOT EXISTS vectors;
-              # - ALTER DATABASE immich SET search_path TO "immich", public, vectors;
-              # - SET search_path TO "immich", public, vectors;
-              # - GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
-              # - ALTER SCHEMA vectors OWNER TO immich;
+              ##NEW for "vectorchord"
+              # - CREATE EXTENSION IF NOT EXISTS cube;
+              # - CREATE EXTENSION IF NOT EXISTS earthdistance;
+              
+              ##TRUECHARTS OLD for "vectors" 
+              - CREATE SCHEMA IF NOT EXISTS vectors;
+              - ALTER DATABASE immich SET search_path TO "immich", public, vectors;
+              - SET search_path TO "immich", public, vectors;
+              - GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
+              - ALTER SCHEMA vectors OWNER TO immich;
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: false
