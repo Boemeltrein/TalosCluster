@@ -122,3 +122,11 @@ spec:
         recovery:
           credentials: minio
           # revision: ""
+
+    workload:
+      main:
+        replicas: 0
+      machinelearning:
+        replicas: 0
+      microservices:
+        replicas: 0        
