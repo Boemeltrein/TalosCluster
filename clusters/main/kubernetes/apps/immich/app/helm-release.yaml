@@ -126,7 +126,3 @@ spec:
     workload:
       main:
         replicas: 0
-      machinelearning:
-        enabled: false
-      microservices:
-        enabled: false
