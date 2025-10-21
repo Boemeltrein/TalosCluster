@@ -104,9 +104,10 @@ spec:
           initdb:
             postInitApplicationSQL:
               ##NEW for "vectorchord"
+              - ALTER USER immich WITH SUPERUSER
               - CREATE EXTENSION IF NOT EXISTS cube;
               - CREATE EXTENSION IF NOT EXISTS earthdistance;
-              
+              - ALTER USER immich WITH SUPERUSER
               ##TRUECHARTS OLD for "vectors" 
               - CREATE SCHEMA IF NOT EXISTS vectors;
               - ALTER DATABASE immich SET search_path TO "immich", public, vectors;
@@ -125,4 +126,4 @@ spec:
 
     workload:
       main:
-        replicas: 1
+        replicas: 0
