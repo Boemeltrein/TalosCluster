@@ -123,10 +123,10 @@ spec:
           credentials: minio
           # revision: ""
 
-    workload:
-      main:
-        replicas: 0
-      immich-machinelearning:
-        replicas: 0
-      immich-microservices:
-        replicas: 0
+#    workload:
+#      main:
+#        replicas: 0
+#      immich-machinelearning:
+#        replicas: 0
+#      immich-microservices:
+#        replicas: 0
