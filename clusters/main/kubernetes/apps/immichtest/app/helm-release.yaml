@@ -68,11 +68,3 @@ spec:
               # - SET search_path TO "immich", public, vectors;
               # - GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
               # - ALTER SCHEMA vectors OWNER TO immich;
-
-    workload:
-      main:
-        replicas: 0
-      machinelearning:
-        replicas: 0
-      microservices:
-        replicas: 0
