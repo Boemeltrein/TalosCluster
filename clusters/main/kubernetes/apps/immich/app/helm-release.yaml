@@ -126,4 +126,4 @@ spec:
 
     workload:
       main:
-        replicas: 0
+        replicas: 1
