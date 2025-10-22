@@ -104,7 +104,7 @@ spec:
           initdb:
             postInitApplicationSQL:
               ##NEW for "vectorchord"
-              - ALTER USER immich WITH SUPERUSER
+              - ALTER USER immich WITH SUPERUSER;
               - CREATE EXTENSION IF NOT EXISTS cube;
               - CREATE EXTENSION IF NOT EXISTS earthdistance;
               ##TRUECHARTS OLD for "vectors" 

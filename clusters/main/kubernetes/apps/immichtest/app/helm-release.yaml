@@ -51,16 +51,16 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectorchord
+        type: vectors
         cluster:
           singleNode: true
-          initdb:
-            postInitApplicationSQL:
-              ##NEW for "vectorchord"
-              - ALTER USER immich WITH SUPERUSER
-              # - ALTER DATABASE immich OWNER TO immich;
-              - CREATE EXTENSION IF NOT EXISTS cube;
-              - CREATE EXTENSION IF NOT EXISTS earthdistance;
+          #initdb:
+          #  postInitApplicationSQL:
+          #    ##NEW for "vectorchord"
+          #    - ALTER USER immich WITH SUPERUSER;
+          #    # - ALTER DATABASE immich OWNER TO immich;
+          #    - CREATE EXTENSION IF NOT EXISTS cube;
+          #    - CREATE EXTENSION IF NOT EXISTS earthdistance;
               
               ##TRUECHARTS OLD
               # - CREATE SCHEMA IF NOT EXISTS vectors;
@@ -68,3 +68,7 @@ spec:
               # - SET search_path TO "immich", public, vectors;
               # - GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
               # - ALTER SCHEMA vectors OWNER TO immich;
+              
+    workload:
+      main:
+        replicas: 1
