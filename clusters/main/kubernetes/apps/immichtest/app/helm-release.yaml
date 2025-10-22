@@ -51,16 +51,16 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectors
+        type: vectorchord
         cluster:
           singleNode: true
-          #initdb:
-          #  postInitApplicationSQL:
-          #    ##NEW for "vectorchord"
-          #    - ALTER USER immich WITH SUPERUSER;
-          #    # - ALTER DATABASE immich OWNER TO immich;
-          #    - CREATE EXTENSION IF NOT EXISTS cube;
-          #    - CREATE EXTENSION IF NOT EXISTS earthdistance;
+          initdb:
+            postInitApplicationSQL:
+              ##NEW for "vectorchord"
+              - ALTER USER immich WITH SUPERUSER;
+              # - ALTER DATABASE immich OWNER TO immich;
+              - CREATE EXTENSION IF NOT EXISTS cube;
+              - CREATE EXTENSION IF NOT EXISTS earthdistance;
               
               ##TRUECHARTS OLD
               # - CREATE SCHEMA IF NOT EXISTS vectors;
