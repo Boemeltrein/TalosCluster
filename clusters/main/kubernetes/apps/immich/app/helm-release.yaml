@@ -115,14 +115,16 @@ spec:
               #- ALTER SCHEMA vectors OWNER TO immich;
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
-          enabled: false
+          enabled: true
           credentials: minio
           retentionPolicy: "14d"
-          # revision: "1"
+          revision: "1"
         recovery:
           credentials: minio
           # revision: ""
 
+          ## revision "" -> vectors
+          ## revision "1" -> vectorchord    
     workload:
       main:
         replicas: 1
