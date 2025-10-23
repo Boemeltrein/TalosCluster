@@ -125,6 +125,3 @@ spec:
 
           ## revision "" -> vectors
           ## revision "1" -> vectorchord    
-    workload:
-      main:
-        replicas: 0
