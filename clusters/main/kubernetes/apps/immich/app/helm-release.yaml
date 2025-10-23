@@ -98,15 +98,15 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectorchord
+        type: vectors
         cluster:
           singleNode: true
           initdb:
-            postInitApplicationSQL:
-              ##NEW for "vectorchord"
-              - ALTER USER immich WITH SUPERUSER;
-              - CREATE EXTENSION IF NOT EXISTS cube;
-              - CREATE EXTENSION IF NOT EXISTS earthdistance;
+            # postInitApplicationSQL:
+            #   ##NEW for "vectorchord"
+            #   - ALTER USER immich WITH SUPERUSER;
+            #   - CREATE EXTENSION IF NOT EXISTS cube;
+            #   - CREATE EXTENSION IF NOT EXISTS earthdistance;
               ##TRUECHARTS OLD for "vectors" 
               #- CREATE SCHEMA IF NOT EXISTS vectors;
               #- ALTER DATABASE immich SET search_path TO "immich", public, vectors;
@@ -121,7 +121,7 @@ spec:
           revision: "2"
         recovery:
           credentials: minio
-          revision: "1"
+          revision: ""
 
           ## revision "" -> vectors
           ## revision "1" -> vectorchord    
