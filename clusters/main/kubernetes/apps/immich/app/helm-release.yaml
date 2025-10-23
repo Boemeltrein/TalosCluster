@@ -98,10 +98,10 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectors
+        type: vectorchord
         cluster:
           singleNode: true
-          initdb:
+         # initdb:
             # postInitApplicationSQL:
             #   ##NEW for "vectorchord"
             #   - ALTER USER immich WITH SUPERUSER;
