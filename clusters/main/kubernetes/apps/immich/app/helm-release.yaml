@@ -127,4 +127,4 @@ spec:
           ## revision "1" -> vectorchord    
     workload:
       main:
-        replicas: 1
+        replicas: 0
