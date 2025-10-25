@@ -53,7 +53,7 @@ spec:
         integrations:
           certManager:
             enabled: true
-            certificateIssuer: cloudflare
+            certificateIssuer: cloudflare-staging
 
     persistence:
       library:
@@ -98,27 +98,22 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectorchord
+        type: vectors
         cluster:
           singleNode: true
+         ##NEW for "vectorchord"
          # initdb:
             # postInitApplicationSQL:
-            #   ##NEW for "vectorchord"
+            
             #   - ALTER USER immich WITH SUPERUSER;
             #   - CREATE EXTENSION IF NOT EXISTS cube;
             #   - CREATE EXTENSION IF NOT EXISTS earthdistance;
-              ##TRUECHARTS OLD for "vectors" 
-              #- CREATE SCHEMA IF NOT EXISTS vectors;
-              #- ALTER DATABASE immich SET search_path TO "immich", public, vectors;
-              #- SET search_path TO "immich", public, vectors;
-              #- GRANT SELECT ON TABLE pg_vector_index_stat TO PUBLIC;
-              #- ALTER SCHEMA vectors OWNER TO immich;
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: false
           credentials: minio
           retentionPolicy: "14d"
-          revision: "2"
+          revision: ""
         recovery:
           credentials: minio
           revision: ""
