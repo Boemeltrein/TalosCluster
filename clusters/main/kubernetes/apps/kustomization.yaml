@@ -27,5 +27,5 @@ resources:
   - signal-cli-rest-api/ks.yaml
   - bazarr/ks.yaml
   - hermitcraft-java/ks.yaml
-  #- immich/ks.yaml
+  - immich/ks.yaml
   - immichtest/ks.yaml
