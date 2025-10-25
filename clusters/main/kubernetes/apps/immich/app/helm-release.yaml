@@ -98,7 +98,7 @@ spec:
         enabled: true
         user: immich
         database: immich
-        type: vectors
+        type: vectorchord
         cluster:
           singleNode: true
          ##NEW for "vectorchord"
@@ -120,7 +120,7 @@ spec:
 
           ## revision "" -> vectors
           ## revision "1" -> vectorchord    
-          
+
     workload:
       main:
         replicas: 0
