@@ -53,7 +53,7 @@ spec:
         integrations:
           certManager:
             enabled: true
-            certificateIssuer: cloudflare-staging
+            certificateIssuer: cloudflare
 
     persistence:
       library:
@@ -97,15 +97,12 @@ spec:
       main:
         cluster:
           singleNode: true
-        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: false
           credentials: minio
           retentionPolicy: "14d"
-          revision: "2"
+          # revision: "1"
         recovery:
           credentials: minio
-          revision: "1"
-
-          ## revision "" -> vectors
-          ## revision "1" -> vectorchord    
+          # revision: ""
