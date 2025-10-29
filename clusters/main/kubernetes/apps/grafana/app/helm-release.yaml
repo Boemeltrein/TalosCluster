@@ -70,6 +70,7 @@ spec:
             weight: 1
             widget:
               custom:
+                version: 2
                 username: "admin"
                 password: "testpassword"
 
