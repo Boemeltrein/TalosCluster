@@ -64,6 +64,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Observability"
+            weight: 1
+            widget:
+              custom:
+                username: "admin"
+                password: "testpassword"
 
     cnpg:
       main:
