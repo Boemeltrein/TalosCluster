@@ -72,6 +72,7 @@ spec:
                 # WATCH_SERVER_TIMEOUT: 3600
                 # WATCH_CLIENT_TIMEOUT: 3600
                 SKIP_TLS_VERIFY: true
+                REQ_SKIP_TLS_VERIFY: true
                 REQ_USERNAME: "{{ .Values.workload.main.podSpec.containers.main.env.GF_SECURITY_ADMIN_USER }}"
                 REQ_PASSWORD: "{{ .Values.workload.main.podSpec.containers.main.env.GF_SECURITY_ADMIN_PASSWORD }}"
                 REQ_URL: "http://localhost:3000//apis/dashboard.grafana.app/v1beta1/namespaces/default/dashboards/production-overview"
