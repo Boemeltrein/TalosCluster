@@ -51,6 +51,13 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Arr"
+            weight: 5
+            widget:
+              custom:
+                key: "${HP_API_BAZARR}"
 
     persistence:
       config:
