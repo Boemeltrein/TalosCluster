@@ -59,7 +59,7 @@ spec:
             group: "Network"
             widget:
               custom:
-                key: "${HP_API_BAZARR}"
+                key: "${HP_API_HASS}"
 
     homeassistant:
       trusted_proxies:

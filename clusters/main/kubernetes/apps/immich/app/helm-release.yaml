@@ -54,6 +54,13 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Media"
+            widget:
+              custom:
+                key: "${HP_API_IMMICH}"
+                version: "2"
 
     persistence:
       library:
