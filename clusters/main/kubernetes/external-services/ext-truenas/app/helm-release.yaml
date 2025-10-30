@@ -60,8 +60,8 @@ spec:
               name: "TrueNAS"
               description: "network attached storage"
               group: "Media"
-              icon: https://www.truenas.com/favicon.ico
+              icon: "https://www.truenas.com/favicon.ico" 
               custom:
-                type: truenas
+                type: "truenas"
                 key: "${HP_API_TRUENAS}"
                 enablePools: "true"
