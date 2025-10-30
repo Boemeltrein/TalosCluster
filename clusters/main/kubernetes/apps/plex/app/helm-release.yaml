@@ -71,6 +71,12 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Media"
+            widget:
+              custom:
+                key: "${HP_API_PLEX}"
 
     persistence:
       config:
