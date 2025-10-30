@@ -57,6 +57,11 @@ spec:
             enabled: true
             group: "Network"
             widget:
+              name: "TrueNAS"
+              description: "network attached storage"
+              group: "Media"
+              icon: https://www.truenas.com/favicon.ico
               custom:
+                type: truenas
                 key: "${HP_API_TRUENAS}"
                 enablePools: "true"
