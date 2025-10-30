@@ -58,7 +58,7 @@ spec:
             name: "TrueNAS"
             description: "network attached storage"
             group: "Network"
-            icon: "https://www.truenas.com/favicon.ico" 
+            icon: "https://avatars.githubusercontent.com/u/53482242" 
             widget:
               custom:
                 type: "truenas"
