@@ -53,3 +53,10 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Network"
+            widget:
+              custom:
+                key: "${HP_API_TRUENAS}"
+                enablePools: "true"
