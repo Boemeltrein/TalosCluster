@@ -53,3 +53,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            name: "Unify"
+            description: "Cloud Gateway Ultra"
+            group: "Network"
+            icon: "https://logos-world.net/wp-content/uploads/2025/01/UniFi-Logo.png" 
+            widget:
+              custom:
+                type: "unifi"
+                username: "${HP_UNIFI_USER}"
+                password: "${HP_UNIFI_PASS}"
