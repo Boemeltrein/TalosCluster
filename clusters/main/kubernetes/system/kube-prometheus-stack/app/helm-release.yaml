@@ -31,22 +31,23 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    grafana:
-      enabled: false
-      forceDeployDashboards: true
-      defaultDashboardsEnabled: true
-      forceDeployDatasources: true
-      defaultDashboardsTimezone: Europe/Amsterdam
+
     crds:
       enabled: true
       upgradeJob:
         enabled: true
         forceConflicts: true
-    cleanPrometheusOperatorObjectNames: true
+    
     alertmanager:
       enabled: false
-    kubeProxy:
+
+    grafana:
       enabled: false
+      forceDeployDatasources: true
+      forceDeployDashboards: true
+      defaultDashboardsEnabled: true
+      defaultDashboardsTimezone: Europe/Amsterdam
+
     kubeEtcd:
       service:
         port: 2379
@@ -60,6 +61,38 @@ spec:
         caFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-ca.crt"
         certFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client.crt"
         keyFile: "/etc/prometheus/secrets/etcd-client-cert/etcd-client-key.key"
+
+    kubeProxy:
+      enabled: false
+
+    kube-state-metrics:
+      fullnameOverride: kube-state-metrics
+      metricLabelsAllowlist:
+        - pods=[*]
+        - deployments=[*]
+        - persistentvolumeclaims=[*]
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+
+    prometheus-node-exporter:
+      fullnameOverride: node-exporter  #Bestaat niet in chart
+      prometheus:
+        monitor:
+          enabled: true
+          relabelings:
+            - action: replace
+              regex: (.*)
+              replacement: $1
+              sourceLabels: ["__meta_kubernetes_pod_node_name"]
+              targetLabel: kubernetes_node
+
     prometheus:
       prometheusSpec:
         podMonitorSelectorNilUsesHelmValues: false
@@ -69,6 +102,7 @@ spec:
         serviceMonitorSelectorNilUsesHelmValues: false
         enableAdminAPI: true
         walCompression: true
+        serviceDiscoveryRole: EndpointSlice
         enableFeatures:
           - memory-snapshot-on-shutdown
         retention: 14d
@@ -97,29 +131,4 @@ spec:
             hosts:
               - prometheus.${BASE_DOMAIN}
 
-    prometheus-node-exporter:
-      fullnameOverride: node-exporter
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
-    kube-state-metrics:
-      fullnameOverride: kube-state-metrics
-      metricLabelsAllowlist:
-        - pods=[*]
-        - deployments=[*]
-        - persistentvolumeclaims=[*]
-      prometheus:
-        monitor:
-          enabled: true
-          relabelings:
-            - action: replace
-              regex: (.*)
-              replacement: $1
-              sourceLabels: ["__meta_kubernetes_pod_node_name"]
-              targetLabel: kubernetes_node
+    cleanPrometheusOperatorObjectNames: true
