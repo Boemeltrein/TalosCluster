@@ -32,10 +32,6 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    service:
-      main:
-        useSlice: true
-    
     ingress:
       main:
         enabled: true
