@@ -171,5 +171,7 @@ spec:
           - secretName: prometheus-general-tls
             hosts:
               - prometheus.${BASE_DOMAIN}
+      service: 
+        sessionAffinity: ""
 
     cleanPrometheusOperatorObjectNames: true
