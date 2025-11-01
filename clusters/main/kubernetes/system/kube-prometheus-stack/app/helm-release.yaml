@@ -71,6 +71,7 @@ spec:
         - pods=[*]
         - deployments=[*]
         - persistentvolumeclaims=[*]
+      namespacesDenylist: "external-services"
       collectors:
         - certificatesigningrequests
         - configmaps
