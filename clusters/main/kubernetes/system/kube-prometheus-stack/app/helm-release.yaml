@@ -96,9 +96,9 @@ spec:
     prometheusOperator:
       revisionHistoryLimit: 3
       ## Create Endpoints objects for kubelet targets.
-      kubeletEndpointsEnabled: false
+      kubeletEndpointsEnabled: true
       ## Create EndpointSlice objects for kubelet targets.
-      kubeletEndpointSliceEnabled: true
+      kubeletEndpointSliceEnabled: false
 
     prometheus:
       prometheusSpec:
