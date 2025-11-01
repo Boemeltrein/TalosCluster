@@ -66,7 +66,7 @@ spec:
       enabled: false
 
     kube-state-metrics:
-      fullnameOverride: kube-state-metrics  #Bestaat niet in chart
+      fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - pods=[*]
         - deployments=[*]
@@ -82,7 +82,7 @@ spec:
               targetLabel: kubernetes_node
 
     prometheus-node-exporter:
-      fullnameOverride: node-exporter  #Bestaat niet in chart
+      fullnameOverride: node-exporter
       prometheus:
         monitor:
           enabled: true
@@ -92,6 +92,13 @@ spec:
               replacement: $1
               sourceLabels: ["__meta_kubernetes_pod_node_name"]
               targetLabel: kubernetes_node
+
+    prometheusOperator:
+      revisionHistoryLimit: 3
+      ## Create Endpoints objects for kubelet targets.
+      kubeletEndpointsEnabled: false
+      ## Create EndpointSlice objects for kubelet targets.
+      kubeletEndpointSliceEnabled: true
 
     prometheus:
       prometheusSpec:
