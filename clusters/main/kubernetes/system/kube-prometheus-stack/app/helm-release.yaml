@@ -66,7 +66,7 @@ spec:
       enabled: false
 
     kube-state-metrics:
-      fullnameOverride: kube-state-metrics
+      # fullnameOverride: kube-state-metrics  #Bestaat niet in chart
       metricLabelsAllowlist:
         - pods=[*]
         - deployments=[*]
