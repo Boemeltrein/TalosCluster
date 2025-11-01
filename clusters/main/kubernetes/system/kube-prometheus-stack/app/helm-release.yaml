@@ -66,12 +66,45 @@ spec:
       enabled: false
 
     kube-state-metrics:
-      replicas: 2
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - pods=[*]
         - deployments=[*]
         - persistentvolumeclaims=[*]
+      collectors:
+        - certificatesigningrequests
+        - configmaps
+        - cronjobs
+        - daemonsets
+        - deployments
+        #- endpoints
+        - endpointslices
+        - horizontalpodautoscalers
+        - ingresses
+        - jobs
+        - leases
+        - limitranges
+        - mutatingwebhookconfigurations
+        - namespaces
+        - networkpolicies
+        - nodes
+        - persistentvolumeclaims
+        - persistentvolumes
+        - poddisruptionbudgets
+        - pods
+        - replicasets
+        - replicationcontrollers
+        - resourcequotas
+        - secrets
+        - services
+        - statefulsets
+        - storageclasses
+        - validatingwebhookconfigurations
+        - volumeattachments
+        # - ingressclasses
+        # - clusterrolebindings
+        # - clusterroles
+        # - roles      
       prometheus:
         monitor:
           enabled: true
