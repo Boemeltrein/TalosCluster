@@ -66,6 +66,7 @@ spec:
       enabled: false
 
     kube-state-metrics:
+      replicas: 2
       fullnameOverride: kube-state-metrics
       metricLabelsAllowlist:
         - pods=[*]
