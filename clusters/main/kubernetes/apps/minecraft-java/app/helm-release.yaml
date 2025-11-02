@@ -69,7 +69,7 @@ spec:
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.9"
+                VERSION: "1.21.10"
                 TYPE: "FABRIC"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
@@ -203,6 +203,3 @@ spec:
                 ]
               }
             }
-                  "villager workstation highlights"
-                ],
-                "Admin Tools": [
