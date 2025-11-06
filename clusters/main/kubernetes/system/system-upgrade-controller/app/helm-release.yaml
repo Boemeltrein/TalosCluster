@@ -9,5 +9,6 @@ spec:
   interval: 1h
   chartRef:
     kind: OCIRepository
-    name: tuppr      
+    name: tuppr
+    namespace: flux-system     
   values: {}
