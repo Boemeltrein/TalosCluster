@@ -7,7 +7,6 @@ resources:
   - bjw-s.yaml
   - cloudnative-pg.yaml
   - grafana.yaml
-  - home-operations
   - home-ops-mirror.yaml
   - jetstack.yaml
   - kubernetes-dashboard.yaml
