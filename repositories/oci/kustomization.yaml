@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - flux-manifests.yaml
   - capacitor-manifests.yaml
+  - tuppr.yaml
