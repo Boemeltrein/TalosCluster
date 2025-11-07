@@ -12,7 +12,7 @@ kubeconform_args=(
     "-strict"
     "-ignore-missing-schemas"
     "-ignore-filename-pattern"
-    "./clusters/main/kubernetes/core/system-upgrade-controller-plans/" 
+    "^.*/core/system-upgrade-controller-plans/app/.*" 
     "-skip"
     "Secret,ConfigMap"
     "-schema-location"
