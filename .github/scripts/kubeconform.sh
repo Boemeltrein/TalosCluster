@@ -12,7 +12,7 @@ kubeconform_args=(
     "-strict"
     "-ignore-missing-schemas"
     "-ignore-filename-pattern"
-    "^.*/core/system-upgrade-controller-plans/app/.*" 
+    "^.*/core/system-upgrade-controller-plans/.*" 
     "-skip"
     "Secret,ConfigMap"
     "-schema-location"
