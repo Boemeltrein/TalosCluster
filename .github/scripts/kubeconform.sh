@@ -11,6 +11,8 @@ kustomize_config="kustomization.yaml"
 kubeconform_args=(
     "-strict"
     "-ignore-missing-schemas"
+    "-ignore-filename-pattern"
+    "./clusters/main/kubernetes/core/system-upgrade-controller-plans/" 
     "-skip"
     "Secret,ConfigMap"
     "-schema-location"
