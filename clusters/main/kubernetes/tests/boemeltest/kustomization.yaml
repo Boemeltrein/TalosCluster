@@ -5,4 +5,4 @@ kind: Kustomization
 namespace: boemelspace2
 
 resources:
-  - ./helmrelease.yaml
+  - helmrelease.yaml
