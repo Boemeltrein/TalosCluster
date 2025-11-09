@@ -4,4 +4,3 @@ resources:
   - blocky/ks.yaml
   - clusterissuer/ks.yaml
   - metallb-config/ks.yaml
-  #- system-upgrade-controller-plans/ks.yaml
