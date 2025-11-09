@@ -5,3 +5,4 @@ resources:
   #- authentik/ks.yaml
   - seafile/ks.yaml
   #- tandoor/ks.yaml
+  - boemeltest
