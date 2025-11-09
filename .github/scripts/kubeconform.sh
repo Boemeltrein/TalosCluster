@@ -12,7 +12,7 @@ kubeconform_args=(
     "-strict"
     "-ignore-missing-schemas"
     "-skip"
-    "Secret,ConfigMap,tuppr.home-operations.com/v1alpha1/TalosUpgrade"
+    "Secret,ConfigMap,tuppr.home-operations.com/v1alpha1/TalosUpgrade,tuppr.home-operations.com/v1alpha1/KubernetesUpgrade"
     "-schema-location"
     "default"
     "-schema-location"

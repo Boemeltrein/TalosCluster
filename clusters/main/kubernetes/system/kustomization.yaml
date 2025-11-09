@@ -9,5 +9,6 @@ resources:
   - openebs/ks.yaml
   - snapshot-controller/ks.yaml
   - spegel/ks.yaml
+  - system-upgrade
   - volsync/ks.yaml
   - kube-prometheus-stack/ks.yaml

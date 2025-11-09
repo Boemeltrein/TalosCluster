@@ -1,0 +1,8 @@
+apiVersion: tuppr.home-operations.com/v1alpha1
+kind: KubernetesUpgrade
+metadata:
+  name: kubernetes
+  namespace: system-upgrade
+spec:
+  kubernetes:
+    version: ${UBERNETES_VERSION}  # Required - target Kubernetes version
