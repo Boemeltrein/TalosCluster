@@ -5,4 +5,4 @@ metadata:
   namespace: system-upgrade
 spec:
   kubernetes:
-    version: ${UBERNETES_VERSION}  # Required - target Kubernetes version
+    version: ${KUBERNETES_VERSION}  # Required - target Kubernetes version
