@@ -49,6 +49,12 @@ spec:
         encrKey: "${S3_ENCRKEY}"
 
     service:
+      main:
+        type: LoadBalancer
+        loadBalancerIP: ${IP_BLOCKY}
+        integrations:
+          metallb:
+            enabled: true        
       dns:
         externalTrafficPolicy: Local
         type: LoadBalancer
