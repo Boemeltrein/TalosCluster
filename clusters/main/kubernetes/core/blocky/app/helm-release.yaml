@@ -35,6 +35,10 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    configmap:
+      dashboard:
+        enabled: false
+
     credentials:
       minio:
         type: s3
