@@ -91,7 +91,7 @@ spec:
           revision: 6
           datasource:
             - { name: DS_PROMETHEUS, value: Prometheus }
-            - { name: VAR_BLOCKY_URL, value: "http://192.168.1.230:4000" }
+            - { name: VAR_BLOCKY_URL, value: 'http:\/\/192.168.1.230:4000' }
             #- { name: VAR_BLOCKY_URL, value: 'https:\/\/blocky.${SECRET_DOMAIN}' }
         cloudflared:
           # renovate: depName="Cloudflare Tunnels (cloudflared)"
@@ -141,7 +141,8 @@ spec:
       hosts:
         - "grafana.${BASE_DOMAIN}"
       tls:
-        - hosts:
+        - secretName: grafana-tls-0
+          hosts:
             - "grafana.${BASE_DOMAIN}"
     persistence:
       enabled: true
