@@ -31,4 +31,119 @@ spec:
     keepHistory: false
   values:
     TZ: Europe/Amsterdam
-  
+    deploymentStrategy:
+      type: Recreate    
+    env:
+      #GF_EXPLORE_ENABLED: true
+      GF_SERVER_ROOT_URL: "https://grafana.${BASE_DOMAIN}"
+      GF_PANELS_DISABLE_SANITIZE_HTML: "true"
+      GF_SECURITY_ADMIN_USER: "admin"
+      GF_SECURITY_ADMIN_PASSWORD: "testpassword"
+      GF_INSTALL_PLUGINS: ""
+      GF_AUTH_LDAP_ENABLED: "false"
+      GF_AUTH_LDAP_ALLOW_SIGN_UP: "false"
+    grafana.ini:
+      analytics:
+        check_for_updates: false
+        check_for_plugin_updates: false
+    dashboardProviders:
+      dashboardproviders.yaml:
+        apiVersion: 1
+        providers:
+          - name: default
+            orgId: 1
+            folder: ""
+            type: file
+            disableDeletion: false
+            editable: true
+            options:
+              path: /var/lib/grafana/dashboards/default
+    datasources:
+      datasources.yaml:
+        apiVersion: 1
+        datasources:
+          - name: Prometheus
+            type: prometheus
+            access: proxy
+            url: http://kube-prometheus-stack-prometheus.kube-prometheus-stack.svc.cluster.local:9090
+            isDefault: true
+          - name: Loki
+            type: loki
+            uid: loki
+            access: proxy
+            url: http://loki-headless.grafana-loki.svc.cluster.local:3100
+            jsonData:
+              maxLines: 250
+    dashboards:
+      default:
+        cert-manager:
+          url: https://gitlab.com/uneeq-oss/cert-manager-mixin/-/raw/master/dashboards/cert-manager.json
+          datasource: Prometheus
+        flux-cluster:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/cluster.json
+          datasource: Prometheus
+        flux-control-plane:
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/main/monitoring/configs/dashboards/control-plane.json
+          datasource: Prometheus 
+        blocky:
+          # renovate: depName="blocky"
+          gnetId: 13768
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_BLOCKY_URL, value: "http://192.168.1.230:4000" }
+            #- { name: VAR_BLOCKY_URL, value: 'https:\/\/blocky.${SECRET_DOMAIN}' }
+        cloudflared:
+          # renovate: depName="Cloudflare Tunnels (cloudflared)"
+          gnetId: 17457
+          revision: 6
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        spegel:
+          # renovate: depName="Spegel"
+          gnetId: 18089
+          revision: 1
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        volsync:
+          # renovate: depName="VolSync Dashboard"
+          gnetId: 21356
+          revision: 3
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+            - { name: VAR_REPLICATIONDESTNAME, value: '.*-bootstrap'}
+        nut-exporter:
+          url: https://raw.githubusercontent.com/DRuggeri/nut_exporter/master/dashboard/dashboard.json
+          datasource: 
+            - { name: DS_PROMETHEUS, value: Prometheus }
+        smartctl-exporter:
+          # renovate: depName="SMARTctl Exporter Dashboard"
+          gnetId: 22604
+          revision: 2
+          datasource:
+            - { name: DS_PROMETHEUS, value: Prometheus }
+
+    sidecar:
+      dashboards:
+        enabled: true
+        searchNamespace: ALL
+      datasources:
+        enabled: true
+        searchNamespace: ALL
+    serviceMonitor:
+      enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      annotations:
+        cert-manager.io/cluster-issuer: cloudflare-staging
+        cert-manager.io/private-key-rotation-policy: Always
+      hosts:
+        - grafana.${BASE_DOMAIN}"
+      tls:
+        - hosts:
+            - grafana.${BASE_DOMAIN}"
+    persistence:
+      enabled: true
+    testFramework:
+      enabled: false  
