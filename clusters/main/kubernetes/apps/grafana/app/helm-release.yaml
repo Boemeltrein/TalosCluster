@@ -9,10 +9,10 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 20.1.2
+      version: 10.1.4
       sourceRef:
         kind: HelmRepository
-        name: truecharts
+        name: grafana
         namespace: flux-system
       interval: 15m
   timeout: 20m
@@ -32,53 +32,3 @@ spec:
   values:
     TZ: Europe/Amsterdam
   
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                GF_SERVER_ROOT_URL: https://grafana.${BASE_DOMAIN}
-                GF_AUTH_GENERIC_OAUTH_ENABLED: true
-                GF_AUTH_GENERIC_OAUTH_NAME: Authelia
-                GF_AUTH_GENERIC_OAUTH_ICON: signin
-                GF_AUTH_GENERIC_OAUTH_CLIENT_ID: grafana
-                GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET: ${GRAFANA_OAUTH_CLIENT_SECRET}
-                GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email groups
-                GF_AUTH_GENERIC_OAUTH_EMPTY_SCOPES: false
-                GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.${DOMAIN}/api/oidc/authorization
-                GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.${DOMAIN}/api/oidc/token
-                GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.${DOMAIN}/api/oidc/userinfo
-                GF_AUTH_GENERIC_OAUTH_LOGIN_ATTRIBUTE_PATH: preferred_username
-                GF_AUTH_GENERIC_OAUTH_GROUPS_ATTRIBUTE_PATH: groups
-                GF_AUTH_GENERIC_OAUTH_NAME_ATTRIBUTE_PATH: name
-                GF_AUTH_GENERIC_OAUTH_USE_PKCE: true
-
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: grafana.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Observability"
-            weight: 1
-            widget:
-              custom:
-                version: "2"
-                username: "admin"
-                password: "testpassword"
-
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-    
-    configmap:
-      dashboard-nginx:
-        enabled: true
