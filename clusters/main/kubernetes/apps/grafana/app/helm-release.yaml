@@ -139,10 +139,10 @@ spec:
         cert-manager.io/cluster-issuer: cloudflare-staging
         cert-manager.io/private-key-rotation-policy: Always
       hosts:
-        - grafana.${BASE_DOMAIN}"
+        - "grafana.${BASE_DOMAIN}"
       tls:
         - hosts:
-            - grafana.${BASE_DOMAIN}"
+            - "grafana.${BASE_DOMAIN}"
     persistence:
       enabled: true
     testFramework:
