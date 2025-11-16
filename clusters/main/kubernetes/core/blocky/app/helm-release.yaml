@@ -51,7 +51,7 @@ spec:
     service:
       main:
         type: LoadBalancer
-        loadBalancerIP: ${IP_BLOCKY}
+        loadBalancerIP: 192.168.1.230
         integrations:
           metallb:
             enabled: true        
