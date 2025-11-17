@@ -25,5 +25,5 @@ spec:
       retries: 3
   values:
     configmap:
-      dashboard:
+      dashboard-volsync:
         enabled: false
