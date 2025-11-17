@@ -30,4 +30,4 @@ spec:
     monitoring:
       podMonitorEnabled: true
       grafanaDashboard:
-        create: true
+        create: "false"

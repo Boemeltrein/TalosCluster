@@ -73,3 +73,7 @@ spec:
     resources:
       requests:
         cpu: 10m
+
+    configmap:
+      dashboard:
+        enabled: false
