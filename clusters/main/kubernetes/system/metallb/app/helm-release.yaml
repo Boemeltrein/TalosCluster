@@ -24,4 +24,8 @@ spec:
   values:
     speaker:
       ignoreExcludeLB: true
+    prometheus:
+      rbacPrometheus: false
+      serviceMonitor:
+        enabled: true
 
