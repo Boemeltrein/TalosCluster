@@ -99,7 +99,7 @@ dashboards:
       marketplace:
         # renovate: depName="SMARTctl Exporter Dashboard"
         id: 22604
-        revision: 1
+        revision: 2
     traefik:
       enabled: false
       failOnError: false
