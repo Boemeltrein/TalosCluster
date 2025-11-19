@@ -69,8 +69,8 @@ dashboards:
       datasource:
         - name: "${DS_PROMETHEUS}"
           value: Prometheus
-      # renovate: depName="Metallb"
       marketplace:
+        # renovate: depName="Metallb"
         id: 20162
         revision: 6
     nginx:
@@ -96,8 +96,8 @@ dashboards:
       datasource:
         - name: "${DS_PROMETHEUS}"
           value: Prometheus
-      # renovate: depName="SMARTctl Exporter Dashboard"
       marketplace:
+        # renovate: depName="SMARTctl Exporter Dashboard"
         id: 22604
         revision: 2
     traefik:
@@ -106,8 +106,8 @@ dashboards:
       b64content: false
       datasource:
         - name: "${DS_PROMETHEUS}"
-          value: Prometheus
-      # renovate: depName="Traefik Official Standalone Dashboard"
+          value: Prometheus      
       marketplace:
+        # renovate: depName="Traefik Official Standalone Dashboard"
         id: 17346
         revision: 8
