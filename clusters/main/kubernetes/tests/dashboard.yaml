@@ -1,0 +1,113 @@
+dashboards:
+  grafana:
+    ceph-cluster:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://raw.githubusercontent.com/rook/rook/refs/tags/v1.18.7/deploy/examples/monitoring/grafana/Ceph%20Cluster%20Dashboard.json
+    ceph-osd-single:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/rook/rook/raw/refs/tags/v1.18.7/deploy/examples/monitoring/grafana/Ceph%20OSD%20Single%20Dashboard.json
+    ceph-pools:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/rook/rook/raw/refs/tags/v1.18.7/deploy/examples/monitoring/grafana/Ceph%20Pools%20Dashboard.json
+    cert-manager:
+      enabled: true
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      marketplace:
+        # renovate: depName="Cert-manager-Kubernetes"
+        id: 20842
+        revision: 3
+    cnpg:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      marketplace:
+        # renovate: depName="CloudNativePG"
+        id: 20417
+        revision: 4
+    flux-cluster:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/cluster.json
+    flux-control-plane:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/control-plane.json
+    metallb:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      # renovate: depName="Metallb"
+      marketplace:
+        id: 20162
+        revision: 6
+    nginx:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/kubernetes/ingress-nginx/raw/refs/tags/ingress-nginx-3.15.2/deploy/grafana/dashboards/nginx.json
+    node-feature-discovery:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      url: https://github.com/kubernetes-sigs/node-feature-discovery/raw/refs/tags/v0.18.3/examples/grafana-dashboard.json
+    prometheus-smartctl-exporter:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      # renovate: depName="SMARTctl Exporter Dashboard"
+      marketplace:
+        id: 22604
+        revision: 2
+    traefik:
+      enabled: false
+      failOnError: false
+      b64content: false
+      datasource:
+        - name: "${DS_PROMETHEUS}"
+          value: Prometheus
+      # renovate: depName="Traefik Official Standalone Dashboard"
+      marketplace:
+        id: 17346
+        revision: 8
