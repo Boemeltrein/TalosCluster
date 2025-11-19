@@ -34,7 +34,7 @@ dashboards:
       marketplace:
         # renovate: depName="Cert-manager-Kubernetes"
         id: 20842
-        revision: 3
+        revision: 2
     cnpg:
       enabled: false
       failOnError: false
@@ -45,7 +45,7 @@ dashboards:
       marketplace:
         # renovate: depName="CloudNativePG"
         id: 20417
-        revision: 4
+        revision: 3
     flux-cluster:
       enabled: false
       failOnError: false
@@ -72,7 +72,7 @@ dashboards:
       marketplace:
         # renovate: depName="Metallb"
         id: 20162
-        revision: 6
+        revision: 3
     nginx:
       enabled: false
       failOnError: false
@@ -99,7 +99,7 @@ dashboards:
       marketplace:
         # renovate: depName="SMARTctl Exporter Dashboard"
         id: 22604
-        revision: 2
+        revision: 1
     traefik:
       enabled: false
       failOnError: false
@@ -110,4 +110,4 @@ dashboards:
       marketplace:
         # renovate: depName="Traefik Official Standalone Dashboard"
         id: 17346
-        revision: 9
+        revision: 1
