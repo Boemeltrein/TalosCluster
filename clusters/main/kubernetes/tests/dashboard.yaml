@@ -34,7 +34,7 @@ dashboards:
       marketplace:
         # renovate: depName="Cert-manager-Kubernetes"
         id: 20842
-        revision: 2
+        revision: 3
     cnpg:
       enabled: false
       failOnError: false
