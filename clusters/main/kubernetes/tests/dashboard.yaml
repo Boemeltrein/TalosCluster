@@ -110,4 +110,4 @@ dashboards:
       marketplace:
         # renovate: depName="Traefik Official Standalone Dashboard"
         id: 17346
-        revision: 8
+        revision: 9
