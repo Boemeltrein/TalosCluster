@@ -45,7 +45,7 @@ dashboards:
       marketplace:
         # renovate: depName="CloudNativePG"
         id: 20417
-        revision: 3
+        revision: 4
     flux-cluster:
       enabled: false
       failOnError: false
