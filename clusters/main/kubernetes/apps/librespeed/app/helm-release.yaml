@@ -35,7 +35,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: external
         hosts:
           - host: librespeed.${BASE_DOMAIN}
         integrations:
