@@ -39,7 +39,7 @@ data:
       default_policy: 'deny'
       rules:
         - domain:
-            - "bluemap.${DOMAIN}""
+            - "bluemap.${DOMAIN}"
             - "dynmap.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
