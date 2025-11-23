@@ -140,7 +140,7 @@ spec:
         targetSelector:
           bluemap: bluemap
         hosts:
-          - host: ${MINECRAFT_URL}
+          - host: bluemap.${DOMAIN}
         integrations:
           certManager:
             enabled: true
