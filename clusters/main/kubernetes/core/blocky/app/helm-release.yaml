@@ -53,17 +53,6 @@ spec:
           metallb:
             enabled: true
 
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: blocky.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-
     # -- set the default DNS upstream servers
     defaultUpstreams:
       - tcp-tls:1.1.1.1:853
