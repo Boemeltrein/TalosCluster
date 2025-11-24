@@ -151,5 +151,5 @@ spec:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
             - name: "$${VAR_BLOCKY_URL}"
-              value: "192.168.1.230:4000"
+              value: "http://192.168.1.230:4000"
           url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-grafana.json
