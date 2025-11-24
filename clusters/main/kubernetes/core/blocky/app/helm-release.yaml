@@ -50,6 +50,8 @@ spec:
         ingressClassName: internal
         hosts:
           - host: blocky.${BASE_DOMAIN}
+            paths:
+              - path: /
         integrations:
           certManager:
             enabled: true
