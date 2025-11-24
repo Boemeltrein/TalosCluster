@@ -87,7 +87,7 @@ spec:
         data:
           datasource-loki.yaml: |-
             apiVersion: 1
-            providers:
+            datasources:
               - name: Loki
                 type: loki
                 uid: loki
