@@ -80,5 +80,19 @@ spec:
           singleNode: true
     
     configmap:
-      dashboard-nginx:
+      datasource-loki:
         enabled: true
+        labels:
+          grafana_datasource: "1"
+        data:
+          datasource-loki.yaml: |-
+            apiVersion: 1
+            providers:
+              - name: Loki
+                type: loki
+                uid: loki
+                url: http://loki-headless.grafana-loki.svc.cluster.local:3100
+                access: proxy
+                isDefault: false
+                jsonData:
+                  maxLines: 250
