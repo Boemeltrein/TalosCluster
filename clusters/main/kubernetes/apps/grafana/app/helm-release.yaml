@@ -107,7 +107,7 @@ spec:
           marketplace:
             # renovate: depName="Cert-manager-Kubernetes"
             id: 20842
-            revision: 1
+            revision: 3
         cnpg:
           enabled: true
           datasource:
