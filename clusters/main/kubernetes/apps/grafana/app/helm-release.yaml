@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: grafana
-      version: 20.2.1
+      version: 21.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -96,3 +96,51 @@ spec:
                 isDefault: false
                 jsonData:
                   maxLines: 250
+
+    dashboards:
+      grafana:
+        cert-manager:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="Cert-manager-Kubernetes"
+            id: 20842
+            revision: 1
+        cnpg:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="CloudNativePG"
+            id: 20417
+            revision: 1
+        flux-cluster:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/cluster.json
+        flux-control-plane:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/control-plane.json
+        metallb:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="Metallb"
+            id: 20162
+            revision: 1
+        nginx:
+          enabled: true
+          datasource:
+            - name: "${DS_PROMETHEUS}"
+              value: Prometheus
+          url: https://github.com/kubernetes/ingress-nginx/raw/refs/tags/ingress-nginx-3.15.2/deploy/grafana/dashboards/nginx.json
