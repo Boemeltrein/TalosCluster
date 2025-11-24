@@ -39,6 +39,7 @@ spec:
             main:
               env:
                 GF_SERVER_ROOT_URL: https://grafana.${BASE_DOMAIN}
+                GF_PANELS_DISABLE_SANITIZE_HTML: "true"
                 GF_AUTH_GENERIC_OAUTH_ENABLED: true
                 GF_AUTH_GENERIC_OAUTH_NAME: Authelia
                 GF_AUTH_GENERIC_OAUTH_ICON: signin
