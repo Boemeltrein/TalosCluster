@@ -44,6 +44,17 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
 
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: blocky.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
     service:    
       dns:
         externalTrafficPolicy: Local
