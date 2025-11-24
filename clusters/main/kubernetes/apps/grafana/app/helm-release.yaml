@@ -116,7 +116,7 @@ spec:
           marketplace:
             # renovate: depName="CloudNativePG"
             id: 20417
-            revision: 1
+            revision: 4
         flux-cluster:
           enabled: true
           datasource:
