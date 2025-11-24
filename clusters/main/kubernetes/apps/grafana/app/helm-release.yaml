@@ -150,4 +150,6 @@ spec:
           datasource:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
+            - name: "$${VAR_BLOCKY_URL}"
+              value: VAR_BLOCKY_URL.svc.cluster.local
           url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-grafana.json
