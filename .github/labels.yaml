@@ -1,21 +1,22 @@
 ---
 # Area
-- { name: "area/github",             color: "ee01e4" }
-- { name: "area/cluster",            color: "ee01e4" }
-- { name: "area/taskfile",           color: "ee01e4" }
+- { name: "area/github",                 color: "ee01e4" }
+- { name: "area/cluster",                color: "ee01e4" }
+- { name: "area/taskfile",               color: "ee01e4" }
 # Renovate
-- { name: "renovate/container",      color: "027fa0" }
-- { name: "renovate/github-action",  color: "027fa0" }
-- { name: "renovate/github-release", color: "027fa0" }
-- { name: "renovate/helm",           color: "027fa0" }
+- { name: "renovate/container",          color: "027fa0" }
+- { name: "renovate/github-action",      color: "027fa0" }
+- { name: "renovate/github-release",     color: "027fa0" }
+- { name: "renovate/helm",               color: "027fa0" }
+- { name: "renovate/grafana-dashboard",  color: "#a2eeef"}
 # Semantic Type
-- { name: "type/digest",             color: "ffec19" }
-- { name: "type/patch",              color: "ffec19" }
-- { name: "type/minor",              color: "ff9800" }
-- { name: "type/major",              color: "f6412d" }
-- { name: "type/break",              color: "f6412d" }
+- { name: "type/digest",                 color: "ffec19" }
+- { name: "type/patch",                  color: "ffec19" }
+- { name: "type/minor",                  color: "ff9800" }
+- { name: "type/major",                  color: "f6412d" }
+- { name: "type/break",                  color: "f6412d" }
 # Uncategorized
-- { name: "hold/upstream",           color: "ee0701" }
-- { name: "automerge",               color: "0e8a16" }
-- { name: "system-upgrade",          color: "8a44cc" }
-- { name: "longhorn-update",          color: "8a44cc" }
+- { name: "hold/upstream",               color: "ee0701" }
+- { name: "automerge",                   color: "0e8a16" }
+- { name: "system-upgrade",              color: "8a44cc" }
+- { name: "longhorn-update",             color: "8a44cc" }
