@@ -35,10 +35,6 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    configmap:
-      dashboard:
-        enabled: true
-
     credentials:
       minio:
         type: s3
@@ -130,6 +126,10 @@ spec:
     queryLog:
       # optional one of: mysql, postgresql, csv, csv-client. If empty, log to console
       type: "postgresql"
+
+    configmap:
+      dashboard:
+        enabled: false
 
     cnpg:
       main:
