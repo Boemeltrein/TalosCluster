@@ -144,3 +144,9 @@ spec:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
           url: https://github.com/kubernetes/ingress-nginx/raw/refs/tags/ingress-nginx-3.15.2/deploy/grafana/dashboards/nginx.json
+        blocky:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          url: https://github.com/0xERR0R/blocky/blob/main/docs/blocky-grafana.json
