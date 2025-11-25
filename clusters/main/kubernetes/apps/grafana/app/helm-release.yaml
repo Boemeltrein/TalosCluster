@@ -153,3 +153,12 @@ spec:
             - name: "$${VAR_BLOCKY_URL}"
               value: "https://blocky.${BASE_DOMAIN}"
           url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-grafana.json
+        blocky-postgres:
+          enabled: true
+          datasource:
+            - name: "$${DS_BLOCKY-POSTGRESQL}"
+              value: blockypostgres
+          marketplace:
+            # renovate: depName="Blocky-Postgres"
+            id: 17996
+            revision: 13        
