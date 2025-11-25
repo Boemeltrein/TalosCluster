@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: cloudflared
-      version: 14.15.0
+      version: 14.16.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
