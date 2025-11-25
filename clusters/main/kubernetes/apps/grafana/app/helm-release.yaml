@@ -168,7 +168,7 @@ spec:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
             - name: "$${VAR_REPLICATIONDESTNAME}"
-              value: '.*-dst|.*-bootstrap'
+              value: '.*-dest|.*-bootstrap'
           marketplace:
             # renovate: depName="VolSync Dashboard"
             id: 21356
