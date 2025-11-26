@@ -6,6 +6,6 @@
     "github>Boemeltrein/TalosCluster//.github/renovate/special_talos.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/special_longhorn.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/stopdigistpinning.json5"
+    "github>Boemeltrein/TalosCluster//.github/renovate/special_stopdigistpinning.json5"
   ]
 }
