@@ -5,7 +5,7 @@
     "github>trueforge-org/truecharts//.github/renovate/main.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/special_talos.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/special_longhorn.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/special_stopdigistpinning.json5"
+    "github>Boemeltrein/TalosCluster//.github/renovate/major_dashboardapproval_disable.json5"
+    // "github>Boemeltrein/TalosCluster//.github/renovate/special_stopdigistpinning.json5"
   ]
 }
