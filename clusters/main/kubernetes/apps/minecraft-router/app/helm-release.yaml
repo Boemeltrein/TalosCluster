@@ -58,3 +58,4 @@ spec:
       mappings:
         - ${MINECRAFT_URL}=minecraft-java.minecraft-java.svc.cluster.local:25565
         - ${HERMITCRAFT_URL}=hermitcraft-java-minecraft-java.hermitcraft-java.svc.cluster.local:25565
+        - escape.${DOMAIN}=minecraft-escape-minecraft-java.minecraft-escape.svc.cluster.local:25565
