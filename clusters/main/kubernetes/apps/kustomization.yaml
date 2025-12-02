@@ -27,5 +27,6 @@ resources:
   - signal-cli-rest-api/ks.yaml
   - bazarr/ks.yaml
   - hermitcraft-java/ks.yaml
-  - immich/ks.yaml  - minecraft-escape
+  - immich/ks.yaml  
   - minecraft-escape/ks.yaml
+  
