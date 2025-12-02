@@ -49,8 +49,8 @@ spec:
 #          metallb:
 #            enabled: true
     
-    modrinth:
-      - fabric-api
+#    modrinth:
+#      - fabric-api
 #      - simple-voice-chat:beta
 #      - audioplayer:beta
 
@@ -69,7 +69,7 @@ spec:
                 DUMP_SERVER_PROPERTIES: "true"
                 VERSION: "1.21.8"
                 WORLD: "https://${DOMAIN}/minecraft-escape/VEINBOUND_Escape_Together_2.1.zip"
-                TYPE: "FABRIC"
+                TYPE: "VANILLA"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
                 MAX_WORLD_SIZE: 50000
@@ -83,12 +83,12 @@ spec:
                 SPAWN_ANIMALS: "true"
                 SPAWN_MONSTERS: "true"
                 SPAWN_NPCS: "true"
-                VIEW_DISTANCE: 32
+                VIEW_DISTANCE: 8
                 MODE: "adventure" 
-                MOTD: "VEINBOUND: Escape Together"
+                # MOTD: "VEINBOUND: Escape Together"
                 PVP: "true"
                 LEVEL_TYPE: hard
-                LEVEL: "Veinbound"
+                # LEVEL: "Veinbound"
                 ONLINE_MODE: "true"                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 RCON_PASSWORD:
@@ -105,7 +105,7 @@ spec:
                 ALLOW_FLIGHT: "false"
                 # CURSEFORGE_FILES: "lithium,fabric-api"
                 # CF_API_KEY: ${MINECRAFT_CF_API_KEY}
-                MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
+                # MODRINTH_PROJECTS: '{{ join "," .Values.modrinth }}'
                 # VANILLATWEAKS_FILE: "/config/vt-datapacks.json"
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
