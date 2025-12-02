@@ -85,10 +85,10 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 8
                 MODE: "adventure" 
-                # MOTD: "VEINBOUND: Escape Together"
+                MOTD: "VEINBOUND: Escape Together"
                 PVP: "true"
                 LEVEL_TYPE: hard
-                # LEVEL: "Veinbound"
+                LEVEL: "Veinbound"
                 ONLINE_MODE: "true"                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
                 RCON_PASSWORD:
