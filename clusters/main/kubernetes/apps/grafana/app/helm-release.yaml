@@ -182,3 +182,9 @@ spec:
             # renovate: depName="Container Log Dashboard"
             id: 16966
             revision: 1
+        arrs:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          url: https://raw.githubusercontent.com/onedr0p/exportarr/refs/heads/master/examples/grafana/dashboard2.json
