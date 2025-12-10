@@ -7,7 +7,7 @@
       "automerge": false,
       "matchPackageNames": ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
       "labels": ["type/patch", "system-upgrade"],
-      "addLabels": ["!"]
+      "addLabels": null
     },
     {
       "description": ["Block automerge for Kubelet and Talos version Minor"],
@@ -15,7 +15,7 @@
       "automerge": false,
       "matchPackageNames": ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
       "labels": ["type/minor", "system-upgrade"],
-      "addLabels": ["!"]
+      "addLabels": null
     },
     {
       "description": ["Block automerge for Kubelet and Talos version Major"],
@@ -23,7 +23,7 @@
       "dependencyDashboardApproval": false,
       "matchPackageNames": ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
       "labels": ["type/major", "system-upgrade"],
-      "addLabels": ["!"]
+      "addLabels": null
     }
   ]
 }
