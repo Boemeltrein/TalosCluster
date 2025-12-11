@@ -6,7 +6,7 @@
       "matchUpdateTypes": ["minor"],
       "automerge": false,
       "matchPackageNames": ["ghcr.io/home-operations/charts-mirror/longhorn"],
-      "labels": ["type/minor", "longhorn-update"]
+      "labels": ["type/minor", "longhorn-update"],
       "addLabels": null
     }
   ]
