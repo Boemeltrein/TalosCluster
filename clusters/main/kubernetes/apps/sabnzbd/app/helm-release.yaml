@@ -38,7 +38,7 @@ spec:
           containers:
             main:
               env:
-                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc"
+                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
 
     credentials:
       minio:
