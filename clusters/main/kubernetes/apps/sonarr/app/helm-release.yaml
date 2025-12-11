@@ -86,10 +86,10 @@ spec:
       requests:
         cpu: 10m
 
-workload:
-  main:
-    podSpec:
-      containers:
-        exportarr:
-          env:
-            ENABLE_ADDITIONAL_METRICS: true
+    workload:
+      main:
+        podSpec:
+          containers:
+            exportarr:
+              env:
+                ENABLE_ADDITIONAL_METRICS: true
