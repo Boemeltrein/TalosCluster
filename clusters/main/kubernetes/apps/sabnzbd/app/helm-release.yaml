@@ -91,3 +91,5 @@ spec:
       main:
         enabled: true
         apiKey: ${HP_API_SABNZBD}
+        prometheusRule:
+          enabled: false
