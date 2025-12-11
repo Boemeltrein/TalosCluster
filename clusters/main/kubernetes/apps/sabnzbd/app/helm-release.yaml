@@ -39,6 +39,9 @@ spec:
             main:
               env:
                 SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
+            exportarr:
+              env:
+                ENABLE_ADDITIONAL_METRICS: true
 
     credentials:
       minio:
