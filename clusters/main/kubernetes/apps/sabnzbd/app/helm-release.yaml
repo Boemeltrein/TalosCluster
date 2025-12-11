@@ -84,7 +84,7 @@ spec:
         path: /mnt/HDD_Cluster/Usenet
         mountPath: /data/usenet
 
-metrics:
-  main:
-    enabled: true
-    apiKey: ${HP_API_SABNZBD}
+    metrics:
+      main:
+        enabled: true
+        apiKey: ${HP_API_SABNZBD}
