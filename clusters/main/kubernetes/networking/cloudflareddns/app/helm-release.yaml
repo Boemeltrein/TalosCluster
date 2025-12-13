@@ -31,6 +31,8 @@ spec:
   uninstall:
     keepHistory: false
   values:
+    TZ: Europe/Amsterdam
+    
     # for now until image is fixed
     image:
       repository: ghcr.io/hotio/cloudflareddns
@@ -45,6 +47,7 @@ spec:
 
     cloudflareddns:
       api_token: ${CLOUDFLARE_TOKEN}
+      interval: 3600
       host_zone_record:
       - domain: minecraft.${DOMAIN}
         record: A

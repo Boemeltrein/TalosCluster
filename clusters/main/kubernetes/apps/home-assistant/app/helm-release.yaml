@@ -31,7 +31,8 @@ spec:
     keepHistory: false
   values:
     TZ: Europe/Amsterdam
-    
+
+    # for now until image is fixed
     image:
       repository: docker.io/homeassistant/home-assistant
       pullPolicy: IfNotPresent
