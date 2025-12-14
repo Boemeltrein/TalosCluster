@@ -55,3 +55,6 @@ spec:
       - domain: hermitcraft.${DOMAIN}
         record: A
         zone: ${CLOUDFLARE_ZONE_ID}
+      - domain: wireguard.${DOMAIN}
+        record: A
+        zone: ${CLOUDFLARE_ZONE_ID}
