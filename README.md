@@ -1,9 +1,13 @@
-This is a kubernetes cluster Powered by TrueCharts ClusterTool<br />
-<br />
-24-11-2024  Final setup with v1.0.0, deployed with Volsync and CNPG backups<br />
-03-01-2025  Upgraded to clustertool v1.0.1<br />
-01-02-2025  Upgraded to clustertool v1.0.4<br />
-13-04-2025  Upgraded to clustertool v2.0.0<br />
-02-09-2025  Fresh Bootstrap Talos 1.10.7 and Kubernetes 1.33.4<br />
-04-09-2025  Downgraded to Talos 1.10.6<br />
-10-09-2025  Upgraded to Talos 1.11.1 and Kubernetes 1.34.1<br />
+<div align="center">
+
+# Boemeltrein's CLuster
+
+[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue
+)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue
+)](https://www.kubernetes.io/)&nbsp;&nbsp;
+
+
+## What is this?
+
+This is a kubernetes cluster Powered by TrueCharts [ClusterTool](https://truecharts.org/truetech/truetool/)<br />
