@@ -92,10 +92,11 @@ spec:
       configfile:
         enabled: true
         type: configmap
+        expandObjectName: false
+        readOnly: true
         objectName: kromgo-configfile
         mountPath: /kromgo/config.yaml
         subPath: config.yaml
-        readOnly: true
 
     # Raw Kromgo configuration
     # Replace it with your configuration
