@@ -8,4 +8,5 @@ resources:
   - ./flux.yaml
   - ./upgradesettings.yaml
   - ./namespace.yaml
+  - ./podmonitor.yaml
   # - sopssecret.secret.yaml
