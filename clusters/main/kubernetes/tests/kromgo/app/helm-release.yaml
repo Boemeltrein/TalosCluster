@@ -119,3 +119,7 @@ spec:
           query: label_replace(flux_instance_info, "revision", "$1", "revision", "v(.+)@sha256:.+")
           label: revision
           title: Flux
+
+        - name: kubernetes_build_version
+          query: kubernetes_build_info{service="kubernetes"}
+          label: git_version
