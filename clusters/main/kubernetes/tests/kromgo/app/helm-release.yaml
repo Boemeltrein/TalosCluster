@@ -123,3 +123,4 @@ spec:
         - name: kubernetes_build_version
           query: kubernetes_build_info{service="kubernetes"}
           label: git_version
+          title: fsafas
