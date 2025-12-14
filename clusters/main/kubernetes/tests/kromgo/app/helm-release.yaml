@@ -108,7 +108,7 @@ spec:
         - name: talos_version
           query: label_replace(node_os_info{name="Talos"}, "version_id", "$1", "version_id", "v(.+)")
           label: version_id
-          title: Talos
+          title: Talosdaada
 
         - name: kubernetes_version
           query: label_replace(kubernetes_build_info{service="kubernetes"}, "git_version", "$1", "git_version", "v(.+)")
