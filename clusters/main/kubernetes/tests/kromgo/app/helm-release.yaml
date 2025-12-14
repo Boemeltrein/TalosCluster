@@ -81,7 +81,7 @@ spec:
                   port: "{{ $.Values.service.main.ports.health.port }}"
 
     configmap:
-      configfile:
+      kromgo-configfile:
         enabled: true
         data:
           config.yaml: |
