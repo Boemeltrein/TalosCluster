@@ -115,6 +115,29 @@ spec:
                 replacement: $1
                 sourceLabels: ["__meta_kubernetes_pod_node_name"]
                 targetLabel: kubernetes_node
+      rbac:
+        extraRules:
+          - apiGroups:
+              - source.toolkit.fluxcd.io
+              - kustomize.toolkit.fluxcd.io
+              - helm.toolkit.fluxcd.io
+              - notification.toolkit.fluxcd.io
+              - image.toolkit.fluxcd.io
+            resources:
+              - gitrepositories
+              - buckets
+              - helmrepositories
+              - helmcharts
+              - ocirepositories
+              - kustomizations
+              - helmreleases
+              - alerts
+              - providers
+              - receivers
+              - imagerepositories
+              - imagepolicies
+              - imageupdateautomations
+            verbs: [ "list", "watch" ]      
       customResourceState:
         enabled: true
         config:
