@@ -115,6 +115,11 @@ spec:
           label: git_version
           title: Kubernetes
 
+        - name: flux_version
+          query: label_replace(flux_instance_info, "revision", "$1", "revision", "v(.+)@sha256:.+")
+          label: revision
+          title: Flux
+          
         - name: talos_version_option
           query: node_os_info{ name="Talos"}
           label: version_id
