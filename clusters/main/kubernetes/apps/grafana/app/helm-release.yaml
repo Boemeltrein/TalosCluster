@@ -123,13 +123,13 @@ spec:
           datasource:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
-          url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/cluster.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/cluster.json
         flux-control-plane:
           enabled: true
           datasource:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
-          url: https://github.com/fluxcd/flux2-monitoring-example/raw/82c37257787bba13a40b17bed9bd8191ee7aa049/monitoring/configs/dashboards/control-plane.json
+          url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/control-plane.json
         metallb:
           enabled: true
           datasource:
