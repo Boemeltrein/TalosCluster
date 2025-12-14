@@ -74,7 +74,6 @@ spec:
       collectors:
         - certificatesigningrequests
         - configmaps
-        - customresourcestate
         - cronjobs
         - daemonsets
         - deployments
