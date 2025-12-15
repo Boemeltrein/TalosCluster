@@ -29,4 +29,6 @@ resources:
   - hermitcraft-java/ks.yaml
   - immich/ks.yaml  
   - minecraft-escape/ks.yaml
+  - kromgo/ks.yaml
+  
   
