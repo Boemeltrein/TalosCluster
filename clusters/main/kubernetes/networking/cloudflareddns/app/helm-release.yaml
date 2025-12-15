@@ -37,7 +37,7 @@ spec:
     image:
       repository: ghcr.io/hotio/cloudflareddns
       pullPolicy: IfNotPresent
-      tag: latest@sha256:bd7fb429ef78eda5c40bf752503cb48a3bf3f8d48dadc01686fcc314aa94f62e
+      tag: latest@sha256:9c04193d96ac77dc274398f712fbfcd5dbfc91d8dfa3b8abb451902b5d4993d1
     securityContext:
       container:
         runAsNonRoot: false
