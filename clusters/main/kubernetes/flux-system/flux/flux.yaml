@@ -26,12 +26,12 @@ spec:
         kind: NetworkPolicy
     # Remove the image reflector and automation controllers
     - patch: |
-        $patch: delete 
+        $patch: delete
       target:
         kind: Deployment
         name: image-reflector-controller
     - patch: |
-        $patch: delete 
+        $patch: delete
       target:
         kind: Deployment
         name: image-automation-controller
