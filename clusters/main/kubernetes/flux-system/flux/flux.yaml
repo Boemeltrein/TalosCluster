@@ -27,11 +27,19 @@ spec:
     # Remove the image reflector and automation controllers
     - patch: |
         $patch: delete
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: image-reflector-controller
       target:
         kind: Deployment
         name: image-reflector-controller
     - patch: |
         $patch: delete
+        apiVersion: apps/v1
+        kind: Deployment
+        metadata:
+          name: image-automation-controller
       target:
         kind: Deployment
         name: image-automation-controller
