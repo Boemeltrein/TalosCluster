@@ -9,4 +9,4 @@ spec:
   interval: 12h
   url: oci://ghcr.io/home-operations/charts/tuppr
   ref:
-    tag: 0.0.46
+    tag: 0.0.47
