@@ -7,6 +7,9 @@ metadata:
   namespace: flux-system
 spec:
   interval: 12h
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
   url: oci://ghcr.io/home-operations/charts/tuppr
   ref:
     tag: 0.0.47
