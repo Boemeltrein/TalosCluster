@@ -4,7 +4,6 @@ resources:
   - namespace.yaml
   - ext-denon/ks.yaml
   - ext-plugwise/ks.yaml
-  - ext-smartctl/ks.yaml
   - ext-truenas/ks.yaml
   - ext-unifi/ks.yaml
 components:
