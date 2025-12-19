@@ -8,7 +8,7 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - truenas.thuis:9633
+        - 192.168.1.50:9633
   metricsPath: /metrics
   relabelings:
     - action: replace
