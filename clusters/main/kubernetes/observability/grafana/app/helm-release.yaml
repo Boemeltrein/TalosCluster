@@ -188,3 +188,12 @@ spec:
             - name: "$${DS_PROMETHEUS}"
               value: Prometheus
           url: https://raw.githubusercontent.com/onedr0p/exportarr/refs/heads/master/examples/grafana/dashboard2.json
+        smartctl-exporter:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="SmartCTL"
+            id: 22604
+            revision: 2
