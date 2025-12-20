@@ -6,4 +6,3 @@ resources:
   - grafana-loki/ks.yaml
   - kromgo/ks.yaml
   - truenas-exporter/ks.yaml
-  - smartctl-exporter/ks.yaml
