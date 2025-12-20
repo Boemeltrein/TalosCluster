@@ -195,5 +195,5 @@ spec:
               value: Prometheus
           marketplace:
             # renovate: depName="SmartCTL"
-            id: 22604
-            revision: 2
+            id: 22381
+            revision: 1
