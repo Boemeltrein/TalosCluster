@@ -19,4 +19,4 @@
 ## What is this?
 
 This is a kubernetes cluster Powered by TrueCharts [ClusterTool](https://truecharts.org/truetech/truetool/).<br />
-A single node cluster, Talos running in a VM on Truenas.
+A single node cluster, Talos running in a VM on TrueNAS.
