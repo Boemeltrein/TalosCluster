@@ -11,7 +11,7 @@ spec:
     groupInterval: 5m
     groupWait: 1m
     receiver: discord
-    repeatInterval: 12h
+    repeatInterval: 5m
     routes:
       - receiver: blackhole
         matchers:
