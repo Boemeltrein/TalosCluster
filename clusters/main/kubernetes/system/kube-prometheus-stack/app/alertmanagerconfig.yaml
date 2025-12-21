@@ -46,6 +46,7 @@ spec:
         - apiURL: 
             name: alertmanager-secret
             key: DISCORD_WEBHOOK_URL
+          username: Alertmanager
           title: |-
             {{- if eq .Status "firing" }}🚨 **ALERT FIRING** 🚨{{- else }}✅ **ALERT RESOLVED** ✅{{- end }}
           message: |-
