@@ -2,10 +2,9 @@
 
 # Boemeltrein's Cluster
 
-[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue
-)](https://www.talos.dev/)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue
-)](https://www.kubernetes.io/)&nbsp;&nbsp;
+[![Truenas](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftruenas_version&style=for-the-badge&logo=truenas&logoColor=white&label=%20&color=blue)](https://www.truenas.com/)&nbsp;&nbsp;
+[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue)](https://www.kubernetes.io/)&nbsp;&nbsp;
 [![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
 [![Age-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_age_days&style=flat-square&label=Age)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
