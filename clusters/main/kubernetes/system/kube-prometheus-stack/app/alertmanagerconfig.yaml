@@ -18,6 +18,9 @@ spec:
           - name: alertname
             value: InfoInhibitor
             matchType: =
+          - name: alertname
+            value: Watchdog
+            matchType: =
       - receiver: discord
         matchers:
           - name: severity
