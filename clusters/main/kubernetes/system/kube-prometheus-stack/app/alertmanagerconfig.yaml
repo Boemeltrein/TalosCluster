@@ -18,6 +18,8 @@ spec:
           - name: alertname
             value: InfoInhibitor
             matchType: =
+      - receiver: blackhole
+        matchers:
           - name: alertname
             value: Watchdog
             matchType: =
