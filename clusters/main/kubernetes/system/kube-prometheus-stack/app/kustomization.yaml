@@ -8,5 +8,4 @@ resources:
   - helm-release.yaml
   - scrapeconfig.yaml
 components:
-  - ../../../../components/notifications/discord  - TEMPalertmanagerconfig.yaml
-  - TEMPalertmanagervalues.yaml
+  - ../../../../components/notifications/discord
