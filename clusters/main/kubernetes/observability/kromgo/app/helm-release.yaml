@@ -63,6 +63,11 @@ spec:
           label: revision
           title: Flux
 
+        - name: truenas_version
+          query: truenas_info
+          label: version
+          title: Truenas
+
         - name: cluster_node_count
           query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
           colors:
