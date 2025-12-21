@@ -1,0 +1,728 @@
+## Configuration for alertmanager
+## ref: https://prometheus.io/docs/alerting/alertmanager/
+##
+alertmanager:
+    ## Deploy alertmanager
+    ##
+    enabled: true
+    # Optional: Override the namespace where Alertmanager will be deployed.
+    namespaceOverride: ""
+    ## Annotations for Alertmanager
+    ##
+    annotations: {}
+    ## Additional labels for Alertmanager
+    ##
+    additionalLabels: {}
+    ## API that Prometheus will use to communicate with alertmanager. Possible values are v1, v2
+    ##
+    apiVersion: v2
+    ## @param alertmanager.enableFeatures Enable access to Alertmanager disabled features.
+    ##
+    enableFeatures: []
+    ## Create dashboard configmap even if alertmanager deployment has been disabled
+    ##
+    forceDeployDashboards: false
+    ## Network Policy configuration
+    ##
+    networkPolicy:
+        # -- Enable network policy for Alertmanager
+        enabled: false
+        # -- Define policy types. If egress is enabled, both Ingress and Egress will be used
+        # Valid values are ["Ingress"] or ["Ingress", "Egress"]
+        ##
+        policyTypes:
+            - Ingress
+        # -- Gateway (formerly ingress controller) configuration
+        ##
+        gateway:
+            # -- Gateway namespace
+            ##
+            namespace: ""
+            # -- Gateway pod labels
+            ##
+            podLabels: {}
+            # app.kubernetes.io/name: ingress-nginx
+        # -- Additional custom ingress rules
+        ##
+        additionalIngress: []
+        # - from:
+        #   - namespaceSelector:
+        #       matchLabels:
+        #         name: another-namespace
+        #     podSelector:
+        #       matchLabels:
+        #         app: another-app
+        # - from:
+        #     - podSelector:
+        #         matchLabels:
+        #           app.kubernetes.io/name: loki
+        #   ports:
+        #     - port: 9093
+        #       protocol: TCP
+        # -- Configure egress rules
+        ##
+        egress:
+            # -- Enable egress rules. When enabled, policyTypes will include Egress
+            ##
+            enabled: false
+            # -- Custom egress rules
+            ##
+            rules: []
+            # - to:
+            #   - namespaceSelector: {}
+            #     podSelector:
+            #       matchLabels:
+            #         name: smtp-relay
+            #   ports:
+            #   - port: 25
+            #     protocol: TCP
+        # -- Enable rules for alertmanager cluster traffic
+        ##
+        enableClusterRules: true
+        # -- Configure monitoring component rules
+        ##
+        monitoringRules:
+            # -- Enable ingress from Prometheus
+            ##
+            prometheus: true
+            # -- Enable ingress for config reloader metrics
+            ##
+            configReloader: true
+    ## Service account for Alertmanager to use.
+    ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+    ##
+    serviceAccount:
+        create: true
+        name: ""
+        annotations: {}
+        automountServiceAccountToken: ENC[AES256_GCM,data:rZRE3Q==,iv:dR0AuN7YnR6sOUiVZ0M46+sGK1NxEDHYt7exmrK2FJk=,tag:3Yxn/E7mji5P8l6C0AC2Tw==,type:bool]
+    ## Configure pod disruption budgets for Alertmanager
+    ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/#specifying-a-poddisruptionbudget
+    ##
+    podDisruptionBudget:
+        enabled: false
+        minAvailable: 1
+        # maxUnavailable: ""
+        unhealthyPodEvictionPolicy: AlwaysAllow
+    ## Alertmanager configuration directives
+    ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
+    ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
+    ##
+    config:
+        global:
+            resolve_timeout: 5m
+        inhibit_rules:
+            - source_matchers:
+                - severity = critical
+              target_matchers:
+                - severity =~ warning|info
+              equal:
+                - namespace
+                - alertname
+            - source_matchers:
+                - severity = warning
+              target_matchers:
+                - severity = info
+              equal:
+                - namespace
+                - alertname
+            - source_matchers:
+                - alertname = InfoInhibitor
+              target_matchers:
+                - severity = info
+              equal:
+                - namespace
+            - target_matchers:
+                - alertname = InfoInhibitor
+        route:
+            group_by:
+                - namespace
+            group_wait: 30s
+            group_interval: 5m
+            repeat_interval: 12h
+            receiver: "null"
+            routes:
+                - receiver: "null"
+                  matchers:
+                    - alertname = "Watchdog"
+        receivers:
+            - name: "null"
+        templates:
+            - /etc/alertmanager/config/*.tmpl
+    ## Alertmanager configuration directives (as string type, preferred over the config hash map)
+    ## stringConfig will be used only if tplConfig is true
+    ## ref: https://prometheus.io/docs/alerting/configuration/#configuration-file
+    ##      https://prometheus.io/webtools/alerting/routing-tree-editor/
+    ##
+    stringConfig: ""
+    ## Pass the Alertmanager configuration directives through Helm's templating
+    ## engine. If the Alertmanager configuration contains Alertmanager templates,
+    ## they'll need to be properly escaped so that they are not interpreted by
+    ## Helm
+    ## ref: https://helm.sh/docs/developing_charts/#using-the-tpl-function
+    ##      https://prometheus.io/docs/alerting/configuration/#tmpl_string
+    ##      https://prometheus.io/docs/alerting/notifications/
+    ##      https://prometheus.io/docs/alerting/notification_examples/
+    tplConfig: false
+    ## Alertmanager template files to format alerts
+    ## By default, templateFiles are placed in /etc/alertmanager/config/ and if
+    ## they have a .tmpl file suffix will be loaded. See config.templates above
+    ## to change, add other suffixes. If adding other suffixes, be sure to update
+    ## config.templates above to include those suffixes.
+    ## ref: https://prometheus.io/docs/alerting/notifications/
+    ##      https://prometheus.io/docs/alerting/notification_examples/
+    ##
+    templateFiles: {}
+    #
+    ## An example template:
+    #   template_1.tmpl: |-
+    #       {{ define "cluster" }}{{ .ExternalURL | reReplaceAll ".*alertmanager\\.(.*)" "$1" }}{{ end }}
+    #
+    #       {{ define "slack.myorg.text" }}
+    #       {{- $root := . -}}
+    #       {{ range .Alerts }}
+    #         *Alert:* {{ .Annotations.summary }} - `{{ .Labels.severity }}`
+    #         *Cluster:* {{ template "cluster" $root }}
+    #         *Description:* {{ .Annotations.description }}
+    #         *Graph:* <{{ .GeneratorURL }}|:chart_with_upwards_trend:>
+    #         *Runbook:* <{{ .Annotations.runbook }}|:spiral_note_pad:>
+    #         *Details:*
+    #           {{ range .Labels.SortedPairs }} - *{{ .Name }}:* `{{ .Value }}`
+    #           {{ end }}
+    #       {{ end }}
+    #       {{ end }}
+    ingress:
+        enabled: false
+        ingressClassName: ""
+        annotations: {}
+        labels: {}
+        ## Override ingress to a different defined port on the service
+        # servicePort: 8081
+        ## Override ingress to a different service then the default, this is useful if you need to
+        ## point to a specific instance of the alertmanager (eg kube-prometheus-stack-alertmanager-0)
+        # serviceName: kube-prometheus-stack-alertmanager-0
+        ## Hosts must be provided if Ingress is enabled.
+        ##
+        hosts: []
+        # - alertmanager.domain.com
+        ## Paths to use for ingress rules - one path should match the alertmanagerSpec.routePrefix
+        ##
+        paths: []
+        # - /
+        ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+        ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+        # pathType: ImplementationSpecific
+        ## TLS configuration for Alertmanager Ingress
+        ## Secret must be manually created in the namespace
+        ##
+        tls: []
+        # - secretName: alertmanager-general-tls
+        #   hosts:
+        #   - alertmanager.example.com
+    # -- BETA: Configure the gateway routes for the chart here.
+    # More routes can be added by adding a dictionary key like the 'main' route.
+    # Be aware that this is an early beta of this feature,
+    # kube-prometheus-stack does not guarantee this works and is subject to change.
+    # Being BETA this can/will change in the future without notice, do not use unless you want to take that risk
+    # [[ref]](https://gateway-api.sigs.k8s.io/reference/spec/#gateway.networking.k8s.io%2fv1alpha2)
+    route:
+        main:
+            # -- Enables or disables the route
+            enabled: false
+            # -- Set the route apiVersion, e.g. gateway.networking.k8s.io/v1 or gateway.networking.k8s.io/v1alpha2
+            apiVersion: gateway.networking.k8s.io/v1
+            # -- Set the route kind
+            # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
+            kind: HTTPRoute
+            annotations: {}
+            labels: {}
+            hostnames: []
+            # - my-filter.example.com
+            parentRefs: []
+            # - name: acme-gw
+            # -- create http route for redirect (https://gateway-api.sigs.k8s.io/guides/http-redirect-rewrite/#http-to-https-redirects)
+            ## Take care that you only enable this on the http listener of the gateway to avoid an infinite redirect.
+            ## matches, filters and additionalRules will be ignored if this is set to true. Be are
+            httpsRedirect: false
+            matches:
+                - path:
+                    type: PathPrefix
+                    value: /
+            ## Filters define the filters that are applied to requests that match this rule.
+            filters: []
+            ## Additional custom rules that can be added to the route
+            additionalRules: []
+    ## Configuration for Alertmanager secret
+    ##
+    secret:
+        annotations: {}
+    ## Configuration for creating an Ingress that will map to each Alertmanager replica service
+    ## alertmanager.servicePerReplica must be enabled
+    ##
+    ingressPerReplica:
+        enabled: ENC[AES256_GCM,data:8b8tlGE=,iv:1GG6Lnpq9zonU7/y/dRumzpgN9AHAs9qZleK6KKNig4=,tag:41ApoVRUyVRsMrdgf8HSPw==,type:bool]
+        ingressClassName: ""
+        annotations: {}
+        labels: {}
+        #ENC[AES256_GCM,data:/dqFCecKMw+k86ah/PCRftX4Cqp/M0a8frD2fQisc9AX9byhL4ezMyoEoJ7ioXkvt7v7I0AuYbazyN5S,iv:VoR4nyVlKNbt39MXr93LCSYNHyUyClQHxJvnw1Edag8=,tag:8p05Fmhz1Iv2mKUZIVC6Dw==,type:comment]
+        #ENC[AES256_GCM,data:tmq3g56wkPpA4qfblBqxvBBnzd2JZZC9TnuFvVB86HmD2C0BxgyXuE6UbrFkjVtoXjCkAGHqrMsT0VFyJ7UAYBVIy/fJXBJPCJiKqWDoD3Uu6ucgADaPlmS1TF8=,iv:6YoJsJDG4YH9chkLFGSC4G5+bEYMV3n5ie9G9g66g44=,tag:ucOyxzv0u6AGf8iNUQr5Dg==,type:comment]
+        #ENC[AES256_GCM,data:Aw==,iv:Y7gKlWAFrD7M2wD8S/DlihUskHJjpZf9T5V/0p3cDnQ=,tag:Rbrhi4GZrjZkEDX0xWe5Yg==,type:comment]
+        #ENC[AES256_GCM,data:/jTCtE3rL8vGNX3xYZu7EoTRFXj2YEnvqtlpbp5sPJpADG3dh56DD8UCgAjzu2yZpE6hIfTGmzV+zEL1cvaKB/o1pAoH,iv:8CGwH81kWn0GrodfCqlNVcMHId3W6o8K58UZa/EVlHU=,tag:X6bmXXgglMZxYiExCfAK2A==,type:comment]
+        #ENC[AES256_GCM,data:xdxvWPfaHKOCTqwjBZrpFBY5+wbX,iv:QnHayh70w1SDwii/9hn2sOZL80diNtPTvB9mzVh/OWM=,tag:eUZwbk13tBHzCPjF0nZM2A==,type:comment]
+        hostPrefix: ""
+        #ENC[AES256_GCM,data:iaSSur3qzAusC5n4IulwSZ4lnU5pQID3zX9FBcZbKqhodYNo/mz99VI8VVwDIMAtiY/gy8dl,iv:PvohfmEAFwGE0hS7ZInWasZe5ZUDF4ZS/rxAiY0H9qg=,tag:VcZse+kt3tEKfESCTx0pog==,type:comment]
+        hostDomain: ""
+        #ENC[AES256_GCM,data:sByyWa/rAa6CbnqdNVvrzyExrp04TupRWoHmpO/zyCI=,iv:lqdVVVrmdRXdu9dNL2VsSewQjLjI5XeHqZldwyi0DZY=,tag:4i3zk+qJKVRJZTbTgn9YWA==,type:comment]
+        #ENC[AES256_GCM,data:vA==,iv:UomwN0dOFGO80rovVRnIy5HANRM7zozTdbylf0pNDQ0=,tag:5bg+1Zor7p650KLNT7FpBg==,type:comment]
+        paths: []
+        #ENC[AES256_GCM,data:RA4Yiw==,iv:8HsctN64VwFv5jQB6Fn4YnnGZ1vqoBMclYZhQ5DnMjQ=,tag:/rqrK7yh8xDJ9UKuipH70A==,type:comment]
+        #ENC[AES256_GCM,data:T5hT5La9/bbq774j5Ccq5xzhP/E4YeUNk36pYUFWHP/SHz09l+Qle1KDVlexhkH9qewgkgnC6rDROUmhr+2TYP0PTRjdZtWUOa9snDAlQDz6iQJBTEmt6CXdefvw3fuWL4eTIUH+L5tM,iv:gihEsOK7/OcGuSGPH2bA+rggJF+MSORZhUkcDTOVs5g=,tag:U6YWSetK0/1xBCcLI3O5gQ==,type:comment]
+        #ENC[AES256_GCM,data:2DA0YM1bPyrVLHnfL97aOhuOJnle4+vIb7PpJYKI6eb0incEblFuyRB5wM6CXNK6TNhMQXWLAKOQo8U3/WdztISadD54DMrVsB2EMpk9UocwabABJF6fxwWqDUuh5/7CB5kYLZRSg3tiOKOQAGlLFLBnrAQXd/4k3HYhgKVHDQFTFQLX,iv:qMLE2sRFSYxtDA3OlcVaFgPyeUSCqRMzz4kzZDGWeC4=,tag:HjfFldFcOxti4wpcKPUTNA==,type:comment]
+        #ENC[AES256_GCM,data:/Sec+8jhrhqjSxNN5fE0F2TBGmC3WrEgCT6ThNxYA1UK,iv:LZ1C4bBjt3usokHDlrrkLTTubrBsmkRhNliga1TkuWc=,tag:abYNVF5jULYwv6D/nhpQgQ==,type:comment]
+        #ENC[AES256_GCM,data:CLyNZpJvk0EVo43IvhvG/6cLzbczGismEKF8i37wWJewFyBhccFS4Zn6mlzsmAdmS6fqKHbZNUPrB4biiBxavZWNuj+FzPntJcwVN5ZyE679,iv:GUnXaV1f9zoBeIQDM7sZyeyuWyS1EjPSNjlQWoD3cQ8=,tag:wFjWNOKeYke9eZ81rW5WCg==,type:comment]
+        #ENC[AES256_GCM,data:9Diaxu9gXSvpasackZCGP3pV46ieOo6XYps1e7IECtiAcOVWbjiBQ2e2qr7jptt4oZc=,iv:NSSUJvaq7+1JXPqiflc3iu1qncWo3Gl6he6vlRnn3qA=,tag:rFDWguCazrAAvgU6WOQNKw==,type:comment]
+        tlsSecretName: ""
+        #ENC[AES256_GCM,data:MZCzDR4YI4eR4eIeUw9WXOhXRazClN8HYE+NrXESw3mjfiuuuok76E0zp093c6KNeEuVLeoBs2tFZFG3nVF6UEsOBYpzKsSWytrA7kzjIzd6/3rcdnAV,iv:izZuZ/LOhQKbMnIXSUPkaEq0qrA97OkXEh9KjT6ulos=,tag:C2gWd6jGykRWzqzENlLg9w==,type:comment]
+        #ENC[AES256_GCM,data:Rw==,iv:RopT51UtkBMf8v92p/FZRcbmuBA80/vbxyhuZbV5Hh4=,tag:5XloteWKwkANnqrPqCZU4g==,type:comment]
+        tlsSecretPerReplica:
+            enabled: ENC[AES256_GCM,data:RqC1wU0=,iv:X/CnQWYht0VWnwySr9E9Zv8KoypIl/0z9+uV7MRUOSU=,tag:JyW1nQcqZ2B7d8xtWiurLw==,type:bool]
+            #ENC[AES256_GCM,data:UPwx9vt6SrrDa1uREPDW5rlNsx4UNVyZKAmFTL35vbYc2Vt9YFX4G+sVdr5EyQaNjsqJrrGA0qXPeQ==,iv:J35/fKvJQkjgktIhSzdS7vbefiA5nyUoBJ+ANKo+0vQ=,tag:qCGDlIt625rYWWw7TGwhVQ==,type:comment]
+            #ENC[AES256_GCM,data:p8pvpIWxZZO/OzRe27b2afvx5UwhOZpyKLDuUta0ALQL1N322TQy/h61z0xCIROwSoXe0ADYsQ==,iv:3oQNwCD1mrOCcJrCLnvrLS5tK64cJpQEW5vHRVZtteI=,tag:4B0C43NyNUMuBTMRptmesg==,type:comment]
+            #ENC[AES256_GCM,data:Ww==,iv:ON3WF80cL8DQg/q9vMu7hbzO0ukC494dIO6aa6yMSjs=,tag:bC44PeklihC/d/tNKQNDVw==,type:comment]
+            prefix: ENC[AES256_GCM,data:gI5xkY0rI/ub5irL,iv:JNzkAJHZk3vsbLVj4musW+A4bOt1tD6eInWE/1e8ILA=,tag:BVuwGTHk3i7t+ybvrK7TRA==,type:str]
+    ## Configuration for Alertmanager service
+    ##
+    service:
+        enabled: true
+        annotations: {}
+        labels: {}
+        clusterIP: ""
+        ipDualStack:
+            enabled: false
+            ipFamilies:
+                - IPv6
+                - IPv4
+            ipFamilyPolicy: PreferDualStack
+        ## Port for Alertmanager Service to listen on
+        ##
+        port: 9093
+        ## Port for Alertmanager cluster communication
+        ##
+        # clusterPort: 9094
+        ## To be used with a proxy extraContainer port
+        ##
+        targetPort: 9093
+        ## Port to expose on each node
+        ## Only used if service.type is 'NodePort'
+        ##
+        nodePort: 30903
+        ## List of IP addresses at which the Prometheus server service is available
+        ## Ref: https://kubernetes.io/docs/concepts/services-networking/service/#external-ips
+        ##
+        ## Additional ports to open for Alertmanager service
+        ##
+        additionalPorts: []
+        # - name: oauth-proxy
+        #   port: 8081
+        #   targetPort: 8081
+        # - name: oauth-metrics
+        #   port: 8082
+        #   targetPort: 8082
+        externalIPs: []
+        loadBalancerIP: ""
+        loadBalancerSourceRanges: []
+        ## Denotes if this Service desires to route external traffic to node-local or cluster-wide endpoints
+        ##
+        externalTrafficPolicy: Cluster
+        ## If you want to make sure that connections from a particular client are passed to the same Pod each time
+        ## Accepts 'ClientIP' or 'None'
+        ##
+        sessionAffinity: None
+        ## If you want to modify the ClientIP sessionAffinity timeout
+        ## The value must be >0 && <=86400(for 1 day) if ServiceAffinity == "ClientIP"
+        ##
+        sessionAffinityConfig:
+            clientIP:
+                timeoutSeconds: 10800
+        ## Service type
+        ##
+        type: ClusterIP
+    ## Configuration for creating a separate Service for each statefulset Alertmanager replica
+    ##
+    servicePerReplica:
+        enabled: ENC[AES256_GCM,data:KijzBCY=,iv:jUSAc9TFFQLby41ZzKiKMfAJEppHiQ7P/7wK5exirjA=,tag:l05ktQxewUIIzcgdREaCUA==,type:bool]
+        annotations: {}
+        #ENC[AES256_GCM,data:YRr9Gn/f8/f2mBvnoO+gTlu+Z1kWcDSMMHuWClVOWmfzFhkSM1+A97Mqjgsb/X3qulmURT68pXM=,iv:qi46o1W6HvvYJK52lpVtLbZoPC9z2Z3SbCtLuZPq518=,tag:+KCXVGrzI88gB8/R0oGf3g==,type:comment]
+        #ENC[AES256_GCM,data:hg==,iv:TsvRqGx0+xtEF79OLOuWdI6W0vtZ9xfqzBnlyD9oZHA=,tag:Pcacx0g0+VeZ114w4CNfRw==,type:comment]
+        port: ENC[AES256_GCM,data:LZVE1A==,iv:EjM5jFhxTkMyoZhPK6TKi42ay5Hke2tO5k1340F1d6U=,tag:raQdKSIQcJS1Z7aqL3cLQg==,type:int]
+        #ENC[AES256_GCM,data:IhwlBVEQ9v+vkbwDAPfXwdyXPPQ70II1dxpPKCMrvztslpa1sDWhtZo21B1/,iv:NVW0jEVwdbwCcMmZsXd53FTaTIxEy9hJNwGYT1gQzGw=,tag:0syjczq5iKhUIbCavkkxPw==,type:comment]
+        targetPort: ENC[AES256_GCM,data:CiLjsw==,iv:BM5FffD9OfWKS7WhwiEoFG2YEyrSY5mXxlvIy9Uugp0=,tag:v52FsddG4xo7sIBJctp3RA==,type:int]
+        #ENC[AES256_GCM,data:EzNLHNAwrPH0h3LbVcabeBOycWPWQIHtXznwd3U=,iv:TKGvupw/aWZl985IFYaKQtiRw6NWeI3MxAt0aX1RHek=,tag:nZfcOz+GEwfAG48jaS+fPw==,type:comment]
+        #ENC[AES256_GCM,data:HBZDRDICQX88KVcE2OKVyvUWBgP7HzS/u4uDGKoFLNQ85K8h97P1/KBLp69duDX6T89q,iv:LSVSHSsO+YLh1tm35aGWR72NNS1oSpwBhOsLi/0zEDc=,tag:cvhPu1XS3xKMvx9TZPBDRw==,type:comment]
+        #ENC[AES256_GCM,data:MA==,iv:PVDBiQOxHwwUPBfsTm3V1EFdorqGtagyVRCFFnZjMjg=,tag:a3z+Dwur8wyko2bNhS+htw==,type:comment]
+        nodePort: ENC[AES256_GCM,data:rDgYxm8=,iv:gPHfRZiWPscVnfpx+aJlxPBaZlRdC7fTwnDxwiAXP90=,tag:t++dpK+u+QynzPfn4+qSTA==,type:int]
+        #ENC[AES256_GCM,data:uIo9Ztg54hIVBD9MsFNchbh4k18zfEv5lUGNvjcp+A==,iv:XcnjClK3mQiRWJYwVot4SGIn63G1IUOhXlFVlz82org=,tag:oL8o5ASvTPpTNsfpM1UjSQ==,type:comment]
+        #ENC[AES256_GCM,data:/MsfKBjEIE3UO77vYXIuiBm0zJopCuiD5YhMIZhVNpAAbHLopfhzrPNP5FJuPDGp5pA8bP/qPA==,iv:yzmdY21KWHkUOCZzZhP1OSv1XHwcS86rcLA1t3DOUC0=,tag:Ni5svsvAhp7/GL/SyrexjA==,type:comment]
+        loadBalancerSourceRanges: []
+        #ENC[AES256_GCM,data:0xFt15Ubdv5rqjeOxf9OdsWdFEc6w4Aul1kmGQHup0UET1rA2p07F5AdsGyGvScLsnIzOlQ3APs1pb2he8WJ0nIO4eAy4Rqt3KcVsXVzkHnNx/sL5H8nQr+u2nzVYpF4ALMH,iv:dJT2zbkjufaUl+L/LU2EgA+SJ81pkUo0vNRtPEx/+Hk=,tag:1wkyoWDpGudywkDj6F8zrA==,type:comment]
+        #ENC[AES256_GCM,data:Kg==,iv:Xtbkp3hx624MjtChhkK/sYhNSx3DJ+xWoMImku+0bM4=,tag:WLYeKBrxOGpcSabnb2yEiw==,type:comment]
+        externalTrafficPolicy: ENC[AES256_GCM,data:1nGnwtCniA==,iv:Odgi3yNOf1bBLjLuKoKtAU4DEAT587UFIt+QoUR0OEk=,tag:bhNN8/GSaf/l8d04uBgqIw==,type:str]
+        #ENC[AES256_GCM,data:fRDJPctllzveNfNA5H4=,iv:uuEIs51ymYwLP3V+torAZ45+8oDyEEV1df72ODYt7qA=,tag:2rMlzVV46+wRotKL3o8V7Q==,type:comment]
+        #ENC[AES256_GCM,data:Ew==,iv:M41znq+F2XTZUGzeLyTNhtygf1JKShqYU0/T0P9weac=,tag:9MdAGOdJIOFQK4Sgi80r8w==,type:comment]
+        type: ENC[AES256_GCM,data:CWNwgmZ0xYf2,iv:P80D4jlI641N/6JAR1UEaP0HGDLcbdEwfD2qrMbn3ks=,tag:CNKmQLPj2RTI0xYyop63rw==,type:str]
+    ## Configuration for creating a ServiceMonitor for AlertManager
+    ##
+    serviceMonitor:
+        ## If true, a ServiceMonitor will be created for the AlertManager service.
+        ##
+        selfMonitor: true
+        ## Scrape interval. If not set, the Prometheus default scrape interval is used.
+        ##
+        interval: ""
+        ## Additional labels
+        ##
+        additionalLabels: {}
+        ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+        ##
+        sampleLimit: 0
+        ## TargetLimit defines a limit on the number of scraped targets that will be accepted.
+        ##
+        targetLimit: 0
+        ## Per-scrape limit on number of labels that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelLimit: 0
+        ## Per-scrape limit on length of labels name that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelNameLengthLimit: 0
+        ## Per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        ##
+        labelValueLengthLimit: 0
+        ## proxyUrl: URL of a proxy that should be used for scraping.
+        ##
+        proxyUrl: ""
+        ## scheme: HTTP scheme to use for scraping. Can be used with `tlsConfig` for example if using istio mTLS.
+        scheme: ""
+        ## enableHttp2: Whether to enable HTTP2.
+        ## See https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#endpoint
+        enableHttp2: true
+        ## tlsConfig: TLS configuration to use when scraping the endpoint. For example if using istio mTLS.
+        ## Of type: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#tlsconfig
+        tlsConfig: {}
+        bearerTokenFile: null
+        ## MetricRelabelConfigs to apply to samples after scraping, but before ingestion.
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
+        ##
+        metricRelabelings: []
+        # - action: keep
+        #   regex: 'kube_(daemonset|deployment|pod|namespace|node|statefulset).+'
+        #   sourceLabels: [__name__]
+        ## RelabelConfigs to apply to samples before scraping
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#relabelconfig
+        ##
+        relabelings: []
+        # - sourceLabels: [__meta_kubernetes_pod_node_name]
+        #   separator: ;
+        #   regex: ^(.*)$
+        #   targetLabel: nodename
+        #   replacement: $1
+        #   action: replace
+        ## Additional Endpoints
+        ##
+        additionalEndpoints: []
+        # - port: oauth-metrics
+        #   path: /metrics
+    ## Settings affecting alertmanagerSpec
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#alertmanagerspec
+    ##
+    alertmanagerSpec:
+        ## Statefulset's persistent volume claim retention policy
+        ## whenDeleted and whenScaled determine whether
+        ## statefulset's PVCs are deleted (true) or retained (false)
+        ## on scaling down and deleting statefulset, respectively.
+        ## Requires Kubernetes version 1.27.0+.
+        ## Ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#persistentvolumeclaim-retention
+        persistentVolumeClaimRetentionPolicy: {}
+        #  whenDeleted: Retain
+        #  whenScaled: Retain
+        ## Standard object's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
+        ## Metadata Labels and Annotations gets propagated to the Alertmanager pods.
+        ##
+        podMetadata: {}
+        ##
+        serviceName: null
+        ## Image of Alertmanager
+        ##
+        image:
+            registry: quay.io
+            repository: prometheus/alertmanager
+            tag: v0.30.0
+            sha: ""
+            pullPolicy: IfNotPresent
+        ## If true then the user will be responsible to provide a secret with alertmanager configuration
+        ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
+        ##
+        useExistingSecret: ENC[AES256_GCM,data:2yZ3aOg=,iv:2GVNPDvlRCLBgklN+RlK5Nfyr43rj+YEoyS/qEpd34Y=,tag:IZZatCBP2KWiCcjms/Tmng==,type:bool]
+        ## Secrets is a list of Secrets in the same namespace as the Alertmanager object, which shall be mounted into the
+        ## Alertmanager Pods. The Secrets are mounted into /etc/alertmanager/secrets/.
+        ##
+        secrets: []
+        ## If false then the user will opt out of automounting API credentials.
+        ##
+        automountServiceAccountToken: ENC[AES256_GCM,data:nS/PwQ==,iv:XWJnGGP0nqP1RfLxjgJY2WUFiozAJ0S3tvbSOiPfOBM=,tag:Yem374EWmDSDNwsZikWT6g==,type:bool]
+        ## ConfigMaps is a list of ConfigMaps in the same namespace as the Alertmanager object, which shall be mounted into the Alertmanager Pods.
+        ## The ConfigMaps are mounted into /etc/alertmanager/configmaps/.
+        ##
+        configMaps: []
+        ## ConfigSecret is the name of a Kubernetes Secret in the same namespace as the Alertmanager object, which contains configuration for
+        ## this Alertmanager instance. Defaults to 'alertmanager-' The secret is mounted into /etc/alertmanager/config.
+        ##
+        # configSecret:
+        ## WebTLSConfig defines the TLS parameters for HTTPS
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#alertmanagerwebspec
+        web: {}
+        ## AlertmanagerConfigs to be selected to merge and configure Alertmanager with.
+        ##
+        alertmanagerConfigSelector: {}
+        ## Example which selects all alertmanagerConfig resources
+        ## with label "alertconfig" with values any of "example-config" or "example-config-2"
+        # alertmanagerConfigSelector:
+        #   matchExpressions:
+        #     - key: alertconfig
+        #       operator: In
+        #       values:
+        #         - example-config
+        #         - example-config-2
+        #
+        ## Example which selects all alertmanagerConfig resources with label "role" set to "example-config"
+        # alertmanagerConfigSelector:
+        #   matchLabels:
+        #     role: example-config
+        ## Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
+        ##
+        alertmanagerConfigNamespaceSelector: {}
+        ## Example which selects all namespaces
+        ## with label "alertmanagerconfig" with values any of "example-namespace" or "example-namespace-2"
+        # alertmanagerConfigNamespaceSelector:
+        #   matchExpressions:
+        #     - key: alertmanagerconfig
+        #       operator: In
+        #       values:
+        #         - example-namespace
+        #         - example-namespace-2
+        ## Example which selects all namespaces with label "alertmanagerconfig" set to "enabled"
+        # alertmanagerConfigNamespaceSelector:
+        #   matchLabels:
+        #     alertmanagerconfig: enabled
+        ## AlermanagerConfig to be used as top level configuration
+        ##
+        alertmanagerConfiguration: {}
+        ## Example with select a global alertmanagerconfig
+        # alertmanagerConfiguration:
+        #   name: global-alertmanager-Configuration
+        ## Defines the strategy used by AlertmanagerConfig objects to match alerts. eg:
+        ##
+        alertmanagerConfigMatcherStrategy: {}
+        ## Example with use OnNamespace strategy
+        # alertmanagerConfigMatcherStrategy:
+        #   type: OnNamespace
+        ## Additional command line arguments to pass to Alertmanager (in addition to those generated by the chart)
+        additionalArgs: []
+        ## Define Log Format
+        # Use logfmt (default) or json logging
+        logFormat: logfmt
+        ## Log level for Alertmanager to be configured with.
+        ##
+        logLevel: info
+        ## Size is the expected size of the alertmanager cluster. The controller will eventually make the size of the
+        ## running cluster equal to the expected size.
+        replicas: ENC[AES256_GCM,data:dA==,iv:FxMIqeWTHHfEsJ9z9tfyXjs21Vb+6qPGVJoJ/bW5gW4=,tag:SR5sM5kBM9AJleX2XS1yhg==,type:int]
+        ## Time duration Alertmanager shall retain data for. Default is '120h', and must match the regular expression
+        ## [0-9]+(ms|s|m|h) (milliseconds seconds minutes hours).
+        ##
+        retention: 120h
+        ## Storage is the definition of how storage will be used by the Alertmanager instances.
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/platform/storage.md
+        ##
+        storage: {}
+        # volumeClaimTemplate:
+        #   spec:
+        #     storageClassName: gluster
+        #     accessModes: ["ReadWriteOnce"]
+        #     resources:
+        #       requests:
+        #         storage: 50Gi
+        #     selector: {}
+        ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
+        ##
+        externalUrl: null
+        ## The route prefix Alertmanager registers HTTP handlers for. This is useful, if using ExternalURL and a proxy is rewriting HTTP routes of a request, and the actual ExternalURL is still true,
+        ## but the server serves requests under a different route prefix. For example for use with kubectl proxy.
+        ##
+        routePrefix: /
+        ## scheme: HTTP scheme to use. Can be used with `tlsConfig` for example if using istio mTLS.
+        scheme: ""
+        ## tlsConfig: TLS configuration to use when connect to the endpoint. For example if using istio mTLS.
+        ## Of type: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#tlsconfig
+        tlsConfig: {}
+        ## If set to true all actions on the underlying managed objects are not going to be performed, except for delete actions.
+        ##
+        paused: false
+        ## Define which Nodes the Pods are scheduled on.
+        ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#nodeselector
+        ##
+        nodeSelector: {}
+        ## Define resources requests and limits for single Pods.
+        ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
+        ##
+        resources: {}
+        # requests:
+        #   memory: 400Mi
+        ## Pod anti-affinity can prevent the scheduler from placing Prometheus replicas on the same node.
+        ## The default value "soft" means that the scheduler should *prefer* to not schedule two replica pods onto the same node but no guarantee is provided.
+        ## The value "hard" means that the scheduler is *required* to not schedule two replica pods onto the same node.
+        ## The value "" will disable pod anti-affinity so that no anti-affinity rules will be configured.
+        ##
+        podAntiAffinity: soft
+        ## If anti-affinity is enabled sets the topologyKey to use for anti-affinity.
+        ## This can be changed to, for example, failure-domain.beta.kubernetes.io/zone
+        ##
+        podAntiAffinityTopologyKey: ENC[AES256_GCM,data:RcVmpZNQOgDVX+2TJ2SB/RNASljfLQ==,iv:7UjsHb0yhMDvtd5OIx6beyHH6qSN8y6BDGJ/kDpk4Yc=,tag:A17DggV1f8aiI1IBkgZu7g==,type:str]
+        ## Assign custom affinity rules to the alertmanager instance
+        ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/
+        ##
+        affinity: {}
+        # nodeAffinity:
+        #   requiredDuringSchedulingIgnoredDuringExecution:
+        #     nodeSelectorTerms:
+        #     - matchExpressions:
+        #       - key: kubernetes.io/e2e-az-name
+        #         operator: In
+        #         values:
+        #         - e2e-az1
+        #         - e2e-az2
+        ## If specified, the pod's tolerations.
+        ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/taint-and-toleration/
+        ##
+        tolerations: []
+        # - key: "key"
+        #   operator: "Equal"
+        #   value: "value"
+        #   effect: "NoSchedule"
+        ## If specified, the pod's topology spread constraints.
+        ## ref: https://kubernetes.io/docs/concepts/scheduling-eviction/topology-spread-constraints/
+        ##
+        topologySpreadConstraints: []
+        # - maxSkew: 1
+        #   topologyKey: topology.kubernetes.io/zone
+        #   whenUnsatisfiable: DoNotSchedule
+        #   labelSelector:
+        #     matchLabels:
+        #       app: alertmanager
+        ## SecurityContext holds pod-level security attributes and common container settings.
+        ## This defaults to non root user with uid 1000 and gid 2000. *v1.PodSecurityContext  false
+        ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+        ##
+        securityContext:
+            runAsGroup: 2000
+            runAsNonRoot: true
+            runAsUser: 1000
+            fsGroup: 2000
+            seccompProfile:
+                type: RuntimeDefault
+        ## DNS configuration for Alertmanager.
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.PodDNSConfig
+        dnsConfig: {}
+        ## DNS policy for Alertmanager.
+        ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#dnspolicystring-alias
+        dnsPolicy: ""
+        ## ListenLocal makes the Alertmanager server listen on loopback, so that it does not bind against the Pod IP.
+        ## Note this is only for the Alertmanager UI, not the gossip communication.
+        ##
+        listenLocal: ENC[AES256_GCM,data:uzKkrlE=,iv:mROh+75VOVq/7/U43eUZADUlROhSQpT6+gBP4ol+NYs=,tag:OmDIhQasxD5kkf12MTQfhw==,type:bool]
+        ## Containers allows injecting additional containers. This is meant to allow adding an authentication proxy to an Alertmanager pod.
+        ##
+        containers: []
+        # containers:
+        # - name: oauth-proxy
+        #   image: quay.io/oauth2-proxy/oauth2-proxy:v7.13.0
+        #   args:
+        #   - --upstream=http://127.0.0.1:9093
+        #   - --http-address=0.0.0.0:8081
+        #   - --metrics-address=0.0.0.0:8082
+        #   - ...
+        #   ports:
+        #   - containerPort: 8081
+        #     name: oauth-proxy
+        #     protocol: TCP
+        #   - containerPort: 8082
+        #     name: oauth-metrics
+        #     protocol: TCP
+        #   resources: {}
+        # Additional volumes on the output StatefulSet definition.
+        volumes: []
+        # Additional VolumeMounts on the output StatefulSet definition.
+        volumeMounts: []
+        ## InitContainers allows injecting additional initContainers. This is meant to allow doing some changes
+        ## (permissions, dir tree) on mounted volumes before starting prometheus
+        initContainers: []
+        ## Priority class assigned to the Pods
+        ##
+        priorityClassName: ""
+        ## AdditionalPeers allows injecting a set of additional Alertmanagers to peer with to form a highly available cluster.
+        ##
+        additionalPeers: []
+        ## PortName to use for Alert Manager.
+        ##
+        portName: http-web
+        ## ClusterAdvertiseAddress is the explicit address to advertise in cluster. Needs to be provided for non RFC1918 [1] (public) addresses. [1] RFC1918: https://tools.ietf.org/html/rfc1918
+        ##
+        clusterAdvertiseAddress: false
+        ## clusterGossipInterval determines interval between gossip attempts.
+        ## Needs to be specified as GoDuration, a time duration that can be parsed by Go's time.ParseDuration() (e.g. 45ms, 30s, 1m, 1h20m15s)
+        clusterGossipInterval: ""
+        ## clusterPeerTimeout determines timeout for cluster peering.
+        ## Needs to be specified as GoDuration, a time duration that can be parsed by Go's time.ParseDuration() (e.g. 45ms, 30s, 1m, 1h20m15s)
+        clusterPeerTimeout: ""
+        ## clusterPushpullInterval determines interval between pushpull attempts.
+        ## Needs to be specified as GoDuration, a time duration that can be parsed by Go's time.ParseDuration() (e.g. 45ms, 30s, 1m, 1h20m15s)
+        clusterPushpullInterval: ""
+        ## clusterLabel defines the identifier that uniquely identifies the Alertmanager cluster.
+        clusterLabel: ""
+        ## ForceEnableClusterMode ensures Alertmanager does not deactivate the cluster mode when running with a single replica.
+        ## Use case is e.g. spanning an Alertmanager cluster across Kubernetes clusters with a single replica in each.
+        forceEnableClusterMode: false
+        ## Minimum number of seconds for which a newly created pod should be ready without any of its container crashing for it to
+        ## be considered available. Defaults to 0 (pod will be considered available as soon as it is ready).
+        minReadySeconds: 0
+        ## Additional configuration which is not covered by the properties above. (passed through tpl)
+        additionalConfig: {}
+        ## Additional configuration which is not covered by the properties above.
+        ## Useful, if you need advanced templating inside alertmanagerSpec.
+        ## Otherwise, use alertmanager.alertmanagerSpec.additionalConfig (passed through tpl)
+        additionalConfigString: ""
+    ## ExtraSecret can be used to store various data in an extra secret
+    ## (use it for example to store hashed basic auth credentials)
+    extraSecret:
+        #ENC[AES256_GCM,data:7YDREpLl+obfDWPTV+2lXwkZKEDm7DMolIjuITAnx0s7qzYRRUS18/Y=,iv:CAgkJ76+OQAajuqtiJSS4/5kXuDBYPtwu1JMTXcspYM=,tag:siIP08yLY38RAC5hQghVgA==,type:comment]
+        #ENC[AES256_GCM,data:ZW8Ungl7EC46,iv:KeO0m0RcvVGPu+L88viBXLSRpaMGVhUcVwVhNNpw0iA=,tag:VcShB/Aty+X+f1Pm16Sm7g==,type:comment]
+        annotations: {}
+        data: {}
+    #   auth: |
+    #     foo:$apr1$OFG3Xybp$ckL0FHDAkoXYIlH9.cysT0
+    #     someoneelse:$apr1$DMZX2Z4q$6SbQIfyuLQd.xmo/P0m2c.
+sops:
+    shamir_threshold: 3
+    age:
+        - recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBLYS8rOWQxL3dFVDVnVkFG
+            M2d0amhydHVtQzhxdzNlL1h3dGRsQjg2dWlZCmxkSkNtbzFnMVBMSVJpblJORDhL
+            bGlVTDRJd2MvQmtmZlU2TUg1Z3lNVVUKLS0tIHF1TEk4Y1gxVlBKWVFZM3dxNjFl
+            L1ZMVEJpbmZrYWNZcG1ZZFkxWmY4YjgKFB3SFqDae+PxmOls4xhyI8YyEE2tUeB1
+            Ntq7PgRi9aMVNpsADOyKue97dR/4GRHWiaC1yyCu0WGhda57KtiBZA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2025-12-21T17:14:25Z"
+    mac: ENC[AES256_GCM,data:XLX5Lkzv2d0FxOQJkAI9m19FZ1TpKb5HHxns2nmFQ3AWoxRqKlyKWI4a/lxntA9rE7aRIj+QOZNn4zl6lw52xUpoRwTVdGGH8EqgzStL90kHZKnFV1W3nvq9EcadDnjh1GJGNyE2URzIJLXHrERaF4FhdYt7jMQtInqT/VjMe1Q=,iv:RlLCJV8sLCdwwULJONTHTOwnuvfNsRXolqUU1HCji+U=,tag:+GWyCYiJ90Uhp5tU1YCcug==,type:str]
+    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.10.2

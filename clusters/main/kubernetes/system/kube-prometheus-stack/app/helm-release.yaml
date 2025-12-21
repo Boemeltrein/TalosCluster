@@ -39,7 +39,33 @@ spec:
         forceConflicts: true
     
     alertmanager:
-      enabled: false
+      enabled: true
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        annotations:
+          cert-manager.io/cluster-issuer: cloudflare
+          cert-manager.io/private-key-rotation-policy: Always
+        hosts:
+          - alertmanager.${BASE_DOMAIN}
+        paths:
+          - /
+        pathType: Prefix
+        tls:
+          - secretName: alertmanager-general-tls
+            hosts:
+            - alertmanager.${BASE_DOMAIN}
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+        externalUrl: https://alertmanager.${BASE_DOMAIN}
+#        storage:
+#          volumeClaimTemplate:
+#            spec:
+#              storageClassName: longhorn
+#              resources:
+#                requests:
+#                  storage: 1Gi        
 
     grafana:
       enabled: false
