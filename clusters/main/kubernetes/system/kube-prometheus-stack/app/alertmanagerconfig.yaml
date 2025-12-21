@@ -84,6 +84,9 @@ spec:
             ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
             **Alert Details:**
+            {{- if .Labels.alertname }}
+            Alertname: `{{ .Labels.alertname }}`
+            {{- end }}
             {{- if .Labels.node }}
             🖥️ **Node:** `{{ .Labels.node }}`
             {{- end }}
