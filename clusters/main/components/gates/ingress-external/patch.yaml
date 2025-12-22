@@ -4,3 +4,4 @@ metadata:
   annotations:
     gatus.home-operations.com/endpoint: |
       group: external
+
