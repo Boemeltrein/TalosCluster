@@ -30,6 +30,32 @@ spec:
     keepHistory: false
   
   values:
+    sidecarImage:
+      repository: ghcr.io/home-operations/gatus-sidecar
+      pullPolicy: IfNotPresent
+      tag: 0.0.12@sha256:83bf82d422e9b0529a8076cb584d557a12158d9d8a4c373b4d27afcb87a17569
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            sidecar:
+              enabled: true
+              imageSelector: sidecarImage
+              probes:
+                liveness:
+                  enabled: true
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                readiness:
+                  enabled: true
+                  port: "{{ .Values.service.main.ports.main.port }}"
+                startup:
+                  enabled: true
+                  port: "{{ .Values.service.main.ports.main.port }}"
+              extraArgs:
+                - --auto-ingress
+                - --ingress-class=internal
+
     TZ: Europe/Amsterdam
     
     ingress:
@@ -83,3 +109,41 @@ spec:
                   - "[CONNECTED] == true"
 
             metrics: true
+
+    rbac:
+      main:
+        enabled: true
+        primary: true
+        clusterWide: true
+        rules:
+          - apiGroups: [""]
+            resources:
+              - "services"
+            verbs:
+              - "get"
+              - "list"
+              - "watch"
+          - apiGroups:
+              - "networking.k8s.io"
+            resources:
+              - "ingresses"
+            verbs:
+              - "get"
+              - "list"
+              - "watch"
+          - apiGroups:
+              - "gateway.networking.k8s.io"
+            resources:
+              - "httproutes"
+            verbs:
+              - "get"
+              - "list"
+              - "watch"
+      
+    serviceAccount:
+      main:
+        enabled: true
+        primary: true
+
+    podOptions:
+      automountServiceAccountToken: true
