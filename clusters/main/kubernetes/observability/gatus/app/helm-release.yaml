@@ -59,7 +59,6 @@ spec:
               extraArgs:
                 - --enable-service
                 - --auto-service
-                - --ingress-class=internal
 
     TZ: Europe/Amsterdam
     
