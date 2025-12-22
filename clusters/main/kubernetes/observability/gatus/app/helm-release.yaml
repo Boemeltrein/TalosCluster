@@ -57,6 +57,9 @@ spec:
       pod:
         fsGroup: 1000
         fsGroupChangePolicy: OnRootMismatch
+        sysctls:
+          - name: net.ipv4.ping_group_range
+            value: "0 2147483647"
 
     configmap:
       config:
