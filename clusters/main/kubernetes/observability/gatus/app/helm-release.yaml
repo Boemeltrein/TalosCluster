@@ -45,9 +45,18 @@ spec:
 
     securityContext:
       container:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        readOnlyRootFilesystem: true
+        allowPrivilegeEscalation: false
+        privileged: false
         capabilities:
-          add:
-            - NET_RAW
+          drop:
+            - ALL
+      pod:
+        fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
 
     configmap:
       config:
