@@ -42,3 +42,36 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+
+    configmap:
+      config:
+        enabled: true
+        data:
+          config.yaml: |
+            {{- if .Values.cnpg.main.enabled }}
+            storage:
+              type: postgres
+              path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
+            {{- end }}
+
+            endpoints:
+              - name: Cloudflare
+                group: connectivity
+                url: icmp://1.1.1.1
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
+
+              - name: Google
+                group: connectivity
+                url: icmp://8.8.8.8
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
+
+              - name: Quad9
+                group: connectivity
+                url: icmp://9.9.9.9
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
