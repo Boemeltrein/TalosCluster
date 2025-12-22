@@ -6,4 +6,8 @@ patches:
       group: networking.k8s.io
       version: v1
       kind: Ingress
-    path: patch.yaml
+    patch: |-
+      - op: add
+        path: "/metadata/annotations/gatus.home-operations.com~1endpoint"
+        value: |
+          group: external
