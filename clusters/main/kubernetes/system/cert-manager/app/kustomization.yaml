@@ -3,5 +3,6 @@ kind: Kustomization
 components:
   - ../../../../components/notifications/discord
 resources:
-  - helm-release.yaml
   - namespace.yaml
+  - helm-release.yaml
+  - prometheusrule.yaml
