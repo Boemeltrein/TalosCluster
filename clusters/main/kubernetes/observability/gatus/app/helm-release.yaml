@@ -44,19 +44,7 @@ spec:
             certificateIssuer: cloudflare
 
     securityContext:
-      container:
-        runAsNonRoot: true
-        runAsUser: 1000
-        runAsGroup: 1000
-        readOnlyRootFilesystem: true
-        allowPrivilegeEscalation: false
-        privileged: false
-        capabilities:
-          drop:
-            - ALL
       pod:
-        fsGroup: 1000
-        fsGroupChangePolicy: OnRootMismatch
         sysctls:
           - name: net.ipv4.ping_group_range
             value: "0 2147483647"
