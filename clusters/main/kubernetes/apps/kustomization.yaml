@@ -27,6 +27,6 @@ resources:
   - minecraft-escape/ks.yaml
   
 components:
-- ../../../components/gates/ingress-external
+- ../../components/gates/ingress-external
   
   
