@@ -57,8 +57,10 @@ spec:
                   enabled: true
                   port: "{{ .Values.service.main.ports.main.port }}"
               extraArgs:
-                - --enable-service
-                - --auto-service
+                - --enable-service 
+                - --enable-ingress
+                - --auto-ingress
+                - --ingress-class=external
 
     TZ: Europe/Amsterdam
     
