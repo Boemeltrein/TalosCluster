@@ -44,8 +44,8 @@ spec:
         name: external
         default: false
         controllerValue: k8s.io/external
-        annotations:
-          boemeltrein: "test"
+      configAnnotations:
+        boemeltrein: "test"
           
       config:
         allow-snippet-annotations: true
