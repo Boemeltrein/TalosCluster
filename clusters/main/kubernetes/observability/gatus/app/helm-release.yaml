@@ -43,6 +43,7 @@ spec:
               imageSelector: image
               env:
                 GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
+                GATUS_DELAY_START_SECONDS: 5
             sidecar:
               enabled: true
               imageSelector: sidecarImage
