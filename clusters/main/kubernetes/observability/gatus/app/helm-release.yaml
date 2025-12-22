@@ -77,7 +77,7 @@ spec:
             value: "0 2147483647"
 
     persistence:
-      configMain:
+      configmain:
         enabled: true
         type: emptyDir
         mountPath: /config
