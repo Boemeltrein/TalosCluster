@@ -44,6 +44,9 @@ spec:
         name: external
         default: false
         controllerValue: k8s.io/external
+        annotations:
+          boemeltrein: "test"
+          
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
@@ -63,7 +66,6 @@ spec:
         proxy-busy-buffers-size: 32k
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: "true"
-        configAnnotations: "boemel=super"
       metrics:
         enabled: true
         serviceMonitor:
