@@ -43,6 +43,12 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
+    securityContext:
+      container:
+        capabilities:
+          add:
+            - NET_RAW
+
     configmap:
       config:
         enabled: true
