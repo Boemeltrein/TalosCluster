@@ -76,6 +76,21 @@ spec:
           - name: net.ipv4.ping_group_range
             value: "0 2147483647"
 
+    persistence:
+      configMain:
+        enabled: true
+        type: emptyDir
+        mountPath: /config
+        readOnly: false
+        targetSelectAll: true
+      config:
+        enabled: true
+        mountPath: /config/config.yaml
+        subPath: config.yaml
+        readOnly: true
+        type: "configmap"
+        objectName: config
+
     configmap:
       config:
         enabled: true
