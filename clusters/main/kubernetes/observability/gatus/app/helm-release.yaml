@@ -58,7 +58,7 @@ spec:
                   port: "{{ .Values.service.main.ports.main.port }}"
               extraArgs:
                 - --enable-service
-                - --auto-service
+                - --auto-services
 
     TZ: Europe/Amsterdam
     
