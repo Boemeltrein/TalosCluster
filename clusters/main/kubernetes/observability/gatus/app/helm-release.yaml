@@ -53,6 +53,7 @@ spec:
                   enabled: true
                   port: "{{ .Values.service.main.ports.main.port }}"
               extraArgs:
+                - --enable-ingress
                 - --auto-ingress
                 - --ingress-class=internal
 
