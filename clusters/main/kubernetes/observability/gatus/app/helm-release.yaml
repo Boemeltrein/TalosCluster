@@ -37,7 +37,7 @@ spec:
         enabled: true
         ingressClassName: internal
         hosts:
-          - host: gatus.${DOMAIN}
+          - host: gatus.${BASE_DOMAIN}
         integrations:
           certManager:
             enabled: true
