@@ -39,6 +39,10 @@ spec:
       main:
         podSpec:
           containers:
+            main:
+              imageSelector: image
+              env:
+                GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
             sidecar:
               enabled: true
               imageSelector: sidecarImage
