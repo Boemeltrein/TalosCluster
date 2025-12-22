@@ -43,10 +43,7 @@ spec:
       ingressClassResource:
         name: external
         default: false
-        controllerValue: k8s.io/external
-      configAnnotations:
-        boemeltrein: "test"
-          
+        controllerValue: k8s.io/external       
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
