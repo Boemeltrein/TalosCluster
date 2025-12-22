@@ -11,7 +11,7 @@ spec:
       rules:
         - alert: CertManagerAbsent
           expr: |-
-            absent(up{job="cert-manager-test"})
+            absent(up{job="cert-manager"})
           for: 5m
           annotations:
             summary: >-
