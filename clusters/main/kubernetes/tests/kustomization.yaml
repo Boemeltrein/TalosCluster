@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   #- wg-easy/ks.yaml
   #- authentik/ks.yaml
-  - seafile/ks.yaml
+  #- seafile/ks.yaml
   - tandoor/ks.yaml
 
   
