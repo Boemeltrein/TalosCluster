@@ -4,7 +4,7 @@ metadata:
   name: seafile
   namespace: seafile
 spec:
-  interval: 10m
+  interval: 15m
   chart:
     spec:
       chart: app-template

@@ -6,7 +6,5 @@ resources:
   - seafile/ks.yaml
   - tandoor/ks.yaml
 
-components:
-  - ../../components/gates/ingress-internal
   
   
