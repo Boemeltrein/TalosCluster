@@ -11,6 +11,6 @@ spec:
             group: {{ .Values.ingress.main.ingressClassName }}
             client:
               dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
-            {{- if .Values.gatus.conditions }}
+            {{- if .Values.gatus and .Values.gatus.conditions }}
             conditions: {{ toJson .Values.gatus.conditions }}
             {{- end }}
