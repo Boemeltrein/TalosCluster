@@ -34,7 +34,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: extrernal
         hosts:
           - host: tandoor.${BASE_DOMAIN}
         integrations:
