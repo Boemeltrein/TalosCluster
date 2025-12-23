@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+spec:
+  values:
+    ingress:
+      main:
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            group: "internal"
