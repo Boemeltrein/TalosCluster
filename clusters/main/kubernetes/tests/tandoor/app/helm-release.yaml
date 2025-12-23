@@ -35,9 +35,8 @@ spec:
       main:
         enabled: true
         annotations:
-                annotations:
-                  gatus.home-operations.com/endpoint: |-
-                    conditions: ["[STATUS] == 401"]
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 401"]
         ingressClassName: extrernal
         hosts:
           - host: tandoor.${BASE_DOMAIN}
