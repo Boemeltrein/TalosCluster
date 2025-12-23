@@ -61,7 +61,8 @@ spec:
                 - --enable-service 
                 - --enable-ingress
                 - --auto-ingress
-                - --ingress-class=internal,external
+                - --ingress-class=internal
+                - --ingress-class=external
 
     TZ: Europe/Amsterdam
     
