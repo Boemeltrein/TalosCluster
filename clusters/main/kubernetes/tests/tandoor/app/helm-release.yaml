@@ -34,9 +34,6 @@ spec:
     ingress:
       main:
         enabled: true
-        annotations:
-          gatus.home-operations.com/endpoint: |-
-            conditions: ["[STATUS] == 401"]
         ingressClassName: extrernal
         hosts:
           - host: tandoor.${BASE_DOMAIN}
@@ -44,3 +41,7 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+
+    gates:
+      conditions:
+        - "[STATUS] == 401"
