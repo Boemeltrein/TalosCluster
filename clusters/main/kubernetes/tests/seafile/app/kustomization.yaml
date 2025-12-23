@@ -5,4 +5,4 @@ resources:
   - helm-release.yaml
 components:
   - ../../../../components/notifications/
-  - ../../../../components/gates/ingress-internal/
+  - ../../../../components/gates/ingress-internal
