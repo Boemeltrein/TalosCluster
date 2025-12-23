@@ -9,3 +9,5 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |
             group: "internal"
+            client:
+              dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
