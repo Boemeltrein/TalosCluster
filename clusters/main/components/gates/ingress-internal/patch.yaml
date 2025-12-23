@@ -9,14 +9,17 @@ spec:
         annotations:
           gatus.home-operations.com/endpoint: |
             group: {{ .Values.ingress.main.ingressClassName }}
+            {{- if eq .Values.ingress.main.ingressClassName "internal" }}
             client:
               dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
-            {{- if and .Values.gatus .Values.gatus.conditions }}
-            conditions: {{ toJson .Values.gatus.conditions }}
-            {{- end }}
-            {{- if eq .Values.ingress.main.ingressClassName "internal" }}
-            guarded: true
             ui:
               hide-url: true
               hide-hostname: true
+            {{- end }}
+            {{- if eq .Values.ingress.main.ingressClassName "external" }}
+            client:
+              dns-resolver: "tcp://1.1.1.1:53"
+            {{- end }}       
+            {{- if and .Values.gatus .Values.gatus.conditions }}
+            conditions: {{ toJson .Values.gatus.conditions }}
             {{- end }}
