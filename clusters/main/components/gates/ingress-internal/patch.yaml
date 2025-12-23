@@ -14,3 +14,9 @@ spec:
             {{- if and .Values.gatus .Values.gatus.conditions }}
             conditions: {{ toJson .Values.gatus.conditions }}
             {{- end }}
+            {{- if eq .Values.ingress.main.ingressClassName "internal" }}
+            guarded: true
+            ui:
+              hide-url: true
+              hide-hostname: true
+            {{- end }}
