@@ -42,6 +42,6 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
-    gates:
+    gatus:
       conditions:
         - "[STATUS] == 401"
