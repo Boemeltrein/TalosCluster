@@ -58,7 +58,7 @@ spec:
                 GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
                 GATUS_DELAY_START_SECONDS: 10
             sidecar:
-              enabled: {{ .Values.sidecar.enable }}
+              enabled: true
               imageSelector: sidecarImage
               probes:
                 liveness:
@@ -101,7 +101,7 @@ spec:
 
     persistence:
       configmain:
-        enabled: {{ .Values.sidecar.enable }}
+        enabled: true
         mountPath: /config
         readOnly: false
         targetSelectAll: true
@@ -161,7 +161,7 @@ spec:
 
     rbac:
       main:
-        enabled: {{ .Values.sidecar.enable }}
+        enabled: true
         primary: true
         clusterWide: true
         rules:
@@ -193,8 +193,8 @@ spec:
       
     serviceAccount:
       main:
-        enabled: {{ .Values.sidecar.enable }}
+        enabled: true
         primary: true
 
     podOptions:
-      automountServiceAccountToken: {{ .Values.sidecar.enable }}
+      automountServiceAccountToken: true
