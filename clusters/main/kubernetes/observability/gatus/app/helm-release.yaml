@@ -35,6 +35,19 @@ spec:
       pullPolicy: IfNotPresent
       tag: 0.0.12@sha256:83bf82d422e9b0529a8076cb584d557a12158d9d8a4c373b4d27afcb87a17569
 
+    sidecar:
+      enable: true
+      enableService: false
+      enableIngress: true
+      enableHttproute: false
+      autoService: false
+      autoIngress: true 
+      autoHttproute: false
+      namespace: ""  # Namespace to watch (empty for all namespaces), only one namespace is supported (string)
+      ingressClass: "" # Ingress class to filter Ingresses, only one gateway-name is supported (string)
+      gatewayName: ""  # Gateway name to filter HTTPRoutes, only one gateway-name is supported (string)
+
+
     workload:
       main:
         podSpec:
@@ -45,7 +58,7 @@ spec:
                 GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
                 GATUS_DELAY_START_SECONDS: 10
             sidecar:
-              enabled: true
+              enabled: {{ .Values.sidecar.enable }}
               imageSelector: sidecarImage
               probes:
                 liveness:
@@ -58,9 +71,13 @@ spec:
                   enabled: true
                   port: "{{ .Values.service.main.ports.main.port }}"
               extraArgs:
-                - --enable-service 
-                - --enable-ingress
-                - --auto-ingress
+                  - --output=/config/gatus-sidecar.yaml
+                  - --enable-service={{ .Values.sidecar.enableService }}
+                  - --enable-ingress={{ .Values.sidecar.enableIngress }}
+                  - --enable-httproute={{ .Values.sidecar.enableHttproute }}
+                  - --auto-service={{ .Values.sidecar.autoService }}
+                  - --auto-ingress={{ .Values.sidecar.autoIngress }}
+                  - --auto-httproute={{ .Values.sidecar.autoHttproute }}
 
     TZ: Europe/Amsterdam
     
@@ -75,6 +92,7 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
+    # Need sysctl to allow ICMP ping from non-root containers
     securityContext:
       pod:
         sysctls:
@@ -83,7 +101,7 @@ spec:
 
     persistence:
       configmain:
-        enabled: true
+        enabled: {{ .Values.sidecar.enable }}
         mountPath: /config
         readOnly: false
         targetSelectAll: true
@@ -143,7 +161,7 @@ spec:
 
     rbac:
       main:
-        enabled: true
+        enabled: {{ .Values.sidecar.enable }}
         primary: true
         clusterWide: true
         rules:
@@ -167,6 +185,7 @@ spec:
               - "gateway.networking.k8s.io"
             resources:
               - "httproutes"
+              - "gateways"
             verbs:
               - "get"
               - "list"
@@ -174,8 +193,8 @@ spec:
       
     serviceAccount:
       main:
-        enabled: true
+        enabled: {{ .Values.sidecar.enable }}
         primary: true
 
     podOptions:
-      automountServiceAccountToken: true
+      automountServiceAccountToken: {{ .Values.sidecar.enable }}
