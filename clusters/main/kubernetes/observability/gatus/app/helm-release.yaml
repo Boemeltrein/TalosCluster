@@ -103,10 +103,7 @@ spec:
 
     persistence:
       configmain:
-        enabled: true
-        type: nfs
-        path: /mnt/SSD_Cluster/app_minecraft_test
-        server: 192.168.1.50        
+        enabled: true    
         mountPath: /config
         readOnly: false
         targetSelectAll: true
