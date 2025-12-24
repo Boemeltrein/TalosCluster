@@ -36,6 +36,9 @@ spec:
       main:
         enabled: true
         ingressClassName: external
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 401"]
         hosts:
           - host: kromgo.${DOMAIN}
         integrations:
