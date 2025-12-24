@@ -88,7 +88,7 @@ spec:
         type: nfs
         path: /mnt/SSD_Cluster/app_minecraft_data
         server: 192.168.1.50
-        mountPath: /config
+        mountPath: /config2
         readOnly: false
         targetSelectAll: true
       config:
