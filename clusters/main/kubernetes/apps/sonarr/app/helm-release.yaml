@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: sonarr
-      version: 25.2.4
+      version: 25.2.6
       sourceRef:
         kind: HelmRepository
         name: truecharts
