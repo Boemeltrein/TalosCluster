@@ -59,8 +59,6 @@ spec:
             sidecar:
               enabled: "{{ .Values.sidecar.enable }}"
               imageSelector: sidecarImage
-              podSpec:
-                automountServiceAccountToken: true
               probes:
                 liveness:
                   enabled: true
@@ -200,5 +198,5 @@ spec:
         enabled: true
         primary: true
 
-#    podOptions:
-#      automountServiceAccountToken: true
+    podOptions:
+      automountServiceAccountToken: true
