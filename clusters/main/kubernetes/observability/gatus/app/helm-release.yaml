@@ -44,9 +44,8 @@ spec:
       autoIngress: true 
       autoHttproute: false
       namespace: ""  # Namespace to watch (empty for all namespaces), only one namespace is supported (string)
-      ingressClass: "external" # Ingress class to filter Ingresses, only one gateway-name is supported (string)
-      gatewayName: ""  # Gateway name to filter HTTPRoutes, only one gateway-name is supported (string)
-
+      ingressClass: "" # Ingress class to filter Ingresses, only one ingress class is supported (string)
+      gatewayName: ""  # Gateway name to filter HTTPRoutes, only one gateway name is supported (string)
 
     workload:
       main:
