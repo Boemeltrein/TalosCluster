@@ -78,6 +78,9 @@ spec:
                   - --auto-service={{ .Values.sidecar.autoService }}
                   - --auto-ingress={{ .Values.sidecar.autoIngress }}
                   - --auto-httproute={{ .Values.sidecar.autoHttproute }}
+                  - --namespace={{ .Values.sidecar.namespace }}
+                  - --ingress-class={{ .Values.sidecar.ingressClass }}
+                  - --gateway-name={{ .Values.sidecar.gatewayName }}
 
     TZ: Europe/Amsterdam
     
