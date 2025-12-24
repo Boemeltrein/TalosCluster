@@ -61,6 +61,7 @@ spec:
                 - --enable-service 
                 - --enable-ingress
                 - --auto-ingress
+                - --ada
                 # --ingress-class=internal
 
     TZ: Europe/Amsterdam
