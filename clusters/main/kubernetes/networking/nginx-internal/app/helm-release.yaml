@@ -44,6 +44,14 @@ spec:
         name: internal
         default: true
         controllerValue: k8s.io/internal
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            group: internal
+            client:
+              dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
+            ui:
+              hide-url: true
+              hide-hostname: true
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
