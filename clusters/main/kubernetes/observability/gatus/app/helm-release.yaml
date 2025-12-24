@@ -37,10 +37,10 @@ spec:
 
     sidecar:
       enable: true
-      enableService: true
+      enableService: false
       enableIngress: true
-      enableHttproute: false
-      autoService: true
+      enableHttproute: true
+      autoService: false
       autoIngress: true 
       autoHttproute: false
       namespace: ""  # Namespace to watch (empty for all namespaces), only one namespace is supported (string)
