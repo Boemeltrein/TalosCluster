@@ -57,7 +57,7 @@ spec:
                 GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
                 GATUS_DELAY_START_SECONDS: 10
             sidecar:
-              enabled: true
+              enabled: "{{ .Values.sidecar.enable }}"
               imageSelector: sidecarImage
               probes:
                 liveness:
