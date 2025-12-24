@@ -85,7 +85,9 @@ spec:
     persistence:
       configmain:
         enabled: true
-        type: emptyDir
+        type: nfs
+        path: /mnt/SSD_Cluster/app_minecraft_data
+        server: 192.168.1.50
         mountPath: /config
         readOnly: false
         targetSelectAll: true
