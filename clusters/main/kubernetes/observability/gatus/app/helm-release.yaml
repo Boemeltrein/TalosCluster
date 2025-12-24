@@ -149,7 +149,7 @@ spec:
               - "networking.k8s.io"
             resources:
               - "ingresses"
-              - "ingressclass"
+              - "ingressclasses"
             verbs:
               - "get"
               - "list"
