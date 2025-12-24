@@ -56,6 +56,9 @@ spec:
       main:
         enabled: true
         ingressClassName: internal
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
         hosts:
           - host: signalapi.${BASE_DOMAIN}
         integrations:
