@@ -43,7 +43,12 @@ spec:
       ingressClassResource:
         name: external
         default: false
-        controllerValue: k8s.io/external       
+        controllerValue: k8s.io/external
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            group: external
+            client:
+              dns-resolver: "tcp://1.1.1.1:53"    
       config:
         allow-snippet-annotations: true
         annotations-risk-level: Critical
