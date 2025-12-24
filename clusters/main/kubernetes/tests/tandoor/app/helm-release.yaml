@@ -34,14 +34,10 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: external
+        ingressClassName: internal
         hosts:
           - host: tandoor.${BASE_DOMAIN}
         integrations:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-
-    gatus:
-      conditions:
-        - "[STATUS] == 401"
