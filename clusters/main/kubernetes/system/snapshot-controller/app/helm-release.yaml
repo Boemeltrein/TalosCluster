@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: snapshot-controller
-      version: 4.14.4
+      version: 4.14.5
       sourceRef:
         kind: HelmRepository
         name: truecharts
