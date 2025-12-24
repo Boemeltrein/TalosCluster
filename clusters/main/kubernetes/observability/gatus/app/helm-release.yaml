@@ -40,7 +40,7 @@ spec:
       enableService: true
       enableIngress: true
       enableHttproute: false
-      autoService: false
+      autoService: true
       autoIngress: true 
       autoHttproute: false
       namespace: ""  # Namespace to watch (empty for all namespaces), only one namespace is supported (string)
