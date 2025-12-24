@@ -43,7 +43,7 @@ spec:
               imageSelector: image
               env:
                 GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
-                GATUS_DELAY_START_SECONDS: 5
+                GATUS_DELAY_START_SECONDS: 10
             sidecar:
               enabled: true
               imageSelector: sidecarImage
@@ -105,6 +105,17 @@ spec:
               type: postgres
               path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
             {{- end }}
+
+            ui:
+              title: Status | Gatus
+              header: Status
+              logo: https://avatars.githubusercontent.com/u/130394941
+              link: https://github.com/Boemeltrein
+              buttons:
+                - name: Github
+                  link: https://github.com/Boemeltrein
+                - name: TalosCluster
+                  link: https://github.com/Boemeltrein/TalosCluster
 
             endpoints:
               - name: Cloudflare
