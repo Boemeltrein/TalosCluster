@@ -28,7 +28,8 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-
+    
+  values:
     TZ: Europe/Amsterdam
     
     ingress:
