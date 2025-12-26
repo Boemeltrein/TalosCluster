@@ -28,58 +28,6 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  
-  values:
-    sidecarImage:
-      repository: ghcr.io/home-operations/gatus-sidecar
-      pullPolicy: IfNotPresent
-      tag: 0.0.12@sha256:83bf82d422e9b0529a8076cb584d557a12158d9d8a4c373b4d27afcb87a17569
-
-    sidecar:
-      enable: true
-      enableService: false
-      enableIngress: true
-      enableHttproute: false
-      autoService: false
-      autoIngress: true 
-      autoHttproute: false
-      namespace: ""  # Namespace to watch (empty for all namespaces), only one namespace is supported (string)
-      ingressClass: "" # Ingress class to filter Ingresses, only one ingress class is supported (string)
-      gatewayName: ""  # Gateway name to filter HTTPRoutes, only one gateway name is supported (string)
-
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              imageSelector: image
-              env:
-                GATUS_CONFIG_PATH: "{{ .Values.persistence.configmain.mountPath }}"
-                GATUS_DELAY_START_SECONDS: 10
-            sidecar:
-              enabled: "{{ .Values.sidecar.enable }}"
-              imageSelector: sidecarImage
-              probes:
-                liveness:
-                  enabled: true
-                  port: "{{ .Values.service.main.ports.main.port }}"
-                readiness:
-                  enabled: true
-                  port: "{{ .Values.service.main.ports.main.port }}"
-                startup:
-                  enabled: true
-                  port: "{{ .Values.service.main.ports.main.port }}"
-              args:
-                - --output=/config/gatus-sidecar.yaml
-                - --enable-service={{ .Values.sidecar.enableService }}
-                - --enable-ingress={{ .Values.sidecar.enableIngress }}
-                - --enable-httproute={{ .Values.sidecar.enableHttproute }}
-                - --auto-service={{ .Values.sidecar.autoService }}
-                - --auto-ingress={{ .Values.sidecar.autoIngress }}
-                - --auto-httproute={{ .Values.sidecar.autoHttproute }}
-                - --namespace={{ .Values.sidecar.namespace }}
-                - --ingress-class={{ .Values.sidecar.ingressClass }}
-                - --gateway-name={{ .Values.sidecar.gatewayName }}
 
     TZ: Europe/Amsterdam
     
@@ -94,26 +42,11 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
-    # Need sysctl to allow ICMP ping from non-root containers
-    securityContext:
-      pod:
-        sysctls:
-          - name: net.ipv4.ping_group_range
-            value: "0 2147483647"
-
-    persistence:
-      configmain:
-        enabled: true    
-        mountPath: /config
-        readOnly: false
-        targetSelectAll: true
-      config:
-        enabled: true
-        mountPath: /config/config.yaml
-        subPath: config.yaml
-        readOnly: true
-        type: "configmap"
-        objectName: config
+    sidecar:
+      enable: true
+      enableService: false
+      enableIngress: true
+      autoIngress: true 
 
     configmap:
       config:
@@ -160,43 +93,3 @@ spec:
                   - "[CONNECTED] == true"
 
             metrics: true
-
-    rbac:
-      main:
-        enabled: true
-        primary: true
-        clusterWide: true
-        rules:
-          - apiGroups: [""]
-            resources:
-              - "services"
-            verbs:
-              - "get"
-              - "list"
-              - "watch"
-          - apiGroups:
-              - "networking.k8s.io"
-            resources:
-              - "ingresses"
-              - "ingressclasses"
-            verbs:
-              - "get"
-              - "list"
-              - "watch"
-          - apiGroups:
-              - "gateway.networking.k8s.io"
-            resources:
-              - "httproutes"
-              - "gateways"
-            verbs:
-              - "get"
-              - "list"
-              - "watch"
-      
-    serviceAccount:
-      main:
-        enabled: true
-        primary: true
-
-    podOptions:
-      automountServiceAccountToken: true
