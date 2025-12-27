@@ -43,7 +43,6 @@ data:
             - "dynmap.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
-      rules:
         - domain:
             - "status.${DOMAIN}"
           policy: one_factor
