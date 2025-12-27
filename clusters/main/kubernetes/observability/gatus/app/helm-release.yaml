@@ -84,7 +84,6 @@ spec:
               type: postgres
               path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
             {{- end }}
-
             ui:
               title: Status | Gatus
               header: Status
@@ -94,10 +93,8 @@ spec:
                 - name: Github
                   link: https://github.com/Boemeltrein
                 - name: TalosCluster
-                  link: https://github.com/Boemeltrein/TalosCluster
-            
+                  link: https://github.com/Boemeltrein/TalosCluster          
             metrics: true
-
             alerting:
               discord:
                 webhook-url: ${GATUS_WEBHOOK}
@@ -107,7 +104,6 @@ spec:
                 overrides:
                   - group: "buddy"
                     webhook-url: ${GATUS_WEBHOOK_BUDDY}
-
             endpoints:
               - name: Cloudflare
                 group: connectivity
@@ -115,21 +111,18 @@ spec:
                 interval: 1m
                 conditions:
                   - "[CONNECTED] == true"
-
               - name: Google
                 group: connectivity
                 url: icmp://8.8.8.8
                 interval: 1m
                 conditions:
                   - "[CONNECTED] == true"
-
               - name: Quad9
                 group: connectivity
                 url: icmp://9.9.9.9
                 interval: 1m
                 conditions:
                   - "[CONNECTED] == true"
-
               ### BUDDY ENDPOINTS
               - name: Status Page (Buddy)
                 group: buddy
@@ -154,4 +147,4 @@ spec:
                   - "[CONNECTED] == true"
                 alerts:
                   - type: discord
-              ### BUDDY ENDPOINTS END                  
+              ### BUDDY ENDPOINTS END
