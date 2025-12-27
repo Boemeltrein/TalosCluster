@@ -197,3 +197,9 @@ spec:
             # renovate: depName="SmartCTL"
             id: 22604
             revision: 2
+        truenas-exporter:
+          enabled: true
+          datasource:
+            - name: "$${DS_MIMIR}"
+              value: Prometheus
+          url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale.json
