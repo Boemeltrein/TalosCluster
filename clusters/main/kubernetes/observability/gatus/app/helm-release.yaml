@@ -131,4 +131,4 @@ spec:
                 conditions:
                   - "[STATUS] == 200"
                   - "[BODY].status == UP"
-              ### BUDDY ENDPOINTS END
+              ### BUDDY ENDPOINTS END 2
