@@ -153,4 +153,4 @@ spec:
                 conditions:
                   - "[CONNECTED] == true"
                 alerts:
-                  - type: discord
+                  - type: discord                  
