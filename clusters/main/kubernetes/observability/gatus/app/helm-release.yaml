@@ -114,24 +114,3 @@ spec:
                 interval: 1m
                 conditions:
                   - "[CONNECTED] == true"
-              ### BUDDY ENDPOINTS
-              - name: Status Page (Buddy)
-                group: buddy
-                url: https://${GATUS_BUDDY_STATUS_HOSTNAME}
-                interval: 1m
-                ui:
-                  hide-url: true
-                  hide-hostname: true
-                conditions:
-                  - "[STATUS] == 200"
-                  - "[BODY].status == UP"
-              - name: Ping (Buddy)
-                group: buddy
-                url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
-                interval: 1m
-                ui:
-                  hide-url: true
-                  hide-hostname: true
-                conditions:
-                  - "[CONNECTED] == true"
-              ### BUDDY ENDPOINTS END
