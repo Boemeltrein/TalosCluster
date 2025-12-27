@@ -131,4 +131,13 @@ spec:
                 conditions:
                   - "[STATUS] == 200"
                   - "[BODY].status == UP"
+              - name: Ping (Buddy)
+                group: buddy
+                url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
+                interval: 1m
+                ui:
+                  hide-url: true
+                  hide-hostname: true
+                conditions:
+                  - "[CONNECTED] == true"
               ### BUDDY ENDPOINTS END
