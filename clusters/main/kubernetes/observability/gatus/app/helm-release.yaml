@@ -76,7 +76,9 @@ spec:
                   link: https://github.com/Boemeltrein
                 - name: TalosCluster
                   link: https://github.com/Boemeltrein/TalosCluster
-
+            
+            metrics: true
+            
             endpoints:
               - name: Cloudflare
                 group: connectivity
@@ -99,4 +101,17 @@ spec:
                 conditions:
                   - "[CONNECTED] == true"
 
-            metrics: true
+              ### BUDDY ENDPOINTS
+
+              - name: Status Page (Buddy)
+                group: buddy
+                url: https://${GATUS_BUDDY_STATUS_HOSTNAME}
+                interval: 1m
+                ui:
+                  hide-url: true
+                  hide-hostname: true
+                conditions:
+                  - "[STATUS] == 200"
+
+            
+
