@@ -43,6 +43,10 @@ data:
             - "dynmap.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
+        - domain:
+            - "status.${DOMAIN}"
+          policy: one_factor
+          subject: "group:apps"
     identity_providers:
       oidc:
         hmac_secret: {{ secret "/config/secret/hmac_secret" }}
