@@ -58,3 +58,6 @@ spec:
       - domain: wireguard.${DOMAIN}
         record: A
         zone: ${CLOUDFLARE_ZONE_ID}
+      - domain: echo.${DOMAIN}
+        record: A
+        zone: ${CLOUDFLARE_ZONE_ID}        
