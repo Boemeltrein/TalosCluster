@@ -95,15 +95,6 @@ spec:
                 - name: TalosCluster
                   link: https://github.com/Boemeltrein/TalosCluster          
             metrics: true
-            alerting:
-              discord:
-                webhook-url: ${GATUS_WEBHOOK}
-                default-alert:
-                  description: "health check failed"
-                  send-on-resolved: true
-                overrides:
-                  - group: "buddy"
-                    webhook-url: ${GATUS_WEBHOOK_BUDDY}
             endpoints:
               - name: Cloudflare
                 group: connectivity
@@ -134,8 +125,6 @@ spec:
                 conditions:
                   - "[STATUS] == 200"
                   - "[BODY].status == UP"
-                alerts:
-                  - type: discord
               - name: Ping (Buddy)
                 group: buddy
                 url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
@@ -145,6 +134,4 @@ spec:
                   hide-hostname: true
                 conditions:
                   - "[CONNECTED] == true"
-                alerts:
-                  - type: discord
               ### BUDDY ENDPOINTS END
