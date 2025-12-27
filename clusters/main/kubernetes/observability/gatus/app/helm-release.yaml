@@ -101,3 +101,5 @@ spec:
                 default-alert:
                   description: "health check failed"
                   send-on-resolved: true
+                overrides:
+                  - group: "buddy"
