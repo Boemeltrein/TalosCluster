@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: node-memory-high-utilization-override
+  name: node-exporter.rules
   namespace: kube-prometheus-stack
 spec:
   groups:
