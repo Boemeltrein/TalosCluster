@@ -112,6 +112,10 @@ spec:
                   hide-hostname: true
                 conditions:
                   - "[STATUS] == 200"
+                  
+              ### END BUDDY ENDPOINTS
+
+
 
 
             
