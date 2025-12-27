@@ -59,13 +59,13 @@ spec:
         alertmanagerConfiguration:
           name: alertmanager
         externalUrl: https://alertmanager.${BASE_DOMAIN}
-#        storage:
-#          volumeClaimTemplate:
-#            spec:
-#              storageClassName: longhorn
-#              resources:
-#                requests:
-#                  storage: 1Gi        
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              resources:
+                requests:
+                  storage: 1Gi        
 
     grafana:
       enabled: false
@@ -432,27 +432,6 @@ spec:
       kubeletEndpointSliceEnabled: true
 
     prometheus:
-      prometheusSpec:
-        podMonitorSelectorNilUsesHelmValues: false
-        probeSelectorNilUsesHelmValues: false
-        ruleSelectorNilUsesHelmValues: false
-        scrapeConfigSelectorNilUsesHelmValues: false
-        serviceMonitorSelectorNilUsesHelmValues: false
-        enableAdminAPI: true
-        walCompression: true
-        serviceDiscoveryRole: EndpointSlice
-        enableFeatures:
-          - memory-snapshot-on-shutdown
-        retention: 14d
-        retentionSize: 50GB
-        resources:
-          requests:
-            cpu: 100m
-            memory: 500Mi
-          limits:
-            memory: 2000Mi
-        secrets:
-          - etcd-client-cert
       ingress:
         enabled: true
         ingressClassName: internal
@@ -468,6 +447,35 @@ spec:
           - secretName: prometheus-general-tls
             hosts:
               - prometheus.${BASE_DOMAIN}
+      prometheusSpec:
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
+        enableAdminAPI: true
+        walCompression: true
+        serviceDiscoveryRole: EndpointSlice
+        enableFeatures:
+          - memory-snapshot-on-shutdown
+        retention: 30d
+        retentionSize: 75GB
+        resources:
+          requests:
+            cpu: 100m
+            memory: 500Mi
+          limits:
+            memory: 2000Mi
+        secrets:
+          - etcd-client-cert
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: longhorn
+              resources:
+                requests:
+                  storage: 100Gi  
+
 
     cleanPrometheusOperatorObjectNames: true
 

@@ -1,11 +1,11 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
-  name: node-exporter.rules
+  name: node-exporter
   namespace: kube-prometheus-stack
 spec:
   groups:
-  - name: node-memory-high-utilization
+  - name: node-exporter.rules
     rules:
 
     # TrueNAS → 98%
