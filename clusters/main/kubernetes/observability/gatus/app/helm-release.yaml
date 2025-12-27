@@ -119,7 +119,6 @@ spec:
                   - "[CONNECTED] == true"
 
               ### BUDDY ENDPOINTS
-
               - name: Status Page (Buddy)
                 group: buddy
                 url: https://${GATUS_BUDDY_STATUS_HOSTNAME}
@@ -129,11 +128,3 @@ spec:
                   hide-hostname: true
                 conditions:
                   - "[STATUS] == 200"
-                  
-
-
-
-
-
-            
-
