@@ -470,3 +470,8 @@ spec:
               - prometheus.${BASE_DOMAIN}
 
     cleanPrometheusOperatorObjectNames: true
+
+    defaultRules:
+      ## Disabled PrometheusRule alerts
+      disabled:
+         NodeMemoryHighUtilization: true
