@@ -84,7 +84,6 @@ spec:
               type: postgres
               path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
             {{- end }}
-
             ui:
               title: Status | Gatus
               header: Status
@@ -95,7 +94,6 @@ spec:
                   link: https://github.com/Boemeltrein
                 - name: TalosCluster
                   link: https://github.com/Boemeltrein/TalosCluster
-
             metrics: true
             alerting:
               discord:
