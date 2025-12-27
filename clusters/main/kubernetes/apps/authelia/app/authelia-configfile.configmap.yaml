@@ -41,9 +41,13 @@ data:
         - domain:
             - "bluemap.${DOMAIN}"
             - "dynmap.${DOMAIN}"
-            - "status.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
+      rules:
+        - domain:
+            - "status.${DOMAIN}"
+          policy: one_factor
+          subject: "group:apps"
     identity_providers:
       oidc:
         hmac_secret: {{ secret "/config/secret/hmac_secret" }}
