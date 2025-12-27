@@ -41,7 +41,6 @@ data:
         - domain:
             - "bluemap.${DOMAIN}"
             - "dynmap.${DOMAIN}"
-            - "status.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
     identity_providers:
