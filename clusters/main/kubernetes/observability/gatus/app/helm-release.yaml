@@ -35,7 +35,7 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: external
         hosts:
           - host: status.${DOMAIN}
         integrations:
@@ -48,7 +48,7 @@ spec:
               type: "authelia"
               internalHost: "authelia.authelia.svc.cluster.local:9091"
               externalHost: "auth.${DOMAIN}"
-              
+
     sidecar:
       enable: true
       enableService: false
