@@ -7,5 +7,6 @@ resources:
   - etc.secret.yaml
   - helm-release.yaml
   - scrapeconfig.yaml
+  - promethuesrule.yaml
 components:
   - ../../../../components/notifications/discord
