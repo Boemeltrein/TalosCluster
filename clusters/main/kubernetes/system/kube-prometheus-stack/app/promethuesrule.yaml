@@ -5,7 +5,7 @@ metadata:
   namespace: kube-prometheus-stack
 spec:
   groups:
-  - name: node-memory-high-utilization
+  - name: node-exporter
     rules:
 
     # TrueNAS → 98%
