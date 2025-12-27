@@ -103,4 +103,3 @@ spec:
                   send-on-resolved: true
                 overrides:
                   - group: "buddy"
-                    webhook-url: ${GATUS_WEBHOOK_BUDDY}
