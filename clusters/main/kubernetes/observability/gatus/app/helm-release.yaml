@@ -153,5 +153,4 @@ spec:
                 conditions:
                   - "[CONNECTED] == true"
                 alerts:
-                  - type: discord                  
-              ### BUDDY ENDPOINTS END2
+                  - type: discord
