@@ -130,4 +130,5 @@ spec:
                   hide-hostname: true
                 conditions:
                   - "[STATUS] == 200"
+                  - "[BODY].status == UP"
               ### BUDDY ENDPOINTS END
