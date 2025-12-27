@@ -37,12 +37,18 @@ spec:
         enabled: true
         ingressClassName: internal
         hosts:
-          - host: gatus.${BASE_DOMAIN}
+          - host: status.${DOMAIN}
         integrations:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "auth.${DOMAIN}"
+              
     sidecar:
       enable: true
       enableService: false
