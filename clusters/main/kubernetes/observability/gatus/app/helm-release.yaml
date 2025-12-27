@@ -142,7 +142,7 @@ spec:
                   - "[STATUS] == 200"
                   - "[BODY].status == UP"
                 alerts:
-                  - type: discord                  
+                  - type: discord
               - name: Ping (Buddy)
                 group: buddy
                 url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
@@ -153,4 +153,5 @@ spec:
                 conditions:
                   - "[CONNECTED] == true"
                 alerts:
-                  - type: discord                  
+                  - type: discord
+              ### BUDDY ENDPOINTS END                  
