@@ -468,7 +468,7 @@ spec:
             memory: 2000Mi
         secrets:
           - etcd-client-cert
-        storage:
+        storageSpec:
           volumeClaimTemplate:
             spec:
               storageClassName: longhorn
