@@ -84,7 +84,7 @@ spec:
               type: postgres
               path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
             {{- end }}
-            
+
             ui:
               title: Status | Gatus
               header: Status
@@ -95,15 +95,5 @@ spec:
                   link: https://github.com/Boemeltrein
                 - name: TalosCluster
                   link: https://github.com/Boemeltrein/TalosCluster
-            
+
             metrics: true
-            
-            alerting:
-              discord:
-                webhook-url: ${GATUS_WEBHOOK}
-                default-alert:
-                  description: "health check failed"
-                  send-on-resolved: true
-                overrides:
-                  - group: "buddy"
-                    webhook-url: ${GATUS_WEBHOOK_BUDDY}
