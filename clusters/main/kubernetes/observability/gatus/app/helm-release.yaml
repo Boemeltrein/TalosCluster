@@ -105,7 +105,7 @@ spec:
 
               - name: Status Page (Buddy)
                 group: buddy
-                url: https://${GATUS_BUDDY_STATUS_HOSTNAME}
+                url: ${GATUS_BUDDY_STATUS_HOSTNAME}
                 interval: 1m
                 ui:
                   hide-url: true
