@@ -4,7 +4,6 @@ resources:
   - namespace.yaml
   - alertmanagerconfig.yaml
   - alertmanager.secret.yaml
-  - etc.secret.yaml
   - helm-release.yaml
   - scrapeconfig.yaml
   - promethuesrule.yaml
