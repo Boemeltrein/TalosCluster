@@ -84,33 +84,3 @@ spec:
               type: postgres
               path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
             {{- end }}
-            ui:
-              title: Status | Gatus
-              header: Status
-              logo: https://avatars.githubusercontent.com/u/130394941
-              link: https://github.com/Boemeltrein
-              buttons:
-                - name: Github
-                  link: https://github.com/Boemeltrein
-                - name: TalosCluster
-                  link: https://github.com/Boemeltrein/TalosCluster          
-            metrics: true
-            endpoints:
-              - name: Cloudflare
-                group: connectivity
-                url: icmp://1.1.1.1
-                interval: 1m
-                conditions:
-                  - "[CONNECTED] == true"
-              - name: Google
-                group: connectivity
-                url: icmp://8.8.8.8
-                interval: 1m
-                conditions:
-                  - "[CONNECTED] == true"
-              - name: Quad9
-                group: connectivity
-                url: icmp://9.9.9.9
-                interval: 1m
-                conditions:
-                  - "[CONNECTED] == true"
