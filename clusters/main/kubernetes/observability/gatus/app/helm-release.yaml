@@ -147,4 +147,12 @@ spec:
                   - "[CONNECTED] == true"
                 alerts:
                   - type: discord
+              external-endpoints:
+              - name: Heartbeat (Buddy)
+                group: buddy
+                token: ${GATUS_BUDDY_HEARTBEAT_TOKEN}
+                heartbeat:
+                  interval: 5m
+                alerts:
+                  - type: discord
               ### BUDDY ENDPOINTS END
