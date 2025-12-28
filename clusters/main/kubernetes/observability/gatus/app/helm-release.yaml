@@ -135,6 +135,7 @@ spec:
                   - "[BODY].status == UP"
                 alerts:
                   - type: discord
+                  - minimum-reminder-interval: 12h
               - name: Ping (Buddy)
                 group: buddy
                 url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
@@ -146,6 +147,7 @@ spec:
                   - "[CONNECTED] == true"
                 alerts:
                   - type: discord
+                  - minimum-reminder-interval: 12h
             external-endpoints:
               - name: Heartbeat (Buddy)
                 group: buddy
@@ -154,3 +156,4 @@ spec:
                   interval: 5m
                 alerts:
                   - type: discord
+                  - minimum-reminder-interval: 12h
