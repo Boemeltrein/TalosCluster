@@ -101,7 +101,6 @@ spec:
                 default-alert:
                   description: "health check failed"
                   send-on-resolved: true
-                  minimum-reminder-interval: 12h
                 overrides:
                   - group: "buddy"
                     webhook-url: ${GATUS_BUDDY_ALERT_WEBHOOK}
@@ -152,6 +151,6 @@ spec:
                 group: buddy
                 token: ${GATUS_BUDDY_HEARTBEAT_TOKEN}
                 heartbeat:
-                  interval: 4m
+                  interval: 5m
                 alerts:
                   - type: discord
