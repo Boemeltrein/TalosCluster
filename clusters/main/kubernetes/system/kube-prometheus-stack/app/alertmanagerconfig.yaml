@@ -18,7 +18,10 @@ spec:
           - name: alertname
             value: InfoInhibitor
             matchType: =
-      - receiver: blackhole
+      - receiver: buddy-heartbeat
+        groupInterval: 2m
+        groupWait: 0s
+        repeatInterval: 2m30s      
         matchers:
           - name: alertname
             value: Watchdog
@@ -41,6 +44,15 @@ spec:
 
   receivers:
     - name: blackhole
+    - name: buddy-heartbeat
+      webhookConfigs:
+        - httpConfig:
+            bearerTokenSecret:
+              name: alertmanager-secret
+              key: GATUS_BUDDY_HEARTBEAT_TOKEN
+          urlSecret:
+            name: alertmanager-secret
+            key: GATUS_BUDDY_HEARTBEAT_URL
     - name: discord
       discordConfigs:
         - apiURL: 
