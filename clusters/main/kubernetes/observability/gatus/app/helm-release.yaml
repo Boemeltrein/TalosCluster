@@ -152,6 +152,6 @@ spec:
                 group: buddy
                 token: ${GATUS_BUDDY_HEARTBEAT_TOKEN}
                 heartbeat:
-                  interval: 5m
+                  interval: 4m
                 alerts:
                   - type: discord
