@@ -101,7 +101,7 @@ spec:
                 default-alert:
                   description: "health check failed"
                   send-on-resolved: true
-                  minimum-reminder-interval: 5m
+                  minimum-reminder-interval: 12h
                 overrides:
                   - group: "buddy"
                     webhook-url: ${GATUS_BUDDY_ALERT_WEBHOOK}
