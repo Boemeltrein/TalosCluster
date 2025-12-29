@@ -203,3 +203,30 @@ spec:
             - name: "$${DS_MIMIR}"
               value: Prometheus
           url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale.json
+        longhorn:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="Longhorn"
+            id: 23521
+            revision: 2
+        k8s:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="k8s"
+            id: 15661
+            revision: 2
+        node:
+          enabled: true
+          datasource:
+            - name: "$${DS_PROMETHEUS}"
+              value: Prometheus
+          marketplace:
+            # renovate: depName="Node Exporter Full"
+            id: 1860
+            revision: 42
