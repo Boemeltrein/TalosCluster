@@ -215,7 +215,7 @@ spec:
         k8s:
           enabled: true
           datasource:
-            - name: "$${DS_PROMETHEUS}"
+            - name: "$${DS__VICTORIAMETRICS-PROD-ALL}"
               value: Prometheus
           marketplace:
             # renovate: depName="k8s"
