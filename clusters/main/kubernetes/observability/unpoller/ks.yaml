@@ -1,0 +1,12 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: unpoller
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: clusters/main/kubernetes/observability/unpoller/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster
