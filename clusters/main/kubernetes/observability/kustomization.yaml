@@ -8,4 +8,4 @@ resources:
   - truenas-exporter/ks.yaml
   - smartctl-exporter/ks.yaml
   - gatus/ks.yaml
-  #- unpoller/ks.yaml
+  - unpoller/ks.yaml
