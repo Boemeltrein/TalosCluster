@@ -44,6 +44,7 @@ spec:
                 UP_UNIFI_DEFAULT_URL: ${UNPOLLER_URL}
                 UP_UNIFI_DEFAULT_USER: ${UNPOLLER_USER}
                 UP_UNIFI_DEFAULT_PASS: ${UNPOLLER_PASS}
+                UP_INFLUXDB_DISABLE: true
 
     configmap:
       dashboards:
