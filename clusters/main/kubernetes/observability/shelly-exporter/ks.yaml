@@ -1,0 +1,13 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: shelly-exporter
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: clusters/main/kubernetes/observability/shelly-exporter/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster
+
