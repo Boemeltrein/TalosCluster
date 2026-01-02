@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: app-template
-      version: 15.29.49
+      version: 15.29.50
       sourceRef:
         kind: HelmRepository
         name: truecharts
