@@ -102,7 +102,7 @@ spec:
           title: Memory
 
         - name: cluster_power_usage
-          query: round(shellyplug_power{name="server"}, 0.1)
+          query: round(shellyplug_power{name="server"}, 1)
           suffix: "w"
           colors:
             - { color: "green", min: 0, max: 110 }

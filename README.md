@@ -18,9 +18,9 @@
 [![Uptime-Days](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_uptime_days&style=flat-square&label=Uptime)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Node-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_node_count&style=flat-square&label=Nodes)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Pod-Count](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_pod_count&style=flat-square&label=Pods)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
+[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![CPU-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_cpu_usage&style=flat-square&label=CPU)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Memory-Usage](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_memory_usage&style=flat-square&label=Memory)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_alert_count&style=flat-square&label=Alerts)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 [![Power](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fcluster_power_usage&style=flat-square&label=Power)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
 
 
