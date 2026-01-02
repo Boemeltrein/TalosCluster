@@ -102,12 +102,12 @@ spec:
           title: Memory
 
         - name: cluster_power_usage
-          query: round(upsHighPrecOutputLoad, 0.1)
+          query: round(shellyplug_power{name="server"}, 0.1)
           suffix: "w"
           colors:
-            - { color: "green", min: 0, max: 400 }
-            - { color: "orange", min: 401, max: 750 }
-            - { color: "red", min: 751, max: 9999 }
+            - { color: "green", min: 0, max: 110 }
+            - { color: "orange", min: 110, max: 150 }
+            - { color: "red", min: 150, max: 9999 }
           title: Power
 
         - name: cluster_age_days
