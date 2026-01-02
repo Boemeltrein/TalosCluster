@@ -42,16 +42,29 @@ spec:
         ports:
           main:
             port: 5000
-#            protocol: http
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                SHELLYPLUG_HOST: 192.168.1.74
-                SHELLYPLUG_GENERATION: 2
+    configmap:
+      exporter-configfile:
+        enabled: true
+        data:
+          config.yaml: |
+            {{- $.Values.exporter | toYaml | nindent 2 }}
+
+    persistence:
+      configfile:
+        enabled: true
+        type: configmap
+        readOnly: true
+        objectName: exporter-configfile
+        mountPath: /config.yaml
+        subPath: config.yaml
+
+    exporter:
+      exporter_port: 5000
+      plugs:
+        - name: server
+          host: 192.168.1.74
+          generation: 2
 
     metrics:
       main:
