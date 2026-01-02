@@ -9,4 +9,4 @@ resources:
   - smartctl-exporter/ks.yaml
   - gatus/ks.yaml
   - unpoller/ks.yaml
-  - shelly-exporter/ks.yaml
+  #- shelly-exporter/ks.yaml
