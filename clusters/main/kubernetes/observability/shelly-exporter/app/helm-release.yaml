@@ -43,13 +43,13 @@ spec:
           main:
             port: 5000
 
-workload:
-  main:
-    podSpec:
-      containers:
-        main:
-          args:
-            - "--config=/config.yaml"
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              args:
+                - "--config=/config.yaml"
 
     configmap:
       exporter-configfile:
