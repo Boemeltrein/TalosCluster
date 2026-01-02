@@ -51,6 +51,7 @@ spec:
             main:
               env:
                 SHELLYPLUG_HOST: 192.168.1.74
+                SHELLYPLUG_GENERATION: 2
 
     metrics:
       main:
