@@ -6,6 +6,7 @@ metadata:
 data:
   configuration.yaml: |
     session:
+      inactivity: 30m
       cookies:
         - domain: ${DOMAIN}
           authelia_url: https://auth.${DOMAIN}
