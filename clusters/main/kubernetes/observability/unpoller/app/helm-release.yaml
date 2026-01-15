@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: unpoller
-      version: 13.19.0
+      version: 13.19.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
