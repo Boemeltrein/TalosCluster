@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: minecraft-java
-      version: 23.56.17
+      version: 33.0.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -99,8 +99,6 @@ spec:
                 ENABLE_WHITELIST: "true"
                 WHITELIST: ${MINECRAFT_WHITELIST}
                 OVERRIDE_WHITELIST: "true"
-                ENABLE_ROLLING_LOGS: "true"
-                # LOG_TIMESTAMP: "true"
                 # ICON: http://..../some/image.png
                 # OVERRIDE_ICON: true
                 ALLOW_FLIGHT: "false"
