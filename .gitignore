@@ -11,3 +11,4 @@ sopssecret*
 mounts/
 kubeconfig
 .decrypted~*.yaml
+boemeltool
