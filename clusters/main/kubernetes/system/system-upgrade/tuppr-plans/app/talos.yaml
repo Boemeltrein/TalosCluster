@@ -5,7 +5,8 @@ metadata:
   namespace: system-upgrade
 spec:
   talos:
-    version: ${TALOS_VERSION}  # Required - target Talos version
+    # renovate: datasource=docker depName=ghcr.io/siderolabs/installer
+    version: v1.12.1
 
   policy:
     debug: true          # Optional, verbose logging
