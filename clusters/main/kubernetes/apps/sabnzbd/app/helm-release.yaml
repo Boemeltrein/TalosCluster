@@ -93,3 +93,11 @@ spec:
         apiKey: ${HP_API_SABNZBD}
         prometheusRule:
           enabled: false
+
+    resources:
+      limits:
+        cpu: 4000m
+        memory: 8Gi
+      requests:
+        cpu: 1000m
+        memory: 2Gi 
