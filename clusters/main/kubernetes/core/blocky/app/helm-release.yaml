@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 19.5.10
+      version: 19.5.11
       sourceRef:
         kind: HelmRepository
         name: truecharts
