@@ -32,20 +32,14 @@ spec:
     keepHistory: false
   values:
     TZ: Europe/Amsterdam
-    
-    cloudflareddns:
-      api_token: ${CLOUDFLARE_TOKEN}
-      interval: 3600
-      host_zone_record:
-      - domain: minecraft.${DOMAIN}
-        record: A
-        zone: ${CLOUDFLARE_ZONE_ID}
-      - domain: hermitcraft.${DOMAIN}
-        record: A
-        zone: ${CLOUDFLARE_ZONE_ID}
-      - domain: wireguard.${DOMAIN}
-        record: A
-        zone: ${CLOUDFLARE_ZONE_ID}
-      - domain: echo.${DOMAIN}
-        record: A
-        zone: ${CLOUDFLARE_ZONE_ID}        
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                UPDATE_IPV6: false
+                CF_APITOKEN: ${CLOUDFLARE_TOKEN}
+                CF_HOSTS: "wireguard.${DOMAIN},echo.${DOMAIN},minecraft.${DOMAIN},hermitcraft.${DOMAIN}"
+ 
