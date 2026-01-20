@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: speedtest-tracker
-      version: 8.33.17
+      version: 8.33.18
       sourceRef:
         kind: HelmRepository
         name: truecharts
