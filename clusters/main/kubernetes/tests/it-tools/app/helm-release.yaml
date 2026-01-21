@@ -1,0 +1,44 @@
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: it-tools
+  namespace: it-tools
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: it-tools
+      version: 8.13.10
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 5m
+  install:
+    createNamespace: true
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  upgrade:
+    crds: CreateReplace
+    remediation:
+      retries: 3
+  values:
+    global:
+      stopAll: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: it-tools.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare-staging
+
+    image:
+      repository: oci.trueforge.org/containerforge/it-tools
+      tag: 2024.10.22@sha256-f701920b75cc2ab2c14a8bb208d634434cdfcec33012419922d355074d1cb0d6
+      pullPolicy: IfNotPresent
