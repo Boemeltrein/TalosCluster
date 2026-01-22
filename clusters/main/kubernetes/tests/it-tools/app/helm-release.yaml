@@ -52,36 +52,37 @@ spec:
 #                - "/bin/sh"
 #                - "-c"
 #                - "sleep infinity"
-#    workload:
-#      main:
-#        podSpec:
-#          initContainers:
-#            init-mkdir:
-#              enabled: true
-#              type: init
-#              imageSelector: "image"
-#              command:
-#                - /bin/sh
-#                - -c
-#              args:
-#                - chown -R 568:568 /tmp
-
-    persistence:
-      tmp:
-        enabled: false
 
     workload:
       main:
         podSpec:
-          containers:
-            main:
-              securityContext:
-                readOnlyRootFilesystem: false
+          initContainers:
+            init-mkdir:
+              enabled: true
+              type: init
+              imageSelector: "image"
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - mkdir -p /tmp/nginx-temp
 
-    service:
-      main:
-        ports:
-          main:
-            protocol: http
-            targetPort: 80
-            port: 80
+#    persistence:
+#      tmp:
+#        enabled: false
+
+#    workload:
+#      main:
+#        podSpec:
+#          containers:
+#            main:
+#              securityContext:
+#                readOnlyRootFilesystem: false
+
+#    service:
+#      main:
+#        ports:
+#          main:
+#            protocol: http
+#            targetPort: 80
+#            port: 80
