@@ -52,6 +52,19 @@ spec:
 #                - "/bin/sh"
 #                - "-c"
 #                - "sleep infinity"
+    workload:
+      main:
+        podSpec:
+          initContainers:
+            init-mkdir:
+              enabled: true
+              type: init
+              imageSelector: "image"
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - chown -R 568:568 /tmp
 
     persistence:
       tmp:
