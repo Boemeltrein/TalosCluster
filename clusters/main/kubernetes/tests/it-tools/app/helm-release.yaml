@@ -43,15 +43,15 @@ spec:
       tag: 2024.10.22@sha256:6cbbc7c30ec2276e149e04078a5cfebf4314af32cdbaea84b12a6381409490c0
       pullPolicy: IfNotPresent
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              command:
-                - "/bin/sh"
-                - "-c"
-                - "sleep infinity"
+#    workload:
+#      main:
+#        podSpec:
+#          containers:
+#            main:
+#              command:
+#                - "/bin/sh"
+#                - "-c"
+#                - "sleep infinity"
 
     persistence:
       tmp:
