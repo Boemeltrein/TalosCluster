@@ -52,3 +52,11 @@ spec:
                 - "/bin/sh"
                 - "-c"
                 - "sleep infinity"
+
+    persistence:
+      tmp:
+        enabled: false
+        type: emptyDir
+        mountPath: /tmp
+        medium: Memory
+        targetSelectAll: true
