@@ -69,7 +69,5 @@ spec:
     persistence:
       tmp:
         enabled: false
-        type: emptyDir
-        mountPath: /tmp
-        medium: Memory
-        targetSelectAll: true
+      varrun:
+        enabled: false
