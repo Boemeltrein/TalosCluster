@@ -83,5 +83,5 @@ spec:
         ports:
           main:
             protocol: http
-            targetPort: 8000
-            port: 8000
+            targetPort: 8080
+            port: 8080
