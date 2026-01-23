@@ -37,10 +37,10 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare-staging
-#    image:
-#      repository: oci.trueforge.org/containerforge/it-tools
-#      tag: 2024.10.22@sha256:6cbbc7c30ec2276e149e04078a5cfebf4314af32cdbaea84b12a6381409490c0
-#      pullPolicy: IfNotPresent
+    image:
+      repository: oci.trueforge.org/containerforge/it-tools
+      tag: 2024.10.22@sha256:6cbbc7c30ec2276e149e04078a5cfebf4314af32cdbaea84b12a6381409490c0
+      pullPolicy: IfNotPresent
 
 #    workload:
 #      main:
@@ -65,7 +65,7 @@ spec:
                 - -c
               args:
                 - mkdir -p /tmp/nginx-temp
-                - cp https://raw.githubusercontent.com/CorentinTh/it-tools/refs/heads/main/nginx.conf /config/nginx.conf
+                - curl -fsSL https://raw.githubusercontent.com/CorentinTh/it-tools/main/nginx.conf -o /config/nginx.conf
 
 #    persistence:
 #      tmp:
