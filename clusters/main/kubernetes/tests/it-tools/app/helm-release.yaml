@@ -37,10 +37,10 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare-staging
-    image:
-      repository: oci.trueforge.org/containerforge/it-tools
-      tag: 2024.10.22@sha256:6cbbc7c30ec2276e149e04078a5cfebf4314af32cdbaea84b12a6381409490c0
-      pullPolicy: IfNotPresent
+#    image:
+#      repository: oci.trueforge.org/containerforge/it-tools
+#      tag: 2024.10.22@sha256:6cbbc7c30ec2276e149e04078a5cfebf4314af32cdbaea84b12a6381409490c0
+#      pullPolicy: IfNotPresent
 
 #    workload:
 #      main:
@@ -52,19 +52,19 @@ spec:
 #                - "-c"
 #                - "sleep infinity"
 
-    workload:
-      main:
-        podSpec:
-          initContainers:
-            init-mkdir:
-              enabled: true
-              type: init
-              imageSelector: "image"
-              command:
-                - /bin/sh
-                - -c
-              args:
-                - mkdir -p /tmp/nginx-temp
+#    workload:
+#      main:
+#        podSpec:
+#          initContainers:
+#            init-mkdir:
+#              enabled: true
+#              type: init
+#              imageSelector: "image"
+#              command:
+#                - /bin/sh
+#                - -c
+#              args:
+#                - mkdir -p /tmp/nginx-temp
 
 #    persistence:
 #      tmp:
@@ -78,10 +78,10 @@ spec:
 #              securityContext:
 #                readOnlyRootFilesystem: false
 
-    service:
-      main:
-        ports:
-          main:
-            protocol: http
-            targetPort: 8080
-            port: 8080
+#    service:
+#      main:
+#        ports:
+#          main:
+#            protocol: http
+#            targetPort: 8080
+#            port: 8080
