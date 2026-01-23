@@ -65,7 +65,7 @@ spec:
                 - -c
               args:
                 - mkdir -p /tmp/nginx-temp
-                - curl -fsSL https://raw.githubusercontent.com/CorentinTh/it-tools/main/nginx.conf -o /config/nginx.conf
+                - curl -fsSL https://raw.githubusercontent.com/CorentinTh/it-tools/main/nginx.conf -o /config/sites/default.conf
 
 #    persistence:
 #      tmp:
