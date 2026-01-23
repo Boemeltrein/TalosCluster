@@ -65,7 +65,6 @@ spec:
                 - -c
               args:
                 - mkdir -p /tmp/nginx-temp
-                - curl -fsSL https://raw.githubusercontent.com/CorentinTh/it-tools/main/nginx.conf -o /config/sites/default2.conf
 
     persistence:
       config:
@@ -85,10 +84,10 @@ spec:
 #              securityContext:
 #                readOnlyRootFilesystem: false
 
-#    service:
-#      main:
-#        ports:
-#          main:
-#            protocol: http
-#            targetPort: 8080
-#            port: 8080
+    service:
+      main:
+        ports:
+          main:
+            protocol: http
+            targetPort: 8080
+            port: 8080
