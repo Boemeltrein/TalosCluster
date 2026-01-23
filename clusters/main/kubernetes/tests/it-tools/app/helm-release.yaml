@@ -67,6 +67,12 @@ spec:
                 - mkdir -p /tmp/nginx-temp
                 - curl -fsSL https://raw.githubusercontent.com/CorentinTh/it-tools/main/nginx.conf -o /config/sites/default2.conf
 
+    persistence:
+      config:
+        enabled: true
+        targetSelectAll: true
+        mountPath: /config
+
 #    persistence:
 #      tmp:
 #        enabled: false
