@@ -65,6 +65,7 @@ spec:
                 - -c
               args:
                 - mkdir -p /tmp/nginx-temp
+                - cp https://raw.githubusercontent.com/CorentinTh/it-tools/refs/heads/main/nginx.conf /config/nginx.conf
 
 #    persistence:
 #      tmp:
