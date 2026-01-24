@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kubelet-csr-approver
-      version: 2.13.12
+      version: 2.13.13
       sourceRef:
         kind: HelmRepository
         name: truecharts
