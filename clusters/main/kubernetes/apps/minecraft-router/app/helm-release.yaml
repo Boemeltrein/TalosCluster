@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: minecraft-router
-      version: 2.21.8
+      version: 2.21.9
       sourceRef:
         kind: HelmRepository
         name: truecharts
