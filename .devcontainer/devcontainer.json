@@ -1,14 +1,8 @@
 {
     "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
-    "name": "ClusterTool Cluster",
-    "image": "oci.trueforge.org/tccr/devcontainer:v2.0.6@sha256:5292842e56b61c27c83b4e8b3daabf5679066df695a72e12596693518b908157",
-    "postCreateCommand": {
-      "setup": "bash ${containerWorkspaceFolder}/.devcontainer/postCreateCommand.sh"
-    },
+    "name": "TalosCluster",
+    "image": "oci.trueforge.org/containerforge/devcontainer:2.0.6@sha256:55606c8aadae5370d6f97f298b6372a566d822cf68f9844d1ded05716d5783f7",
     "postStartCommand": {
       "git": "git config --global --add safe.directory ${containerWorkspaceFolder}"
-    },
-    "postAttachCommand": "fish",
-    "updateRemoteUserUID": false,
-    "runArgs": ["--privileged"]
+    }
   }
