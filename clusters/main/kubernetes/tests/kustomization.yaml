@@ -5,6 +5,5 @@ resources:
   #- authentik/ks.yaml
   - seafile/ks.yaml
   - tandoor/ks.yaml
-  - it-tools/ks.yaml
 
   
