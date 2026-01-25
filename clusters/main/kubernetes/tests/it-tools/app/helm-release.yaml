@@ -39,7 +39,7 @@ spec:
             certificateIssuer: cloudflare-staging
     image:
       repository: oci.trueforge.org/containerforge/it-tools
-      tag: sandbox@sha256:c54d3f4f15e64a09facb084ea76d492e4a32680632f3cc78a61769c25a7248ee
+      tag: 2024.10.22@sha256:d744d4c0b143ab05e65f1d4578f395dc903e206435ae6a7a69a4908f8b8c190f
       pullPolicy: IfNotPresent
 
 #    workload:
