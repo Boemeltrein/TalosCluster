@@ -66,11 +66,11 @@ spec:
 #              args:
 #                - mkdir -p /tmp/nginx-temp
 
-    persistence:
-      config:
-        enabled: true
-        targetSelectAll: true
-        mountPath: /config
+#    persistence:
+#      config:
+#        enabled: true
+#        targetSelectAll: true
+#        mountPath: /config
 
 #    persistence:
 #      tmp:
