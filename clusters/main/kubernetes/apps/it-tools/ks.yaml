@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/tests/it-tools/app
+  path: clusters/main/kubernetes/apps/it-tools/app
   prune: true
   sourceRef:
     kind: GitRepository
