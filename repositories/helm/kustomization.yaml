@@ -10,7 +10,6 @@ resources:
   - grafana.yaml
   - home-ops-mirror.yaml
   - jetstack.yaml
-  - kubernetes-dashboard.yaml
   - kustomization.yaml
   - metallb.yaml
   - node-feature-discovery.yaml
