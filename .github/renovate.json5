@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "schedule": ["before 06:00 AM"],
   "extends": [
     "config:recommended",
     "github>trueforge-org/truecharts//.github/renovate/main.json5",
