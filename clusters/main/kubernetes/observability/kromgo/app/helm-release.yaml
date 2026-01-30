@@ -88,8 +88,8 @@ spec:
           suffix: "%"
           colors:
             - { color: "green", min: 0, max: 35 }
-            - { color: "orange", min: 36, max: 75 }
-            - { color: "red", min: 76, max: 9999 }
+            - { color: "orange", min: 35, max: 75 }
+            - { color: "red", min: 75, max: 9999 }
           title: CPU
 
         - name: cluster_memory_usage
@@ -97,8 +97,8 @@ spec:
           suffix: "%"
           colors:
             - { color: green, min: 0, max: 35 }
-            - { color: orange, min: 36, max: 75 }
-            - { color: red, min: 76, max: 9999 }
+            - { color: orange, min: 35, max: 75 }
+            - { color: red, min: 75, max: 9999 }
           title: Memory
 
         - name: cluster_power_usage
@@ -115,8 +115,8 @@ spec:
           suffix: "d"
           colors:
             - { color: "green", min: 0, max: 180 }
-            - { color: "orange", min: 181, max: 360 }
-            - { color: "red", min: 361, max: 9999 }
+            - { color: "orange", min: 180, max: 360 }
+            - { color: "red", min: 360, max: 9999 }
           title: Age
 
         - name: cluster_uptime_days
@@ -124,8 +124,8 @@ spec:
           suffix: "d"
           colors:
             - { color: "green", min: 0, max: 180 }
-            - { color: "orange", min: 181, max: 360 }
-            - { color: "red", min: 361, max: 9999 }
+            - { color: "orange", min: 180, max: 360 }
+            - { color: "red", min: 360, max: 9999 }
           title: Uptime
 
         - name: cluster_alert_count
