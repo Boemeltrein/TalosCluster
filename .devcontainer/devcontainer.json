@@ -1,8 +1,33 @@
 {
-    "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
-    "name": "TalosCluster",
-    "image": "oci.trueforge.org/containerforge/devcontainer:2.0.6@sha256:74d820237c6f56ee47b604f27561d544607e7dd4b2a4f0db6da1a0796371b249",
-    "postStartCommand": {
-      "git": "git config --global --add safe.directory ${containerWorkspaceFolder}"
+  "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
+  "name": "TalosCluster",
+  "image": "oci.trueforge.org/containerforge/devcontainer:2.0.6@sha256:b8f8a95a0edf58aaab4076fa477bd8e3c6efcb68fb41cb4c37da05e618ff0320",
+  "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "albert.TabOut",
+        "mikestead.dotenv",
+        "mitchdenny.ecdc",
+        "signageos.signageos-vscode-sops",
+        "EditorConfig.editorconfig",
+        "PKief.material-icon-theme",
+        "usernamehw.errorlens",
+        "redhat.vscode-yaml",
+        "weaveworks.vscode-gitops-tools",
+        "Tim-Koehler.helm-intellisense",
+        "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "sandipchitale.vscode-kubernetes-helm-extras",
+        "VadzimNestsiarenka.helm-template-preview-and-more",
+        "karyan40024.helmix",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "Codium.codium",
+        "mhutchie.git-graph",
+        "yzhang.markdown-all-in-one",
+        "DavidAnson.vscode-markdownlint",
+        "GitHub.copilot"
+      ]
     }
   }
+}
