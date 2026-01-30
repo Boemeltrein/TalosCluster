@@ -29,7 +29,8 @@ spec:
       defaultReplicaCount: "1"
       # Overprovisioning might be needed when using volsync
       storageOverProvisioningPercentage: "100000"
-      # v2DataEngine: true
+      # Percentage of the total allocatable CPU resources on each node to be reserved for each instance manager pod. The default value is {"v1":"12","v2":"12"}.
+      guaranteedInstanceManagerCPU: 5
     persistence:
       # Set to false to pick another CSI as default
       defaultClass: true
