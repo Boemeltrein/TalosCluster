@@ -34,7 +34,7 @@ spec:
 
     # for now until image is fixed
     image:
-      repository: ghcr.io/trueforge-org/home-assistant:sandbox
+      repository: ghcr.io/trueforge-org/home-assistant
       pullPolicy: IfNotPresent
       tag: sandbox@sha256:f5365ce2a35080494ebdb2ddcec058e02f650bf4b07557b929350c2deef573d2
 
