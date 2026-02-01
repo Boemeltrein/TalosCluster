@@ -29,15 +29,4 @@ spec:
   uninstall:
     keepHistory: false
   
-  values:
-
-    ingress:
-      main:
-        enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: kometa.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare-staging
+  values: {}
