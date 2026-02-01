@@ -88,3 +88,9 @@ spec:
         enabled: true
         mountPath: /app/config
         targetSelectAll: true
+
+    kopia:
+      user: "user"
+      password: "test"
+      server_username: "user"
+      server_password: "password"
