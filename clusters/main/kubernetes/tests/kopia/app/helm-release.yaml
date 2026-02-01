@@ -69,6 +69,6 @@ spec:
 
     kopia:
       user: "user"
-      password: "niet"
+      password: "test"
       server_username: "user"
       server_password: "wachtwoord"
