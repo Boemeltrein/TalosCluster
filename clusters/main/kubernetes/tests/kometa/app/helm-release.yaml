@@ -64,11 +64,11 @@ spec:
               args:
                 - |
                   echo "Creating config.yml file..."
-                  if [ -f /boemel/config/config.yml ]; then
+                  if [ -f /config/config.yml ]; then
                     echo "Config file exists! Skipping..."
                   else
                     echo "Config file is missing, getting a new one!"
-                    curl -fLvo /boemel/config/config.yml https://raw.githubusercontent.com/kometa-team/kometa/master/config/config.yml.template || (echo "Downloading config file, FAILED..." && exit 1)
+                    curl -fLvo /config/config.yml https://raw.githubusercontent.com/kometa-team/kometa/master/config/config.yml.template || (echo "Downloading config file, FAILED..." && exit 1)
                   fi
           containers:
             main:
