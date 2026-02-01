@@ -53,3 +53,16 @@ spec:
           main:
             protocol: http
             port: 51515
+    persistence:
+      config:
+        enabled: true
+        mountPath: "/config"
+      cache:
+        enabled: true
+        mountPath: "/config/cache"
+      logs:
+        enabled: true
+        mountPath: "/config/logs"
+      rclone:
+        enabled: true
+        mountPath: "/config/rclone"
