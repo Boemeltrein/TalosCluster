@@ -7,4 +7,3 @@ resources:
   #- seafile/ks.yaml
   #- tandoor/ks.yaml
   - kometa/ks.yaml
-  - theme-park/ks.yaml
