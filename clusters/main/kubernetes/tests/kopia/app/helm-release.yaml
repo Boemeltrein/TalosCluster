@@ -66,3 +66,9 @@ spec:
       rclone:
         enabled: true
         mountPath: "/config/rclone"
+
+    kopia:
+      user: "user"
+      password: "test"
+      server_username: "user"
+      server_password: "password"
