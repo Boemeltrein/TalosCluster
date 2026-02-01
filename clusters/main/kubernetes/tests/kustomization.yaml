@@ -7,4 +7,4 @@ resources:
   #- seafile/ks.yaml
   #- tandoor/ks.yaml
   - kometa/ks.yaml
-  - kopia/ks.yaml
+  #- kopia/ks.yaml
