@@ -42,3 +42,14 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare-staging
+
+      image:
+        repository: oci.trueforge.org/containerforge/kopia
+        tag: 0.22.3@sha256:f6fe7a8d1f048164203c05e1f8ead63d3ef807df93a92fbb57ef1eb7447300f6
+        pullPolicy: IfNotPresent
+      service:
+        main:
+          ports:
+            main:
+              protocol: http
+              port: 51585
