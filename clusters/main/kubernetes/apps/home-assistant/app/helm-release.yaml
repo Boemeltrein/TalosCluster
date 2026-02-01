@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: home-assistant
-      version: 29.0.7
+      version: 29.0.8
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -31,12 +31,6 @@ spec:
     keepHistory: false
   values:
     TZ: Europe/Amsterdam
-
-    # for now until image is fixed
-    image:
-      repository: ghcr.io/trueforge-org/home-assistant
-      pullPolicy: IfNotPresent
-      tag: sandbox@sha256:f5365ce2a35080494ebdb2ddcec058e02f650bf4b07557b929350c2deef573d2
 
     global:
       stopAll: false
