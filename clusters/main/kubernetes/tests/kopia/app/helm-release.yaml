@@ -52,4 +52,4 @@ spec:
         ports:
           main:
             protocol: http
-            port: 51585
+            port: 51515
