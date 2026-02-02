@@ -71,7 +71,7 @@ spec:
             group: services
             interval: 60s
             ui:
-              hide-url: false
+              hide-url: true
               hide-hostname: false
             conditions:
               - "[CONNECTED] == true"
