@@ -70,7 +70,7 @@ spec:
 
     sidecar:
       enable: true
-      enableService: false
+      enableService: true
       enableIngress: true
       autoIngress: true 
 
