@@ -71,14 +71,14 @@ spec:
             group: services
             interval: 60s
             ui:
-              hide-url: true
-              hide-hostname: true
+              hide-url: false
+              hide-hostname: false
             conditions:
               - "[CONNECTED] == true"
               - "[RESPONSE_TIME] < 100"
             alerts:
               - type: discord
-              
+
     # -- set the default DNS upstream servers
     defaultUpstreams:
       - tcp-tls:1.1.1.1:853
