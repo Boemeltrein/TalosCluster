@@ -51,9 +51,4 @@ spec:
     image:
       longhorn:
         instanceManager:
-          # -- Registry for the Longhorn Instance Manager image.
-          registry: ""
-          # -- Repository for the Longhorn Instance Manager image.
-          repository: derekbit/longhorn-instance-manager
-          # -- Tag for the Longhorn Instance Manager image.
-          tag: 1.11.0-fix-leak@sha256:1ba4526862acce68253f848ae33ce590b8ed1443119519f49c009ae66a74902b
+          tag: v1.11.0-hotfix-1
