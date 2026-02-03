@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: cloudflareddns
-      version: 13.0.13
+      version: 13.0.14
       sourceRef:
         kind: HelmRepository
         name: truecharts
