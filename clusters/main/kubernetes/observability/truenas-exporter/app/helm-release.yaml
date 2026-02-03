@@ -42,6 +42,19 @@ spec:
         integrations:
           metallb:
             enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |
+            group: services
+            interval: 60s
+            ui:
+              hide-url: true
+              hide-hostname: false
+            conditions:
+              - "[CONNECTED] == true"
+              - "[RESPONSE_TIME] < 100"
+            alerts:
+              - type: discord
 
     resources:
       requests:

@@ -36,6 +36,20 @@ spec:
       stopAll: false
 
     service:
+      main:
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |
+            group: services
+            interval: 60s
+            ui:
+              hide-url: true
+              hide-hostname: false
+            conditions:
+              - "[CONNECTED] == true"
+              - "[RESPONSE_TIME] < 100"
+            alerts:
+              - type: discord
       bluemap:
         enabled: true
         ports:
