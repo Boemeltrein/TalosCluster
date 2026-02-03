@@ -10,9 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      # --------------------------------------------------
+      # Checkout (FULL history for PR diff)
+      # --------------------------------------------------
+      - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      # --------------------------------------------------
+      # Install required tools
+      # --------------------------------------------------
       - name: Install tools
         run: |
           sudo apt-get update
@@ -21,15 +29,20 @@ jobs:
             -o /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
 
-      - name: Set dummy env vars for templating
+      # --------------------------------------------------
+      # Dummy env vars (Helm value interpolation)
+      # --------------------------------------------------
+      - name: Set dummy env vars
         run: |
-          echo "BASE_DOMAIN=example.local" >> $GITHUB_ENV
-          echo "S3_URL=dummy" >> $GITHUB_ENV
-          echo "S3_ACCESKEY=dummy" >> $GITHUB_ENV
-          echo "S3_SECRETKEY=dummy" >> $GITHUB_ENV
-          echo "S3_ENCRKEY=dummy" >> $GITHUB_ENV
-          echo "HP_API_BAZARR=dummy" >> $GITHUB_ENV
+          echo "BASE_DOMAIN=example.local" >> "$GITHUB_ENV"
+          echo "S3_URL=dummy" >> "$GITHUB_ENV"
+          echo "S3_ACCESKEY=dummy" >> "$GITHUB_ENV"
+          echo "S3_SECRETKEY=dummy" >> "$GITHUB_ENV"
+          echo "S3_ENCRKEY=dummy" >> "$GITHUB_ENV"
 
+      # --------------------------------------------------
+      # Create ephemeral Kubernetes cluster
+      # --------------------------------------------------
       - name: Create kind cluster
         uses: helm/kind-action@v1.9.0
         with:
@@ -41,67 +54,75 @@ jobs:
       - name: Install helm
         uses: azure/setup-helm@v4
 
+      # --------------------------------------------------
+      # Detect changed HelmReleases (SAFE PR diff)
+      # --------------------------------------------------
       - name: Detect changed HelmReleases
         id: changes
         run: |
-          git fetch origin main
-          git diff --name-only origin/main...HEAD \
-            | grep helm-release.yaml > helmreleases.txt || true
+          git diff \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.sha }}" \
+            --name-only \
+            | grep 'helm-release.yaml$' > helmreleases.txt || true
 
-          if [ ! -s helmreleases.txt ]; then
-            echo "No HelmReleases changed"
-            echo "changed=false" >> $GITHUB_OUTPUT
+          if [ -s helmreleases.txt ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            cat helmreleases.txt
           else
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "changed=false" >> "$GITHUB_OUTPUT"
           fi
 
+      # --------------------------------------------------
+      # Test deploy HelmReleases
+      # --------------------------------------------------
       - name: Test HelmReleases
         if: steps.changes.outputs.changed == 'true'
         run: |
-          set -e
+          set -euo pipefail
 
-          while read HELMRELEASE; do
-            echo "========================================"
-            echo "Testing HelmRelease: $HELMRELEASE"
-            echo "========================================"
+          while read -r HELMRELEASE; do
+            echo "=== Testing $HELMRELEASE ==="
 
-            RELEASE_NAME=$(yq '.metadata.name' "$HELMRELEASE")
-            NAMESPACE=$(yq '.metadata.namespace' "$HELMRELEASE")
-
-            CHART_NAME=$(yq '.spec.chart.spec.chart' "$HELMRELEASE")
-            CHART_VERSION=$(yq '.spec.chart.spec.version' "$HELMRELEASE")
-
-            REPO_NAME=$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")
-            REPO_NS=$(yq '.spec.chart.spec.sourceRef.namespace' "$HELMRELEASE")
+            RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE")"
+            NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE")"
+            CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE")"
+            CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE")"
+            REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")"
 
             REPO_FILE="clusters/main/flux-system/helm-repositories/${REPO_NAME}.yaml"
-            REPO_URL=$(yq '.spec.url' "$REPO_FILE")
+            REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 
-            echo "Chart: $CHART_NAME"
-            echo "Version: $CHART_VERSION"
-            echo "Repo: $REPO_URL"
+            echo "Chart: $CHART_NAME@$CHART_VERSION"
+            echo "Repo:  $REPO_URL"
 
+            # ------------------------------------------------
+            # Extract Helm values
+            # ------------------------------------------------
             yq '.spec.values' "$HELMRELEASE" > values.generated.yaml
 
-            cat <<EOF > values.test.yaml
-            ingress:
-              enabled: false
-
-            persistence:
-              enabled: false
-
-            resources:
-              requests:
-                cpu: 10m
-                memory: 64Mi
-              limits:
-                memory: 256Mi
-            EOF
+            # ------------------------------------------------
+            # Write test overrides (NO heredoc)
+            # ------------------------------------------------
+            printf '%s\n' \
+              'ingress:' \
+              '  enabled: false' \
+              '' \
+              'persistence:' \
+              '  enabled: false' \
+              '' \
+              'resources:' \
+              '  requests:' \
+              '    cpu: 10m' \
+              '    memory: 64Mi' \
+              '  limits:' \
+              '    memory: 256Mi' \
+              > values.test.yaml
 
             helm repo add test-repo "$REPO_URL"
             helm repo update
 
-            helm upgrade --install "$RELEASE_NAME" test-repo/"$CHART_NAME" \
+            helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
               --version "$CHART_VERSION" \
               --namespace "$NAMESPACE" \
               --create-namespace \
@@ -110,16 +131,18 @@ jobs:
               --wait \
               --timeout 10m
 
-            kubectl get pods -n "$NAMESPACE"
             kubectl wait pod \
               --all \
               --for=condition=Ready \
               -n "$NAMESPACE" \
               --timeout=300s
 
-            echo "✔ HelmRelease $RELEASE_NAME OK"
+            echo "✔ $RELEASE_NAME OK"
           done < helmreleases.txt
 
+      # --------------------------------------------------
+      # Cleanup
+      # --------------------------------------------------
       - name: Cleanup
         if: always()
         run: |
