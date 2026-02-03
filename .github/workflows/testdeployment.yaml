@@ -1,0 +1,128 @@
+name: HelmRelease test deployment
+
+on:
+  pull_request:
+    paths:
+      - "**/helm-release.yaml"
+
+jobs:
+  test-helmreleases:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      - name: Set dummy env vars for templating
+        run: |
+          echo "BASE_DOMAIN=example.local" >> $GITHUB_ENV
+          echo "S3_URL=dummy" >> $GITHUB_ENV
+          echo "S3_ACCESKEY=dummy" >> $GITHUB_ENV
+          echo "S3_SECRETKEY=dummy" >> $GITHUB_ENV
+          echo "S3_ENCRKEY=dummy" >> $GITHUB_ENV
+          echo "HP_API_BAZARR=dummy" >> $GITHUB_ENV
+
+      - name: Create kind cluster
+        uses: helm/kind-action@v1.9.0
+        with:
+          cluster_name: pr-test
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Install helm
+        uses: azure/setup-helm@v4
+
+      - name: Detect changed HelmReleases
+        id: changes
+        run: |
+          git fetch origin main
+          git diff --name-only origin/main...HEAD \
+            | grep helm-release.yaml > helmreleases.txt || true
+
+          if [ ! -s helmreleases.txt ]; then
+            echo "No HelmReleases changed"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Test HelmReleases
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -e
+
+          while read HELMRELEASE; do
+            echo "========================================"
+            echo "Testing HelmRelease: $HELMRELEASE"
+            echo "========================================"
+
+            RELEASE_NAME=$(yq '.metadata.name' "$HELMRELEASE")
+            NAMESPACE=$(yq '.metadata.namespace' "$HELMRELEASE")
+
+            CHART_NAME=$(yq '.spec.chart.spec.chart' "$HELMRELEASE")
+            CHART_VERSION=$(yq '.spec.chart.spec.version' "$HELMRELEASE")
+
+            REPO_NAME=$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")
+            REPO_NS=$(yq '.spec.chart.spec.sourceRef.namespace' "$HELMRELEASE")
+
+            REPO_FILE="clusters/main/flux-system/helm-repositories/${REPO_NAME}.yaml"
+            REPO_URL=$(yq '.spec.url' "$REPO_FILE")
+
+            echo "Chart: $CHART_NAME"
+            echo "Version: $CHART_VERSION"
+            echo "Repo: $REPO_URL"
+
+            # Extract values from HelmRelease
+            yq '.spec.values' "$HELMRELEASE" > values.generated.yaml
+
+            # Test overrides (disable infra-heavy stuff)
+            cat <<EOF > values.test.yaml
+ingress:
+  enabled: false
+
+persistence:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 64Mi
+  limits:
+    memory: 256Mi
+EOF
+
+            helm repo add test-repo "$REPO_URL"
+            helm repo update
+
+            helm upgrade --install "$RELEASE_NAME" test-repo/"$CHART_NAME" \
+              --version "$CHART_VERSION" \
+              --namespace "$NAMESPACE" \
+              --create-namespace \
+              --values values.generated.yaml \
+              --values values.test.yaml \
+              --wait \
+              --timeout 10m
+
+            kubectl get pods -n "$NAMESPACE"
+            kubectl wait pod \
+              --all \
+              --for=condition=Ready \
+              -n "$NAMESPACE" \
+              --timeout=300s
+
+            echo "✔ HelmRelease $RELEASE_NAME OK"
+          done < helmreleases.txt
+
+      - name: Cleanup
+        if: always()
+        run: |
+          kind delete cluster --name pr-test
