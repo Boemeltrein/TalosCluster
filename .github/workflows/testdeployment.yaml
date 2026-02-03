@@ -118,17 +118,34 @@ jobs:
               '    memory: 256Mi' \
               > values.test.yaml
 
-            helm repo add test-repo "$REPO_URL"
-            helm repo update
+            if [[ "$REPO_URL" == oci://* ]]; then
+              echo "Using OCI Helm repository"
 
-            helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
-              --version "$CHART_VERSION" \
-              --namespace "$NAMESPACE" \
-              --create-namespace \
-              --values values.generated.yaml \
-              --values values.test.yaml \
-              --wait \
-              --timeout 10m
+              helm upgrade --install "$RELEASE_NAME" \
+                "$REPO_URL/$CHART_NAME" \
+                --version "$CHART_VERSION" \
+                --namespace "$NAMESPACE" \
+                --create-namespace \
+                --values values.generated.yaml \
+                --values values.test.yaml \
+                --wait \
+                --timeout 10m
+            else
+              echo "Using classic Helm repository"
+
+              helm repo add test-repo "$REPO_URL"
+              helm repo update
+
+              helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
+                --version "$CHART_VERSION" \
+                --namespace "$NAMESPACE" \
+                --create-namespace \
+                --values values.generated.yaml \
+                --values values.test.yaml \
+                --wait \
+                --timeout 10m
+            fi
+
 
             kubectl wait pod \
               --all \
