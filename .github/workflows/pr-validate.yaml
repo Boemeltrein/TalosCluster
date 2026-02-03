@@ -89,7 +89,8 @@ jobs:
               
             docker run --rm \
               -v $PWD:/github/workspace \
-              ghcr.io/allenporter/flux-local:v8.1.0 \
+              -v /tmp:/tmp \
+              alpine:3.19 \
               sh -c "cat /tmp/diff.patch > /github/workspace/diff.patch"
               
 #      - name: Diff Resources
