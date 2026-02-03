@@ -81,24 +81,22 @@ jobs:
             echo "Version: $CHART_VERSION"
             echo "Repo: $REPO_URL"
 
-            # Extract values from HelmRelease
             yq '.spec.values' "$HELMRELEASE" > values.generated.yaml
 
-            # Test overrides (disable infra-heavy stuff)
             cat <<EOF > values.test.yaml
-ingress:
-  enabled: false
+            ingress:
+              enabled: false
 
-persistence:
-  enabled: false
+            persistence:
+              enabled: false
 
-resources:
-  requests:
-    cpu: 10m
-    memory: 64Mi
-  limits:
-    memory: 256Mi
-EOF
+            resources:
+              requests:
+                cpu: 10m
+                memory: 64Mi
+              limits:
+                memory: 256Mi
+            EOF
 
             helm repo add test-repo "$REPO_URL"
             helm repo update
