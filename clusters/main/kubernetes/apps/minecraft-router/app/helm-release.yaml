@@ -52,6 +52,19 @@ spec:
             enabled: true
             protocol: udp
             port: 25565
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |
+            group: services
+            interval: 60s
+            ui:
+              hide-url: false
+              hide-hostname: true
+            conditions:
+              - "[CONNECTED] == true"
+              - "[RESPONSE_TIME] < 100"
+            alerts:
+              - type: discord
 
     mcrouter:
       default: minecraft-java.minecraft-java.svc.cluster.local:25565
