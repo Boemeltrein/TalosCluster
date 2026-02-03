@@ -90,7 +90,15 @@ jobs:
             CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE")"
             REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")"
 
-            REPO_FILE="clusters/main/flux-system/helm-repositories/${REPO_NAME}.yaml"
+            REPO_FILE="$(grep -rl "kind: HelmRepository" . \
+              | xargs yq -r 'select(.metadata.name == "'"$REPO_NAME"'") | input_filename' \
+              | head -n 1)"
+
+            if [ -z "$REPO_FILE" ]; then
+              echo "❌ HelmRepository $REPO_NAME not found in repo"
+              exit 1
+            fi
+
             REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 
             echo "Chart: $CHART_NAME@$CHART_VERSION"
