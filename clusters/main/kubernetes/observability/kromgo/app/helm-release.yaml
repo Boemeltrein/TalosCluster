@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: kromgo
-      version: 1.0.12
+      version: 1.0.13
       sourceRef:
         kind: HelmRepository
         name: truecharts
