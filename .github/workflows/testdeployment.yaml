@@ -89,16 +89,7 @@ jobs:
             CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE")"
             CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE")"
             REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")"
-
-            REPO_FILE="$(grep -rl "kind: HelmRepository" . \
-              | xargs yq -r 'select(.metadata.name == "'"$REPO_NAME"'") | input_filename' \
-              | head -n 1)"
-
-            if [ -z "$REPO_FILE" ]; then
-              echo "❌ HelmRepository $REPO_NAME not found in repo"
-              exit 1
-            fi
-
+            REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
             REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 
             echo "Chart: $CHART_NAME@$CHART_VERSION"
