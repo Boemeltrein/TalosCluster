@@ -2,9 +2,9 @@ name: HelmRelease test deployment
 
 on:
   workflow_dispatch:
-  #pull_request:
-  #  paths:
-  #    - "**/helm-release.yaml"
+  pull_request:
+    paths:
+      - "**/helm-release.yaml"
 
 jobs:
             
@@ -118,6 +118,13 @@ jobs:
             # Extract Helm values
             # ------------------------------------------------
             yq '.spec.values' "$HELMRELEASE" > values.generated.yaml
+
+            # ------------------------------------------------
+            # Delete persistence section to avoid storage issues in ephemeral cluster (if exists)
+            # ------------------------------------------------
+            yq -i 'del(.persistence)' values.generated.yaml
+
+            sed 's/^/| /' values.generated.yaml
 
             # ------------------------------------------------
             # Write test overrides (NO heredoc)
