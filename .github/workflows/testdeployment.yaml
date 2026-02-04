@@ -105,10 +105,8 @@ jobs:
             # ------------------------------------------------
             printf '%s\n' \
               'ingress:' \
-              '  enabled: false' \
-              '' \
-              'persistence:' \
-              '  enabled: false' \
+              '  main:' \
+              '    enabled: false' \
               '' \
               'resources:' \
               '  requests:' \
