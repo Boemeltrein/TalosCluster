@@ -65,7 +65,6 @@ jobs:
         with:
           ref: "${{ github.event.repository.default_branch }}"
           path: default
-
       - name: Diff Resources
         uses: nick-fields/retry@ce71cc2ab81d554ebbe88c79ab5975992d79ba08 # v3
         with:
@@ -86,14 +85,7 @@ jobs:
               --limit-bytes 10000 \
               --all-namespaces \
               --sources "cluster" \
-              --output-file /github/workspace/diff.patch
-
-          #  docker run --rm \
-          #    -v $PWD:/github/workspace \
-          #    -v /tmp:/tmp \
-          #    alpine:3.19 \
-          #    sh -c "cat /tmp/diff.patch > /github/workspace/diff.patch"
-              
+              --output-file /github/workspace/diff.patch 
 #      - name: Diff Resources
 #        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0@sha256:37c3c4309a351830b04f93c323adfcb0e28c368001818cd819cbce3e08828261
 #        with:
@@ -131,3 +123,157 @@ jobs:
             ```diff
             ${{ steps.diff.outputs.diff }}
             ```
+            
+  test-helmreleases:
+    runs-on: ubuntu-latest
+
+    steps:
+      # --------------------------------------------------
+      # Checkout (FULL history for PR diff)
+      # --------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
+
+      # --------------------------------------------------
+      # Install required tools
+      # --------------------------------------------------
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      # --------------------------------------------------
+      # Dummy env vars (Helm value interpolation)
+      # --------------------------------------------------
+      - name: Set dummy env vars
+        run: |
+          echo "BASE_DOMAIN=example.local" >> "$GITHUB_ENV"
+          echo "S3_URL=dummy" >> "$GITHUB_ENV"
+          echo "S3_ACCESKEY=dummy" >> "$GITHUB_ENV"
+          echo "S3_SECRETKEY=dummy" >> "$GITHUB_ENV"
+          echo "S3_ENCRKEY=dummy" >> "$GITHUB_ENV"
+
+      # --------------------------------------------------
+      # Create ephemeral Kubernetes cluster
+      # --------------------------------------------------
+      - name: Create kind cluster
+        uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+        with:
+          cluster_name: pr-test
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
+
+      - name: Install helm
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
+
+      # --------------------------------------------------
+      # Detect changed HelmReleases (SAFE PR diff)
+      # --------------------------------------------------
+      - name: Detect changed HelmReleases
+        id: changes
+        run: |
+          git diff \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.sha }}" \
+            --name-only \
+            | grep 'helm-release.yaml$' > helmreleases.txt || true
+
+          if [ -s helmreleases.txt ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            cat helmreleases.txt
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # --------------------------------------------------
+      # Test deploy HelmReleases
+      # --------------------------------------------------
+      - name: Test HelmReleases
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          set -euo pipefail
+
+          while read -r HELMRELEASE; do
+            echo "=== Testing $HELMRELEASE ==="
+
+            RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE")"
+            NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE")"
+            CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE")"
+            CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE")"
+            REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")"
+            REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
+            REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
+
+            echo "Chart: $CHART_NAME@$CHART_VERSION"
+            echo "Repo:  $REPO_URL"
+
+            # ------------------------------------------------
+            # Extract Helm values
+            # ------------------------------------------------
+            yq '.spec.values' "$HELMRELEASE" > values.generated.yaml
+
+            # ------------------------------------------------
+            # Write test overrides (NO heredoc)
+            # ------------------------------------------------
+            printf '%s\n' \
+              'ingress:' \
+              '  main:' \
+              '    enabled: false' \
+              '' \
+              'resources:' \
+              '  requests:' \
+              '    cpu: 10m' \
+              '    memory: 64Mi' \
+              '  limits:' \
+              '    memory: 256Mi' \
+              > values.test.yaml
+
+            if [[ "$REPO_URL" == oci://* ]]; then
+              echo "Using OCI Helm repository"
+
+              helm upgrade --install "$RELEASE_NAME" \
+                "$REPO_URL/$CHART_NAME" \
+                --version "$CHART_VERSION" \
+                --namespace "$NAMESPACE" \
+                --create-namespace \
+                --values values.generated.yaml \
+                --values values.test.yaml \
+                --wait \
+                --timeout 10m
+            else
+              echo "Using classic Helm repository"
+              helm repo add test-repo "$REPO_URL"
+              helm repo update
+              helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
+                --version "$CHART_VERSION" \
+                --namespace "$NAMESPACE" \
+                --create-namespace \
+                --values values.generated.yaml \
+                --values values.test.yaml \
+                --wait \
+                --timeout 10m
+            fi
+
+            kubectl wait pod \
+              --all \
+              --for=condition=Ready \
+              -n "$NAMESPACE" \
+              --timeout=300s
+
+            echo "✔ $RELEASE_NAME OK"
+          done < helmreleases.txt
+
+      # --------------------------------------------------
+      # Cleanup
+      # --------------------------------------------------
+      - name: Cleanup
+        if: always()
+        run: |
+          kind delete cluster --name pr-test
+  
