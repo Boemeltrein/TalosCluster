@@ -145,6 +145,9 @@ jobs:
               '    memory: 256Mi' \
               > values.test.yaml
 
+            echo "🚀 Deploying $RELEASE_NAME to namespace $NAMESPACE"
+
+            set +e
             if [[ "$REPO_URL" == oci://* ]]; then
               echo "Using OCI Helm repository"
 
@@ -159,8 +162,10 @@ jobs:
                 --timeout 10m
             else
               echo "Using classic Helm repository"
+
               helm repo add test-repo "$REPO_URL"
               helm repo update
+
               helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
                 --version "$CHART_VERSION" \
                 --namespace "$NAMESPACE" \
@@ -170,23 +175,27 @@ jobs:
                 --wait \
                 --timeout 10m
             fi
+            HELM_RC=$?
+            set -e
 
-            kubectl get pods -n "$NAMESPACE" -o wide
-            kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp
-            kubectl describe pod -n "$NAMESPACE"
+            echo "📦 Pods:"
+            kubectl get pods -n "$NAMESPACE" -o wide || true
+
+            echo "📅 Events:"
+            kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
 
             for pod in $(kubectl get pods -n "$NAMESPACE" -o name); do
               echo "==== Logs for $pod ===="
               kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
             done
 
-            kubectl wait pod \
-              --all \
-              --for=condition=Ready \
-              -n "$NAMESPACE" \
-              --timeout=300s
+            if [ "$HELM_RC" -ne 0 ]; then
+              echo "❌ Helm deployment failed (exit code $HELM_RC)"
+              exit "$HELM_RC"
+            fi
 
-            echo "✔ $RELEASE_NAME OK"
+            echo "✅ Helm deployment succeeded"
+
           done < helmreleases.txt
 
       # --------------------------------------------------
