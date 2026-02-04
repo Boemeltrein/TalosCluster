@@ -251,6 +251,8 @@ jobs:
                 --values values.test.yaml \
                 --wait \
                 --timeout 20m
+                --debug || true
+
             else
               echo "Using classic Helm repository"
               helm repo add test-repo "$REPO_URL"
@@ -264,6 +266,10 @@ jobs:
                 --wait \
                 --timeout 10m
             fi
+
+            kubectl get pods -n "$NAMESPACE" -o wide
+            kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp
+            kubectl describe pod -n "$NAMESPACE"
 
             kubectl wait pod \
               --all \
