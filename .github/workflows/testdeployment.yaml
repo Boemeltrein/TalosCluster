@@ -159,7 +159,7 @@ jobs:
                 --values values.generated.yaml \
                 --values values.test.yaml \
                 --wait \
-                --timeout 10m
+                --timeout 5m
             else
               echo "Using classic Helm repository"
 
@@ -173,7 +173,7 @@ jobs:
                 --values values.generated.yaml \
                 --values values.test.yaml \
                 --wait \
-                --timeout 10m
+                --timeout 5m
             fi
             HELM_RC=$?
             set -e
