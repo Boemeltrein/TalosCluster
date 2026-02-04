@@ -44,11 +44,23 @@ jobs:
       # --------------------------------------------------
       # Create ephemeral Kubernetes cluster
       # --------------------------------------------------
-      - name: Create kind cluster
-        uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
-        with:
-          cluster_name: pr-test
+      #- name: Create kind cluster
+      #  uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+      #  with:
+      #    cluster_name: pr-test
 
+      - name: Create k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: latest
+          # Flags found here https://github.com/k3d-io/k3d
+          k3d-args: --k3s-arg --disable=metrics-server@server:*
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove node taints
+        run: |
+          kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
+          
       - name: Install kubectl
         uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
 
