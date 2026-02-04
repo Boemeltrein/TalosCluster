@@ -114,17 +114,6 @@ jobs:
               '  main:' \
               '    enabled: false' \
               '' \
-              'persistence:' \
-              '  config:' \
-              '    volsync:' \
-              '      - name: config' \
-              '        type: restic' \
-              '        credentials: minio' \
-              '        dest:' \
-              '          enabled: false' \
-              '        src:' \
-              '          enabled: false' \
-              '' \
               'resources:' \
               '  requests:' \
               '    cpu: 10m' \
@@ -143,7 +132,6 @@ jobs:
                 --create-namespace \
                 --values values.generated.yaml \
                 --values values.test.yaml \
-                --wait \
                 --timeout 10m
             else
               echo "Using classic Helm repository"
