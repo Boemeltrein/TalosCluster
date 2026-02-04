@@ -1,9 +1,7 @@
 name: HelmRelease test deployment
 
 on:
-  pull_request:
-    paths:
-      - "**/helm-release.yaml"
+  workflow_dispatch:
 
 jobs:
   test-helmreleases:
