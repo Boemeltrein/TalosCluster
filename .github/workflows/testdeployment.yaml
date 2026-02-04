@@ -114,6 +114,17 @@ jobs:
               '  main:' \
               '    enabled: false' \
               '' \
+              'persistence:' \
+              '  config:' \
+              '    volsync:' \
+              '      - name: config' \
+              '        type: restic' \
+              '        credentials: minio' \
+              '        dest:' \
+              '          enabled: false' \
+              '        src:' \
+              '          enabled: false' \
+              '' \
               'resources:' \
               '  requests:' \
               '    cpu: 10m' \
