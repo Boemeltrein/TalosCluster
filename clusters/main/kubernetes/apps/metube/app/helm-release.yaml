@@ -59,7 +59,7 @@ spec:
             type: restic
             credentials: minio
             dest: #VolSync Destination (Restore)
-              enabled: true
+              enabled: false
             src: #VolSync Source (Backup)
               enabled: true
       downloads:
