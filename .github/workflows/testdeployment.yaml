@@ -132,6 +132,7 @@ jobs:
                 --create-namespace \
                 --values values.generated.yaml \
                 --values values.test.yaml \
+                --wait \
                 --timeout 10m
             else
               echo "Using classic Helm repository"
