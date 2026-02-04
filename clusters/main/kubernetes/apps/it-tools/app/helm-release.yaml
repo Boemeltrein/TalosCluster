@@ -24,7 +24,7 @@ spec:
     remediation:
       retries: 3
   values:
-    TZ: Europe/Amsterdam
+    # TZ: Europe/Amsterdam
 
     global:
       stopAll: false
