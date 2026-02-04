@@ -133,9 +133,7 @@ jobs:
                 --values values.generated.yaml \
                 --values values.test.yaml \
                 --wait \
-                --timeout 20m
-                --debug || true
-
+                --timeout 10m
             else
               echo "Using classic Helm repository"
               helm repo add test-repo "$REPO_URL"
