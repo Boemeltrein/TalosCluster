@@ -154,6 +154,11 @@ jobs:
             kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp
             kubectl describe pod -n "$NAMESPACE"
 
+            for pod in $(kubectl get pods -n "$NAMESPACE" -o name); do
+              echo "==== Logs for $pod ===="
+              kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
+            done
+
             kubectl wait pod \
               --all \
               --for=condition=Ready \
