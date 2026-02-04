@@ -36,10 +36,10 @@ jobs:
       - name: Set dummy env vars
         run: |
           echo "BASE_DOMAIN=example.local" >> "$GITHUB_ENV"
-          echo "S3_URL=dummy" >> "$GITHUB_ENV"
-          echo "S3_ACCESKEY=dummy" >> "$GITHUB_ENV"
-          echo "S3_SECRETKEY=dummy" >> "$GITHUB_ENV"
-          echo "S3_ENCRKEY=dummy" >> "$GITHUB_ENV"
+          echo "S3_URL=http://dummy" >> "$GITHUB_ENV"
+          echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_ENCRKEY=dummy123456789" >> "$GITHUB_ENV"
 
       # --------------------------------------------------
       # Create ephemeral Kubernetes cluster
@@ -60,7 +60,7 @@ jobs:
       - name: Remove node taints
         run: |
           kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
-          
+
       - name: Install kubectl
         uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
 
@@ -126,7 +126,10 @@ jobs:
               '  main:' \
               '    enabled: false' \
               '' \
-              'resources:' \
+              'persistence:' \
+              '  {}' \
+              '' \
+              'resources:' \  
               '  requests:' \
               '    cpu: 10m' \
               '    memory: 64Mi' \
