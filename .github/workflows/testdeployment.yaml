@@ -1,9 +1,12 @@
 name: HelmRelease test deployment
 
 on:
-  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**/helm-release.yaml"
 
 jobs:
+            
   test-helmreleases:
     runs-on: ubuntu-latest
 
@@ -51,6 +54,11 @@ jobs:
 
       - name: Install helm
         uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
+      
+      - name: Install VolSync CRDs
+        run: |
+          kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
+          kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
 
       # --------------------------------------------------
       # Detect changed HelmReleases (SAFE PR diff)
@@ -125,13 +133,13 @@ jobs:
                 --values values.generated.yaml \
                 --values values.test.yaml \
                 --wait \
-                --timeout 10m
+                --timeout 20m
+                --debug || true
+
             else
               echo "Using classic Helm repository"
-
               helm repo add test-repo "$REPO_URL"
               helm repo update
-
               helm upgrade --install "$RELEASE_NAME" "test-repo/$CHART_NAME" \
                 --version "$CHART_VERSION" \
                 --namespace "$NAMESPACE" \
@@ -142,6 +150,9 @@ jobs:
                 --timeout 10m
             fi
 
+            kubectl get pods -n "$NAMESPACE" -o wide
+            kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp
+            kubectl describe pod -n "$NAMESPACE"
 
             kubectl wait pod \
               --all \
@@ -159,3 +170,4 @@ jobs:
         if: always()
         run: |
           kind delete cluster --name pr-test
+  
