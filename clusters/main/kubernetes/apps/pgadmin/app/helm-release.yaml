@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: pgadmin
-      version: 19.19.15
+      version: 19.20.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
