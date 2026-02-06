@@ -37,8 +37,8 @@ yq -i 'del(.persistence)' "$VALUES_FILE" || true
 # Remove cnpg for ephemeral CI cluster
 yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 
-# Disable ingress
-yq -i '.ingress = {}' "$VALUES_FILE" || true
+# # Disable ingress
+# yq -i '.ingress = {}' "$VALUES_FILE" || true
 
 # --------------------------------------------------
 # Setup chart reference
