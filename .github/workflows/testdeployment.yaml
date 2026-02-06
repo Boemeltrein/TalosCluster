@@ -68,13 +68,18 @@ jobs:
       - name: Install helm
         uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
       
-      - name: Install CRDs
+      #- name: Install CRDs
+      #  run: |
+      #    kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_clusters.yaml
+      #    kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_scheduledbackups.yaml
+      #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
+      #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
+      
+      - name: Add Dependencies
+        shell: bash
         run: |
-          kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_clusters.yaml
-          kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_scheduledbackups.yaml
-          # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
-          # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
-
+          ./.github/scripts/install_dependencies.sh
+          
       # --------------------------------------------------
       # Detect changed HelmReleases (SAFE PR diff)
       # --------------------------------------------------
