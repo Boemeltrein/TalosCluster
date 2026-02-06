@@ -29,13 +29,14 @@ jobs:
           curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
             -o /usr/local/bin/yq
           chmod +x /usr/local/bin/yq
+          sudo apt-get install -y gettext
 
       # --------------------------------------------------
       # Dummy env vars for Helm interpolation
       # --------------------------------------------------
       - name: Set dummy env vars
         run: |
-          echo "BASE_DOMAIN=example.local" >> "$GITHUB_ENV"
+          echo "BASE_DOMAIN=dummy.local" >> "$GITHUB_ENV"
           echo "S3_URL=dummy" >> "$GITHUB_ENV"
           echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
           echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
