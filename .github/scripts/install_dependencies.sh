@@ -9,16 +9,16 @@ fi
 
 echo "Chart name: $curr_chart"
 values_yaml=$(cat "$curr_chart/values.yaml")
-cnpg_enabled=$(go-yq '.cnpg | map(.enabled) | any' <<<"$values_yaml")
-ingress_required=$(go-yq '.ingress | map(.required) | any' <<<"$values_yaml")
-ingress_enabled=$(go-yq '.ingress | map(.enabled) | any' <<<"$values_yaml")
+cnpg_enabled=$(yq '.cnpg | map(.enabled) | any' <<<"$values_yaml")
+ingress_required=$(yq '.ingress | map(.required) | any' <<<"$values_yaml")
+ingress_enabled=$(yq '.ingress | map(.enabled) | any' <<<"$values_yaml")
 nginx_needed="false"
 if [[ "$ingress_required" == "true" ]] || [[ "$ingress_enabled" == "true" ]]; then
     nginx_needed="true"
 else
     for ci_values in "$curr_chart"/ci/*values.yaml; do
         ci_values_yaml=$(cat "$ci_values")
-        ingress_enabled=$(go-yq '.ingress | map(.enabled) | any' <<<"$ci_values_yaml")
+        ingress_enabled=$(yq '.ingress | map(.enabled) | any' <<<"$ci_values_yaml")
         if [[ "$ingress_enabled" == "true" ]]; then
             nginx_needed="true"
             break
