@@ -83,8 +83,12 @@ echo "  CertManager: $install_certmanager"
 # --------------------------------------------------
 if $install_cnpg; then
   echo "🗄 Installing CloudNativePG..."
-  kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
-  kubectl rollout status deployment/cnpg-controller-manager -n cnpg-system --timeout=180s
+  helm install cloudnative-pg oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg --namespace cloudnative-pg --create-namespace --wait
+  if [[ "$?" != "0" ]]; then
+      echo "Failed to install CloudNativePG"
+      exit 1
+  fi
+  echo "Done installing CloudNativePG"
 fi
 
 if $install_volsync; then
@@ -95,12 +99,13 @@ fi
 
 if $install_ingress; then
   echo "🌐 Installing ingress-nginx..."
-  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
-    --namespace ingress-nginx \
-    --create-namespace \
-    --wait --timeout 180s
+  helm install ingress-nginx oci://ghcr.io/home-operations/charts-mirror/ingress-nginx --namespace ingress-nginx --create-namespace \
+      --set controller.ingressClassResource.default=true --set controller.publishService.enabled=false --set controller.service.type="ClusterIP" --set controller.config.allow-snippet-annotations=true --set controller.config.annotations-risk-level="Critical" --wait
+  if [[ "$?" != "0" ]]; then
+      echo "Failed to install ingress-nginx"
+      exit 1
+  fi
+  echo "Done installing ingress-nginx"
 fi
 
 if $install_certmanager; then
