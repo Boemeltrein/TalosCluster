@@ -161,7 +161,7 @@ spec:
           marketplace:
             # renovate: depName="Blocky-Postgres"
             id: 17996
-            revision: 14        
+            revision: 15        
         volsync:
           enabled: true
           datasource:
