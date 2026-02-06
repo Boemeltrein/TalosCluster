@@ -74,9 +74,6 @@ jobs:
       #    kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_scheduledbackups.yaml
       #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
       #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
-      
-      - name: Install Dependencies
-        run: bash .github/scripts/install_dependencies.sh
           
       # --------------------------------------------------
       # Detect changed HelmReleases (SAFE PR diff)
@@ -107,6 +104,9 @@ jobs:
 
           while read -r HELMRELEASE; do
             echo "=== Testing $HELMRELEASE ==="
+            
+            echo "🔧 Installing dependencies for $HELMRELEASE"
+            bash .github/scripts/install_dependencies.sh "$HELMRELEASE"
 
             RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE")"
             NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE")"
@@ -116,6 +116,7 @@ jobs:
             REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
             REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 
+            echo "🔧 Installing chart for $HELMRELEASE"
             echo "Chart: $CHART_NAME@$CHART_VERSION"
             echo "Repo:  $REPO_URL"
 
@@ -138,9 +139,6 @@ jobs:
               'ingress:' \
               '  main:' \
               '    enabled: false' \
-              '' \
-              'persistence:' \
-              '  {}' \
               '' \
               'resources:' \
               '  requests:' \
@@ -209,5 +207,6 @@ jobs:
       - name: Cleanup
         if: always()
         run: |
-          kind delete cluster --name pr-test
+          k3d cluster delete
+
   
