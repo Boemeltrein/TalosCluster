@@ -8,7 +8,8 @@ if [ -z "$curr_chart" ]; then
 fi
 
 echo "Chart name: $curr_chart"
-values_yaml=$(cat "$curr_chart/values.yaml")
+# values_yaml=$(cat "$curr_chart/values.yaml")
+values_yaml=$(cat values.generated.yaml)
 cnpg_enabled=$(yq '.cnpg | map(.enabled) | any' <<<"$values_yaml")
 ingress_required=$(yq '.ingress | map(.required) | any' <<<"$values_yaml")
 ingress_enabled=$(yq '.ingress | map(.enabled) | any' <<<"$values_yaml")
