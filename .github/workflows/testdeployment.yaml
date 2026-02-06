@@ -1,155 +1,257 @@
-#!/usr/bin/env bash
-set -euo pipefail
+name: HelmRelease test deployment
 
-HELMRELEASE_PATH="${1:-}"
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**/helm-release.yaml"
 
-if [[ -z "$HELMRELEASE_PATH" ]]; then
-  echo "❌ No HelmRelease path provided"
-  exit 1
-fi
+jobs:
+            
+  test-helmreleases:
+    runs-on: ubuntu-latest
 
-echo "=================================================="
-echo "🔍 Processing HelmRelease: $HELMRELEASE_PATH"
-echo "=================================================="
+    steps:
+      # --------------------------------------------------
+      # Checkout (FULL history for PR diff)
+      # --------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          fetch-depth: 0
 
-# --------------------------------------------------
-# Extract metadata from HelmRelease
-# --------------------------------------------------
-RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE_PATH")"
-NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE_PATH")"
-CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE_PATH")"
-CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE_PATH")"
-REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
-REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
-REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
+      # --------------------------------------------------
+      # Install required tools
+      # --------------------------------------------------
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
 
-echo "📦 Chart: $CHART_NAME@$CHART_VERSION"
-echo "🌍 Repo:  $REPO_URL"
-echo "📂 NS:    $NAMESPACE"
+      # --------------------------------------------------
+      # Dummy env vars (Helm value interpolation)
+      # --------------------------------------------------
+      - name: Set dummy env vars
+        run: |
+          echo "BASE_DOMAIN=example.local" >> "$GITHUB_ENV"
+          echo "S3_URL=dummy" >> "$GITHUB_ENV"
+          echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_ENCRKEY=dummy123456789" >> "$GITHUB_ENV"
 
-# --------------------------------------------------
-# Prepare values
-# --------------------------------------------------
-VALUES_FILE="$(mktemp)"
-yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$VALUES_FILE"
+      # --------------------------------------------------
+      # Create ephemeral Kubernetes cluster
+      # --------------------------------------------------
+      #- name: Create kind cluster
+      #  uses: helm/kind-action@92086f6be054225fa813e0a4b13787fc9088faab # v1.13.0
+      #  with:
+      #    cluster_name: pr-test
 
-# Remove persistence for ephemeral CI cluster
-yq -i 'del(.persistence)' "$VALUES_FILE"
+      - name: Create k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: latest
+          # Flags found here https://github.com/k3d-io/k3d
+          k3d-args: --k3s-arg --disable=metrics-server@server:*
+          github-token: ${{ secrets.GITHUB_TOKEN }}
 
-# Disable ingress in CI
-yq -i '.ingress = {}' "$VALUES_FILE" || true
+      - name: Remove node taints
+        run: |
+          kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
 
-# --------------------------------------------------
-# Add repo / pull chart
-# --------------------------------------------------
-if [[ "$REPO_URL" == oci://* ]]; then
-  CHART_REF="$REPO_URL/$CHART_NAME"
-else
-  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  CHART_REF="ci-repo/$CHART_NAME"
-fi
+      - name: Install kubectl
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
 
-# --------------------------------------------------
-# Render manifests (FULL upstream + overrides)
-# --------------------------------------------------
-RENDERED="$(mktemp)"
+      - name: Install helm
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
+      
+      #- name: Install CRDs
+      #  run: |
+      #    kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_clusters.yaml
+      #    kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/config/crd/bases/postgresql.cnpg.io_scheduledbackups.yaml
+      #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
+      #    # kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
+          
+      # --------------------------------------------------
+      # Detect changed HelmReleases (SAFE PR diff)
+      # --------------------------------------------------
+      - name: Detect changed HelmReleases
+        id: changes
+        run: |
+          git diff \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.sha }}" \
+            --name-only \
+            | grep 'helm-release.yaml$' > helmreleases.txt || true
 
-helm template "$RELEASE_NAME" "$CHART_REF" \
-  --version "$CHART_VERSION" \
-  --namespace "$NAMESPACE" \
-  --values "$VALUES_FILE" \
-  > "$RENDERED"
+          if [ -s helmreleases.txt ]; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            cat helmreleases.txt
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
 
-echo "🧾 Rendered manifests saved"
-
-# --------------------------------------------------
-# Detect dependencies from rendered manifests
-# --------------------------------------------------
-install_cnpg=false
-install_volsync=false
-install_ingress=false
-install_certmanager=false
-
-grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
-grep -q "volsync.backube" "$RENDERED" && install_volsync=true
-grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
-grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
-
-echo "🔎 Dependency detection:"
-echo "  CNPG:        $install_cnpg"
-echo "  VolSync:     $install_volsync"
-echo "  Ingress:     $install_ingress"
-echo "  CertManager: $install_certmanager"
-
-# --------------------------------------------------
-# Install dependencies
-# --------------------------------------------------
-
-if $install_cnpg; then
-  echo "🗄 Installing CloudNativePG..."
-  kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
-  kubectl rollout status deployment/cnpg-controller-manager -n cnpg-system --timeout=180s
-fi
-
-if $install_volsync; then
-  echo "💾 Installing VolSync CRDs..."
-  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
-  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
-fi
-
-if $install_ingress; then
-  echo "🌐 Installing ingress-nginx..."
-  helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
-    --namespace ingress-nginx \
-    --create-namespace \
-    --wait --timeout 180s
-fi
-
-if $install_certmanager; then
-  echo "🔐 Installing cert-manager..."
-  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-  kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
-fi
-
-# --------------------------------------------------
-# Deploy Helm chart (REAL install)
-# --------------------------------------------------
-echo "🚀 Deploying $RELEASE_NAME..."
-
-set +e
-helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
-  --version "$CHART_VERSION" \
-  --namespace "$NAMESPACE" \
-  --create-namespace \
-  --values "$VALUES_FILE" \
-  --wait \
-  --timeout 10m
-HELM_RC=$?
-set -e
-
-# --------------------------------------------------
-# Debug info (always shown)
-# --------------------------------------------------
-echo "📦 Pods:"
-kubectl get pods -n "$NAMESPACE" -o wide || true
-
-echo "📅 Events:"
-kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
-
-for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
-  echo "==== Logs for $pod ===="
-  kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
-done
-
-# --------------------------------------------------
-# Exit with Helm result
-# --------------------------------------------------
-if [ "$HELM_RC" -ne 0 ]; then
-  echo "❌ Deployment failed"
-  exit "$HELM_RC"
-fi
-
-echo "✅ Deployment succeeded"
+      # --------------------------------------------------
+      # Test deploy HelmReleases
+      # --------------------------------------------------
+      - name: Test HelmReleases
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          #!/usr/bin/env bash
+          set -euo pipefail
+          
+          HELMRELEASE_PATH="${1:-}"
+          
+          if [[ -z "$HELMRELEASE_PATH" ]]; then
+            echo "❌ No HelmRelease path provided"
+            exit 1
+          fi
+          
+          echo "=================================================="
+          echo "🔍 Processing HelmRelease: $HELMRELEASE_PATH"
+          echo "=================================================="
+          
+          # --------------------------------------------------
+          # Extract metadata from HelmRelease
+          # --------------------------------------------------
+          RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE_PATH")"
+          NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE_PATH")"
+          CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE_PATH")"
+          CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE_PATH")"
+          REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
+          REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
+          REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
+          
+          echo "📦 Chart: $CHART_NAME@$CHART_VERSION"
+          echo "🌍 Repo:  $REPO_URL"
+          echo "📂 NS:    $NAMESPACE"
+          
+          # --------------------------------------------------
+          # Prepare values
+          # --------------------------------------------------
+          VALUES_FILE="$(mktemp)"
+          yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$VALUES_FILE"
+          
+          # Remove persistence for ephemeral CI cluster
+          yq -i 'del(.persistence)' "$VALUES_FILE"
+          
+          # Disable ingress in CI
+          yq -i '.ingress = {}' "$VALUES_FILE" || true
+          
+          # --------------------------------------------------
+          # Add repo / pull chart
+          # --------------------------------------------------
+          if [[ "$REPO_URL" == oci://* ]]; then
+            CHART_REF="$REPO_URL/$CHART_NAME"
+          else
+            helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
+            helm repo update >/dev/null 2>&1
+            CHART_REF="ci-repo/$CHART_NAME"
+          fi
+          
+          # --------------------------------------------------
+          # Render manifests (FULL upstream + overrides)
+          # --------------------------------------------------
+          RENDERED="$(mktemp)"
+          
+          helm template "$RELEASE_NAME" "$CHART_REF" \
+            --version "$CHART_VERSION" \
+            --namespace "$NAMESPACE" \
+            --values "$VALUES_FILE" \
+            > "$RENDERED"
+          
+          echo "🧾 Rendered manifests saved"
+          
+          # --------------------------------------------------
+          # Detect dependencies from rendered manifests
+          # --------------------------------------------------
+          install_cnpg=false
+          install_volsync=false
+          install_ingress=false
+          install_certmanager=false
+          
+          grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
+          grep -q "volsync.backube" "$RENDERED" && install_volsync=true
+          grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
+          grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
+          
+          echo "🔎 Dependency detection:"
+          echo "  CNPG:        $install_cnpg"
+          echo "  VolSync:     $install_volsync"
+          echo "  Ingress:     $install_ingress"
+          echo "  CertManager: $install_certmanager"
+          
+          # --------------------------------------------------
+          # Install dependencies
+          # --------------------------------------------------
+          
+          if $install_cnpg; then
+            echo "🗄 Installing CloudNativePG..."
+            kubectl apply -f https://raw.githubusercontent.com/cloudnative-pg/cloudnative-pg/main/releases/cnpg-1.24.0.yaml
+            kubectl rollout status deployment/cnpg-controller-manager -n cnpg-system --timeout=180s
+          fi
+          
+          if $install_volsync; then
+            echo "💾 Installing VolSync CRDs..."
+            kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
+            kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
+          fi
+          
+          if $install_ingress; then
+            echo "🌐 Installing ingress-nginx..."
+            helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx >/dev/null 2>&1 || true
+            helm repo update >/dev/null 2>&1
+            helm upgrade --install ingress-nginx ingress-nginx/ingress-nginx \
+              --namespace ingress-nginx \
+              --create-namespace \
+              --wait --timeout 180s
+          fi
+          
+          if $install_certmanager; then
+            echo "🔐 Installing cert-manager..."
+            kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+            kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
+          fi
+          
+          # --------------------------------------------------
+          # Deploy Helm chart (REAL install)
+          # --------------------------------------------------
+          echo "🚀 Deploying $RELEASE_NAME..."
+          
+          set +e
+          helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
+            --version "$CHART_VERSION" \
+            --namespace "$NAMESPACE" \
+            --create-namespace \
+            --values "$VALUES_FILE" \
+            --wait \
+            --timeout 10m
+          HELM_RC=$?
+          set -e
+          
+          # --------------------------------------------------
+          # Debug info (always shown)
+          # --------------------------------------------------
+          echo "📦 Pods:"
+          kubectl get pods -n "$NAMESPACE" -o wide || true
+          
+          echo "📅 Events:"
+          kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
+          
+          for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
+            echo "==== Logs for $pod ===="
+            kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
+          done
+          
+          # --------------------------------------------------
+          # Exit with Helm result
+          # --------------------------------------------------
+          if [ "$HELM_RC" -ne 0 ]; then
+            echo "❌ Deployment failed"
+            exit "$HELM_RC"
+          fi
+          
+          echo "✅ Deployment succeeded"
