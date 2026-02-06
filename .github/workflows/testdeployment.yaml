@@ -112,10 +112,7 @@ jobs:
             REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE")"
             REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
             REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
-            
-            echo "🔧 Installing dependencies for $CHART_NAME"
-            bash .github/scripts/install_dependencies.sh "$CHART_NAME"
-            
+                  
             echo "🔧 Installing chart for $HELMRELEASE"
             echo "Chart: $CHART_NAME@$CHART_VERSION"
             echo "Repo:  $REPO_URL"
@@ -147,6 +144,9 @@ jobs:
               '  limits:' \
               '    memory: 256Mi' \
               > values.test.yaml
+
+            echo "🔧 Installing dependencies for $CHART_NAME"
+            bash .github/scripts/install_dependencies.sh "$CHART_NAME"
 
             echo "🚀 Deploying $RELEASE_NAME to namespace $NAMESPACE"
 
