@@ -126,7 +126,7 @@ helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
   --create-namespace \
   --values "$VALUES_FILE" \
   --wait \
-  --timeout 10m
+  --timeout 5m
 HELM_RC=$?
 set -e
 
