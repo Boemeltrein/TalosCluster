@@ -98,4 +98,4 @@ jobs:
             echo "=============================================="
 
             bash .github/scripts/deploy_helmrelease.sh "$HELMRELEASE"
-          don
+          done < helmreleases.txt
