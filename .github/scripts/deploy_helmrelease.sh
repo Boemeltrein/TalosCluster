@@ -28,8 +28,14 @@ echo "📂 NS:    $NAMESPACE"
 # --------------------------------------------------
 # Prepare values
 # --------------------------------------------------
+RAW_VALUES="$(mktemp)"
 VALUES_FILE="$(mktemp)"
-yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$VALUES_FILE"
+
+# Extract values
+yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
+
+# Substitute environment variables
+envsubst < "$RAW_VALUES" > "$VALUES_FILE"
 
 # Remove persistence for ephemeral CI cluster
 yq -i 'del(.persistence)' "$VALUES_FILE" || true
