@@ -75,17 +75,20 @@ install_cnpg=false
 install_volsync=false
 install_ingress=false
 install_certmanager=false
+install_prometheus=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 grep -q "volsync.backube" "$RENDERED" && install_volsync=true
 grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
 grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
+grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 
 echo "🔎 Dependencies:"
 echo "  CNPG:        $install_cnpg"
 echo "  VolSync:     $install_volsync"
 echo "  Ingress:     $install_ingress"
 echo "  CertManager: $install_certmanager"
+echo "  Prometheus:  $install_prometheus"
 
 # --------------------------------------------------
 # Install dependencies
@@ -104,6 +107,11 @@ if $install_volsync; then
   echo "💾 Installing VolSync CRDs..."
   kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
   kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
+  if [[ "$?" != "0" ]]; then
+      echo "Failed to install Volsync CRDs"
+      exit 1
+  fi
+  echo "Done installing Volsync CRDs"
 fi
 
 if $install_ingress; then
@@ -121,7 +129,26 @@ if $install_certmanager; then
   echo "🔐 Installing cert-manager..."
   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
   kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
+  if [[ "$?" != "0" ]]; then
+      echo "Failed to install certmanager"
+      exit 1
+  fi
+  echo "Done installing certmanager"
 fi
+
+if $install_prometheus; then
+  echo "📊 Installing Prometheus Operator CRDs..."
+
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+  if [[ "$?" != "0" ]]; then
+      echo "Failed to install Prometheus Operator CRDs"
+      exit 1
+  fi
+  echo "Done installing Prometheus Operator CRDs"
+fi
+
 
 # --------------------------------------------------
 # Deploy chart
