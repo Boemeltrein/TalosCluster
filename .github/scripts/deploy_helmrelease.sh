@@ -122,17 +122,22 @@ echo
 # --------------------------------------------------
 # Change PVC and CNPG because of backup restore issues
 # --------------------------------------------------
-
 echo "YQ TEST INFO"
 which yq
 yq --version
 
 yq -i '
-  (.persistence.. | select(has("volsync")).volsync[]?.src.enabled) = false |
-  (.persistence.. | select(has("volsync")).volsync[]?.dest.enabled) = false
-' "$VALUES_FILE"
+  # disable volsync
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false |
 
-yq -i '.persistence? |= with_entries(select(.value.type? != "nfs"))' "$VALUES_FILE"
+  # remove nfs persistence
+  if (.persistence | type) == "!!map" then
+    .persistence |= with_entries(select(.value.type? != "nfs"))
+  else
+    .
+  end
+' "$VALUES_FILE"
 
 # Remove cnpg for ephemeral CI cluster
 yq -i 'del(.cnpg)' "$VALUES_FILE" || true
@@ -140,18 +145,12 @@ yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 # --------------------------------------------------
 # Value Dump for debugging
 # --------------------------------------------------
-
-# echo "::group::Rendered Helm values"
-# echo -e "${BOLD}${BLUE📄 Rendered values.yaml (after CI patches)${NC}"
-# echo -e "${BOLD}${BLUE} Rendered values.yaml (after CI patches)${NC}"
-# echo
-
-
-
+echo "::group::Rendered Helm values"
+echo -e "${BOLD}${BLUE📄 Rendered values.yaml (after CI patches)${NC}"
+echo 
 yq -P '.' "$VALUES_FILE"
-
-# echo "::endgroup::"
-
+echo
+echo "::endgroup::"
 
 # --------------------------------------------------
 # Setup chart reference
