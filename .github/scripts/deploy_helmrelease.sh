@@ -50,19 +50,28 @@ yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 # # Substitute environment variables
 # envsubst < "$RAW_VALUES" > "$VALUES_FILE"
 
-# Build lijst met ALLE bestaande environment variables in ${VAR}-vorm
+# --------------------------------------------------
+# Build a list of ALL existing environment variables
+# in ${VAR} format, safely and without subshell issues
+# --------------------------------------------------
 ENV_SUBST_VARS="$(
-  env | cut -d= -f1 | while IFS= read -r var; do
-    printf '${%s} ' "$var"
-  done
+  while IFS='=' read -r name _; do
+    printf '${%s} ' "$name"
+  done < <(env)
 )"
-# Substitueer alleen variabelen die echt bestaan
+
+# --------------------------------------------------
+# Substitute only variables that actually exist
+# --------------------------------------------------
 envsubst "$ENV_SUBST_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
+
+# Debug output
 echo "Env vars used for substitution:"
-echo "$ENV_SUBST_VARS"
-echo "en nu met print"
 printf '%s\n' "$ENV_SUBST_VARS"
 
+# --------------------------------------------------
+# Remove PVC and CNPG because of backup restore issues
+# --------------------------------------------------
 
 # Remove persistence for ephemeral CI cluster
 yq -i 'del(.persistence)' "$VALUES_FILE" || true
