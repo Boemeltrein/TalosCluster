@@ -120,17 +120,35 @@ echo -e "${BLUE}Summary:${NC} replaced=${replaced_count} | unresolved=${missing_
 echo
 
 # --------------------------------------------------
-# Remove PVC and CNPG because of backup restore issues
+# Change PVC and CNPG because of backup restore issues
 # --------------------------------------------------
 
-# Remove persistence for ephemeral CI cluster
-yq -i 'del(.persistence)' "$VALUES_FILE" || true
+yq -i '
+  (.persistence.. | select(has("volsync")).volsync[]?.src.enabled) = false |
+  (.persistence.. | select(has("volsync")).volsync[]?.dest.enabled) = false
+' "$VALUES_FILE"
+
+yq -i '.persistence? |= with_entries(select(.value.type? != "nfs"))' "$VALUES_FILE"
 
 # Remove cnpg for ephemeral CI cluster
 yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 
-# # Disable ingress
-# yq -i '.ingress = {}' "$VALUES_FILE" || true
+# --------------------------------------------------
+# Value Dump for debugging
+# --------------------------------------------------
+
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+NC='\033[0m'
+
+echo "::group::Rendered Helm values"
+echo -e "${BOLD}${BLUE}📄 Rendered values.yaml (after CI patches)${NC}"
+echo
+
+yq -P '.' "$VALUES_FILE"
+
+echo "::endgroup::"
+
 
 # --------------------------------------------------
 # Setup chart reference
