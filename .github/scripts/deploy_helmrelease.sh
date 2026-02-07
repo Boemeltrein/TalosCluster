@@ -17,7 +17,7 @@ STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE_PATH")
 
 if [[ "$STOP_ALL" == "true" ]]; then
   echo "=============================================="
-  echo "⏭ SKIPPED: $HELMRELEASE"
+  echo "⏭ SKIPPED: $HELMRELEASE_PATH"
   echo "Reason: global.stopAll=true"
   echo "=============================================="
   exit 0
