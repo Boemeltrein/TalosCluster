@@ -145,6 +145,9 @@ echo "::group::Rendered Helm values"
 echo -e "${BOLD}${BLUE}📄 Rendered values.yaml (after CI patches)${NC}"
 echo
 
+which yq
+yq --version
+
 yq -P '.' "$VALUES_FILE"
 
 echo "::endgroup::"
