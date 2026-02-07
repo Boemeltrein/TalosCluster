@@ -67,7 +67,7 @@ envsubst "$ENV_SUBST_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
 
 # Debug output
 echo "Env vars used for substitution:"
-printf '%s\n' "$ENV_SUBST_VARS"
+printf '%s\n' $ENV_SUBST_VARS | tail
 
 # --------------------------------------------------
 # Remove PVC and CNPG because of backup restore issues
