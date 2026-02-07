@@ -36,7 +36,8 @@ jobs:
       # --------------------------------------------------
       - name: Set dummy env vars
         run: |
-          echo "BASE_DOMAIN=dummy.local" >> "$GITHUB_ENV"
+          echo "BASE_DOMAIN=base.dummy.local" >> "$GITHUB_ENV"
+          echo "DOMAIN=dummy.local" >> "$GITHUB_ENV"
           echo "S3_URL=dummy" >> "$GITHUB_ENV"
           echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
           echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
