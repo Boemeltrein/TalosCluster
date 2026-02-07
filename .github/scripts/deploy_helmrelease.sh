@@ -122,21 +122,16 @@ echo
 # --------------------------------------------------
 # Change PVC and CNPG because of backup restore issues
 # --------------------------------------------------
-echo "YQ TEST INFO"
-which yq
-yq --version
-
+# Disable volsync
 yq -i '
-  # disable volsync
   (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
-  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false |
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false
+' "$VALUES_FILE"
 
-  # remove nfs persistence
-  if (.persistence | type) == "!!map" then
-    .persistence |= with_entries(select(.value.type? != "nfs"))
-  else
-    .
-  end
+# Remove NFS persistence entries
+yq -i '
+  .persistence? |= with_entries(select(.value.type? != "nfs")) |
+  del(.persistence | select(. == {}))
 ' "$VALUES_FILE"
 
 # Remove cnpg for ephemeral CI cluster
