@@ -1,0 +1,105 @@
+name: HelmRelease test deployment
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "**/helm-release.yaml"
+
+jobs:
+  detect:
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set.outputs.matrix }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect changed HelmReleases
+        id: set
+        run: |
+          files=$(git diff \
+            "${{ github.event.pull_request.base.sha }}" \
+            "${{ github.sha }}" \
+            --name-only | grep 'helm-release.yaml$' || true)
+
+          if [ -z "$files" ]; then
+            echo "matrix=[]" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          # maak JSON matrix
+          json=$(printf '%s\n' "$files" | jq -R . | jq -s .)
+          echo "matrix=$json" >> "$GITHUB_OUTPUT"
+
+  test:
+    needs: detect
+    if: needs.detect.outputs.matrix != '[]'
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        helmrelease: ${{ fromJson(needs.detect.outputs.matrix) }}
+
+    steps:
+      # --------------------------------------------------
+      # Checkout
+      # --------------------------------------------------
+      - uses: actions/checkout@v4
+
+      # --------------------------------------------------
+      # Tools
+      # --------------------------------------------------
+      - name: Install tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq gettext
+          curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+            -o /usr/local/bin/yq
+          chmod +x /usr/local/bin/yq
+
+      # --------------------------------------------------
+      # Dummy env vars
+      # --------------------------------------------------
+      - name: Set dummy env vars
+        run: |
+          echo "BASE_DOMAIN=dummy.local" >> "$GITHUB_ENV"
+          echo "S3_URL=dummy" >> "$GITHUB_ENV"
+          echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
+          echo "S3_ENCRKEY=dummy123456789" >> "$GITHUB_ENV"
+
+      # --------------------------------------------------
+      # Create isolated k3d cluster (per matrix job!)
+      # --------------------------------------------------
+      - name: Create k3d cluster
+        uses: nolar/setup-k3d-k3s@v1
+        with:
+          version: latest
+          k3d-args: --k3s-arg --disable=metrics-server@server:*
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove node taints
+        run: |
+          kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Install helm
+        uses: azure/setup-helm@v4
+
+      # --------------------------------------------------
+      # Run your existing deploy script
+      # --------------------------------------------------
+      - name: Test HelmRelease
+        run: |
+          chmod +x .github/scripts/deploy_helmrelease.sh
+          echo "=============================================="
+          echo "=== Testing ${{ matrix.helmrelease }} ==="
+          echo "=============================================="
+          bash .github/scripts/deploy_helmrelease.sh "${{ matrix.helmrelease }}"
