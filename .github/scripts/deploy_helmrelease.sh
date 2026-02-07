@@ -47,8 +47,17 @@ VALUES_FILE="$(mktemp)"
 # Extract values
 yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 
-# Substitute environment variables
-envsubst < "$RAW_VALUES" > "$VALUES_FILE"
+# # Substitute environment variables
+# envsubst < "$RAW_VALUES" > "$VALUES_FILE"
+
+# Build lijst met ALLE bestaande environment variables in ${VAR}-vorm
+ENV_SUBST_VARS="$(
+  env | cut -d= -f1 | sed 's/^/${/;s/$/}/' | tr '\n' ' '
+)"
+# Substitueer alleen variabelen die echt bestaan
+envsubst "$ENV_SUBST_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
+echo "Env vars used for substitution:"
+echo "$ENV_SUBST_VARS"
 
 # Remove persistence for ephemeral CI cluster
 yq -i 'del(.persistence)' "$VALUES_FILE" || true
