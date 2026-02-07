@@ -52,12 +52,17 @@ yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 
 # Build lijst met ALLE bestaande environment variables in ${VAR}-vorm
 ENV_SUBST_VARS="$(
-  env | cut -d= -f1 | sed 's/^/${/;s/$/}/' | tr '\n' ' '
+  env | cut -d= -f1 | while IFS= read -r var; do
+    printf '${%s} ' "$var"
+  done
 )"
 # Substitueer alleen variabelen die echt bestaan
 envsubst "$ENV_SUBST_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
 echo "Env vars used for substitution:"
 echo "$ENV_SUBST_VARS"
+echo "en nu met print"
+printf '%s\n' "$ENV_SUBST_VARS"
+
 
 # Remove persistence for ephemeral CI cluster
 yq -i 'del(.persistence)' "$VALUES_FILE" || true
