@@ -287,7 +287,7 @@ kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
 
 for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
   echo "==== Logs for $pod ===="
-  kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
+  kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=400 || true
 done
 
 # --------------------------------------------------
