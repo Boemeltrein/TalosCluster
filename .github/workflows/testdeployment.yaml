@@ -27,9 +27,13 @@ jobs:
             --name-only | grep 'helm-release.yaml$' || true)
           
           if [ -z "$files" ]; then
+            echo "🔍 No HelmReleases changed"
             echo "matrix=[]" >> "$GITHUB_OUTPUT"
             exit 0
           fi
+
+          echo "🔍 Detected HelmReleases:"
+          printf '%s\n' "$files"
           
           json=$(printf '%s\n' "$files" | jq -R . | jq -s .)
           
