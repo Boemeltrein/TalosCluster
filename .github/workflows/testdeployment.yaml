@@ -25,15 +25,19 @@ jobs:
             "${{ github.event.pull_request.base.sha }}" \
             "${{ github.sha }}" \
             --name-only | grep 'helm-release.yaml$' || true)
-
+          
           if [ -z "$files" ]; then
             echo "matrix=[]" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-
-          # maak JSON matrix
+          
           json=$(printf '%s\n' "$files" | jq -R . | jq -s .)
-          echo "matrix=$json" >> "$GITHUB_OUTPUT"
+          
+          {
+            echo "matrix<<EOF"
+            echo "$json"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
 
   test:
     needs: detect
