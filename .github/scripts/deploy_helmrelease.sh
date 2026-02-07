@@ -55,9 +55,9 @@ yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 # in ${VAR} format, safely and without subshell issues
 # --------------------------------------------------
 ENV_SUBST_VARS="$(
-  while IFS='=' read -r name _; do
+  printenv -0 | while IFS='=' read -r -d '' name _; do
     printf '${%s} ' "$name"
-  done < <(env)
+  done
 )"
 
 # --------------------------------------------------
