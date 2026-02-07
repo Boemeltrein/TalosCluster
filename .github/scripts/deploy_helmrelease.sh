@@ -13,7 +13,7 @@ echo "🔍 Processing HelmRelease: $HELMRELEASE_PATH"
 # --------------------------------------------------
 # Check stopAll
 # --------------------------------------------------
-STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE")
+STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE_PATH")
 
 if [[ "$STOP_ALL" == "true" ]]; then
   echo "=============================================="
