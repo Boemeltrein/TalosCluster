@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 0
 
@@ -47,12 +47,13 @@ jobs:
 
     steps:
       # --------------------------------------------------
-      # Checkout
+      # Checkout repo
       # --------------------------------------------------
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
 
       # --------------------------------------------------
-      # Tools
+      # Install required CLI tools
       # --------------------------------------------------
       - name: Install tools
         run: |
@@ -63,18 +64,19 @@ jobs:
           chmod +x /usr/local/bin/yq
 
       # --------------------------------------------------
-      # Dummy env vars
+      # Dummy env vars for Helm interpolation
       # --------------------------------------------------
       - name: Set dummy env vars
         run: |
-          echo "BASE_DOMAIN=dummy.local" >> "$GITHUB_ENV"
+          echo "BASE_DOMAIN=base.dummy.local" >> "$GITHUB_ENV"
+          echo "DOMAIN=dummy.local" >> "$GITHUB_ENV"
           echo "S3_URL=dummy" >> "$GITHUB_ENV"
           echo "S3_ACCESKEY=dummy123456789" >> "$GITHUB_ENV"
           echo "S3_SECRETKEY=dummy123456789" >> "$GITHUB_ENV"
           echo "S3_ENCRKEY=dummy123456789" >> "$GITHUB_ENV"
 
       # --------------------------------------------------
-      # Create isolated k3d cluster (per matrix job!)
+      # Create ephemeral k3d cluster
       # --------------------------------------------------
       - name: Create k3d cluster
         uses: nolar/setup-k3d-k3s@v1
@@ -88,13 +90,13 @@ jobs:
           kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
 
       - name: Install kubectl
-        uses: azure/setup-kubectl@v4
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
 
       - name: Install helm
-        uses: azure/setup-helm@v4
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
 
       # --------------------------------------------------
-      # Run your existing deploy script
+      # Deploy & test HelmRelease
       # --------------------------------------------------
       - name: Test HelmRelease
         run: |
