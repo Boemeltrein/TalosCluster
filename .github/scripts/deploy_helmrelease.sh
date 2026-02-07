@@ -11,6 +11,19 @@ fi
 echo "🔍 Processing HelmRelease: $HELMRELEASE_PATH"
 
 # --------------------------------------------------
+# Check stopAll
+# --------------------------------------------------
+STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE")
+
+if [[ "$STOP_ALL" == "true" ]]; then
+  echo "=============================================="
+  echo "⏭ SKIPPED: $HELMRELEASE"
+  echo "Reason: global.stopAll=true"
+  echo "=============================================="
+  exit 0
+fi
+
+# --------------------------------------------------
 # Extract HelmRelease metadata
 # --------------------------------------------------
 RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE_PATH")"
@@ -21,9 +34,9 @@ REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
 REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
 REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 
-echo "📦 Chart: $CHART_NAME@$CHART_VERSION"
-echo "🌍 Repo:  $REPO_URL"
-echo "📂 NS:    $NAMESPACE"
+echo "📦 Chart:        $CHART_NAME@$CHART_VERSION"
+echo "🌍 Repository:   $REPO_URL"
+echo "📂 Namespace:    $NAMESPACE"
 
 # --------------------------------------------------
 # Prepare values
