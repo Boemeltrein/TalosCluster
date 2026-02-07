@@ -196,6 +196,7 @@ echo "  Prometheus:  $install_prometheus"
 # --------------------------------------------------
 # Install dependencies
 # --------------------------------------------------
+echo "::group::🔧 Installing dependencies"
 if $install_cnpg; then
   echo "🗄 Installing CloudNativePG..."
   helm install cloudnative-pg oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg --namespace cloudnative-pg --create-namespace --wait
@@ -203,7 +204,7 @@ if $install_cnpg; then
       echo "Failed to install CloudNativePG"
       exit 1
   fi
-  echo "Done installing CloudNativePG"
+  echo "🗄 Done installing CloudNativePG"
 fi
 
 if $install_volsync; then
@@ -214,7 +215,7 @@ if $install_volsync; then
       echo "Failed to install Volsync CRDs"
       exit 1
   fi
-  echo "Done installing Volsync CRDs"
+  echo "💾 Done installing Volsync CRDs"
 fi
 
 if $install_ingress; then
@@ -225,7 +226,7 @@ if $install_ingress; then
       echo "Failed to install ingress-nginx"
       exit 1
   fi
-  echo "Done installing ingress-nginx"
+  echo "🌐 Done installing ingress-nginx"
 fi
 
 if $install_certmanager; then
@@ -236,7 +237,7 @@ if $install_certmanager; then
       echo "Failed to install certmanager"
       exit 1
   fi
-  echo "Done installing certmanager"
+  echo "🔐 Done installing certmanager"
 fi
 
 if $install_prometheus; then
@@ -249,9 +250,9 @@ if $install_prometheus; then
       echo "Failed to install Prometheus Operator CRDs"
       exit 1
   fi
-  echo "Done installing Prometheus Operator CRDs"
+  echo " 📊 Done installing Prometheus Operator CRDs"
 fi
-
+echo "::endgroup::"
 
 # --------------------------------------------------
 # Deploy chart
