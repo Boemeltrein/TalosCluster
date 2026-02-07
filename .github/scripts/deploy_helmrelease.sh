@@ -141,7 +141,7 @@ yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 # Value Dump for debugging
 # --------------------------------------------------
 echo "::group::Rendered Helm values"
-echo -e "${BOLD}${BLUE📄 Rendered values.yaml (after CI patches)${NC}"
+echo -e "${BOLD}${BLUE}📄 Rendered values.yaml (after CI patches)${NC}"
 echo 
 yq -P '.' "$VALUES_FILE"
 echo
