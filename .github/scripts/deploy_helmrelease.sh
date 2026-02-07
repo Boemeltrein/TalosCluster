@@ -3,6 +3,20 @@ set -euo pipefail
 
 HELMRELEASE_PATH="${1:-}"
 
+# --------------------------------------------------
+# Colors (safe for most CI terminals)
+# --------------------------------------------------
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+BLUE='\033[0;34m'
+BOLD='\033[1m'
+NC='\033[0m' # reset
+
+# --------------------------------------------------
+# Check Helmrelease Path
+# --------------------------------------------------
+
 if [[ -z "$HELMRELEASE_PATH" ]]; then
   echo "❌ No HelmRelease path provided"
   exit 1
@@ -71,29 +85,39 @@ while IFS= read -r var; do
 done <<< "$VARS_IN_FILE"
 
 # --------------------------------------------------
-# Optional: fail if required vars are missing
-# (toggle via STRICT_ENV=true)
-# --------------------------------------------------
-if [[ "${STRICT_ENV:-false}" == "true" && -n "$MISSING_VARS" ]]; then
-  echo "❌ Missing required environment variables:"
-  printf '  %s\n' $MISSING_VARS
-  exit 1
-fi
-
-# --------------------------------------------------
 # Substitute only existing variables
 # Missing ones remain literal ${VAR}
 # --------------------------------------------------
 envsubst "$EXISTING_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
 
-# Debug
-echo "✔ Replaced vars:"
-printf '  %s\n' $EXISTING_VARS
+# --------------------------------------------------
+# Environment substitution summary
+# --------------------------------------------------
+echo -e "${BOLD}🔍 Environment substitution summary${NC}"
 
-if [[ -n "$MISSING_VARS" ]]; then
-  echo "⚠ Unresolved vars left in values (kept as-is):"
-  printf '  %s\n' $MISSING_VARS
+replaced_count=$(wc -w <<< "$EXISTING_VARS")
+missing_count=$(wc -w <<< "$MISSING_VARS")
+
+if [[ "$replaced_count" -gt 0 ]]; then
+  echo -e "${GREEN}✔ Replaced variables:${NC}"
+  printf '  • %s\n' $EXISTING_VARS
+else
+  echo -e "${GREEN}✔ Replaced variables: none${NC}"
 fi
+
+if [[ "$missing_count" -gt 0 ]]; then
+  echo -e "${YELLOW}⚠ Unresolved variables (kept as-is):${NC}"
+  printf '  • %s\n' $MISSING_VARS
+else
+  echo -e "${GREEN}✔ No unresolved variables${NC}"
+fi
+
+# --------------------------------------------------
+# Compact summary line (great for long CI runs)
+# --------------------------------------------------
+echo
+echo -e "${BLUE}Summary:${NC} replaced=${replaced_count} | unresolved=${missing_count}"
+echo
 
 # --------------------------------------------------
 # Remove PVC and CNPG because of backup restore issues
