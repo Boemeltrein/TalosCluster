@@ -123,6 +123,10 @@ echo
 # Change PVC and CNPG because of backup restore issues
 # --------------------------------------------------
 
+echo "YQ TEST INFO"
+which yq
+yq --version
+
 yq -i '
   (.persistence.. | select(has("volsync")).volsync[]?.src.enabled) = false |
   (.persistence.. | select(has("volsync")).volsync[]?.dest.enabled) = false
@@ -142,9 +146,7 @@ yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 # echo -e "${BOLD}${BLUE} Rendered values.yaml (after CI patches)${NC}"
 # echo
 
-echo "YQ TEST INFO"
-which yq
-yq --version
+
 
 yq -P '.' "$VALUES_FILE"
 
