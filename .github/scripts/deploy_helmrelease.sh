@@ -47,27 +47,53 @@ VALUES_FILE="$(mktemp)"
 # Extract values
 yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 
-# # Substitute environment variables
-# envsubst < "$RAW_VALUES" > "$VALUES_FILE"
-
 # --------------------------------------------------
-# Build ${VAR} list from all existing environment vars
-# using Bash-native compgen (most reliable method)
+# Extract ${VAR} placeholders from values YAML
 # --------------------------------------------------
-ENV_SUBST_VARS="$(
-  compgen -e | while IFS= read -r name; do
-    printf '${%s} ' "$name"
-  done
+VARS_IN_FILE="$(
+  grep -o '\${[A-Za-z_][A-Za-z0-9_]*}' "$RAW_VALUES" | sort -u
 )"
 
 # --------------------------------------------------
-# Substitute only variables that actually exist
+# Determine which vars exist and which are missing
 # --------------------------------------------------
-envsubst "$ENV_SUBST_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
+EXISTING_VARS=""
+MISSING_VARS=""
 
-# Debug output
-echo "Env vars used for substitution:"
-printf '%s\n' $ENV_SUBST_VARS | tail
+while IFS= read -r var; do
+  name="${var:2:-1}"  # strip ${ and }
+
+  if printenv "$name" >/dev/null 2>&1; then
+    EXISTING_VARS+="${var} "
+  else
+    MISSING_VARS+="${var} "
+  fi
+done <<< "$VARS_IN_FILE"
+
+# --------------------------------------------------
+# Optional: fail if required vars are missing
+# (toggle via STRICT_ENV=true)
+# --------------------------------------------------
+if [[ "${STRICT_ENV:-false}" == "true" && -n "$MISSING_VARS" ]]; then
+  echo "❌ Missing required environment variables:"
+  printf '  %s\n' $MISSING_VARS
+  exit 1
+fi
+
+# --------------------------------------------------
+# Substitute only existing variables
+# Missing ones remain literal ${VAR}
+# --------------------------------------------------
+envsubst "$EXISTING_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
+
+# Debug
+echo "✔ Replaced vars:"
+printf '  %s\n' $EXISTING_VARS
+
+if [[ -n "$MISSING_VARS" ]]; then
+  echo "⚠ Unresolved vars left in values (kept as-is):"
+  printf '  %s\n' $MISSING_VARS
+fi
 
 # --------------------------------------------------
 # Remove PVC and CNPG because of backup restore issues
