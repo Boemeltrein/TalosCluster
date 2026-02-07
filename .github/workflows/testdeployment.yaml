@@ -92,12 +92,12 @@ jobs:
         run: |
           set -euo pipefail
 
-          chmod +x .github/scripts/deploy_helmrelease_claude.sh
+          chmod +x .github/scripts/deploy_helmrelease.sh
 
           while read -r HELMRELEASE; do
             echo "=============================================="
             echo "=== Testing $HELMRELEASE ==="
             echo "=============================================="
 
-            bash .github/scripts/deploy_helmrelease_claude.sh "$HELMRELEASE"
+            bash .github/scripts/deploy_helmrelease.sh "$HELMRELEASE"
           done < helmreleases.txt
