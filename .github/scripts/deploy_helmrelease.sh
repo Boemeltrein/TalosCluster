@@ -51,11 +51,11 @@ yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 # envsubst < "$RAW_VALUES" > "$VALUES_FILE"
 
 # --------------------------------------------------
-# Build a list of ALL existing environment variables
-# in ${VAR} format, safely and without subshell issues
+# Build ${VAR} list from all existing environment vars
+# using Bash-native compgen (most reliable method)
 # --------------------------------------------------
 ENV_SUBST_VARS="$(
-  printenv -0 | while IFS='=' read -r -d '' name _; do
+  compgen -e | while IFS= read -r name; do
     printf '${%s} ' "$name"
   done
 )"
