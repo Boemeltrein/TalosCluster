@@ -47,6 +47,8 @@ CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE_PATH")"
 REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
 REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
 REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
+APP_DIR="$(dirname "$HELMRELEASE_PATH")"
+CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
 
 echo "📦 Chart:        $CHART_NAME@$CHART_VERSION"
 echo "🌍 Repository:   $REPO_URL"
@@ -256,12 +258,19 @@ fi
 # --------------------------------------------------
 echo "🚀 Deploying $RELEASE_NAME..."
 
+HELM_VALUES_ARGS=(--values "$VALUES_FILE")
+
+if [[ -f "$CI_VALUES_FILE" ]]; then
+  echo "🧪 Using CI values: $CI_VALUES_FILE"
+  HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
+fi
+
 set +e
 helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
   --version "$CHART_VERSION" \
   --namespace "$NAMESPACE" \
   --create-namespace \
-  --values "$VALUES_FILE" \
+  "${HELM_VALUES_ARGS[@]}" \
   --wait \
   --timeout 5m
 HELM_RC=$?
