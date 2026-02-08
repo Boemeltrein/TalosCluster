@@ -33,17 +33,16 @@ print_header() {
   printf "${BOLD}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}║${NC}\n" \
     $padding "" "$display_title" $((width - padding - visual_width - 2)) ""
   echo -e "${BOLD}╚$(printf '═%.0s' {1..78})╝${NC}"
-  echo " "
 }
 
 print_section() {
-  echo
-  echo -e "${BOLD}${MAGENTA}▶${NC} ${BOLD}$1${NC}"
+  echo " "
+  echo -e "${BLUE}${BOLD}1${NC}"
   echo -e "${DIM}$(printf '─%.0s' $(seq 1 78))${NC}"
 }
 
 print_info() {
-  echo -e "${BLUE}${BOLD}$1${NC}"
+  echo -e "${BLUE}$1${NC}"
 }
 
 # --------------------------------------------------
@@ -56,7 +55,8 @@ if [[ -z "$HELMRELEASE_PATH" ]]; then
 fi
 
 print_header "HelmRelease Deployment Test" "🚀"
-print_info "🔍 Processing: $HELMRELEASE_PATH"
+
+print_section "Processing: $HELMRELEASE_PATH"
 
 # --------------------------------------------------
 # Check stopAll
@@ -125,8 +125,137 @@ done <<< "$VARS_IN_FILE"
 envsubst "$EXISTING_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
 
 # --------------------------------------------------
+# Change PVC and CNPG because of backup restore issues
+# --------------------------------------------------
+# Disable volsync
+yq -i '
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false
+' "$VALUES_FILE"
+
+# Remove NFS persistence entries
+yq -i '
+  .persistence? |= with_entries(select(.value.type? != "nfs")) |
+  del(.persistence | select(. == {}))
+' "$VALUES_FILE"
+
+# Remove cnpg for ephemeral CI cluster
+yq -i 'del(.cnpg)' "$VALUES_FILE" || true
+
+# --------------------------------------------------
+# Setup chart reference
+# --------------------------------------------------
+if [[ "$REPO_URL" == oci://* ]]; then
+  CHART_REF="$REPO_URL/$CHART_NAME"
+else
+  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
+  helm repo update >/dev/null 2>&1
+  CHART_REF="ci-repo/$CHART_NAME"
+fi
+
+# --------------------------------------------------
+# Render manifests for dependency detection
+# --------------------------------------------------
+RENDERED="$(mktemp)"
+
+helm template "$RELEASE_NAME" "$CHART_REF" \
+  --version "$CHART_VERSION" \
+  --namespace "$NAMESPACE" \
+  --values "$VALUES_FILE" \
+  > "$RENDERED" 2>/dev/null
+
+# --------------------------------------------------
+# Detect dependencies
+# --------------------------------------------------
+install_cnpg=false
+install_volsync=false
+install_ingress=false
+install_certmanager=false
+install_prometheus=false
+
+grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
+grep -q "volsync.backube" "$RENDERED" && install_volsync=true
+grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
+grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
+grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
+
+echo "🔎 Dependencies:"
+echo "  CNPG:        $install_cnpg"
+echo "  VolSync:     $install_volsync"
+echo "  Ingress:     $install_ingress"
+echo "  CertManager: $install_certmanager"
+echo "  Prometheus:  $install_prometheus"
+
+# --------------------------------------------------
+# Install dependencies
+# --------------------------------------------------
+print_section "🔧 Installing dependencies"
+
+if $install_cnpg; then
+  echo "::group::🗄 Installing CloudNativePG..."
+  helm install cloudnative-pg oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg --namespace cloudnative-pg --create-namespace --wait
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install CloudNativePG"
+      exit 1
+  fi
+  echo "🗄 Done installing CloudNativePG"
+  echo "::endgroup::"
+fi
+
+if $install_volsync; then
+  echo "::group::💾 Installing VolSync CRDs..."
+  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
+  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install Volsync CRDs"
+      exit 1
+  fi
+  echo "💾 Done installing Volsync CRDs"  
+  echo "::endgroup::"
+fi
+
+if $install_ingress; then
+  echo "::group::🌐 Installing ingress-nginx..."
+  helm install ingress-nginx oci://ghcr.io/home-operations/charts-mirror/ingress-nginx --namespace ingress-nginx --create-namespace \
+      --set controller.ingressClassResource.default=true --set controller.publishService.enabled=false --set controller.service.type="ClusterIP" --set controller.config.allow-snippet-annotations=true --set controller.config.annotations-risk-level="Critical" --wait
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install ingress-nginx"
+      exit 1
+  fi
+  echo "🌐 Done installing ingress-nginx"
+  echo "::endgroup::"
+fi
+
+if $install_certmanager; then
+  echo "::group::🔐 Installing cert-manager..."
+  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
+  kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install certmanager"
+      exit 1
+  fi
+  echo "🔐 Done installing certmanager"
+  echo "::endgroup::"
+fi
+
+if $install_prometheus; then
+  echo "::group::📊 Installing Prometheus Operator CRDs..."
+
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install Prometheus Operator CRDs"
+      exit 1
+  fi
+  echo " 📊 Done installing Prometheus Operator CRDs"
+  echo "::endgroup::"
+fi
+
+# --------------------------------------------------
 # Environment substitution summary
 # --------------------------------------------------
+print_section "🧬 Values Manipulation for CI Testing"
 echo -e "${BOLD}🔍 Environment substitution summary${NC}"
 
 replaced_count=$(wc -w <<< "$EXISTING_VARS")
@@ -154,149 +283,34 @@ echo -e "${BLUE}Summary:${NC} replaced=${replaced_count} | unresolved=${missing_
 echo
 
 # --------------------------------------------------
-# Change PVC and CNPG because of backup restore issues
-# --------------------------------------------------
-# Disable volsync
-yq -i '
-  (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
-  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false
-' "$VALUES_FILE"
-
-# Remove NFS persistence entries
-yq -i '
-  .persistence? |= with_entries(select(.value.type? != "nfs")) |
-  del(.persistence | select(. == {}))
-' "$VALUES_FILE"
-
-# Remove cnpg for ephemeral CI cluster
-yq -i 'del(.cnpg)' "$VALUES_FILE" || true
-
-# --------------------------------------------------
 # Value Dump for debugging
 # --------------------------------------------------
-echo "::group::Rendered Helm values"
-echo -e "${BOLD}${BLUE}📄 Rendered values.yaml (after CI patches)${NC}"
+echo "::group::🧩 Rendered Helm values (after CI patches):"
+echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
 echo 
 yq -P '.' "$VALUES_FILE"
 echo
 echo "::endgroup::"
 
 # --------------------------------------------------
-# Setup chart reference
+# CI Values file check
 # --------------------------------------------------
-if [[ "$REPO_URL" == oci://* ]]; then
-  CHART_REF="$REPO_URL/$CHART_NAME"
-else
-  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  CHART_REF="ci-repo/$CHART_NAME"
+HELM_VALUES_ARGS=(--values "$VALUES_FILE")
+
+if [[ -f "$CI_VALUES_FILE" ]]; then
+  echo ":group::🧪 Used CI values: $CI_VALUES_FILE"
+  echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
+  echo 
+  yq -P '.' "$CI_VALUES_FILE"
+  echo
+
+  HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
 fi
-
-# --------------------------------------------------
-# Render manifests for dependency detection
-# --------------------------------------------------
-RENDERED="$(mktemp)"
-
-helm template "$RELEASE_NAME" "$CHART_REF" \
-  --version "$CHART_VERSION" \
-  --namespace "$NAMESPACE" \
-  --values "$VALUES_FILE" \
-  > "$RENDERED"
-
-# --------------------------------------------------
-# Detect dependencies
-# --------------------------------------------------
-install_cnpg=false
-install_volsync=false
-install_ingress=false
-install_certmanager=false
-install_prometheus=false
-
-grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
-grep -q "volsync.backube" "$RENDERED" && install_volsync=true
-grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
-grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
-grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
-
-echo "🔎 Dependencies:"
-echo "  CNPG:        $install_cnpg"
-echo "  VolSync:     $install_volsync"
-echo "  Ingress:     $install_ingress"
-echo "  CertManager: $install_certmanager"
-echo "  Prometheus:  $install_prometheus"
-
-# --------------------------------------------------
-# Install dependencies
-# --------------------------------------------------
-echo "::group::🔧 Installing dependencies"
-if $install_cnpg; then
-  echo "🗄 Installing CloudNativePG..."
-  helm install cloudnative-pg oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg --namespace cloudnative-pg --create-namespace --wait
-  if [[ "$?" != "0" ]]; then
-      echo "Failed to install CloudNativePG"
-      exit 1
-  fi
-  echo "🗄 Done installing CloudNativePG"
-fi
-
-if $install_volsync; then
-  echo "💾 Installing VolSync CRDs..."
-  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationsources.yaml
-  kubectl apply -f https://raw.githubusercontent.com/backube/volsync/main/config/crd/bases/volsync.backube_replicationdestinations.yaml
-  if [[ "$?" != "0" ]]; then
-      echo "Failed to install Volsync CRDs"
-      exit 1
-  fi
-  echo "💾 Done installing Volsync CRDs"
-fi
-
-if $install_ingress; then
-  echo "🌐 Installing ingress-nginx..."
-  helm install ingress-nginx oci://ghcr.io/home-operations/charts-mirror/ingress-nginx --namespace ingress-nginx --create-namespace \
-      --set controller.ingressClassResource.default=true --set controller.publishService.enabled=false --set controller.service.type="ClusterIP" --set controller.config.allow-snippet-annotations=true --set controller.config.annotations-risk-level="Critical" --wait
-  if [[ "$?" != "0" ]]; then
-      echo "Failed to install ingress-nginx"
-      exit 1
-  fi
-  echo "🌐 Done installing ingress-nginx"
-fi
-
-if $install_certmanager; then
-  echo "🔐 Installing cert-manager..."
-  kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
-  kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
-  if [[ "$?" != "0" ]]; then
-      echo "Failed to install certmanager"
-      exit 1
-  fi
-  echo "🔐 Done installing certmanager"
-fi
-
-if $install_prometheus; then
-  echo "📊 Installing Prometheus Operator CRDs..."
-
-  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
-  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
-  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/main/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
-  if [[ "$?" != "0" ]]; then
-      echo "Failed to install Prometheus Operator CRDs"
-      exit 1
-  fi
-  echo " 📊 Done installing Prometheus Operator CRDs"
-fi
-echo "::endgroup::"
 
 # --------------------------------------------------
 # Deploy chart
 # --------------------------------------------------
 echo "🚀 Deploying $RELEASE_NAME..."
-
-HELM_VALUES_ARGS=(--values "$VALUES_FILE")
-
-if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "🧪 Using CI values: $CI_VALUES_FILE"
-  HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
-fi
 
 set +e
 helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
