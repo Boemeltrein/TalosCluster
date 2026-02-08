@@ -37,8 +37,13 @@ print_header() {
 
 print_section() {
   echo " "
-  echo -e "${BLUE}${BOLD}1${NC}"
+  echo -e "${BLUE}${BOLD}$1${NC}"
   echo -e "${DIM}$(printf '─%.0s' $(seq 1 78))${NC}"
+}
+
+print_sub_section() {
+  echo " "
+  echo -e "${BLUE}${BOLD}$1${NC}"
 }
 
 print_info() {
@@ -180,11 +185,11 @@ grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 
 echo "🔎 Dependencies:"
-echo "  CNPG:        $install_cnpg"
-echo "  VolSync:     $install_volsync"
-echo "  Ingress:     $install_ingress"
-echo "  CertManager: $install_certmanager"
-echo "  Prometheus:  $install_prometheus"
+echo "     CNPG:        $install_cnpg"
+echo "     VolSync:     $install_volsync"
+echo "     Ingress:     $install_ingress"
+echo "     CertManager: $install_certmanager"
+echo "     Prometheus:  $install_prometheus"
 
 # --------------------------------------------------
 # Install dependencies
@@ -256,7 +261,7 @@ fi
 # Environment substitution summary
 # --------------------------------------------------
 print_section "🧬 Values Manipulation for CI Testing"
-echo -e "${BOLD}🔍 Environment substitution summary${NC}"
+echo -e "${BOLD}🔍 Environment substitution${NC}"
 
 replaced_count=$(wc -w <<< "$EXISTING_VARS")
 missing_count=$(wc -w <<< "$MISSING_VARS")
@@ -274,10 +279,6 @@ if [[ "$missing_count" -gt 0 ]]; then
 else
   echo -e "${GREEN}✔ No unresolved variables${NC}"
 fi
-
-# --------------------------------------------------
-# Compact summary line (great for long CI runs)
-# --------------------------------------------------
 echo
 echo -e "${BLUE}Summary:${NC} replaced=${replaced_count} | unresolved=${missing_count}"
 echo
@@ -287,9 +288,9 @@ echo
 # --------------------------------------------------
 echo "::group::🧩 Rendered Helm values (after CI patches):"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
-echo 
+echo " "
 yq -P '.' "$VALUES_FILE"
-echo
+echo " "
 echo "::endgroup::"
 
 # --------------------------------------------------
@@ -298,11 +299,11 @@ echo "::endgroup::"
 HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 
 if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo ":group::🧪 Used CI values: $CI_VALUES_FILE"
+  echo "::group::🧪 Used CI values: $CI_VALUES_FILE"
   echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
-  echo 
+  echo " "
   yq -P '.' "$CI_VALUES_FILE"
-  echo
+  echo " "
 
   HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
 fi
@@ -310,7 +311,7 @@ fi
 # --------------------------------------------------
 # Deploy chart
 # --------------------------------------------------
-echo "🚀 Deploying $RELEASE_NAME..."
+print_section "🚀 Deploying $RELEASE_NAME..."
 
 set +e
 helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
@@ -326,10 +327,11 @@ set -e
 # --------------------------------------------------
 # Debug info
 # --------------------------------------------------
-echo "📦 Pods:"
+print_section "🐛 Debug info"
+print_sub_section "📦 Pods:"
 kubectl get pods -n "$NAMESPACE" -o wide || true
 
-echo "📅 Events:"
+print_sub_section "📅 Events:"
 kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
 
 for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
@@ -340,6 +342,7 @@ done
 # --------------------------------------------------
 # Exit result
 # --------------------------------------------------
+print_section "🏁 Result"
 if [ "$HELM_RC" -ne 0 ]; then
   echo "❌ Deployment failed"
   exit "$HELM_RC"
