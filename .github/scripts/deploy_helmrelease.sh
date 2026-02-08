@@ -21,7 +21,7 @@ NC='\033[0m' # reset
 # --------------------------------------------------
 print_header() {
   echo -e "${BOLD}$(printf '═%.0s' {1..78})${NC}"
-  echo -e "${BLUE}${BOLD}$2  $1  $2{NC}"
+  echo -e "${BLUE}${BOLD}$2  $1  $2${NC}"
   echo -e "${BOLD}$(printf '═%.0s' {1..78})${NC}"
 }
 
@@ -169,7 +169,7 @@ echo "      ⚠️ CNPG entries removed"
 # Value Dump for debugging
 # --------------------------------------------------
 print_sub_section "📄 Final values used for deploying"
-echo "::group::      🧩 Rendered Helm values:"
+echo "::group::    🧩 Rendered Helm values:"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
 yq -P '.' "$VALUES_FILE"
 echo " "
@@ -181,7 +181,7 @@ echo "::endgroup::"
 HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 
 if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "::group::      🧪 Used CI values:"
+  echo "::group::    🧪 Used CI values:"
   echo -e "${BOLD}${BLUE}📄 $CI_VALUES_FILE${NC}"
   yq -P '.' "$CI_VALUES_FILE"
   echo " "
