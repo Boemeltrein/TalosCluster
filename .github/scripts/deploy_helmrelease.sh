@@ -230,13 +230,13 @@ echo "     Prometheus:  $install_prometheus"
 # --------------------------------------------------
 
 if $install_cnpg; then
-  echo "::group::🗄 Installing CloudNativePG..."
+  echo "::group::🗄️ Installing CloudNativePG..."
   helm install cloudnative-pg oci://ghcr.io/cloudnative-pg/charts/cloudnative-pg --namespace cloudnative-pg --create-namespace --wait
   if [[ "$?" != "0" ]]; then
       echo "❌ Failed to install CloudNativePG"
       exit 1
   fi
-  echo "🗄 Done installing CloudNativePG"
+  echo "🗄️ Done installing CloudNativePG"
   echo "::endgroup::"
 fi
 
@@ -317,7 +317,7 @@ print_sub_section "📅 Events:"
 kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
 
 for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
-  echo "==== Logs for $pod ===="
+  print_sub_section "📜 Logs for $pod:"
   kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
 done
 
