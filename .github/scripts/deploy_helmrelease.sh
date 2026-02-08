@@ -21,7 +21,7 @@ NC='\033[0m' # reset
 # --------------------------------------------------
 print_header() {
   echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
-  echo -e "${BLUE}${BOLD}$2  $1${NC}${CYAAN}${BOLD} $RELEASE_NAME  $2 ${NC}"
+  echo -e "${BLUE}${BOLD}$2  $1${NC}${CYAN}${BOLD} $RELEASE_NAME  $2 ${NC}"
   echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
 }
 
