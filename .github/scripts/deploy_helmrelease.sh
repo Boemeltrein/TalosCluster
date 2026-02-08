@@ -29,16 +29,14 @@ print_header() {
   local visual_width=$(echo -n "$display_title" | wc -L)
   local padding=$(( (width - visual_width - 2) / 2 ))
   
-  echo " "
-  echo -e "${BOLD}${BLUE}╔$(printf '═%.0s' {1..78})╗${NC}"
-  printf "${BOLD}${BLUE}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}${BLUE}║${NC}\n" \
+  echo -e "${BOLD}╔$(printf '═%.0s' {1..78})╗${NC}"
+  printf "${BOLD}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}║${NC}\n" \
     $padding "" "$display_title" $((width - padding - visual_width - 2)) ""
-  echo -e "${BOLD}${BLUE}╚$(printf '═%.0s' {1..78})╝${NC}"
-  echo " "
+  echo -e "${BOLD}╚$(printf '═%.0s' {1..78})╝${NC}"
 }
 
 print_info() {
-  echo -e "${BLUE}{BOLD}${NC}$1"
+  echo -e "${BLUE}${BOLD}${NC}$1"
 }
 
 # --------------------------------------------------
@@ -59,14 +57,8 @@ print_info "🔍 Processing: $HELMRELEASE_PATH"
 STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE_PATH")
 
 if [[ "$STOP_ALL" == "true" ]]; then
-  echo
-  echo -e "${YELLOW}╔════════════════════════════════════════════════════════════════════════════╗${NC}"
-  echo -e "${YELLOW}║                         ⏭️  ${BOLD}DEPLOYMENT SKIPPED{NC}${YELLOW}   ⏭️                         ║${NC}"
-  echo -e "${YELLOW}╠════════════════════════════════════════════════════════════════════════════╣${NC}"
-  echo -e "${YELLOW}║${NC}  Reason:  global.stopAll=true${YELLOW}                                              ║${NC}"
-  echo -e "${YELLOW}╚════════════════════════════════════════════════════════════════════════════╝${NC}"
-  echo
-
+  echo -e "${YELLOW}⏭️  ${BOLD}DEPLOYMENT SKIPPED   ⏭️"
+  echo -e "${YELLOW}Reason:  global.stopAll=true"
   exit 0
 fi
 
