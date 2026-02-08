@@ -56,7 +56,7 @@ fi
 
 print_header "HelmRelease Deployment Test" "🚀"
 
-print_section "Processing: $HELMRELEASE_PATH"
+print_section "⚙️ Processing: $HELMRELEASE_PATH"
 
 # --------------------------------------------------
 # Check stopAll
@@ -82,10 +82,10 @@ REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 APP_DIR="$(dirname "$HELMRELEASE_PATH")"
 CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
 
-echo "📦 Chart:        $CHART_NAME@$CHART_VERSION"
-echo "🌍 Repository:   $REPO_URL"
-echo "📂 Namespace:    $NAMESPACE"
-echo "🏷 Release Name: $RELEASE_NAME"
+echo "📦 Chart:         $CHART_NAME@$CHART_VERSION"
+echo "🌍 Repository:    $REPO_URL"
+echo "🏷️ Release Name:  $RELEASE_NAME"
+echo "📂 Namespace:     $NAMESPACE"
 
 # --------------------------------------------------
 # Prepare values
@@ -263,32 +263,32 @@ replaced_count=$(wc -w <<< "$EXISTING_VARS")
 missing_count=$(wc -w <<< "$MISSING_VARS")
 
 if [[ "$replaced_count" -gt 0 ]]; then
-  echo -e "${GREEN}✔ Replaced variables:${NC}"
-  printf '  • %s\n' $EXISTING_VARS
+  echo -e "${GREEN}      ✔ Replaced variables:${NC}"
+  printf '        • %s\n' $EXISTING_VARS
 else
-  echo -e "${GREEN}✔ Replaced variables: none${NC}"
+  echo -e "${GREEN}      ✔ Replaced variables: none${NC}"
 fi
 
 if [[ "$missing_count" -gt 0 ]]; then
-  echo -e "${YELLOW}⚠ Unresolved variables (kept as-is):${NC}"
-  printf '  • %s\n' $MISSING_VARS
+  echo -e "${YELLOW}      ⚠ Unresolved variables (kept as-is):${NC}"
+  printf '        • %s\n' $MISSING_VARS
 else
-  echo -e "${GREEN}✔ No unresolved variables${NC}"
+  echo -e "${GREEN}      ✔ No unresolved variables${NC}"
 fi
 
 # --------------------------------------------------
 # Warning munipilated section
 # --------------------------------------------------
 print_sub_section "🔄 Changed Values by CI"
-echo "⚠️ Volsync src and dest enabled set to false"
-echo "⚠️ NFS persistence entries removed"
-echo "⚠️ CNPG entries removed"
+echo "      ⚠️ Volsync src and dest enabled set to false"
+echo "      ⚠️ NFS persistence entries removed"
+echo "      ⚠️ CNPG entries removed"
 
 # --------------------------------------------------
 # Value Dump for debugging
 # --------------------------------------------------
 print_sub_section "📄 Final values used for deploying"
-echo "::group::🧩 Rendered Helm values (after CI patches):"
+echo "      ::group::🧩 Rendered Helm values (after CI patches):"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
 yq -P '.' "$VALUES_FILE"
 echo " "
@@ -300,7 +300,7 @@ echo "::endgroup::"
 HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 
 if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "::group::🧪 Used CI values: $CI_VALUES_FILE"
+  echo "      ::group::🧪 Used CI values: $CI_VALUES_FILE"
   echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
   yq -P '.' "$CI_VALUES_FILE"
   echo " "
