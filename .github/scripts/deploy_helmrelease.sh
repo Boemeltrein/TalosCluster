@@ -24,14 +24,16 @@ print_header() {
   local emoji="$2"
   local width=80
   local display_title="$emoji $title"
-  local title_len=${#display_title}
-  local padding=$(( (width - title_len - 2) / 2 ))
+  
+  # Get actual display width
+  local visual_width=$(echo -n "$display_title" | wc -L)
+  local padding=$(( (width - visual_width - 2) / 2 ))
   
   echo
-  echo -e "${BOLD}${BLUE}╔$(printf '═%.0s' $(seq 1 $((width-2))))╗${NC}"
+  echo -e "${BOLD}${BLUE}╔$(printf '═%.0s' {1..78})╗${NC}"
   printf "${BOLD}${BLUE}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}${BLUE}║${NC}\n" \
-    $padding "" "$display_title" $((width - padding - title_len - 2)) ""
-  echo -e "${BOLD}${BLUE}╚$(printf '═%.0s' $(seq 1 $((width-2))))╝${NC}"
+    $padding "" "$display_title" $((width - padding - visual_width - 2)) ""
+  echo -e "${BOLD}${BLUE}╚$(printf '═%.0s' {1..78})╝${NC}"
   echo
 }
 
