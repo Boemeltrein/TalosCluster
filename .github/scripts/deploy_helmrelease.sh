@@ -20,25 +20,15 @@ NC='\033[0m' # reset
 # Logging Functions
 # --------------------------------------------------
 print_header() {
-  local title="$1"
-  local emoji="$2"
-  local width=80
-  local display_title="$emoji $title"
-  
-  # Get actual display width
-  local visual_width=$(echo -n "$display_title" | wc -L)
-  local padding=$(( (width - visual_width - 2) / 2 ))
-  
-  echo -e "${BOLD}╔$(printf '═%.0s' {1..78})╗${NC}"
-  printf "${BOLD}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}║${NC}\n" \
-    $padding "" "$display_title" $((width - padding - visual_width - 2)) ""
-  echo -e "${BOLD}╚$(printf '═%.0s' {1..78})╝${NC}"
+  echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
+  echo -e "${BLUE}${BOLD}$2  $1${NC}${CYAAN}${BOLD} $RELEASE_NAME  $2 ${NC}"
+  echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
 }
 
 print_section() {
   echo " "
   echo -e "${BLUE}${BOLD}$1${NC}"
-  echo -e "${DIM}$(printf '─%.0s' $(seq 1 78))${NC}"
+  echo -e "${DIM}$(printf '─%.0s' {1..78})${NC}"
 }
 
 print_sub_section() {
@@ -53,10 +43,6 @@ if [[ -z "$HELMRELEASE_PATH" ]]; then
   echo "❌ No HelmRelease path provided"
   exit 1
 fi
-
-print_header "HelmRelease Deployment Test" "🚀"
-
-print_section "⚙️ Processing: $HELMRELEASE_PATH"
 
 # --------------------------------------------------
 # Check stopAll
@@ -82,30 +68,45 @@ REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 APP_DIR="$(dirname "$HELMRELEASE_PATH")"
 CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
 
+# --------------------------------------------------
+# Setup chart repository reference
+# --------------------------------------------------
+if [[ "$REPO_URL" == oci://* ]]; then
+  CHART_REF="$REPO_URL/$CHART_NAME"
+else
+  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
+  helm repo update >/dev/null 2>&1
+  CHART_REF="ci-repo/$CHART_NAME"
+fi
+
+print_header "HelmRelease Deployment Test" "🚀"
+
+print_section "⚙️ Processing: $HELMRELEASE_PATH"
+
 echo "📦 Chart:         $CHART_NAME@$CHART_VERSION"
 echo "🌍 Repository:    $REPO_URL"
 echo "🏷️ Release Name:  $RELEASE_NAME"
 echo "📂 Namespace:     $NAMESPACE"
 
+
 # --------------------------------------------------
-# Prepare values
+# Environment Variable substitution
 # --------------------------------------------------
+print_section "🧬 Values Manipulation for CI Testing"
+
+print_sub_section "🔄 Environment Variable substitution"
 RAW_VALUES="$(mktemp)"
 VALUES_FILE="$(mktemp)"
 
 # Extract values
 yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 
-# --------------------------------------------------
 # Extract ${VAR} placeholders from values YAML
-# --------------------------------------------------
 VARS_IN_FILE="$(
   grep -o '\${[A-Za-z_][A-Za-z0-9_]*}' "$RAW_VALUES" | sort -u
 )"
 
-# --------------------------------------------------
 # Determine which vars exist and which are missing
-# --------------------------------------------------
 EXISTING_VARS=""
 MISSING_VARS=""
 
@@ -119,11 +120,26 @@ while IFS= read -r var; do
   fi
 done <<< "$VARS_IN_FILE"
 
-# --------------------------------------------------
-# Substitute only existing variables
-# Missing ones remain literal ${VAR}
-# --------------------------------------------------
+# Substitute only existing variables, missing ones remain literal ${VAR}
 envsubst "$EXISTING_VARS" < "$RAW_VALUES" > "$VALUES_FILE"
+
+# Summary of substitutions for logging
+replaced_count=$(wc -w <<< "$EXISTING_VARS")
+missing_count=$(wc -w <<< "$MISSING_VARS")
+
+if [[ "$replaced_count" -gt 0 ]]; then
+  echo -e "${GREEN}      ✔ Replaced variables:${NC}"
+  printf '        • %s\n' $EXISTING_VARS
+else
+  echo -e "${GREEN}      ✔ Replaced variables: none${NC}"
+fi
+
+if [[ "$missing_count" -gt 0 ]]; then
+  echo -e "${YELLOW}      ⚠ Unresolved variables (kept as-is):${NC}"
+  printf '        • %s\n' $MISSING_VARS
+else
+  echo -e "${GREEN}      ✔ No unresolved variables${NC}"
+fi
 
 # --------------------------------------------------
 # Change PVC and CNPG because of backup restore issues
@@ -143,20 +159,42 @@ yq -i '
 # Remove cnpg for ephemeral CI cluster
 yq -i 'del(.cnpg)' "$VALUES_FILE" || true
 
+# Warning about changes for logging
+print_sub_section "🔄 Changed Values by CI"
+echo "      ⚠️ Volsync src and dest enabled set to false"
+echo "      ⚠️ NFS persistence entries removed"
+echo "      ⚠️ CNPG entries removed"
+
 # --------------------------------------------------
-# Setup chart reference
+# Value Dump for debugging
 # --------------------------------------------------
-if [[ "$REPO_URL" == oci://* ]]; then
-  CHART_REF="$REPO_URL/$CHART_NAME"
-else
-  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  CHART_REF="ci-repo/$CHART_NAME"
+print_sub_section "📄 Final values used for deploying"
+echo "      ::group::🧩 Rendered Helm values (after CI patches):"
+echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
+yq -P '.' "$VALUES_FILE"
+echo " "
+echo "::endgroup::"
+
+# --------------------------------------------------
+# CI Values file check
+# --------------------------------------------------
+HELM_VALUES_ARGS=(--values "$VALUES_FILE")
+
+if [[ -f "$CI_VALUES_FILE" ]]; then
+  echo "      ::group::🧪 Used CI values: $CI_VALUES_FILE"
+  echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
+  yq -P '.' "$CI_VALUES_FILE"
+  echo " "
+  echo "::endgroup::"
+
+  HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
 fi
 
 # --------------------------------------------------
 # Render manifests for dependency detection
 # --------------------------------------------------
+print_section "🔧 Installing dependencies"
+
 RENDERED="$(mktemp)"
 
 helm template "$RELEASE_NAME" "$CHART_REF" \
@@ -190,7 +228,6 @@ echo "     Prometheus:  $install_prometheus"
 # --------------------------------------------------
 # Install dependencies
 # --------------------------------------------------
-print_section "🔧 Installing dependencies"
 
 if $install_cnpg; then
   echo "::group::🗄 Installing CloudNativePG..."
@@ -251,62 +288,6 @@ if $install_prometheus; then
   fi
   echo " 📊 Done installing Prometheus Operator CRDs"
   echo "::endgroup::"
-fi
-
-# --------------------------------------------------
-# Environment substitution summary
-# --------------------------------------------------
-print_section "🧬 Values Manipulation for CI Testing"
-print_sub_section "🔄 Environment Variable substitution"
-
-replaced_count=$(wc -w <<< "$EXISTING_VARS")
-missing_count=$(wc -w <<< "$MISSING_VARS")
-
-if [[ "$replaced_count" -gt 0 ]]; then
-  echo -e "${GREEN}      ✔ Replaced variables:${NC}"
-  printf '        • %s\n' $EXISTING_VARS
-else
-  echo -e "${GREEN}      ✔ Replaced variables: none${NC}"
-fi
-
-if [[ "$missing_count" -gt 0 ]]; then
-  echo -e "${YELLOW}      ⚠ Unresolved variables (kept as-is):${NC}"
-  printf '        • %s\n' $MISSING_VARS
-else
-  echo -e "${GREEN}      ✔ No unresolved variables${NC}"
-fi
-
-# --------------------------------------------------
-# Warning munipilated section
-# --------------------------------------------------
-print_sub_section "🔄 Changed Values by CI"
-echo "      ⚠️ Volsync src and dest enabled set to false"
-echo "      ⚠️ NFS persistence entries removed"
-echo "      ⚠️ CNPG entries removed"
-
-# --------------------------------------------------
-# Value Dump for debugging
-# --------------------------------------------------
-print_sub_section "📄 Final values used for deploying"
-echo "      ::group::🧩 Rendered Helm values (after CI patches):"
-echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
-yq -P '.' "$VALUES_FILE"
-echo " "
-echo "::endgroup::"
-
-# --------------------------------------------------
-# CI Values file check
-# --------------------------------------------------
-HELM_VALUES_ARGS=(--values "$VALUES_FILE")
-
-if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "      ::group::🧪 Used CI values: $CI_VALUES_FILE"
-  echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
-  yq -P '.' "$CI_VALUES_FILE"
-  echo " "
-  echo "::endgroup::"
-
-  HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
 fi
 
 # --------------------------------------------------
