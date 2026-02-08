@@ -20,9 +20,9 @@ NC='\033[0m' # reset
 # Logging Functions
 # --------------------------------------------------
 print_header() {
-  echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
-  echo -e "${BLUE}${BOLD}$2  $1${NC}${CYAN}${BOLD} $RELEASE_NAME  $2 ${NC}"
-  echo -e "${BLUE}${BOLD}$(printf '═%.0s' {1..78})${NC}"
+  echo -e "${BOLD}$(printf '═%.0s' {1..78})${NC}"
+  echo -e "${BLUE}${BOLD}$2  $1  $2{NC}"
+  echo -e "${BOLD}$(printf '═%.0s' {1..78})${NC}"
 }
 
 print_section() {
@@ -79,7 +79,7 @@ else
   CHART_REF="ci-repo/$CHART_NAME"
 fi
 
-print_header "HelmRelease Deployment Test" "🚀"
+print_header "HelmRelease Deployment Test by Boemeltrein" "🚂"
 
 print_section "⚙️ Processing: $HELMRELEASE_PATH"
 
@@ -169,7 +169,7 @@ echo "      ⚠️ CNPG entries removed"
 # Value Dump for debugging
 # --------------------------------------------------
 print_sub_section "📄 Final values used for deploying"
-echo "      ::group::🧩 Rendered Helm values (after CI patches):"
+echo "::group::      🧩 Rendered Helm values (after CI patches):"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
 yq -P '.' "$VALUES_FILE"
 echo " "
@@ -181,7 +181,7 @@ echo "::endgroup::"
 HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 
 if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "      ::group::🧪 Used CI values: $CI_VALUES_FILE"
+  echo "::group::      🧪 Used CI values: $CI_VALUES_FILE"
   echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
   yq -P '.' "$CI_VALUES_FILE"
   echo " "
@@ -324,7 +324,7 @@ done
 # --------------------------------------------------
 # Exit result
 # --------------------------------------------------
-print_section "🏁 Result"
+print_section "🎯 Result"
 if [ "$HELM_RC" -ne 0 ]; then
   echo "❌ Deployment failed"
   exit "$HELM_RC"
