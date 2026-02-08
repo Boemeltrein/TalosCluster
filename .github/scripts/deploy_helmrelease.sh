@@ -42,11 +42,6 @@ print_section() {
 }
 
 print_sub_section() {
-  echo " "
-  echo -e "${BLUE}${BOLD}$1${NC}"
-}
-
-print_info() {
   echo -e "${BLUE}$1${NC}"
 }
 
@@ -90,6 +85,7 @@ CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
 echo "📦 Chart:        $CHART_NAME@$CHART_VERSION"
 echo "🌍 Repository:   $REPO_URL"
 echo "📂 Namespace:    $NAMESPACE"
+echo "🏷 Release Name: $RELEASE_NAME"
 
 # --------------------------------------------------
 # Prepare values
@@ -261,7 +257,7 @@ fi
 # Environment substitution summary
 # --------------------------------------------------
 print_section "🧬 Values Manipulation for CI Testing"
-echo -e "${BOLD}🔍 Environment substitution${NC}"
+print_sub_section "🔄 Environment Variable substitution"
 
 replaced_count=$(wc -w <<< "$EXISTING_VARS")
 missing_count=$(wc -w <<< "$MISSING_VARS")
@@ -279,16 +275,21 @@ if [[ "$missing_count" -gt 0 ]]; then
 else
   echo -e "${GREEN}✔ No unresolved variables${NC}"
 fi
-echo
-echo -e "${BLUE}Summary:${NC} replaced=${replaced_count} | unresolved=${missing_count}"
-echo
+
+# --------------------------------------------------
+# Warning munipilated section
+# --------------------------------------------------
+print_sub_section "🔄 Changed Values by CI"
+echo "⚠️ Volsync src and dest enabled set to false"
+echo "⚠️ NFS persistence entries removed"
+echo "⚠️ CNPG entries removed"
 
 # --------------------------------------------------
 # Value Dump for debugging
 # --------------------------------------------------
+print_sub_section "📄 Final values used for deploying"
 echo "::group::🧩 Rendered Helm values (after CI patches):"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
-echo " "
 yq -P '.' "$VALUES_FILE"
 echo " "
 echo "::endgroup::"
@@ -301,9 +302,9 @@ HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 if [[ -f "$CI_VALUES_FILE" ]]; then
   echo "::group::🧪 Used CI values: $CI_VALUES_FILE"
   echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
-  echo " "
   yq -P '.' "$CI_VALUES_FILE"
   echo " "
+  echo "::endgroup::"
 
   HELM_VALUES_ARGS+=(--values "$CI_VALUES_FILE")
 fi
@@ -336,7 +337,7 @@ kubectl get events -n "$NAMESPACE" --sort-by=.metadata.creationTimestamp || true
 
 for pod in $(kubectl get pods -n "$NAMESPACE" -o name 2>/dev/null); do
   echo "==== Logs for $pod ===="
-  kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=400 || true
+  kubectl logs -n "$NAMESPACE" "$pod" --all-containers --tail=200 || true
 done
 
 # --------------------------------------------------
