@@ -4,14 +4,36 @@ set -euo pipefail
 HELMRELEASE_PATH="${1:-}"
 
 # --------------------------------------------------
-# Colors (safe for most CI terminals)
+# Colors & Formatting
 # --------------------------------------------------
 RED='\033[0;31m'
 YELLOW='\033[1;33m'
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
+CYAN='\033[0;36m'
+MAGENTA='\033[0;35m'
 BOLD='\033[1m'
+DIM='\033[2m'
 NC='\033[0m' # reset
+
+# --------------------------------------------------
+# Logging Functions
+# --------------------------------------------------
+print_header() {
+  local title="$1"
+  local emoji="$2"
+  local width=80
+  local display_title="$emoji $title"
+  local title_len=${#display_title}
+  local padding=$(( (width - title_len - 2) / 2 ))
+  
+  echo
+  echo -e "${BOLD}${BLUE}╔$(printf '═%.0s' $(seq 1 $((width-2))))╗${NC}"
+  printf "${BOLD}${BLUE}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}${BLUE}║${NC}\n" \
+    $padding "" "$display_title" $((width - padding - title_len - 2)) ""
+  echo -e "${BOLD}${BLUE}╚$(printf '═%.0s' $(seq 1 $((width-2))))╝${NC}"
+  echo
+}
 
 # --------------------------------------------------
 # Check Helmrelease Path
@@ -22,6 +44,7 @@ if [[ -z "$HELMRELEASE_PATH" ]]; then
   exit 1
 fi
 
+print_header "HelmRelease Deployment Test" "🚀"
 echo "🔍 Processing HelmRelease: $HELMRELEASE_PATH"
 
 # --------------------------------------------------
