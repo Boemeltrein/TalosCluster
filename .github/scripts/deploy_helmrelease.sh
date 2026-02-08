@@ -169,7 +169,7 @@ echo "      ⚠️ CNPG entries removed"
 # Value Dump for debugging
 # --------------------------------------------------
 print_sub_section "📄 Final values used for deploying"
-echo "::group::      🧩 Rendered Helm values (after CI patches):"
+echo "::group::      🧩 Rendered Helm values:"
 echo -e "${BOLD}${BLUE}📄 values.yaml (after CI patches)${NC}"
 yq -P '.' "$VALUES_FILE"
 echo " "
@@ -181,8 +181,8 @@ echo "::endgroup::"
 HELM_VALUES_ARGS=(--values "$VALUES_FILE")
 
 if [[ -f "$CI_VALUES_FILE" ]]; then
-  echo "::group::      🧪 Used CI values: $CI_VALUES_FILE"
-  echo -e "${BOLD}${BLUE}📄 ci-values.yaml${NC}"
+  echo "::group::      🧪 Used CI values:"
+  echo -e "${BOLD}${BLUE}📄 $CI_VALUES_FILE${NC}"
   yq -P '.' "$CI_VALUES_FILE"
   echo " "
   echo "::endgroup::"
