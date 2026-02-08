@@ -109,7 +109,4 @@ jobs:
       - name: Test HelmRelease
         run: |
           chmod +x .github/scripts/deploy_helmrelease.sh
-          echo "=============================================="
-          echo "=== Testing ${{ matrix.helmrelease }} ==="
-          echo "=============================================="
           bash .github/scripts/deploy_helmrelease.sh "${{ matrix.helmrelease }}"
