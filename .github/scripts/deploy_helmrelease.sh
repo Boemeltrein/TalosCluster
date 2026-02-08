@@ -33,10 +33,17 @@ print_header() {
   printf "${BOLD}║${NC}%*s${BOLD}${CYAN}%s${NC}%*s${BOLD}║${NC}\n" \
     $padding "" "$display_title" $((width - padding - visual_width - 2)) ""
   echo -e "${BOLD}╚$(printf '═%.0s' {1..78})╝${NC}"
+  echo " "
+}
+
+print_section() {
+  echo
+  echo -e "${BOLD}${MAGENTA}▶${NC} ${BOLD}$1${NC}"
+  echo -e "${DIM}$(printf '─%.0s' $(seq 1 78))${NC}"
 }
 
 print_info() {
-  echo -e "${BLUE}${BOLD}${NC}$1"
+  echo -e "${BLUE}${BOLD}$1${NC}"
 }
 
 # --------------------------------------------------
