@@ -325,6 +325,7 @@ helm upgrade --install "$RELEASE_NAME" "$CHART_REF" \
   --namespace "$NAMESPACE" \
   --create-namespace \
   "${HELM_VALUES_ARGS[@]}" \
+  --skip-crds \
   --wait \
   --timeout 5m
 HELM_RC=$?
