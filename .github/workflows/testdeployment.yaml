@@ -38,27 +38,29 @@ jobs:
           # --------------------------------------------------
           # Filter releases with CI skip marker
           # --------------------------------------------------
-          filtered=""
-          
-          while IFS= read -r file; do
+          mapfile -t files_array <<< "$files"
+
+          filtered=()
+
+          for file in "${files_array[@]}"; do
             dir=$(dirname "$file")
-          
+
             if [ -f "$dir/ci/skip" ] || [ -f "$dir/.ci-skip" ]; then
               echo "⏭️ Skipping CI for $file"
               continue
             fi
-          
-            filtered="$filtered"$'\n'"$file"
-          done <<< "$files"
-          
-          if [ -z "$filtered" ]; then
+
+            filtered+=("$file")
+          done
+
+          if [ ${#filtered[@]} -eq 0 ]; then
             echo "🔍 All HelmReleases skipped"
             echo "matrix=[]" >> "$GITHUB_OUTPUT"
             exit 0
           fi
-          
-          json=$(printf '%s\n' "$filtered" | jq -R . | jq -s .)
-          
+
+          json=$(printf '%s\n' "${filtered[@]}" | jq -R . | jq -s .)
+
           {
             echo "matrix<<EOF"
             echo "$json"
