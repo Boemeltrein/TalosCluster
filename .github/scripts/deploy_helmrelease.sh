@@ -151,7 +151,7 @@ changed=false
 if yq -e '
   (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled == true) or
   (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled == true)
-' "$VALUES_FILE" >/dev/null; then
+' "$VALUES_FILE" >/dev/null 2>&1; then
 
   yq -i '
     (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
@@ -163,7 +163,11 @@ if yq -e '
 fi
 
 # Remove NFS persistence entries
-if yq -e '.persistence? // {} | to_entries | any(.value.type == "nfs")' "$VALUES_FILE" >/dev/null; then
+if yq -e '
+  (.persistence? // {})
+  | to_entries[]
+  | select(.value.type? == "nfs")
+' "$VALUES_FILE" >/dev/null 2>&1; then
 
   yq -i '
     .persistence |= with_entries(select(.value.type? != "nfs")) |
@@ -175,7 +179,7 @@ if yq -e '.persistence? // {} | to_entries | any(.value.type == "nfs")' "$VALUES
 fi
 
 # Remove cnpg for ephemeral CI cluster
-if yq -e 'has("cnpg")' "$VALUES_FILE" >/dev/null; then
+if yq -e 'has("cnpg")' "$VALUES_FILE" >/dev/null 2>&1; then
   yq -i 'del(.cnpg)' "$VALUES_FILE"
   echo "      ⚠️ CNPG removed for CI"
   changed=true
