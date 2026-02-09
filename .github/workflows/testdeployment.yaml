@@ -41,20 +41,59 @@ jobs:
           mapfile -t files_array <<< "$files"
 
           filtered=()
+          skipped=()
 
           for file in "${files_array[@]}"; do
             dir=$(dirname "$file")
 
             if [ -f "$dir/ci/skip" ] || [ -f "$dir/.ci-skip" ]; then
-              echo "⏭️ Skipping CI for $file"
+              skipped+=("$file")
               continue
             fi
 
             filtered+=("$file")
           done
 
+          echo ""
+          echo "===== HelmRelease CI scan result ====="
+
+          if [ ${#skipped[@]} -gt 0 ]; then
+            echo "⏭️ Skipped:"
+            printf '  - %s\n' "${skipped[@]}"
+          else
+            echo "⏭️ Skipped: none"
+          fi
+
+          if [ ${#filtered[@]} -gt 0 ]; then
+            echo "🧪 To test:"
+            printf '  - %s\n' "${filtered[@]}"
+          else
+            echo "🧪 To test: none"
+          fi
+          echo "======================================"
+          echo ""
+
+          # ---------- GitHub job summary ----------
+          {
+            echo "## HelmRelease CI result"
+            echo ""
+            echo "### ⏭️ Skipped"
+            if [ ${#skipped[@]} -gt 0 ]; then
+              printf -- "- %s\n" "${skipped[@]}"
+            else
+              echo "_none_"
+            fi
+            echo ""
+            echo "### 🧪 To test"
+            if [ ${#filtered[@]} -gt 0 ]; then
+              printf -- "- %s\n" "${filtered[@]}"
+            else
+              echo "_none_"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # ---------- Matrix handling ----------
           if [ ${#filtered[@]} -eq 0 ]; then
-            echo "🔍 All HelmReleases skipped"
             echo "matrix=[]" >> "$GITHUB_OUTPUT"
             exit 0
           fi
