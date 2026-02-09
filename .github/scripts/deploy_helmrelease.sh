@@ -144,26 +144,46 @@ fi
 # --------------------------------------------------
 # Change PVC and CNPG because of backup restore issues
 # --------------------------------------------------
+print_sub_section "🔄 CI value mutations"
+changed=false
+
 # Disable volsync
-yq -i '
-  (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
-  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false
-' "$VALUES_FILE"
+if yq -e '
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled == true) or
+  (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled == true)
+' "$VALUES_FILE" >/dev/null; then
+
+  yq -i '
+    (.. | select(type == "!!map" and has("volsync")).volsync[]?.src.enabled) = false |
+    (.. | select(type == "!!map" and has("volsync")).volsync[]?.dest.enabled) = false
+  ' "$VALUES_FILE"
+
+  echo "      ⚠️ Volsync src/dest disabled for CI"
+  changed=true
+fi
 
 # Remove NFS persistence entries
-yq -i '
-  .persistence? |= with_entries(select(.value.type? != "nfs")) |
-  del(.persistence | select(. == {}))
-' "$VALUES_FILE"
+if yq -e '.persistence? // {} | to_entries | any(.value.type == "nfs")' "$VALUES_FILE" >/dev/null; then
+
+  yq -i '
+    .persistence |= with_entries(select(.value.type? != "nfs")) |
+    del(.persistence | select(. == {}))
+  ' "$VALUES_FILE"
+
+  echo "      ⚠️ NFS persistence removed for CI"
+  changed=true
+fi
 
 # Remove cnpg for ephemeral CI cluster
-yq -i 'del(.cnpg)' "$VALUES_FILE" || true
+if yq -e 'has("cnpg")' "$VALUES_FILE" >/dev/null; then
+  yq -i 'del(.cnpg)' "$VALUES_FILE"
+  echo "      ⚠️ CNPG removed for CI"
+  changed=true
+fi
 
-# Warning about changes for logging
-print_sub_section "🔄 Changed Values by CI"
-echo "      ⚠️ Volsync src and dest enabled set to false"
-echo "      ⚠️ NFS persistence entries removed"
-echo "      ⚠️ CNPG entries removed"
+if [ "$changed" = false ]; then
+  echo "      ℹ️ No CI mutations needed"
+fi
 
 # --------------------------------------------------
 # Value Dump for debugging
