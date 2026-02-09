@@ -302,7 +302,7 @@ fi
 
 if $install_prometheus; then
   echo "::group::📊 Installing Prometheus Operator CRDs..."
-  kubectl apply -f https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/releases/download/v0.78.2/bundle.yaml
+  kubectl apply -f https://github.com/prometheus-operator/prometheus-operator/releases/download/v0.89.0/stripped-down-crds.yaml
   if [[ "$?" != "0" ]]; then
       echo "❌ Failed to install Prometheus Operator CRDs"
       exit 1
