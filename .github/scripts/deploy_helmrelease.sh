@@ -103,7 +103,7 @@ yq '.spec.values // {}' "$HELMRELEASE_PATH" > "$RAW_VALUES"
 
 # Extract ${VAR} placeholders from values YAML
 VARS_IN_FILE="$(
-  grep -o '\${[A-Za-z_][A-Za-z0-9_]*}' "$RAW_VALUES" | sort -u
+  grep -o '\${[A-Za-z_][A-Za-z0-9_]*}' "$RAW_VALUES" | sort -u || true
 )"
 
 # Determine which vars exist and which are missing
