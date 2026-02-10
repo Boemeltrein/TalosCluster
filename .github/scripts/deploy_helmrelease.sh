@@ -185,6 +185,13 @@ if yq -e 'has("cnpg")' "$VALUES_FILE" >/dev/null 2>&1; then
   changed=true
 fi
 
+# Force global.stopAll=false
+if yq -e '.global.stopAll == true' "$VALUES_FILE" >/dev/null 2>&1; then
+  yq -i '.global.stopAll = false' "$VALUES_FILE"
+  echo "      ⚠️ global.stopAll forced to false"
+  changed=true
+fi
+
 if [ "$changed" = false ]; then
   echo "      ℹ️ No CI mutations needed"
 fi
