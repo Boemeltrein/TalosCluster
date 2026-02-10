@@ -47,13 +47,13 @@ fi
 # --------------------------------------------------
 # Check stopAll
 # --------------------------------------------------
-STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE_PATH")
-
-if [[ "$STOP_ALL" == "true" ]]; then
-  echo -e "${YELLOW}⏭  ${BOLD}DEPLOYMENT SKIPPED  ⏭${NC}"
-  echo -e "${YELLOW}Reason:  global.stopAll=true${NC}"
-  exit 0
-fi
+# STOP_ALL=$(yq '.spec.values.global.stopAll // "false"' "$HELMRELEASE_PATH")
+# 
+# if [[ "$STOP_ALL" == "true" ]]; then
+#   echo -e "${YELLOW}⏭  ${BOLD}DEPLOYMENT SKIPPED  ⏭${NC}"
+#   echo -e "${YELLOW}Reason:  global.stopAll=true${NC}"
+#   exit 0
+# fi
 
 # --------------------------------------------------
 # Extract HelmRelease metadata
