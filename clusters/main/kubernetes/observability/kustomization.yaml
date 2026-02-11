@@ -3,7 +3,7 @@ kind: Kustomization
 resources:
   - grafana/ks.yaml
   - grafana-alloy/ks.yaml
-  # - grafana-loki/ks.yaml
+  - grafana-loki/ks.yaml
   - kromgo/ks.yaml
   - truenas-exporter/ks.yaml
   - smartctl-exporter/ks.yaml
