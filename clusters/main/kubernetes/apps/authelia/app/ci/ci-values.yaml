@@ -14,4 +14,4 @@ persistence:
   configfile:
     enabled: false
   secrets:
-    enabled: true
+    enabled: false
