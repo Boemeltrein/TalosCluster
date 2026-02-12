@@ -170,3 +170,54 @@ jobs:
         run: |
           chmod +x .github/scripts/deploy_helmrelease.sh
           bash .github/scripts/deploy_helmrelease.sh "${{ matrix.helmrelease }}"
+
+  test-summary:
+    name: test-summary
+    runs-on: ubuntu-latest
+    needs:
+      - detect
+      - test
+    if: always()
+
+    steps:
+      - name: Build GitHub summary
+        run: |
+          {
+            echo "## HelmRelease test summary"
+            echo ""
+
+            echo "### Detect job"
+            echo "- Result: **${{ needs.detect.result }}**"
+            echo ""
+
+            echo "### Test matrix job"
+            echo "- Result: **${{ needs.test.result }}**"
+            echo ""
+
+            if [ "${{ needs.test.result }}" = "skipped" ]; then
+              echo "ℹ️ No HelmReleases required testing."
+            elif [ "${{ needs.test.result }}" = "success" ]; then
+              echo "✅ All HelmRelease tests passed."
+            else
+              echo "❌ One or more HelmRelease tests failed."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Enforce final status
+        run: |
+          # Detect must succeed
+          if [ "${{ needs.detect.result }}" != "success" ]; then
+            echo "Detect job failed"
+            exit 1
+          fi
+
+          # Test may be success OR skipped (no releases changed)
+          if [ "${{ needs.test.result }}" != "success" ] && \
+             [ "${{ needs.test.result }}" != "skipped" ]; then
+            echo "HelmRelease tests failed"
+            exit 1
+          fi
+
+          echo "All checks passed"
+
+  
