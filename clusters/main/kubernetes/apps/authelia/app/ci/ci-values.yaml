@@ -9,3 +9,7 @@ workload:
             AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: 1234567890
             AUTHELIA_STORAGE_ENCRYPTION_KEY: 1234567890
             X_AUTHELIA_CONFIG_FILTERS: template
+
+persistence:
+  configfile:
+    enabled: false
