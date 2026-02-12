@@ -1,1 +1,11 @@
----
+workload:
+  main:
+    replicas: 1
+    podSpec:
+      containers:
+        main:
+          env:
+            AUTHELIA_SESSION_SECRET: 1234567890
+            AUTHELIA_IDENTITY_VALIDATION_RESET_PASSWORD_JWT_SECRET: 1234567890
+            AUTHELIA_STORAGE_ENCRYPTION_KEY: 1234567890
+            X_AUTHELIA_CONFIG_FILTERS: template
