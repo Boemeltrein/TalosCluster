@@ -257,7 +257,7 @@ echo "     VolSync:     $install_volsync"
 echo "     Ingress:     $install_ingress"
 echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
-echo "     Metallb:     $install_metallb"
+echo "     MetalLB:     $install_metallb"
 
 # --------------------------------------------------
 # Install dependencies
