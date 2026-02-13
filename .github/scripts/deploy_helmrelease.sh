@@ -323,9 +323,7 @@ fi
 
 if $install_metallb; then
   echo "::group::📡 Installing MetalLB..."
-  kubectl apply -f \
-    https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb-native.yaml
-  kubectl create namespace metallb --dry-run=client -o yaml | kubectl apply -f -
+  helm install metallb oci://quay.io/metallb/chart/metallb --namespace metallb --create-namespace --wait
 
   if [[ "$?" != "0" ]]; then
       echo "❌ Failed to install MetalLB"
