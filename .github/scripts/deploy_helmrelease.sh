@@ -242,12 +242,14 @@ install_volsync=false
 install_ingress=false
 install_certmanager=false
 install_prometheus=false
+install_metallb=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 grep -q "volsync.backube" "$RENDERED" && install_volsync=true
 grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
 grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
+grep -q "metallb.io" "$RENDERED" && install_metallb=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -255,6 +257,7 @@ echo "     VolSync:     $install_volsync"
 echo "     Ingress:     $install_ingress"
 echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
+echo "     Metallb:     $install_metallb"
 
 # --------------------------------------------------
 # Install dependencies
@@ -314,7 +317,21 @@ if $install_prometheus; then
       echo "❌ Failed to install Prometheus Operator CRDs"
       exit 1
   fi
-  echo " 📊 Done installing Prometheus Operator CRDs"
+  echo "📊 Done installing Prometheus Operator CRDs"
+  echo "::endgroup::"
+fi
+
+if $install_metallb; then
+  echo "::group::📡 Installing MetalLB..."
+  kubectl apply -f \
+    https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb-native.yaml
+
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install MetalLB"
+      exit 1
+  fi
+
+  echo "📡 Done installing MetalLB"
   echo "::endgroup::"
 fi
 
