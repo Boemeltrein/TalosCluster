@@ -134,7 +134,7 @@ All secrets and credentials are stored in this repository **encrypted with SOPS*
 | Component                | Specification                                   |
 | ------------------------ | ----------------------------------------------- |
 | **Motherboard**          | ASRock Rack B650D4U-2L2T/BCM                    |
-| **CPU**                  | AMD Ryzen 7 7700 (8-Core)                       |
+| **CPU**                  | AMD Ryzen 9 9950X (16-Core)                     |
 | **RAM**                  | Kingston Server Premier 128 GB ECC DDR5         |
 | **SAS Controller**       | LSI SAS 9220-8i                                 |
 | **Boot Device**          | Samsung 980 NVMe SSD (250 GB, M.2)              |
@@ -160,8 +160,8 @@ The Kubernetes cluster runs as a **single-node Talos Linux virtual machine hoste
 | -------------- | ---------------------------------------------------------- |
 | **Node Count** | 1 (Single-node cluster)                                    |
 | **Deployment** | Virtual Machine on TrueNAS                                 |
-| **vCPU**       | 1 socket × 6 cores / 2 threads                             |
-| **Memory**     | 64 GB                                                     |
+| **vCPU**       | 1 socket × 10 cores / 2 threads                            |
+| **Memory**     | 64 GB                                                      |
 | **Storage**    | 2 TB virtual disk (ZFS sync disabled, sparse volume)       |
 | **GPU / PCIe** | —                                                          |
 
