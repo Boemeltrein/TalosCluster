@@ -12,13 +12,13 @@ sops:
         - recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
           enc: |
             -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSAxK25zbzMza2lQQTNXZ2Rk
-            WXBQMlk2WWxsdTAyT050N09TZmR5RytsU2xvCnZNN3J6YThqdS9BU1BONGlkSSto
-            U25xSkZkMGNkK3crNTBoUXBqd1NnYk0KLS0tIHYvMVMzTnFZREtvV1ZGQ0FWV3lm
-            RmV6SWVIQjlJc3k4WFdod3VwU2NIWWcKQs5NKO3lv3xuAck2UoOiCKu8Exu/7as0
-            IYHuwv3WG3aJwDSbmwZY2AUC6iGZVba+6W89ExFXjpyb77GdsfPXJw==
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1UDN4UFFXTlpGYlcyYktE
+            ZmV4QWxpVXowQ1VaTittOHFTd1VOTUpkSVVjCnZyNjg1Ti9KNEhFQlVrQXdQNU4r
+            dmo3OTJxQWUwajFRQU9wL1UzanpEQkkKLS0tIGpJM3hSdVRDTHZTWmNpWlVBRnpn
+            TGR2WmpaaTdET1RwUFVQL3FTek1hKzQKeFHk3MRpzeKEVvuwZGeTrjrr9v5K3Go8
+            3m7i19z5DUYh6zNPrEJLFGa+J8PhcIUIcFTvUfgCE909k9p6Gr3ukA==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-15T07:46:10Z"
-    mac: ENC[AES256_GCM,data:u1Hf8s6gUD2XbxygpCMjUUXfVtRzOpoqwIZ0ZzoACGT0HuTtAHn32JFStFFhnD78rfbMTBc55wDbibHg/hIwtwkgpnDjZvW3smWKnuDvzLsiOVfoaGCVBNw3dwvDoSteeL6thZ5btVX7fe1fHtafAkzPBzwCIKaF4eATTOE25Q4=,iv:Cu+FtNko7LvGTOY4mZ9BZ80kfgVypEL68pTy7GMuI2s=,tag:QebOuuOzbQXTkh0vFMchqA==,type:str]
+    lastmodified: "2026-02-15T07:47:59Z"
+    mac: ENC[AES256_GCM,data:tRlGkDj9BVxetX4gUsvPwL5kI2FC1xWzqhqif11572I8/WNZi4KoF+XU1R6UjvSvbS/5WN1F6p8RgeAk3VjhZ3M1fEng3+3qqN0uuQjcTX8PqPB1rB36ighyzPdBMq3+J6tXMX7YdYqJn1lMAiY70BVzOdXWQkwrHPsLKc93+P0=,iv:r7+Ilq4Kt2NYW4dxBbxPhxQOS8vJBqH5jYdqVyK5nt8=,tag:JpstTeIG1IeD4tjb8RmClA==,type:str]
     encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
     version: 3.11.0
