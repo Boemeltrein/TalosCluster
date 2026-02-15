@@ -1,0 +1,24 @@
+workload:
+    main:
+        podSpec:
+            containers:
+                main:
+                    env:
+                        OPS: Minecraft
+                        WHITELIST: Minecraft
+sops:
+    shamir_threshold: 3
+    age:
+        - recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB6NG4xaFVxS0NjeEpDU3Zv
+            eU1takl6VDRRbjVqd09tSzVGczhzeDI5YndnCkNnNE1wL2Q1bDd6aTB3S0hKaDNq
+            eUtYMktkQUU0WTkrRDVOZUtsUTdwRzAKLS0tIERWcy9td3BjV0tRUkQ2Nk9KbERm
+            cDQrVHJiSTIxVVFPWmZWQ2VMU2RGYTgKbqT/O4Kv0hXuF1A/ztvNiUJB8xWqbtIE
+            FIp9oPhwDop7c3NNWkAwBT6o93YSJmgfhd0QQyZd1KDxWwvottovXQ==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2026-02-15T07:41:11Z"
+    mac: ENC[AES256_GCM,data:kjcS2pDS1u5miEk3hKeKecHgn/zDtvtNDpOCkBreQVazIKwxpX8oJHgN/GZcP88G0T8UhlxPac5AOJzM8dIQBhN1ehkbZ+Mn0+JHEpLI9z5DvwRp5k0Vp73P/ufH9gsb5wlTg9RKx4QrObBjak5/R5XUDZJI3paPPTAMhJzyHho=,iv:2c46YYegi8WYXEEZuVKMenD/mMNyu4YJ6Y4n92zhOwE=,tag:Dyg+ZXDL9mGEWQfoHF2+fQ==,type:str]
+    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
+    version: 3.11.0
