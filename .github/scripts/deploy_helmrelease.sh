@@ -245,7 +245,7 @@ install_prometheus=false
 install_metallb=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
-grep -q "volsync.backube" "$RENDERED" && install_volsync=true
+# grep -q "volsync.backube" "$RENDERED" && install_volsync=true
 grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
 grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
@@ -253,7 +253,7 @@ grep -q "metallb.io" "$RENDERED" && install_metallb=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
-echo "     VolSync:     $install_volsync"
+# echo "     VolSync:     $install_volsync"
 echo "     Ingress:     $install_ingress"
 echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
