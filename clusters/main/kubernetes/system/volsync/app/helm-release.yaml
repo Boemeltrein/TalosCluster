@@ -8,7 +8,7 @@ spec:
   chart:
     spec:
       chart: volsync
-      version: 3.15.16
+      version: 3.15.17
       sourceRef:
         kind: HelmRepository
         name: truecharts
