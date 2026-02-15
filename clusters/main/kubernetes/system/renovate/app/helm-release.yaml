@@ -42,7 +42,7 @@ spec:
             main:
               env:
                 MEND_RNV_ACCEPT_TOS: y
-                MEND_RNV_LICENSE_KEY: ${RENOVATE_LICENSE_KEY}
+                # MEND_RNV_LICENSE_KEY: ${RENOVATE_LICENSE_KEY}
                 MEND_RNV_GITHUB_APP_ID: ${RENOVATE_APP_ID}
                 MEND_RNV_GITHUB_APP_KEY: ${RENOVATE_APP_KEY}
                 MEND_RNV_WEBHOOK_SECRET: ${RENOVATE_WEBHOOK_SECRET}
