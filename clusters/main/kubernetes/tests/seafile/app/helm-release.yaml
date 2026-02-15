@@ -176,3 +176,5 @@ spec:
 
     redis:
       enabled: true
+
+      
