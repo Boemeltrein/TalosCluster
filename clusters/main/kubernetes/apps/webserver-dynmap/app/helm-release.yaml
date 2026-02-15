@@ -58,14 +58,7 @@ spec:
         type: nfs
         path: /mnt/SSD_Cluster/app_minecraft_data/dynmap/web
         server: 192.168.1.50
-        mountPath: /dynmap
+        mountPath: /public
       config:
         enabled: false
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                SERVER_ROOT: "/dynmap"
