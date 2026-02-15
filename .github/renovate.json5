@@ -1,6 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "gitAuthor": "boemel-renovate[bot] <261754987+boemeltrein-renovate[bot]@users.noreply.github.com>",
+  "gitAuthor": "boemel-renovate[bot] <261754987+boemel-renovate[bot]@users.noreply.github.com>",
   "schedule": ["before 06:00 AM"],
   "extends": [
     "config:recommended",
