@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: static-web-server
-      version: 7.16.16
+      version: 7.16.17
       sourceRef:
         kind: HelmRepository
         name: truecharts
