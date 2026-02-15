@@ -32,7 +32,7 @@ spec:
   values:
     image:
       repository: ghcr.io/trueforge-org/kometa
-      tag: sandbox@sha256:5d8a4a552db5b36fc83876b08562ffe732ef6b93c0bb6a2e6c0bd1d176199744
+      tag: sandbox@sha256:9b47f5c47a9fb6003a525379ad737c566434b04b4a483f675c8e0b63fc78bef4
       pullPolicy: IfNotPresent
 
     service:
