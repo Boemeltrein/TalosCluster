@@ -143,7 +143,8 @@ jobs:
           echo "DOMAIN=dummy.local" >> "$GITHUB_ENV"
           echo "PODNET=10.42.0.0/16" >> "$GITHUB_ENV"
           echo "METALLB_RANGE=192.168.20.211-192.168.20.219" >> "$GITHUB_ENV"
-
+          echo "GATUS_BUDDY_HEARTBEAT_TOKEN=1234567890" >> "$GITHUB_ENV"
+          
       # --------------------------------------------------
       # Create ephemeral k3d cluster
       # --------------------------------------------------
