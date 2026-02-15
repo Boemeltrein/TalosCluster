@@ -1,6 +1,6 @@
 ## Do not edit between this and DO NOT REMOVE
 creation_rules:
-  - path_regex: ^clusters.*kubernetes.*values.ya?ml$
+  - path_regex: ^clusters.*kubernetes.values.ya?ml$
     age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
     encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
   - path_regex: ^clusters.*kubernetes.*\.secret.ya?ml

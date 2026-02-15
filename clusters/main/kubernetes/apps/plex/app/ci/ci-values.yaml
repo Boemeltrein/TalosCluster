@@ -1,18 +1,2 @@
 plex:
     requireHTTPS: false
-sops:
-    shamir_threshold: 3
-    age:
-        - recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
-          enc: |
-            -----BEGIN AGE ENCRYPTED FILE-----
-            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBTa2lvdXJndE9CZ204YmdR
-            cGd3bTBXR0E2Q1ZNcVBZVkltUjdSbzNqakFvCkp2Ri80LzYramFmSzJnby9uVThM
-            MlduTHJ0dVJNSktnMDBMQ1p2VDJyTWMKLS0tIElFL3hqNEs5UGJwQktETjJxWUd0
-            aDMrNnExSUVHVHgxQkEzMjlsU1dEM0UKi4EQ2QuKXvnYa1WaHJa852Qpk0ivmviC
-            OFP3LT8PspK03775u5DV8i66pgd7cSwlbP7YPvwyuq4rYaFDUDPSag==
-            -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-02-15T08:01:54Z"
-    mac: ENC[AES256_GCM,data:Gb+UDcYHCdoe8MhF22NxSlu5dex33Ah9KciAnuzQD7PCxKRAzoSzlN9JU9kSXggCt89jrcI+RH/ZoJHkvwZWS4b9doLkhXUn0ttKKfkH7cLmrsSfFZ21cxDZYov3D1VV9ANmK5kM3960SrPBtzh4f4LO9foDEdkFyaDEldWLT9g=,iv:ASsBWx5ALoCUI3YF1ZqS0myXjNduHVYUW7lTHY+6mU8=,tag:hJOeWluqOPCiBViSh7eayA==,type:str]
-    encrypted_regex: ((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))
-    version: 3.11.0
