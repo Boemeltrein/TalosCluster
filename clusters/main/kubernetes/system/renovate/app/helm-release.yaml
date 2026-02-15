@@ -1,0 +1,59 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: renovate
+  namespace: renovate
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: mend-renovate
+      version: 6.6.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                MEND_RNV_ACCEPT_TOS: y
+                MEND_RNV_LICENSE_KEY: ${RENOVATE_LICENSE_KEY}
+                MEND_RNV_GITHUB_APP_ID: ${RENOVATE_APP_ID}
+                MEND_RNV_GITHUB_APP_KEY: ${RENOVATE_APP_KEY}
+                MEND_RNV_WEBHOOK_SECRET: ${RENOVATE_WEBHOOK_SECRET
+  
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        hosts:
+          - host: renovate.${DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
