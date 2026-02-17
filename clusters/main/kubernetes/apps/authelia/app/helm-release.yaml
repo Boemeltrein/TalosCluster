@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: authelia
-      version: 29.29.1
+      version: 29.29.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
