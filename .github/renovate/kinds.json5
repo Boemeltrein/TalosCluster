@@ -1,0 +1,17 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  flux: {
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    branchPrefix: "renovate/flux-"
+  },
+  kubernetes: {
+    managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
+    branchPrefix: "renovate/kubernetes-"
+  },
+  "github-actions": {
+    branchPrefix: "renovate/githubactions-"
+  },
+  devcontainer: {
+    branchPrefix: "renovate/devcontainer-"
+  }
+}

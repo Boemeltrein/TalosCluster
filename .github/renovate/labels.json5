@@ -1,0 +1,53 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      matchUpdateTypes: ["major"],
+      labels: ["type/major"]
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      labels: ["type/minor", "automerge"]
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      labels: ["type/patch", "automerge"]
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      labels: ["type/digest", "automerge"]
+    },
+    {
+      matchUpdateTypes: ["pin", "pinDigest"],
+      labels: ["type/pin", "automerge"]
+    },
+    {
+      matchDatasources: ["github-runners"],
+      addLabels: ["renovate/github-runners"]
+    },
+    {
+      matchDatasources: ["github-releases", "github-tags"],
+      addLabels: ["renovate/github-release"]
+    },
+    {
+      matchDatasources: ["docker"],
+      addLabels: ["renovate/container"]
+    },
+    {
+      matchDatasources: ["helm"],
+      addLabels: ["renovate/helm"]
+    },
+    {
+      matchDatasources: ["kubernetes-api"],
+      addLabels: ["renovate/kubernetes-api"]
+    },
+    {
+      matchPackageNames: ["ghcr.io/home-operations/charts-mirror/longhorn"],
+      addLabels: ["longhorn-update"]
+    },
+    {
+      matchPackageNames: ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
+      addLabels: ["system-upgrade"]
+    }
+  ]
+}
