@@ -2,7 +2,7 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  // schedule: ["before 06:00 AM"],
+  schedule: ["before 06:00 AM"],
   rebaseWhen: "conflicted",
 
   extends: [
