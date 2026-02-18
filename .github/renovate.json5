@@ -25,13 +25,13 @@
 
   suppressNotifications: [
     "prEditedNotification",
-    "prIgnoreNotification",
+    "prIgnoreNotification"
   ],
 
   ignorePaths: [
     "**/*.sops.*",
     "**/.archive/**",
     "**/archive/**",
-    "**/resources/**",
-  ],
+    "**/resources/**"
+  ]
 }
