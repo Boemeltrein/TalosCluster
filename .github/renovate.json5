@@ -1,0 +1,37 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  
+  dependencyDashboardTitle: "Renovate Dashboard 🤖",
+  schedule: ["before 06:00 AM"],
+  rebaseWhen: "conflicted",
+
+  extends: [
+    "config:recommended",
+    ":timezone(Europe/Amsterdam)",    
+    ":disableRateLimiting",
+    ":semanticCommits",
+    ":automergeMinor",
+    ":automergeDigest",
+    ":configMigration",
+    "helpers:pinGitHubActionDigests",
+    "github>Boemeltrein/TalosCluster//.github/renovate/customManagers.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/kinds.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/semanticCommits.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/labels.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/special_talos.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/special_longhorn.json5",
+    "github>Boemeltrein/TalosCluster//.github/renovate/special_grafanadashboard.json5"
+  ],
+
+  suppressNotifications: [
+    "prEditedNotification",
+    "prIgnoreNotification",
+  ],
+
+  ignorePaths: [
+    "**/*.sops.*",
+    "**/.archive/**",
+    "**/archive/**",
+    "**/resources/**",
+  ],
+}
