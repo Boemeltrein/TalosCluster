@@ -6,7 +6,7 @@ metadata:
   name: flux-manifests
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 12h
   url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
     tag: v2.7.5

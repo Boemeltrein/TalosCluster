@@ -7,5 +7,5 @@ metadata:
   namespace: flux-system
 spec:
   type: oci
-  interval: 5m
+  interval: 12h
   url: oci://oci.trueforge.org/truecharts
