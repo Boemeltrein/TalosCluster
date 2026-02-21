@@ -4,6 +4,7 @@ metadata:
   name: helm-repos
   namespace: flux-system
 resources:
+  - actions-runner-system.yaml
   - bjw-s.yaml
   - cilium.yaml
   - cloudnative-pg.yaml
