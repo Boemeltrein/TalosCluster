@@ -10,8 +10,6 @@
     ":timezone(Europe/Amsterdam)",    
     ":disableRateLimiting",
     ":semanticCommits",
-    ":automergeMinor",
-    ":automergeDigest",
     ":configMigration",
     "helpers:pinGitHubActionDigests",
     "github>Boemeltrein/TalosCluster//.github/renovate/customManagers.json5",
