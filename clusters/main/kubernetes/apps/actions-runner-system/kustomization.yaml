@@ -7,4 +7,4 @@ resources:
   - actions-runner-controller/ks.yaml
   # - actions-runner/ks.yaml
 components:
-  - ../../../../components/notifications/discord
+  - ../../../components/notifications/discord
