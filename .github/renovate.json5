@@ -18,9 +18,7 @@
     "github>Boemeltrein/TalosCluster//.github/renovate/kinds.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/semanticCommits.json5",
     "github>Boemeltrein/TalosCluster//.github/renovate/labels.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/special_talos.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/special_longhorn.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/special_grafanadashboard.json5"
+    "github>Boemeltrein/TalosCluster//.github/renovate/autoMerge.json5"
   ],
 
   suppressNotifications: [

@@ -1,0 +1,37 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  packageRules: [
+    {
+      matchUpdateTypes: ["major"],
+      automerge: false
+    },
+    {
+      matchUpdateTypes: ["minor"],
+      matchPackageNames: [
+        "!/siderolabs/",
+        "!/longhorn/",
+        "!/cilium/"
+      ],
+      automerge: true,
+      addLabels: ["automerge"]  
+    },
+    {
+      matchUpdateTypes: ["patch"],
+      matchPackageNames: [
+        "!/siderolabs/"
+      ],
+      automerge: true,
+      addLabels: ["automerge"]
+    },
+    {
+      matchUpdateTypes: ["digest"],
+      automerge: true,
+      addLabels: ["automerge"]
+    },
+    {
+      matchUpdateTypes: ["pin", "pinDigest"],
+      automerge: true,
+      addLabels: ["automerge"]
+    }
+  ]
+}

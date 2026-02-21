@@ -3,23 +3,23 @@
   packageRules: [
     {
       matchUpdateTypes: ["major"],
-      labels: ["type/major"]
+      addLabels: ["type/major"]
     },
     {
       matchUpdateTypes: ["minor"],
-      labels: ["type/minor", "automerge"]
+      addLabels: ["type/minor"]
     },
     {
       matchUpdateTypes: ["patch"],
-      labels: ["type/patch", "automerge"]
+      addLabels: ["type/patch"]
     },
     {
       matchUpdateTypes: ["digest"],
-      labels: ["type/digest", "automerge"]
+      addLabels: ["type/digest"]
     },
     {
       matchUpdateTypes: ["pin", "pinDigest"],
-      labels: ["type/pin", "automerge"]
+      addLabels: ["type/pin"]
     },
     {
       matchDatasources: ["github-runners"],
@@ -42,12 +42,16 @@
       addLabels: ["renovate/kubernetes-api"]
     },
     {
-      matchPackageNames: ["ghcr.io/home-operations/charts-mirror/longhorn"],
+      matchPackageNames: ["/siderolabs/"],
+      addLabels: ["system-upgrade"]
+    },
+    {
+      matchPackageNames: ["/longhorn/"],
       addLabels: ["longhorn-update"]
     },
     {
-      matchPackageNames: ["ghcr.io/siderolabs/kubelet", "ghcr.io/siderolabs/installer"],
-      addLabels: ["system-upgrade"]
+      matchPackageNames: ["/cilium/"],
+      addLabels: ["cilium-update"]
     }
   ]
 }

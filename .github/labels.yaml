@@ -8,8 +8,10 @@
 - { name: "renovate/github-action",      color: "027fa0" }
 - { name: "renovate/github-release",     color: "027fa0" }
 - { name: "renovate/helm",               color: "027fa0" }
+- { name: "renovate/kubernetes-api",     color: "#a2eeef"}
 - { name: "renovate/grafana-dashboard",  color: "#a2eeef"}
 # Semantic Type
+- { name: "type/pin",                    color: "ffec19" }
 - { name: "type/digest",                 color: "ffec19" }
 - { name: "type/patch",                  color: "ffec19" }
 - { name: "type/minor",                  color: "ff9800" }
@@ -20,3 +22,4 @@
 - { name: "automerge",                   color: "0e8a16" }
 - { name: "system-upgrade",              color: "8a44cc" }
 - { name: "longhorn-update",             color: "8a44cc" }
+- { name: "cilium-update",               color: "8a44cc" }
