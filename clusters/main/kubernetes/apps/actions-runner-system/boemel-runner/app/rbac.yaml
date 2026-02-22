@@ -22,6 +22,7 @@ apiVersion: talos.dev/v1alpha1
 kind: ServiceAccount
 metadata:
   name: boemel-runner
+  namespace: actions-runner-system
 spec:
   roles:
     - os:admin
