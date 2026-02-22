@@ -8,7 +8,7 @@ on:
 
 jobs:
   detect:
-    runs-on: boemel-runner
+    runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set.outputs.matrix }}
 
@@ -109,7 +109,7 @@ jobs:
   test:
     needs: detect
     if: needs.detect.outputs.matrix != '[]'
-    runs-on: boemel-runner
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
@@ -175,7 +175,7 @@ jobs:
 
   test-summary:
     name: test-summary
-    runs-on: boemel-runner
+    runs-on: ubuntu-latest
     needs:
       - detect
       - test
