@@ -1,0 +1,15 @@
+name: Test Cluster Access
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: boemel-runner
+
+    steps:
+      - name: Show kubectl version
+        run: kubectl version --client
+
+      - name: List namespaces
+        run: kubectl get namespaces
