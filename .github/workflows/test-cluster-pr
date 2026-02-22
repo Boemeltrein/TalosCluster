@@ -16,3 +16,6 @@ jobs:
 
       - name: List namespaces
         run: kubectl get namespaces
+
+      - name: test pods
+        run: kubectl get pods -n librespeed
