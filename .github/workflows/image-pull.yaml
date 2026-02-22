@@ -76,7 +76,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           args: >-
-            build all
+            get cluster
+            --all-namespaces
             --path /github/workspace/clusters/main/kubernetes
             --enable-images
             --only-images
