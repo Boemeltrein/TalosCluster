@@ -130,9 +130,9 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y jq gettext
-          curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
+          sudo curl -sSL https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 \
             -o /usr/local/bin/yq
-          chmod +x /usr/local/bin/yq
+          sudo chmod +x /usr/local/bin/yq
 
       # --------------------------------------------------
       # Dummy env vars for Helm interpolation
