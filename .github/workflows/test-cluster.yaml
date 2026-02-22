@@ -14,5 +14,5 @@ jobs:
       - name: Show kubectl version
         run: kubectl version --client
 
-      - name: List namespaces
-        run: kubectl get namespaces
+      - name: List own namespace
+        run: kubectl get pods -n actions-runner-system
