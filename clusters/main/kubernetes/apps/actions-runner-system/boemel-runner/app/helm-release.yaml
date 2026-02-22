@@ -37,27 +37,21 @@ spec:
 
     containerMode:
       type: kubernetes
-#      kubernetesModeWorkVolumeClaim:
-#        accessModes: 
-#          - ReadWriteOnce
-#        storageClassName: "openebs-hostpath"
-#        resources:
-#          requests:
-#            storage: 25Gi
+      kubernetesModeWorkVolumeClaim:
+        accessModes: 
+          - ReadWriteOnce
+        storageClassName: "openebs-hostpath"
+        resources:
+          requests:
+            storage: 5Gi
 
     template:
       spec:
         containers:
           - name: runner
-            image: ghcr.io/home-operations/actions-runner:2.331.0
+            image:  ghcr.io/home-operations/actions-runner:2.331.0@sha256:17e4be4e4664067b9a5f2e43d0e66e0a249654f3783a0a3f17448844a5422be5
             command:
               - /home/runner/run.sh
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
-            volumeMounts:
-              - name: work
-                mountPath: /home/runner/_work                
-        volumes:
-          - name: work
-            emptyDir: {}                
