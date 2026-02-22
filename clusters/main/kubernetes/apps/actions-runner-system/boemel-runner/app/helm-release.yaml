@@ -35,6 +35,10 @@ spec:
     minRunners: 1
     maxRunners: 5
 
+    controllerServiceAccount:
+      name: actions-runner-controller
+      namespace: actions-runner-system
+    
     containerMode:
       type: kubernetes
       kubernetesModeWorkVolumeClaim:
