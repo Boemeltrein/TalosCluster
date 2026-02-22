@@ -37,13 +37,13 @@ spec:
 
     containerMode:
       type: kubernetes
-      kubernetesModeWorkVolumeClaim:
-        accessModes: 
-          - ReadWriteOnce
-        storageClassName: "openebs-hostpath"
-        resources:
-          requests:
-            storage: 25Gi
+#      kubernetesModeWorkVolumeClaim:
+#        accessModes: 
+#          - ReadWriteOnce
+#        storageClassName: "openebs-hostpath"
+#        resources:
+#          requests:
+#            storage: 25Gi
 
     template:
       spec:
@@ -55,3 +55,9 @@ spec:
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
+            volumeMounts:
+              - name: work
+                mountPath: /home/runner/_work                
+        volumes:
+          - name: work
+            emptyDir: {}                
