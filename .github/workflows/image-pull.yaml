@@ -38,7 +38,7 @@ jobs:
         with:
           args: >-
             build all
-            --path /github/workspace/clusters/main/kubernetes
+            /github/workspace/clusters/main/kubernetes
 
       - name: Extract container images
         id: images
