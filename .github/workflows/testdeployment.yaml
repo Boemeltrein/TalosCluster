@@ -8,7 +8,7 @@ on:
 
 jobs:
   detect:
-    runs-on: ubuntu-latest
+    runs-on: boemel-runner
     outputs:
       matrix: ${{ steps.set.outputs.matrix }}
 
