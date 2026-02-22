@@ -109,7 +109,7 @@ jobs:
   test:
     needs: detect
     if: needs.detect.outputs.matrix != '[]'
-    runs-on: ubuntu-latest
+    runs-on: boemel-runner
 
     strategy:
       fail-fast: false
@@ -175,7 +175,7 @@ jobs:
 
   test-summary:
     name: test-summary
-    runs-on: ubuntu-latest
+    runs-on: boemel-runner
     needs:
       - detect
       - test
