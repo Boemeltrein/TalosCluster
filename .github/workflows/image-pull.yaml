@@ -78,7 +78,7 @@ jobs:
           args: >-
             get cluster
             --all-namespaces
-            --path /github/workspace/clusters/main/kubernetes
+            --path /github/workspace
             --enable-images
             --only-images
             --output json
