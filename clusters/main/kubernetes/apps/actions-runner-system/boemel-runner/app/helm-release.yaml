@@ -55,12 +55,12 @@ spec:
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
-            volumeMounts:
-              - mountPath: /var/run/secrets/talos.dev
-                name: talos
-                readOnly: true
+#            volumeMounts:
+#              - mountPath: /var/run/secrets/talos.dev
+#                name: talos
+#                readOnly: true
         serviceAccountName: boemel-runner            
-        volumes:
-          - name: talos
-            secret:
-              secretName: boemel-runner
+#        volumes:
+#          - name: talos
+#            secret:
+#              secretName: boemel-runner
