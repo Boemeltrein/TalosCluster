@@ -43,7 +43,7 @@ spec:
         storageClassName: "openebs-hostpath"
         resources:
           requests:
-            storage: 5Gi
+            storage: 25Gi
 
     template:
       spec:
