@@ -9,9 +9,7 @@ jobs:
 
     steps:
       - name: Install kubectl
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y kubectl
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
 
       - name: Show kubectl version
         run: kubectl version --client
