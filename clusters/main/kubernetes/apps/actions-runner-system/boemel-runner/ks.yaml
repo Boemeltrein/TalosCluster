@@ -1,0 +1,16 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: boemel-runner
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: actions-runner-controller
+    - name: openebs
+      namespace: openebs
+  interval: 10m
+  path: clusters/main/kubernetes/apps/actions-runner-system/boemel-runner/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster
