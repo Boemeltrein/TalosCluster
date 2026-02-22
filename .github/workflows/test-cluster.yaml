@@ -8,6 +8,11 @@ jobs:
     runs-on: boemel-runner
 
     steps:
+      - name: Install kubectl
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y kubectl
+
       - name: Show kubectl version
         run: kubectl version --client
 
