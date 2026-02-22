@@ -36,7 +36,7 @@ spec:
     maxRunners: 5
 
     containerMode:
-      type: kubernetes  ## type can be set to "dind", "kubernetes", or "kubernetes-novolume"
+      type: kubernetes
       kubernetesModeWorkVolumeClaim:
         accessModes: 
           - ReadWriteOnce
