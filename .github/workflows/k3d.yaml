@@ -1,0 +1,48 @@
+name: k3d-debug
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test-k3d:
+    runs-on: self-hosted
+
+    steps:
+      - name: Show environment
+        run: |
+          echo "KUBECONFIG=$KUBECONFIG"
+          echo "KUBERNETES_SERVICE_HOST=$KUBERNETES_SERVICE_HOST"
+          echo "KUBERNETES_SERVICE_PORT=$KUBERNETES_SERVICE_PORT"
+
+      - name: Install kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Show kubectl context BEFORE k3d
+        run: |
+          kubectl config current-context || true
+          kubectl config view --minify || true
+          kubectl get ns || true
+
+      - name: Install k3d
+        run: |
+          curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+          k3d version
+
+      - name: Create isolated kubeconfig dir
+        run: |
+          mkdir -p $HOME/.kube
+          export KUBECONFIG=$HOME/.kube/config
+          echo "Using KUBECONFIG=$KUBECONFIG"
+
+      - name: Create k3d cluster (forced kubeconfig)
+        run: |
+          export KUBECONFIG=$HOME/.kube/config
+          k3d cluster create testcluster --wait
+          kubectl config current-context
+          kubectl get nodes
+          kubectl get ns
+
+      - name: Verify serviceaccount readiness
+        run: |
+          export KUBECONFIG=$HOME/.kube/config
+          kubectl get serviceaccount default
