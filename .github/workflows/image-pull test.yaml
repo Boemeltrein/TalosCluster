@@ -56,10 +56,16 @@ jobs:
       #     . .venv/bin/activate
       #     pip install flux-local
 
-      - name: Install Python + flux-local
+      - name: Install tooling
         run: |
           sudo apt update
-          sudo apt install -y python3-venv python3-pip
+          sudo apt install -y python3-venv python3-pip curl
+
+          # kustomize
+          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+          sudo mv kustomize /usr/local/bin/
+
+          # python venv + flux-local
           python3 -m venv .venv
           . .venv/bin/activate
           pip install --upgrade pip
