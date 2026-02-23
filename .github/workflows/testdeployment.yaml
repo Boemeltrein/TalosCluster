@@ -148,6 +148,12 @@ jobs:
       # --------------------------------------------------
       # Create ephemeral k3d cluster
       # --------------------------------------------------
+      - name: Install kubectl
+        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
+
+      - name: Install helm
+        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
+
       - name: Create k3d cluster
         uses: nolar/setup-k3d-k3s@v1
         with:
@@ -158,12 +164,6 @@ jobs:
       - name: Remove node taints
         run: |
           kubectl taint --all=true nodes node.cloudprovider.kubernetes.io/uninitialized- || true
-
-      - name: Install kubectl
-        uses: azure/setup-kubectl@776406bce94f63e41d621b960d78ee25c8b76ede # v4
-
-      - name: Install helm
-        uses: azure/setup-helm@1a275c3b69536ee54be43f2070a358922e12c8d4 # v4
 
       # --------------------------------------------------
       # Deploy & test HelmRelease
