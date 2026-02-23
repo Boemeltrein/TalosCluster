@@ -42,7 +42,12 @@ jobs:
           kubectl get nodes
           kubectl get ns
 
+      - name: minifi
+        run: |
+          kubectl config view --minify
+
       - name: Verify serviceaccount readiness
         run: |
           export KUBECONFIG=$HOME/.kube/config
           kubectl get serviceaccount default
+      
