@@ -5,8 +5,8 @@ on:
 
 jobs:
   test-k3d:
-    runs-on: boemel-runner
-
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Show environment
         run: |
