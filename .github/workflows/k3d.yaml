@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-k3d:
-    runs-on: self-hosted
+    runs-on: boemel-runner
 
     steps:
       - name: Show environment
