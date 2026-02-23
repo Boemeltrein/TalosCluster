@@ -109,7 +109,7 @@ jobs:
   test:
     needs: detect
     if: needs.detect.outputs.matrix != '[]'
-    runs-on: test-runner
+    runs-on: ubuntu-latest
 
     strategy:
       fail-fast: false
