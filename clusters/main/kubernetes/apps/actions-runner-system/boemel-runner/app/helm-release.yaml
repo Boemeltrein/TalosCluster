@@ -60,10 +60,10 @@ spec:
             env:
               - name: ACTIONS_RUNNER_REQUIRE_JOB_CONTAINER
                 value: "false"
-        #       - name: NODE
-        #         valueFrom:
-        #           fieldRef:
-        #             fieldPath: status.hostIP
+              - name: NODE
+                valueFrom:
+                  fieldRef:
+                    fieldPath: status.hostIP
         #     volumeMounts:
         #       - mountPath: /var/run/secrets/talos.dev
         #         name: talos
