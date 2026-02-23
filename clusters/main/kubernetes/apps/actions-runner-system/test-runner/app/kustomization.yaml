@@ -3,5 +3,4 @@ kind: Kustomization
 resources:
   - test-runner.secret.yaml
   - helm-release.yaml
-  - rbac.yaml
 
