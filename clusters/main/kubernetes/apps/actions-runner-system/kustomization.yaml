@@ -6,5 +6,6 @@ resources:
   - namespace.yaml
   - actions-runner-controller/ks.yaml
   - boemel-runner/ks.yaml
+  - test-runner/ks.yaml
 components:
   - ../../../components/notifications/discord
