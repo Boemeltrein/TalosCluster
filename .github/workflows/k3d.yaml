@@ -5,7 +5,7 @@ on:
 
 jobs:
   test-k3d:
-    runs-on: ubuntu-latest
+    runs-on: test-runner
     
     steps:
       - name: Show environment
