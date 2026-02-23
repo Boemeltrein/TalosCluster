@@ -64,12 +64,12 @@ spec:
                 valueFrom:
                   fieldRef:
                     fieldPath: status.hostIP
-        #     volumeMounts:
-        #       - mountPath: /var/run/secrets/talos.dev
-        #         name: talos
-        #         readOnly: true
-        # serviceAccountName: boemel-runner            
-        # volumes:
-        #   - name: talos
-        #     secret:
-        #       secretName: boemel-runner
+            volumeMounts:
+              - mountPath: /var/run/secrets/talos.dev
+                name: talos
+                readOnly: true
+        serviceAccountName: boemel-runner            
+        volumes:
+          - name: talos
+            secret:
+              secretName: boemel-runner
