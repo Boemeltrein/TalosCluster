@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: bazarr
-      version: 23.3.6
+      version: 23.4.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
