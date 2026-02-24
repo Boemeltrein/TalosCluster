@@ -6,6 +6,7 @@
   rebaseWhen: "conflicted",
   prConcurrentLimit: 5,
   prHourlyLimit: 0,
+  commitHourlyLimit: 0,
 
   extends: [
     "config:recommended",
