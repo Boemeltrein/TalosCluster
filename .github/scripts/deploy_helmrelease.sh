@@ -247,7 +247,7 @@ install_metallb=false
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 # grep -q "volsync.backube" "$RENDERED" && install_volsync=true
 grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
-grep -q "cert-manager.io" "$RENDERED" && install_certmanager=true
+grep -q "cert-manager.io" "$RENDERED" && [[ "$CHART_NAME" != "cert-manager" ]] && install_certmanager=true 
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 grep -q "metallb.io" "$RENDERED" && install_metallb=true
 
@@ -298,8 +298,7 @@ if $install_ingress; then
   echo "::endgroup::"
 fi
 
-if $install_certmanager && [[ "$CHART_NAME" != "cert-manager" ]]; then
-# if $install_certmanager; then
+if $install_certmanager; then
   echo "::group::🔐 Installing cert-manager..."
   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
   kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
