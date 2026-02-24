@@ -298,7 +298,8 @@ if $install_ingress; then
   echo "::endgroup::"
 fi
 
-if $install_certmanager; then
+if $install_certmanager && [[ "$CHART_NAME" != "cert-manager" ]]; then
+# if $install_certmanager; then
   echo "::group::🔐 Installing cert-manager..."
   kubectl apply -f https://github.com/cert-manager/cert-manager/releases/latest/download/cert-manager.yaml
   kubectl wait deployment --all -n cert-manager --for=condition=Available --timeout=180s
