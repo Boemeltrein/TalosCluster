@@ -4,11 +4,14 @@
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   schedule: ["before 06:00 AM"],
   rebaseWhen: "conflicted",
+  commitHourlyLimit: 0,
+  prConcurrentLimit: 5,
+  prHourlyLimit: 0,
 
   extends: [
     "config:recommended",
     ":timezone(Europe/Amsterdam)",    
-    ":disableRateLimiting",
+    // ":disableRateLimiting",
     ":semanticCommits",
     ":configMigration",
     "helpers:pinGitHubActionDigests",
