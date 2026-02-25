@@ -1,2 +1,3 @@
 # Path of helm-release file to skip during CI testing
+clusters/main/kubernetes/kube-system/cilium/app
 
