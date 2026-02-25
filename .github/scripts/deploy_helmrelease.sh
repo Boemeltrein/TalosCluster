@@ -66,7 +66,8 @@ REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
 REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
 REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
 APP_DIR="$(dirname "$HELMRELEASE_PATH")"
-CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
+#CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
+CI_VALUES_FILE="ci/$CHART_NAME.yaml"
 
 # --------------------------------------------------
 # Setup chart repository reference
