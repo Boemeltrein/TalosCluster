@@ -1,5 +1,4 @@
 # Path of helm-release file to skip during CI testing
-
 skipList:
   - clusters/main/kubernetes/apps/authelia/app
   - clusters/main/kubernetes/core/clusterissuer/app
@@ -7,6 +6,3 @@ skipList:
   - clusters/main/kubernetes/system/longhorn/app
   - clusters/main/kubernetes/system/renovate/app
   - clusters/main/kubernetes/system/spegel/app
-
-
-
