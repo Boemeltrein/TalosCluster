@@ -21,5 +21,6 @@
 - { name: "hold/upstream",               color: "ee0701" }
 - { name: "automerge",                   color: "0e8a16" }
 - { name: "system-upgrade",              color: "8a44cc" }
+- { name: "fluxcd-update",               color: "8a44cc" }
 - { name: "longhorn-update",             color: "8a44cc" }
 - { name: "cilium-update",               color: "8a44cc" }
