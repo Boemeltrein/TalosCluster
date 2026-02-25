@@ -58,6 +58,45 @@ jobs:
           # Filter releases using central skip list
           # --------------------------------------------------
 
+          # mapfile -t files_array <<< "$files"
+
+          # filtered=()
+          # skipped=()
+
+          # SKIP_FILE="ci/.skip-list.yaml"
+
+          # # Read skip list (if the file exists)
+          # if [ -f "$SKIP_FILE" ]; then
+          #   mapfile -t skip_list < "$SKIP_FILE"
+          # else
+          #   skip_list=()
+          # fi
+
+          # for file in "${files_array[@]}"; do
+          #   dir=$(dirname "$file")
+          #   skip=false
+
+          #   for skip_entry in "${skip_list[@]}"; do
+          #     # Skip empty lines and comments
+          #     [[ -z "$skip_entry" || "$skip_entry" =~ ^# ]] && continue
+
+          #     if [ "$dir" = "$skip_entry" ]; then
+          #       skip=true
+          #       break
+          #     fi
+          #   done
+
+          #   if [ "$skip" = true ]; then
+          #     skipped+=("$file")
+          #   else
+          #     filtered+=("$file")
+          #   fi
+          # done
+
+          # --------------------------------------------------
+          # Filter releases using YAML skip list
+          # --------------------------------------------------
+
           mapfile -t files_array <<< "$files"
 
           filtered=()
@@ -65,9 +104,8 @@ jobs:
 
           SKIP_FILE="ci/.skip-list.yaml"
 
-          # Read skip list (if the file exists)
           if [ -f "$SKIP_FILE" ]; then
-            mapfile -t skip_list < "$SKIP_FILE"
+            mapfile -t skip_list < <(yq -r '.skipList[]' "$SKIP_FILE")
           else
             skip_list=()
           fi
@@ -77,9 +115,6 @@ jobs:
             skip=false
 
             for skip_entry in "${skip_list[@]}"; do
-              # Skip empty lines and comments
-              [[ -z "$skip_entry" || "$skip_entry" =~ ^# ]] && continue
-
               if [ "$dir" = "$skip_entry" ]; then
                 skip=true
                 break
@@ -92,6 +127,7 @@ jobs:
               filtered+=("$file")
             fi
           done
+
 
           echo ""
           echo "===== HelmRelease CI scan result ====="
