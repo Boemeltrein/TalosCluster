@@ -63,7 +63,7 @@ jobs:
           filtered=()
           skipped=()
 
-          SKIP_FILE="ci/skip-list.yaml"
+          SKIP_FILE="ci/.skip-list.yaml"
 
           # Read skip list (if the file exists)
           if [ -f "$SKIP_FILE" ]; then
