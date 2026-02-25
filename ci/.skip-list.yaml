@@ -1,3 +1,11 @@
 # Path of helm-release file to skip during CI testing
+clusters/main/kubernetes/apps/authelia/app
+clusters/main/kubernetes/core/clusterissuer
+clusters/main/kubernetes/external-services/ext-plugwise/app
 clusters/main/kubernetes/kube-system/cilium/app
+clusters/main/kubernetes/system/longhorn/app/ci
+clusters/main/kubernetes/system/renovate/app/ci
+clusters/main/kubernetes/system/spegel/app/ci
+
+
 
