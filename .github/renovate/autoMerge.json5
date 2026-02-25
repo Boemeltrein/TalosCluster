@@ -9,6 +9,7 @@
       matchUpdateTypes: ["minor"],
       matchPackageNames: [
         "!/siderolabs/",
+        "!/fluxcd/",
         "!/longhorn/",
         "!/cilium/"
       ],
