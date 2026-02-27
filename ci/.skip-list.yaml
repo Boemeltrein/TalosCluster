@@ -6,3 +6,5 @@ skipList:
   - clusters/main/kubernetes/system/longhorn/app
   - clusters/main/kubernetes/system/renovate/app
   - clusters/main/kubernetes/system/spegel/app
+  - clusters/main/kubernetes/apps/actions-runner-system/boemel-runner/app
+  - clusters/main/kubernetes/apps/actions-runner-system/test-runner/app
