@@ -244,6 +244,7 @@ install_ingress=false
 install_certmanager=false
 install_prometheus=false
 install_metallb=false
+install_arc=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 # grep -q "volsync.backube" "$RENDERED" && install_volsync=true
@@ -251,6 +252,7 @@ grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
 grep -q "cert-manager.io" "$RENDERED" && [[ "$CHART_NAME" != "cert-manager" ]] && install_certmanager=true 
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 grep -q "metallb.io" "$RENDERED" && install_metallb=true
+grep -q "actions.github.com" "$RENDERED" && install_arc=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -259,6 +261,7 @@ echo "     Ingress:     $install_ingress"
 echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
 echo "     MetalLB:     $install_metallb"
+echo "     GitHub ARC:  $install_arc"
 
 # --------------------------------------------------
 # Install dependencies
@@ -332,6 +335,23 @@ if $install_metallb; then
   fi
 
   echo "📡 Done installing MetalLB"
+  echo "::endgroup::"
+fi
+
+if $install_arc; then
+  echo "::group::🏃 Installing GitHub ARC..."
+  helm upgrade --install actions-runner-controller \
+    oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller \
+    --namespace actions-runner-system \
+    --create-namespace \
+    --wait
+
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install GitHub ARC"
+      exit 1
+  fi
+
+  echo "🏃 Done installing GitHub ARC"
   echo "::endgroup::"
 fi
 
