@@ -252,7 +252,7 @@ grep -q "kind: Ingress" "$RENDERED" && install_ingress=true
 grep -q "cert-manager.io" "$RENDERED" && [[ "$CHART_NAME" != "cert-manager" ]] && install_certmanager=true 
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 grep -q "metallb.io" "$RENDERED" && install_metallb=true
-grep -q "actions.github.com" "$RENDERED" && install_arc=true
+# grep -q "actions.github.com" "$RENDERED" && install_arc=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -261,7 +261,7 @@ echo "     Ingress:     $install_ingress"
 echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
 echo "     MetalLB:     $install_metallb"
-echo "     GitHub ARC:  $install_arc"
+# echo "     GitHub ARC:  $install_arc"
 
 # --------------------------------------------------
 # Install dependencies
