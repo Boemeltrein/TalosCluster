@@ -48,7 +48,8 @@
     {
       matchPackageNames: ["/fluxcd/"],
       addLabels: ["fluxcd-update"]
-    },    {
+    },    
+    {
       matchPackageNames: ["/longhorn/"],
       addLabels: ["longhorn-update"]
     },
