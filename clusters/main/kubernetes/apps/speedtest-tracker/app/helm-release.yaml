@@ -47,7 +47,7 @@ spec:
                 SPEEDTEST_SCHEDULE: "0 * * * *"
                 PRUNE_RESULTS_OLDER_THAN: 90
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
-                SPEEDTEST_SERVERS: "32582"
+                SPEEDTEST_SERVERS: "52857"
 
     credentials:
       minio:
