@@ -9,4 +9,4 @@ spec:
   interval: 12h
   url: oci://ghcr.io/fluxcd/flux-manifests
   ref:
-    tag: v2.8.0
+    tag: v2.8.1
