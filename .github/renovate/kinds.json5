@@ -6,7 +6,6 @@
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-    matchDatasources: ["kubernetes-api"],
     branchPrefix: "renovate/kubernetes-"
   },
   "github-actions": {
