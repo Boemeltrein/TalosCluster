@@ -341,7 +341,7 @@ fi
 if $install_arc; then
   echo "::group::🏃 Installing GitHub ARC..."
   helm upgrade --install actions-runner-controller \
-    oci://ghcr.io/actions/actions-runner-controller-charts/actions-runner-controller \
+    oci://ghcr.io/actions/actions-runner-controller-charts/gha-runner-scale-set-controller \
     --namespace actions-runner-system \
     --create-namespace \
     --wait
@@ -352,7 +352,7 @@ if $install_arc; then
   fi
 
   echo "🏃 Done installing GitHub ARC"
-  echo "::endgroup::"
+  echo "::endgroup::" 
 fi
 
 # --------------------------------------------------
