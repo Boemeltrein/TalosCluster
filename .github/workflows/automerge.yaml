@@ -2,10 +2,10 @@ name: Automerge and Approve
 
 on:
   workflow_dispatch:
-  # workflow_run:
-  #   workflows: ["Pull Request: Validate"]  # Name of the main CI workflow
-  #   types:
-  #     - completed
+  workflow_run:
+    workflows: ["Pull Request: Validate"]  # Name of the main CI workflow
+    types:
+      - completed
 
 jobs:
   automerge:
