@@ -14,4 +14,13 @@
   devcontainer: {
     branchPrefix: "renovate/devcontainer-"
   }
+  packageRules: [
+    {
+      description: "Disable docker datasource for Kubernetes manager on HelmRelease files",
+      matchManagers: ["kubernetes"],
+      matchDatasources: ["docker"],
+      matchFileNames: ["**/helm-release.yaml"],
+      enabled: false
+    }
+  ]
 }
