@@ -12,5 +12,5 @@ resources:
   - system-upgrade
   - volsync/ks.yaml
   - kube-prometheus-stack/ks.yaml
-  - renovate/ks.yaml
+  # - renovate/ks.yaml
 
