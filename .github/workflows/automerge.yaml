@@ -14,11 +14,17 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - id: automerge
-        name: automerge
+      - name: Generate Token
+        uses: actions/create-github-app-token@29824e69f54612133e76f7eaac726eef6c875baf # v2.2.1
+        id: app-token
+        with:
+          app-id: ${{ secrets.BOEMEL_ACTIONS_APP_ID }}
+          private-key: ${{ secrets.BOEMEL_ACTIONS_APP_PRIVATE_KEY }}    
+      - name: automerge
         uses: "pascalgn/automerge-action@7961b8b5eec56cc088c140b56d864285eabd3f67" # v0.16.4
+        id: automerge
         env:
-          GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           UPDATE_RETRIES: 24
           UPDATE_RETRY_SLEEP: 60000
           MERGE_RETRIES: 24
