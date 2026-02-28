@@ -125,12 +125,6 @@ spec:
                 RESOURCE_PACK: "https://${DOMAIN}/hermitcraft/resources.zip"
                 RESOURCE_PACK_ENFORCE: "true"
 
-            mcbackup:
-              enabled: false
-
-      backups:
-        enabled: false
-
     resources:
       limits:
         cpu: 8000m
