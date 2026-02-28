@@ -1,0 +1,20 @@
+apiVersion: renovate-operator.mogenius.com/v1alpha1
+kind: RenovateJob
+metadata:
+  name: renovate-github
+  namespace: renovate-operator
+spec:
+  discoveryFilter: Boemeltrein/*
+  extraEnv:
+    - name: RENOVATE_PLATFORM
+      value: github
+    - name: RENOVATE_ENDPOINT
+      value: https://api.github.com/
+  image: ghcr.io/renovatebot/renovate:43.0.2
+  parallelism: 5
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+  schedule: 0 * * * *
+  secretRef: renovate-secret

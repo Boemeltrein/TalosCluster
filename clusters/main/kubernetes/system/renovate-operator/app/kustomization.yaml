@@ -3,5 +3,7 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - helm-release.yaml
+  - job.yaml
+  - renovate-operator.secret.yaml
 components:
   - ../../../../components/notifications/discord
