@@ -13,4 +13,4 @@ resources:
   - volsync/ks.yaml
   - kube-prometheus-stack/ks.yaml
   # - renovate/ks.yaml
-  - renovate-operator/ks.yaml
+  # - renovate-operator/ks.yaml
