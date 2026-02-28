@@ -1,0 +1,46 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: renovate-operator
+  namespace: renovate-operator
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: renovate-operator
+      version: 2.17.2
+      sourceRef:
+        kind: HelmRepository
+        name: renovate-operator
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    fullnameOverride: renovate-operator
+    ingress:
+      enabled: true
+      ingressClassName: "internal"
+      host: renovate.${BASE_DOMAIN}
+      tls:
+        - hosts:
+            - renovate.${BASE_DOMAIN}
+          secretName: renovate-tls
+      annotations:
+        cert-manager.io/cluster-issuer: cloudflare
+        cert-manager.io/private-key-rotation-policy: Always
+    # webhook:
+    #   enabled: true
