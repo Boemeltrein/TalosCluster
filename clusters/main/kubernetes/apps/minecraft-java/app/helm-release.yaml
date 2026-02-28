@@ -123,9 +123,6 @@ spec:
                 USE_FLARE_FLAGS: "false"
                 USE_AIKAR_FLAGS: "true"
                 USE_SIMD_FLAGS: "false"
-                
-            mcbackup:
-              enabled: false
 
     persistence:
       data:
@@ -140,9 +137,6 @@ spec:
         readOnly: true
         type: configmap
         objectName: vanillatweaks
-
-      backups:
-        enabled: false
 
     ingress:
       bluemap:
