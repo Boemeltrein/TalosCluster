@@ -4,7 +4,7 @@ metadata:
   name: renovate-github
   namespace: renovate-operator
 spec:
-  discoveryFilter: Boemeltrein/*
+  discoveryFilter: Boemeltrein/TalosCluster
   extraEnv:
     - name: RENOVATE_PLATFORM
       value: github
