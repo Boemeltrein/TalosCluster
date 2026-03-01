@@ -3,7 +3,7 @@
   
   dependencyDashboardTitle: "Renovate Dashboard 🤖",
   schedule: ["before 06:00 AM"],
-  rebaseWhen: "conflicted",
+  rebaseWhen: "never",
   // prConcurrentLimit: 5,
   // prHourlyLimit: 0,
   // commitHourlyLimit: 0,
