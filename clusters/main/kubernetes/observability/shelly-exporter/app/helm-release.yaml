@@ -34,7 +34,7 @@ spec:
   
     image:
       repository: ghcr.io/d1ceward/shellyplug-exporter
-      tag: v2.2.0
+      tag: v3.0.0
       pullPolicy: IfNotPresent
 
     service:
