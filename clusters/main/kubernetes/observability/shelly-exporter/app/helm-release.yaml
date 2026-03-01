@@ -56,14 +56,6 @@ spec:
             alerts:
               - type: discord
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              args:
-                - "--config=/config.yaml"
-
     configmap:
       exporter-configfile:
         enabled: true
@@ -86,7 +78,6 @@ spec:
         - name: server
           host: 192.168.1.74  
           port: 80
-          generation: 2
 
     metrics:
       main:
