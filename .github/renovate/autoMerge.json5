@@ -13,7 +13,7 @@
         "!/longhorn/",
         "!/cilium/"
       ],
-//      automerge: true,
+      automerge: true,
       addLabels: ["automerge"]  
     },
     {
@@ -21,17 +21,17 @@
       matchPackageNames: [
         "!/siderolabs/"
       ],
-//      automerge: true,
+      automerge: true,
       addLabels: ["automerge"]
     },
     {
       matchUpdateTypes: ["digest"],
-//      automerge: true,
+      automerge: true,
       addLabels: ["automerge"]
     },
     {
       matchUpdateTypes: ["pin", "pinDigest"],
-//      automerge: true,
+      automerge: true,
       addLabels: ["automerge"]
     }
   ]
