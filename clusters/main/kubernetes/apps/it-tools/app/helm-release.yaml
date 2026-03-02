@@ -37,6 +37,7 @@ spec:
       config:
         enabled: true
         type: emptyDir
+        mountPath: /config
 
     ingress:
       main:
