@@ -1,4 +1,14 @@
-# Path of helm-release file to skip during CI testing
+# CI test configuration.
+# dummyEnv: Placeholder environment variables for Helm templating.
+# skipList: HelmRelease paths excluded from CI deployment tests.
+
+dummyEnv:
+  BASE_DOMAIN: base.dummy.local
+  DOMAIN: dummy.local
+  PODNET: 10.42.0.0/16
+  METALLB_RANGE: 192.168.20.211-192.168.20.219
+  GATUS_BUDDY_HEARTBEAT_TOKEN: abc123def
+
 skipList:
   - clusters/main/kubernetes/apps/authelia/app
   - clusters/main/kubernetes/core/clusterissuer/app
@@ -8,3 +18,4 @@ skipList:
   - clusters/main/kubernetes/system/spegel/app
   - clusters/main/kubernetes/apps/actions-runner-system/boemel-runner/app
   - clusters/main/kubernetes/apps/actions-runner-system/test-runner/app
+
