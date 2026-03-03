@@ -153,10 +153,7 @@ jobs:
       # --------------------------------------------------
       - name: Load dummy env vars from config
         run: |
-          for key in $(yq e '.dummyEnv | keys | .[]' ci/.config.yaml); do
-            value=$(yq e ".dummyEnv.${key}" ci/.config.yaml)
-            echo "${key}=${value}" >> "$GITHUB_ENV"
-          done
+          yq e '.dummyEnv | to_entries | .[] | "\(.key)=\(.value)"' ci/.config.yaml >> $GITHUB_ENV
           
       # --------------------------------------------------
       # Create ephemeral k3d cluster
