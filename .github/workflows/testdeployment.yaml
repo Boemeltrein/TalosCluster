@@ -153,8 +153,8 @@ jobs:
       # --------------------------------------------------
       - name: Load dummy env vars from config
         run: |
-          for key in $(yq e '.dummyEnv | keys | .[]' ci/ci-config.yaml); do
-            value=$(yq e ".dummyEnv.${key}" ci/ci-config.yaml)
+          for key in $(yq e '.dummyEnv | keys | .[]' ci/.config.yaml); do
+            value=$(yq e ".dummyEnv.${key}" ci/.config.yaml)
             echo "${key}=${value}" >> "$GITHUB_ENV"
           done
           
