@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: homepage
-      version: 11.23.0
+      version: 11.23.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
