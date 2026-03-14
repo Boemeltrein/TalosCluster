@@ -72,7 +72,7 @@ spec:
           statsDir: /config/utopia/stats
         crown:
           silver: 2
-          gold: 4
+          gold: 10
           bronze: 1
         client:
           defaultLanguage: en
