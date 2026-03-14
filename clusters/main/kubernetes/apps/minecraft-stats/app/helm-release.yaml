@@ -1,0 +1,139 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: minecraft-stats
+  namespace: minecraft
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: app-template
+      version: 15.38.4
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+    image:
+      repository: ghcr.io/xstar97/mc-stats
+      pullPolicy: IfNotPresent
+      tag: 3.3.1@sha256:e107bd1526ce55471cfa19756f6fb1bdd3f40963dedc6f627cbe1a904e353b53
+
+    TZ: Europe/Amsterdam
+
+    securityContext:
+      container:
+        readOnlyRootFilesystem: false
+        runAsGroup: 0
+        runAsUser: 0
+
+    service:
+      main:
+        ports:
+          main:
+            port: 8080
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: statsmc.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    mcstats:
+      utopia:
+        server:
+          sources:
+            - path: /data/utopia
+              worldName: Utopia
+        data:
+          documentRoot: /config/utopia/public
+          eventsDir: /config/utopia/events
+          statsDir: /config/utopia/stats
+        crown:
+          silver: 2
+          gold: 4
+          bronze: 1
+        client:
+          defaultLanguage: en
+          playersPerPage: 100
+          playerCacheUUIDPrefix: 2
+          serverName: null
+          showLastOnline: true
+        players:
+          inactiveDays: 7
+          updateInactive: false
+          profileUpdateInterval: 3
+          minPlaytime: 60
+          excludeBanned: true
+          excludeOps: false
+          excludeUUIDs: []
+    workload:
+      main:
+        podSpec:
+          initContainers:
+            update-config:
+              enabled: true
+              type: init
+              imageSelector: "image"
+              command:
+                - /bin/sh
+                - -c
+              args:
+                - |
+                  set -e
+                  {{- range $name, $cfg := $.Values.mcstats }}
+                  
+                  # Create instance dirs
+                  mkdir -p /config/{{ $name }}/
+                  
+                  # Write config.json
+                  cat <<EOF > /config/{{ $name }}/config.json
+                  {{ $cfg | toJson }}
+                  EOF
+                  echo "Created /config/{{ $name }}/config.json"
+                  {{- end }}
+          containers:
+            main:
+              env:
+                PORT: "{{ .Values.service.main.ports.main.port }}"
+                INSTANCES: '{{ keys .Values.mcstats | sortAlpha | join "," }}'
+                INTERVAL_SECONDS: 300
+                
+    persistence:
+      config:
+        enabled: true
+        targetSelector:
+          main:
+            main:
+              mountPath: /config
+            update-config:
+              mountPath: /config
+
+      mc-java-data:
+        enabled: true
+        type: nfs
+        path: /mnt/SSD_Cluster/app_minecraft_data
+        server: 192.168.1.50
+        mountPath: /data/utopia
+        readOnly: true
