@@ -52,13 +52,19 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: internal
+        ingressClassName: external
         hosts:
-          - host: statsmc.${BASE_DOMAIN}
+          - host: mcstats.${DOMAIN}
         integrations:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "auth.${DOMAIN}"
 
     mcstats:
       utopia:
@@ -71,8 +77,8 @@ spec:
           eventsDir: /config/utopia/events
           statsDir: /config/utopia/stats
         crown:
+          gold: 4
           silver: 2
-          gold: 10
           bronze: 1
         client:
           defaultLanguage: en
@@ -81,7 +87,7 @@ spec:
           serverName: null
           showLastOnline: true
         players:
-          inactiveDays: 7
+          inactiveDays: 365
           updateInactive: false
           profileUpdateInterval: 3
           minPlaytime: 60

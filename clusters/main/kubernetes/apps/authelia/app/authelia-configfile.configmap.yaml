@@ -42,6 +42,7 @@ data:
         - domain:
             - "bluemap.${DOMAIN}"
             - "dynmap.${DOMAIN}"
+            - "mcstats.${DOMAIN}"
           policy: one_factor
           subject: "group:minecraft"
         - domain:
