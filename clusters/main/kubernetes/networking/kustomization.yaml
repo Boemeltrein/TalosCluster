@@ -5,3 +5,4 @@ resources:
   - nginx-external/ks.yaml
   - cloudflared/ks.yaml
   - cloudflareddns/ks.yaml
+  - envoy-gateway/ks.yaml
