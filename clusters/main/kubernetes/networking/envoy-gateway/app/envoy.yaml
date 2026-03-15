@@ -4,6 +4,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: EnvoyProxy
 metadata:
   name: envoy
+  namespace: envoy-gateway
 spec:
   logging:
     level:
@@ -36,6 +37,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: GatewayClass
 metadata:
   name: envoy
+  namespace: envoy-gateway
 spec:
   controllerName: gateway.envoyproxy.io/gatewayclass-controller
   parametersRef:
@@ -49,6 +51,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-external
+  namespace: envoy-gateway
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -78,6 +81,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: envoy-internal
+  namespace: envoy-gateway
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -107,6 +111,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: BackendTrafficPolicy
 metadata:
   name: envoy
+  namespace: envoy-gateway
 spec:
   compressor:
     - type: Zstd
@@ -133,6 +138,7 @@ apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: ClientTrafficPolicy
 metadata:
   name: envoy
+  namespace: envoy-gateway
 spec:
   clientIPDetection:
     xForwardedFor:
@@ -157,13 +163,14 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
   name: https-redirect
+  namespace: envoy-gateway
 spec:
   parentRefs:
     - name: envoy-external
-      namespace: network
+      namespace: envoy-gateway
       sectionName: http
     - name: envoy-internal
-      namespace: network
+      namespace: envoy-gateway
       sectionName: http
   rules:
     - filters:
