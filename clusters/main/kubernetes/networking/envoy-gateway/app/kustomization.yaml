@@ -5,4 +5,4 @@ components:
 resources:
   - namespace.yaml
   - helm-release.yaml
-  # - envoy.yaml
+  - envoy.yaml
