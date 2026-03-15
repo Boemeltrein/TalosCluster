@@ -5,4 +5,5 @@ kind: Kustomization
 resources:
   - flux-manifests.yaml
   - capacitor-manifests.yaml
+  - envoy-gateway.yaml
   - tuppr.yaml
