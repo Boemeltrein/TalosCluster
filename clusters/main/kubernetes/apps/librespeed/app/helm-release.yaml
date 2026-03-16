@@ -51,8 +51,10 @@ spec:
         # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
         kind: HTTPRoute
         # -- Provide additional annotations which may be required.
-        annotations: {}
+        annotations:
         # -- Provide additional labels which may be required.
+        # Instruct cert-manager to issue a certificate for this route
+          cert-manager.io/cluster-issuer: cloudflare
         labels: {}
         # -- Configure the resource the route attaches to.
         parentRefs:
