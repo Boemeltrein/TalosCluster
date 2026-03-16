@@ -55,6 +55,7 @@ spec:
         # -- Provide additional labels which may be required.
         # Instruct cert-manager to issue a certificate for this route
           cert-manager.io/cluster-issuer: cloudflare
+          cert-manager.io/private-key-rotation-policy: Always
         labels: {}
         # -- Configure the resource the route attaches to.
         parentRefs:
