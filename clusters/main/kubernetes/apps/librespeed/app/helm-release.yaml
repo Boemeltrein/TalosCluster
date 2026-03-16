@@ -62,7 +62,8 @@ spec:
             namespace: envoy-gateway
             sectionName: https
         # -- Host addresses
-        hostnames: libretest.${BASE_DOMAIN}
+        hostnames: 
+          - libretest.${BASE_DOMAIN}
         # -- Configure rules for routing. Defaults to the primary service.
         rules:
           - backendRefs:
