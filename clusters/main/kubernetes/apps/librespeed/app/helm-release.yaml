@@ -51,11 +51,11 @@ spec:
         # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
         kind: HTTPRoute
         # -- Provide additional annotations which may be required.
-        annotations:
-        # -- Provide additional labels which may be required.
-        # Instruct cert-manager to issue a certificate for this route
-          cert-manager.io/cluster-issuer: cloudflare
-          cert-manager.io/private-key-rotation-policy: Always
+        annotations: {}
+          ## Dit gaat dus niet, kan enkel op de gateway. Moet ook worden geactiveerd in Certmanager zelf.
+          ## https://cert-manager.io/docs/usage/gateway/
+          # cert-manager.io/cluster-issuer: cloudflare
+          # cert-manager.io/private-key-rotation-policy: Always
         labels: {}
         # -- Configure the resource the route attaches to.
         parentRefs:
@@ -66,7 +66,7 @@ spec:
             sectionName: https
         # -- Host addresses
         hostnames: 
-          - libretest.${BASE_DOMAIN}
+          - libretest.${DOMAIN}
         # -- Configure rules for routing. Defaults to the primary service.
         rules:
           - backendRefs:
