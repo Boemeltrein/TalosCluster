@@ -206,3 +206,17 @@ spec:
             verbs:
               - watch
               - list
+          - apiGroups:
+              - externaldns.k8s.io
+            resources:
+              - dnsendpoints
+            verbs:
+              - get
+              - watch
+              - list
+          - apiGroups:
+              - externaldns.k8s.io
+            resources:
+                - dnsendpoints/status
+            verbs:
+                - "*"              
