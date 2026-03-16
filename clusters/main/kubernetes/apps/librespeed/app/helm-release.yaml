@@ -32,16 +32,51 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: librespeed.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
+    route:
       main:
+        # -- Enables or disables the route
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: librespeed.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        # -- Set the route kind
+        # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
+        kind: HTTPRoute
+        # -- Provide additional annotations which may be required.
+        annotations: {}
+        # -- Provide additional labels which may be required.
+        labels: {}
+        # -- Configure the resource the route attaches to.
+        parentRefs:
+          - group: gateway.networking.k8s.io
+            kind: Gateway
+            name: envoy-internal
+            namespace: envoy-gateway
+            sectionName: https
+        # -- Host addresses
+        hostnames: libretest.${BASE_DOMAIN}
+        # -- Configure rules for routing. Defaults to the primary service.
+        rules:
+          - backendRefs:
+              - group: ""
+                kind: Service
+                name:
+                namespace:
+                port:
+                weight: 1
+            ## Configure conditions used for matching incoming requests. Only for HTTPRoutes
+            matches:
+              - path:
+                  type: PathPrefix
+                  value: /
 
     resources:
       requests:
