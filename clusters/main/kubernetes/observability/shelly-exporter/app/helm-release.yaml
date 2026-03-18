@@ -48,8 +48,8 @@ spec:
             group: services
             interval: 60s
             ui:
-              hide-url: false
-              hide-hostname: false
+              hide-url: true
+              hide-hostname: true
             conditions:
               - "[CONNECTED] == true"
               - "[RESPONSE_TIME] < 100"
