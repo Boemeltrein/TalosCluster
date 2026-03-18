@@ -47,6 +47,7 @@ data:
           subject: "group:minecraft"
         - domain:
             - "status.${DOMAIN}"
+            - "libretest.${DOMAIN}"
           policy: one_factor
           subject: "group:apps"
     identity_providers:
