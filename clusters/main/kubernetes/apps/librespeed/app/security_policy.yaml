@@ -1,0 +1,30 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: 'librespeed-extauthz-by-route'
+  namespace: 'librespeed'
+spec:
+  targetRefs:
+    - group: 'gateway.networking.k8s.io'
+      kind: 'HTTPRoute'
+      name: 'librespeed'
+  extAuth:
+    headersToExtAuth:
+      - 'accept'
+      - 'cookie'
+      - 'authorization'
+      - 'proxy-authorization'
+      - 'x-forwarded-proto'
+    failOpen: false
+    http:
+      backendRefs:
+        - name: 'authelia'
+          namespace: 'authelia'
+          port: 9091
+      path: '/api/authz/ext-authz/'
+      headersToBackend:
+        - Remote-User
+        - Remote-Groups
+        - Remote-Name
+        - Remote-Email
