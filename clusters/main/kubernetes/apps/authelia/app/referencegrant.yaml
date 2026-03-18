@@ -9,7 +9,6 @@ spec:
     - group: 'gateway.envoyproxy.io'
       kind: 'SecurityPolicy'
       namespace: 'librespeed'
-      name: 'authelia-extauthz-by-gateway'
   to:
     - group: ''
       kind: 'Service'
