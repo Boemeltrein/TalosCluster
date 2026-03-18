@@ -8,7 +8,7 @@ spec:
   from:
     - group: 'gateway.envoyproxy.io'
       kind: 'SecurityPolicy'
-      # namespace: 'librespeed'
+      namespace: 'librespeed'
   to:
     - group: ''
       kind: 'Service'
