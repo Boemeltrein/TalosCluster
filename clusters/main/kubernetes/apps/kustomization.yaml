@@ -25,5 +25,5 @@ resources:
   - hermitcraft-java/ks.yaml
   - immich/ks.yaml
   - it-tools/ks.yaml
-  - actions-runner-system
+  # - actions-runner-system
   - minecraft-stats/ks.yaml
