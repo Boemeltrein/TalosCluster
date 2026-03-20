@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: metube
-      version: 17.6.10
+      version: 18.0.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
