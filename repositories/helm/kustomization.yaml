@@ -20,4 +20,4 @@ resources:
   - spegel.yaml
   - truecharts.yaml
   - testvarrepo.yaml
-  
+  - testvarrepo/ks.yaml
