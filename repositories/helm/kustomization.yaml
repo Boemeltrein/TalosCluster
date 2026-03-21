@@ -19,3 +19,5 @@ resources:
   - renovate-operator.yaml
   - spegel.yaml
   - truecharts.yaml
+  - testvarrepo.yaml
+  
