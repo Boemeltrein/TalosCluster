@@ -8,4 +8,4 @@ metadata:
 spec:
   type: oci
   interval: 12h
-  url: oci://ghcr.io/$(TEST_VAR)/charts
+  url: oci://ghcr.io/${TEST_VAR}/charts
