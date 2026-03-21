@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: repositories/helm/testvarrepo/repo/testvarrepo2.yaml
+  path: repositories/helm/testvarrepo/repo
   prune: true
   sourceRef:
     kind: GitRepository
