@@ -107,6 +107,7 @@ RENOVATE_APP_KEY: ENC[AES256_GCM,data:w9L/kZ8Y4w7qPaXvzsPiPMhsdMVjfE8kd97oDNCS//
 RENOVATE_WEBHOOK_SECRET: ENC[AES256_GCM,data:IQj3U3OAsT7U/vrikkz9sq3v4Y5BuzZcUjFeEVAIxEA=,iv:Le25Hu3Kg0OZ141WuFJHZcHGAuB/SQgWrNbjozvCqlQ=,tag:V9WAcOp7PdoinqWZsVgLUg==,type:str]
 ENVOY_INTERNAL_IP: ENC[AES256_GCM,data:AKFcrPyUXP0CtW3x9w==,iv:L8bb6DNQPKOZPtBXIbInnoBuhzxo3Jqrj4DHCNXZOaI=,tag:FWc1v+dC02nmtdWIOM01qg==,type:str]
 ENVOY_EXTERNAL_IP: ENC[AES256_GCM,data:PK9uHV2GCZDla0Ligw==,iv:G5SMluT2LclBKIJyPurb8qKg5Bdpv5ZuMdf6IOuB3wo=,tag:n2S+OeMtIssRy5BiazsATQ==,type:str]
+TEST_VAR: ENC[AES256_GCM,data:0Wd3tKaEDgj9SNritw==,iv:TjgwRUaNzy74UGvbFkYpfHPlqSy9yvTlscI7ZJetfRg=,tag:9xngwK1yB7XOUfkhOovDiQ==,type:str]
 sops:
     shamir_threshold: 3
     age:
@@ -119,6 +120,7 @@ sops:
             ejBqTVVrTUVuWDhDbFZrM05MWHdrcVUKgT5ZMUuCwWp965/pJmXHPLg4BqyeH/bm
             azj/Kw0ZxSZqPVhutg0nbL1SFx+SfFucyENLdYhZszkkTs7ZSKfmow==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2026-03-18T20:42:38Z"
-    mac: ENC[AES256_GCM,data:QP4bia+rAr2WlLKpY9W+OSOgc/QgjKiHnB3o1gS0Edo6322VQKWdLUCBQ+jA6SujL8e3kjsVsHfrPbbFEvwuIrggbeHBfc7vQGPTK/0rZsu3ge0LCTbYWa+i5yItNoPM7pIOOWWGbiHE/sIVPfR8JHV4MBIMzGwvEK1+2BccMQg=,iv:aAyy18Pri6l4+tTuTbPtFaO3r955BJu7OZbroAEkY2o=,tag:H7AXG8LOYFZPsaof1jr0tA==,type:str]
+    lastmodified: "2026-03-21T16:50:02Z"
+    mac: ENC[AES256_GCM,data:CLR3DS+IpYMmAEZO6Cqif0FDVq6yOBL61R5imIY06B7VMCyQMrwZ7Xe/0jX86Y/kTW3Cd54CkEK8wmlMU54oKtf4l+MMQ9boVZ6CQItJSClhikcI1ad/8YdySLJOSUgeYWS1eCkTCzVby0YDoRvxHzN17sINpACGt8IfxoAO8uo=,iv:nd5Revd9m0JFu7ZLXfpG3U0OarH0GXAmyEfhPk9rWdk=,tag:DFMfQaLeEk5ihGipVQqDkQ==,type:str]
+    unencrypted_suffix: _unencrypted
     version: 3.11.0
