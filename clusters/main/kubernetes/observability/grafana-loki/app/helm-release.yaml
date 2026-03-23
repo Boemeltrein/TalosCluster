@@ -65,6 +65,7 @@ spec:
         # storageClass: longhorn
         size: 100Gi
     gateway:
+      enabled: false
       replicas: 0
     backend:
       replicas: 0
