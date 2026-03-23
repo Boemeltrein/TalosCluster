@@ -87,11 +87,11 @@ spec:
 #      rules:
 #        searchNamespace: ALL
 
-    ruler:
-      # -- The ruler component is optional and can be disabled if desired.
-      enabled: true
-      # -- Whether to enable the rules sidecar
-      sidecar: false
+    # ruler:
+    #   # -- The ruler component is optional and can be disabled if desired.
+    #   enabled: true
+    #   # -- Whether to enable the rules sidecar
+    #   sidecar: false
 
     sidecar:
       image:
