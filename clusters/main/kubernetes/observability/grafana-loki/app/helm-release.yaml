@@ -91,4 +91,20 @@ spec:
       # -- The ruler component is optional and can be disabled if desired.
       enabled: true
       # -- Whether to enable the rules sidecar
-      sidecar: true
+      sidecar: false
+
+    sidecar:
+      image:
+        registry: docker.io
+        # -- The Docker registry and image for the k8s sidecar
+        repository: kiwigrid/k8s-sidecar
+        # -- Docker image tag
+        tag: 2.5.0
+        # -- Docker image sha. If empty, no sha will be used
+        sha: ""
+        # -- Docker image pull policy
+        pullPolicy: IfNotPresent
+      # -- Resource requests and limits for the sidecar
+      rules:
+        # -- Whether or not to create a sidecar to ingest rule from specific ConfigMaps and/or Secrets.
+        enabled: false
