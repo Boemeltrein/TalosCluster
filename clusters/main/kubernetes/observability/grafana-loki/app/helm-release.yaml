@@ -81,8 +81,9 @@ spec:
       enabled: false
     test:
       enabled: false
-#    sidecar:
-#      image:
-#        repository: ghcr.io/kiwigrid/k8s-sidecar
-#      rules:
-#        searchNamespace: ALL
+    sidecar:
+      image:
+        registry: ghcr.io
+        repository: kiwigrid/k8s-sidecar
+      rules:
+        searchNamespace: ALL
