@@ -9,6 +9,7 @@ resources:
   - cilium.yaml
   - cloudnative-pg.yaml
   - grafana.yaml
+  - grafana-community.yaml
   - home-ops-mirror.yaml
   - jetstack.yaml
   - kustomization.yaml
