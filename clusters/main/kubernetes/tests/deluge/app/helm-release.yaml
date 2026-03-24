@@ -41,3 +41,58 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare-staging
+
+    image:
+      repository: ghcr.io/trueforge-org/deluge
+      pullPolicy: IfNotPresent
+      tag: 2.2.0@sha256:87d9a1cec0d5b5acebd0c8fe8108de07b7e9d1682a4b2b1312dc7760b0ccc3e2
+    securityContext:
+      container:
+        runAsNonRoot: false
+        readOnlyRootFilesystem: false
+        runAsUser: 0
+        runAsGroup: 0
+    service:
+      main:
+        ports:
+          main:
+            port: 8112
+            targetPort: 8112
+      rpc:
+        enabled: true
+        ports:
+          rpc:
+            enabled: true
+            port: 58846
+            targetPort: 58846
+      torrent:
+        enabled: true
+        ports:
+          tcp:
+            enabled: true
+            port: 6881
+            targetPort: 6881
+          udp:
+            enabled: true
+            port: "{{ .Values.service.torrent.ports.tcp.port }}"
+            targetPort: "{{ .Values.service.torrent.ports.tcp.targetPort }}"
+            protocol: udp
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              probes:
+                liveness:
+                  type: http
+                  path: /
+                readiness:
+                  type: http
+                  path: /
+                startup:
+                  type: http
+                  path: /
+    persistence:
+      config:
+        enabled: true
+        mountPath: /config
