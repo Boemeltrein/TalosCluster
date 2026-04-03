@@ -43,8 +43,8 @@ spec:
 
     securityContext:
       container:
-        readOnlyRootFilesystem: false
-        runAsNonRoot: false
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
         runAsUser: 568
         runAsGroup: 568
 
