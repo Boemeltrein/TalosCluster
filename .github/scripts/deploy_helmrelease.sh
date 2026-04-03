@@ -245,6 +245,7 @@ install_certmanager=false
 install_prometheus=false
 install_metallb=false
 install_arc=false
+install_gateway=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 # grep -q "volsync.backube" "$RENDERED" && install_volsync=true
@@ -253,6 +254,7 @@ grep -q "cert-manager.io" "$RENDERED" && [[ "$CHART_NAME" != "cert-manager" ]] &
 grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 grep -q "metallb.io" "$RENDERED" && install_metallb=true
 # grep -q "actions.github.com" "$RENDERED" && install_arc=true
+grep -q "gateway.networking.k8s.io" "$RENDERED" && install_gateway=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -262,6 +264,7 @@ echo "     CertManager: $install_certmanager"
 echo "     Prometheus:  $install_prometheus"
 echo "     MetalLB:     $install_metallb"
 # echo "     GitHub ARC:  $install_arc"
+echo "     Gateway API: $install_gateway"
 
 # --------------------------------------------------
 # Install dependencies
@@ -353,6 +356,21 @@ if $install_arc; then
 
   echo "🏃 Done installing GitHub ARC"
   echo "::endgroup::" 
+fi
+
+if $install_gateway; then
+  echo "::group::🌉 Installing Gateway API CRDs..."
+
+  kubectl apply -f https://github.com/kubernetes-sigs/gateway-api/releases/latest/download/standard-install.yaml
+  kubectl wait --for=condition=Established crd/httproutes.gateway.networking.k8s.io --timeout=120s
+
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install Gateway API"
+      exit 1
+  fi
+
+  echo "🌉 Done installing Gateway API"
+  echo "::endgroup::"
 fi
 
 # --------------------------------------------------
