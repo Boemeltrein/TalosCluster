@@ -41,6 +41,14 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                HASHEOUS_API_ENABLED: true
+
     ingress:
       main:
         enabled: true
