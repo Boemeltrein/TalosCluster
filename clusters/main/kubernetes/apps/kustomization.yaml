@@ -27,4 +27,4 @@ resources:
   - it-tools/ks.yaml
   - actions-runner-system
   - minecraft-stats/ks.yaml
-  - romm/ks.yaml
+  # - romm/ks.yaml
