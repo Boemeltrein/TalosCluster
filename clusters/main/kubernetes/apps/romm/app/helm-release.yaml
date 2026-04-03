@@ -41,6 +41,13 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
 
+    securityContext:
+      container:
+        readOnlyRootFilesystem: false
+        runAsNonRoot: false
+        runAsUser: 568
+        runAsGroup: 568
+
     workload:
       main:
         podSpec:
