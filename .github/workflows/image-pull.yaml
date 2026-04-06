@@ -73,7 +73,7 @@ jobs:
       #       --output-file images.json
 
       - name: Gather Images
-        uses: docker://ghcr.io/allenporter/flux-local:v8.1.0
+        uses: docker://ghcr.io/allenporter/flux-local:v8.2.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
