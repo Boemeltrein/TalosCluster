@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 9.5.13
+      version: 11.0.3
       sourceRef:
         kind: HelmRepository
         name: grafana-community
