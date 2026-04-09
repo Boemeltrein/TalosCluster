@@ -51,6 +51,9 @@ spec:
       main:
         enabled: true
         ingressClassName: external
+        annotations:
+          gatus.home-operations.com/endpoint: |-
+            conditions: ["[STATUS] == 404"]
         hosts:
           - host: renovate.${DOMAIN}
         integrations:
