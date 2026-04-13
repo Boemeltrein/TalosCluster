@@ -229,4 +229,4 @@ spec:
           marketplace:
             # renovate: depName="Node Exporter Full"
             id: 1860
-            revision: 44
+            revision: 45
