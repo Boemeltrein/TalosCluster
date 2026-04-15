@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 11.7.0
+      version: 12.0.0
       sourceRef:
         kind: HelmRepository
         name: grafana-community
@@ -30,7 +30,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    deploymentMode: SingleBinary
+    deploymentMode: Monolithic
     loki:
       auth_enabled: false
       analytics:
