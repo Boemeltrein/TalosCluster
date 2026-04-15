@@ -30,7 +30,7 @@ spec:
   uninstall:
     keepHistory: false
   values:
-    deploymentMode: SingleBinary
+    deploymentMode: Monolithic
     loki:
       auth_enabled: false
       analytics:
