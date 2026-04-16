@@ -6,3 +6,4 @@ resources:
   #- authentik/ks.yaml
   #- tandoor/ks.yaml
   #- deluge/ks.yaml
+  # Wehbook test
