@@ -111,7 +111,7 @@ spec:
       annotations:
         cert-manager.io/cluster-issuer: cloudflare
         cert-manager.io/private-key-rotation-policy: Always
-      ingressClassName: external
+      ingressClassName: internal
       hosts:
         - host: headlamp.${BASE_DOMAIN}
           paths:
