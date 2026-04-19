@@ -68,10 +68,6 @@ spec:
             name: kubeconfig
             readOnly: false
   
-    podAnnotations:
-      reloader.stakater.com/auto: "true"
-    service:
-      port: 4466
     clusterRoleBinding:
       create: false
     serviceAccount:
@@ -118,7 +114,7 @@ spec:
                 service:
                   name: headlamp
                   port:
-                    number: 4466
+                    number: 80
       tls:
         - secretName: headlamp-tls-0
           hosts:
