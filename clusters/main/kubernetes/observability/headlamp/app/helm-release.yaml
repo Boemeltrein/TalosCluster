@@ -77,10 +77,9 @@ spec:
       - name: kubeconfig
         emptyDir: {}
     volumeMounts:
-      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/config
+      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
         name: kubeconfig
         readOnly: true
-        subPath: config
 
     config:
       watchPlugins: true
