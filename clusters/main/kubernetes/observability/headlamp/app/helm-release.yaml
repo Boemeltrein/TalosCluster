@@ -31,8 +31,6 @@ spec:
 
   values:
 
-    # fullnameOverride: headlamp
-
     initContainers:
       - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
         command:
@@ -68,11 +66,6 @@ spec:
             name: kubeconfig
             readOnly: false
   
-    # clusterRoleBinding:
-    #   create: false
-    # serviceAccount:
-    #   create: false
-    #   name: headlamp-admin
     volumes:
       - name: kubeconfig
         emptyDir: {}
