@@ -33,53 +33,53 @@ spec:
 
     fullnameOverride: headlamp
 
-    # initContainers:
-    #   - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
-    #     command:
-    #       - /bin/sh
-    #       - "-c"
-    #       - |
-    #         kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-    #         kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
-    #         kubectl config set-context main --cluster=main --user=main
-    #         kubectl config use-context main
-    #     env:
-    #       - name: KUBERNETES_SERVICE_HOST
-    #         valueFrom:
-    #           fieldRef:
-    #             fieldPath: status.hostIP
-    #       - name: KUBERNETES_SERVICE_PORT
-    #         value: "6443"
-    #       - name: KUBECONFIG
-    #         value: /home/headlamp/.config/Headlamp/kubeconfigs/config
-    #     image: alpine/kubectl:1.35.4
-    #     name: create-kubeconfig
-    #     securityContext:
-    #       capabilities:
-    #         drop:
-    #           - ALL
-    #       privileged: false
-    #       readOnlyRootFilesystem: true
-    #       runAsGroup: 101
-    #       runAsNonRoot: true
-    #       runAsUser: 100
-    #     volumeMounts:
-    #       - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
-    #         name: kubeconfig
-    #         readOnly: false
+    initContainers:
+      - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
+        command:
+          - /bin/sh
+          - "-c"
+          - |
+            kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+            kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
+            kubectl config set-context main --cluster=main --user=main
+            kubectl config use-context main
+        env:
+          - name: KUBERNETES_SERVICE_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+          - name: KUBERNETES_SERVICE_PORT
+            value: "6443"
+          - name: KUBECONFIG
+            value: /home/headlamp/.config/Headlamp/kubeconfigs/config
+        image: alpine/kubectl:1.35.4
+        name: create-kubeconfig
+        securityContext:
+          capabilities:
+            drop:
+              - ALL
+          privileged: false
+          readOnlyRootFilesystem: true
+          runAsGroup: 101
+          runAsNonRoot: true
+          runAsUser: 100
+        volumeMounts:
+          - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
+            name: kubeconfig
+            readOnly: false
   
     clusterRoleBinding:
       create: false
     serviceAccount:
       create: false
       name: headlamp-admin
-    # volumes:
-    #   - name: kubeconfig
-    #     emptyDir: {}
-    # volumeMounts:
-    #   - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/
-    #     name: kubeconfig
-    #     readOnly: true
+    volumes:
+      - name: kubeconfig
+        emptyDir: {}
+    volumeMounts:
+      - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs/
+        name: kubeconfig
+        readOnly: true
 
     config:
       watchPlugins: true
