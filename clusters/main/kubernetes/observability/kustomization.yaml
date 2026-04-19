@@ -10,4 +10,4 @@ resources:
   - gatus/ks.yaml
   - unpoller/ks.yaml
   - shelly-exporter/ks.yaml
-  - headlamp/ks.yaml
+  # - headlamp/ks.yaml
