@@ -32,6 +32,7 @@ spec:
   values:
 
     fullnameOverride: headlamp
+
     initContainers:
       - # Generate kubeconfig file. Can be removed when https://github.com/kubernetes-sigs/headlamp/issues/1826 is resolved
         command:
@@ -39,7 +40,7 @@ spec:
           - "-c"
           - |
             kubectl config set-cluster main --server=https://kubernetes.default.svc --certificate-authority=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt
-            kubectl config set-credentials main --token=$(cat /tmp/sa-token/token)
+            kubectl config set-credentials main --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token)
             kubectl config set-context main --cluster=main --user=main
             kubectl config use-context main
         env:
@@ -59,15 +60,14 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-          runAsGroup: 1001
+          runAsGroup: 101
           runAsNonRoot: true
           runAsUser: 100
         volumeMounts:
           - mountPath: /home/headlamp/.config/Headlamp/kubeconfigs
             name: kubeconfig
-          - mountPath: /tmp/sa-token
-            name: sa-token
-            readOnly: true
+            readOnly: false
+
       - # Install Flux plugin
         image: ghcr.io/headlamp-k8s/headlamp-plugin-flux:v0.6.0@sha256:055377b9011dcc73235e8969c488ecd92af5cb70aa5d5df0f66c1cea667fdccb
         command:
@@ -78,14 +78,15 @@ spec:
         volumeMounts:
           - mountPath: /build/plugins
             name: headlamp-plugins
-    clusterRoleBinding:
-      create: false
+    
     config:
       pluginsDir: /build/plugins
     podAnnotations:
       reloader.stakater.com/auto: "true"
     service:
       port: 4466
+    clusterRoleBinding:
+      create: false
     serviceAccount:
       create: false
       name: headlamp-admin
@@ -94,10 +95,6 @@ spec:
         emptyDir: {}
       - name: kubeconfig
         emptyDir: {}
-      - name: sa-token
-        secret:
-          defaultMode: 420
-          secretName: headlamp-admin
     volumeMounts:
       - mountPath: /build/plugins
         name: headlamp-plugins
