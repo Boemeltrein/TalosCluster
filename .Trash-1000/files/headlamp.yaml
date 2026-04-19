@@ -1,4 +1,0 @@
-clusterRoleBinding:
-  create: true
-serviceAccount:
-  create: true
