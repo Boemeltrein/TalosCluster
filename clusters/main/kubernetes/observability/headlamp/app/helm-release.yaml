@@ -98,7 +98,7 @@ spec:
           - name: ai-assistant
             source: https://artifacthub.io/packages/headlamp/headlamp-plugins/headlamp_ai_assistant
             # renovate: datasource=docker depName=ghcr.io/headlamp-k8s/headlamp-plugin-ai-assistant
-            version: 0.1.0-alpha
+            version: 0.2.0-alpha
 
     ingress:
       enabled: true
