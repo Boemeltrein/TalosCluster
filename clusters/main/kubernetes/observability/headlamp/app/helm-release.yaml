@@ -68,11 +68,11 @@ spec:
             name: kubeconfig
             readOnly: false
   
-    clusterRoleBinding:
-      create: false
-    serviceAccount:
-      create: false
-      name: headlamp-admin
+    # clusterRoleBinding:
+    #   create: false
+    # serviceAccount:
+    #   create: false
+    #   name: headlamp-admin
     volumes:
       - name: kubeconfig
         emptyDir: {}
