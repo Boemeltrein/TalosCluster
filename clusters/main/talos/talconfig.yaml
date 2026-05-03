@@ -40,6 +40,8 @@ nodes:
               gateway: ${GATEWAY}
           vip:
             ip: ${VIP}
+      patches:
+        - '@./patches/garbagecollection.yaml'            
 controlPlane:
     patches:
         - '@./patches/controlplane.yaml'
