@@ -5,6 +5,11 @@ age.agekey
 *forgetool.exe
 forgetool.exe
 forgetool
+^clustertool.exe
+^clustertool*
+^clustertool
+*clustertool.exe
+clustertool.exe
 clustertool
 sopssecret.yaml
 sopssecret*
