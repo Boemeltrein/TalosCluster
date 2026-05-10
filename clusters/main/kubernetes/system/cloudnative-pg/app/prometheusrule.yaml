@@ -84,7 +84,7 @@ spec:
                   pod=~".*-[0-9]+$"
                 } > 0
               )
-            ) / 3600 > 6
+            ) / 3600 > 32
           for: 10m
           labels:
             severity: warning            
