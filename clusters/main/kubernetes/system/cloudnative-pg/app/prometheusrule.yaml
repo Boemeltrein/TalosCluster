@@ -4,10 +4,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: cloudnative-pg-rules
-  namespace: default
-  labels:
-    prometheus: k8s
-    role: alert-rules
+  namespace: cloudnative-pg
 spec:
   groups:
     - name: cloudnative-pg.rules
