@@ -78,11 +78,13 @@ spec:
               Last available backup for the CNPG cluster in {{ $labels.namespace }} is older than 2 hours: {{ $value }} hours
             summary: The last available CNPG backup is older than 2 hours.
           expr: |
-            time() - max by (namespace) (
-              cnpg_collector_last_available_backup_timestamp{
-                pod=~".*-[0-9]+$"
-              } > 0
-            ) /3600 > 2
+            (
+              time() - max by (namespace) (
+                cnpg_collector_last_available_backup_timestamp{
+                  pod=~".*-[0-9]+$"
+                } > 0
+              )
+            ) / 3600 > 2
           for: 10m
           labels:
             severity: warning            
