@@ -142,6 +142,8 @@ spec:
       main:
         cluster:
           singleNode: true
+        monitoring:
+          enablePodMonitor: true
 
     k8sgateway:
       # -- list of processed domains

@@ -79,7 +79,9 @@ spec:
       main:
         cluster:
           singleNode: true
-    
+        monitoring:
+          enablePodMonitor: true
+              
     configmap:
       datasource-loki:
         enabled: true

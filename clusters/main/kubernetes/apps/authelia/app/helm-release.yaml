@@ -98,7 +98,9 @@ spec:
         recovery:
           credentials: minio
           # revision: ""
-
+        monitoring:
+          enablePodMonitor: true
+  
     workload:
       main:
         replicas: 1

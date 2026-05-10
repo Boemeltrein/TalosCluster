@@ -74,6 +74,11 @@ spec:
       enableIngress: true
       autoIngress: true 
 
+    cnpg:
+      main:
+        monitoring:
+          enablePodMonitor: true
+
     configmap:
       config:
         enabled: true
