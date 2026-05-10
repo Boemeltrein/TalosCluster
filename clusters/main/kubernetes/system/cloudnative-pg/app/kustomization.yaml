@@ -5,3 +5,4 @@ components:
 resources:
   - helm-release.yaml  
   - namespace.yaml
+  - prometheusrule.yaml
