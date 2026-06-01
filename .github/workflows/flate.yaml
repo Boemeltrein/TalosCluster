@@ -50,7 +50,7 @@ jobs:
 
       - name: Run flate diff
         env:
-          FLATE_PATH: ./clusters/main/kubernetes
+          FLATE_PATH: ./
           KIND: ${{ matrix.kind }}
         run: |
           flate diff "$KIND" > "$KIND.diff"
