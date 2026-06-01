@@ -52,7 +52,7 @@ jobs:
 
       - name: Run flate diff
         env:
-          FLATE_PATH: ./
+          # FLATE_PATH: ./
           KIND: ${{ matrix.kind }}
         run: |
           flate diff "$KIND" > "$KIND.diff"
