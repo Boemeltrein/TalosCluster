@@ -52,7 +52,8 @@ jobs:
 
       - name: Run flate diff
         env:
-          # FLATE_PATH: ./
+          # FLATE_PATH: .
+          FLATE_OUTPUT: github
           FLATE_ALLOW_MISSING_SECRETS: true
           KIND: ${{ matrix.kind }}
         run: |
