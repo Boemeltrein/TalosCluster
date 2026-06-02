@@ -53,9 +53,10 @@ jobs:
       - name: Run flate diff
         env:
           # FLATE_PATH: ./
+          FLATE_ALLOW_MISSING_SECRETS: true
           KIND: ${{ matrix.kind }}
         run: |
-          flate diff "$KIND" --allow-missing-secrets > "$KIND.diff"
+          flate diff "$KIND" > "$KIND.diff"
           [ -s "$KIND.diff" ] || rm "$KIND.diff"
 
       - if: ${{ hashFiles(format('{0}.diff', matrix.kind)) != '' }}
