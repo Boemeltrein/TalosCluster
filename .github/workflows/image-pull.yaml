@@ -53,6 +53,8 @@ jobs:
           echo 'images<<EOF' >> $GITHUB_OUTPUT
           flate diff images -o json >> $GITHUB_OUTPUT
           echo 'EOF' >> $GITHUB_OUTPUT
+          echo "debug"
+          cat $GITHUB_OUTPUT
 
   pull:
     if: ${{ needs.extract.outputs.images != '[]' }}
