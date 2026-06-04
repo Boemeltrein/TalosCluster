@@ -81,7 +81,7 @@ spec:
 
         - id: truenas_version
           query: truenas_info
-          title: "%20"
+          title: " "
           icon: si:truenas          
           valueExpr: labels["version"]
           colorExpr: '"blue"'
