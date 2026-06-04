@@ -4,10 +4,10 @@
 
 *A self-hosted, GitOps-driven Kubernetes cluster built on Talos Linux, focused on reliability, observability, and clean automation.*
 
-[![TrueNAS](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftruenas_version&style=for-the-badge&logo=truenas&logoColor=white&label=%20&color=blue)](https://www.truenas.com/)&nbsp;&nbsp;
-[![Talos](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Ftalos_version&style=for-the-badge&logo=talos&logoColor=white&label=%20&color=blue)](https://www.talos.dev/)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fkubernetes_version&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20&color=blue)](https://www.kubernetes.io/)&nbsp;&nbsp;
-[![Flux](https://img.shields.io/endpoint?url=https%3A%2F%2Fkromgo.boemeltrein.nl%2Fflux_version&style=for-the-badge&logo=flux&logoColor=white&color=blue&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
+[![TrueNAS](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/truenas_version?format=shields&style=for-the-badge&logo=truenas&logoColor=white&label=%20)](https://www.truenas.com/)&nbsp;&nbsp;
+[![Talos](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/talos_version?format=shields&style=for-the-badge&logo=talos&logoColor=white&label=%20)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20](https://www.kubernetes.io/)&nbsp;&nbsp;
+[![Flux](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&abel=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
 [![Home-Internet](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.goeppel.dev%2Fapi%2Fv1%2Fendpoints%2Fbuddy_ping-(buddy)%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Status-Page](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.goeppel.dev%2Fapi%2Fv1%2Fendpoints%2Fbuddy_status-page-(buddy)%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
