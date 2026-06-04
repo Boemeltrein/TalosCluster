@@ -66,22 +66,25 @@ spec:
           title: Talos
           icon: si:talos
           valueExpr: labels["version_id"]
+          colorExpr: '"blue"'          
 
         - id: kubernetes_version
           query: label_replace(kubernetes_build_info{service="kubernetes"}, "git_version", "$1", "git_version", "v(.+)")
           title: Kubernetes
           icon: si:kubernetes
           valueExpr: labels["git_version"]
+          colorExpr: '"blue"'          
 
         - id: flux_version
           query: label_replace(gotk_resource_info{exported_namespace="flux-system",name="flux",customresource_kind="Kustomization"}, "revision", "$1", "revision", "v(.+)@sha256:.+")
           title: Flux
           icon: si:flux
           valueExpr: labels["revision"]
+          colorExpr: '"blue"'          
 
         - id: truenas_version
           query: truenas_info
-          title: " "
+          title: "Truenas"
           icon: si:truenas          
           valueExpr: labels["version"]
           colorExpr: '"blue"'
