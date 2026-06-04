@@ -12,4 +12,4 @@ spec:
     operation: copy
   url: oci://ghcr.io/home-operations/charts/tuppr
   ref:
-    tag: 0.1.40
+    tag: 0.2.0
