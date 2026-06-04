@@ -9,9 +9,9 @@
 [![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://www.kubernetes.io/)&nbsp;&nbsp;
 [![Flux](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
-[![Home-Internet](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.goeppel.dev%2Fapi%2Fv1%2Fendpoints%2Fbuddy_ping-(buddy)%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
-[![Status-Page](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.goeppel.dev%2Fapi%2Fv1%2Fendpoints%2Fbuddy_status-page-(buddy)%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
-[![Alertmanager](https://img.shields.io/endpoint?url=https%3A%2F%2Fstatus.goeppel.dev%2Fapi%2Fv1%2Fendpoints%2Fbuddy_heartbeat-(buddy)%2Fhealth%2Fbadge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)
+[![Home-Internet](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_ping-(buddy)/health/badge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
+[![Status-Page](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_status-page-(buddy)/health/badge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
+[![Alertmanager](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_heartbeat-(buddy)/health/badge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)
 
 
 [![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_age_days?format=shields&style=flat-square&label=Age)](https://github.com/kashalls/kromgo)&nbsp;&nbsp;
