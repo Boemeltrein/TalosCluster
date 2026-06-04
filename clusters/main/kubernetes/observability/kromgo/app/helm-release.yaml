@@ -84,7 +84,7 @@ spec:
           title: ""
           icon: si:truenas          
           valueExpr: labels["version"]
-          colorExpr: blue
+          colorExpr: '"blue"'
 
         - id: cluster_node_count
           query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
