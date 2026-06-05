@@ -94,7 +94,7 @@ spec:
               - name: Loki
                 type: loki
                 uid: loki
-                url: http://loki-headless.grafana-loki.svc.cluster.local:3100
+                url: http://grafana-loki-headless.grafana-loki.svc.cluster.local:3100
                 access: proxy
                 isDefault: false
                 jsonData:
