@@ -29,8 +29,8 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
-  values: {}
-    # serviceMonitor:
-    #   enabled: true
+  values:
+    serviceMonitor:
+      enabled: true
     # dashboard:
     #   enabled: true
