@@ -7,4 +7,4 @@ resources:
   - credentials.secret.yaml
   - grafanadatasource.yaml
   - grafanadashboard.yaml
-  # - servicemonitor.yaml
+  - servicemonitor.yaml
