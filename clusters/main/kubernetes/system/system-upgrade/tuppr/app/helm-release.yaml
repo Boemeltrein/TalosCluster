@@ -21,5 +21,6 @@ spec:
         enabled: true
         grafanaOperator:
           enabled: true
+          folder: "Tuppr"
           matchLabels:
             dashboards: grafana
