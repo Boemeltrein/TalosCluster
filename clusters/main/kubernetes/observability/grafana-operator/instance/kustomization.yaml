@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - grafana.yaml
   # - grafanadatasource.yaml
-  # - servicemonitor.yaml
+  # - servicemonitor.yaml  - credentials.secret.yaml
