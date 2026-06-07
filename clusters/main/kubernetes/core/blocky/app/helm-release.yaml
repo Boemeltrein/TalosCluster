@@ -137,6 +137,8 @@ spec:
     configmap:
       dashboard:
         enabled: false
+      datasource:
+        enabled: false
 
     cnpg:
       main:
