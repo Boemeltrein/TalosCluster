@@ -6,6 +6,7 @@ metadata:
   name: blocky-postgres
   namespace: blocky
 spec:
+  allowCrossNamespaceImport: true
   instanceSelector:
     matchLabels:
       dashboards: grafana
