@@ -28,7 +28,7 @@ spec:
       plugin_admin_enabled: "false"
     server:
       enable_gzip: "true"
-  disableDefaultAdminSecret: true
+  # disableDefaultAdminSecret: true
   disableDefaultSecurityContext: All    
   deployment:
     spec:
