@@ -12,8 +12,8 @@ spec:
       dashboards: grafana
   datasource:
     type: postgres
-    name: blocky-postgres
-    uid: blocky-postgres
+    name: BlockyPostgres
+    uid: blockypostgres
     url: blocky-cnpg-main-rw.blocky:5432
     access: proxy
     user: blocky
