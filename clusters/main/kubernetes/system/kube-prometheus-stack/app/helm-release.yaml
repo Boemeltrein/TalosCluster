@@ -67,12 +67,22 @@ spec:
                 requests:
                   storage: 1Gi        
 
+    # grafana:
+    #   enabled: false
+    #   forceDeployDatasources: true
+    #   forceDeployDashboards: true
+    #   defaultDashboardsEnabled: true
+    #   defaultDashboardsTimezone: Europe/Amsterdam
+
     grafana:
       enabled: false
-      forceDeployDatasources: true
       forceDeployDashboards: true
-      defaultDashboardsEnabled: true
       defaultDashboardsTimezone: Europe/Amsterdam
+      operator:
+        dashboardsConfigMapRefEnabled: true
+        folder: Observability
+        matchLabels:
+          dashboards: grafana
 
     kubeEtcd:
       service:
