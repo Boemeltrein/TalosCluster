@@ -6,4 +6,4 @@ resources:
   - grafana.yaml
   - credentials.secret.yaml
   - grafanadatasource.yaml
-  # - servicemonitor.yaml
+  - servicemonitor.yaml
