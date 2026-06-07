@@ -32,7 +32,7 @@ spec:
       dashboards: grafana
   datasources:
     - inputName: DS_BLOCKY-POSTGRESQL
-      datasourceName: blocky-postgres
+      datasourceName: blockytestsource
   grafanaCom:
     id: 17996
     revision: 15    
