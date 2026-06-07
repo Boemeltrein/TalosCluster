@@ -13,6 +13,7 @@ spec:
   datasource:
     type: postgres
     name: blocky-postgres
+    uid: blocky-postgres
     url: blocky-cnpg-main-rw.blocky:5432
     access: proxy
     user: blocky
