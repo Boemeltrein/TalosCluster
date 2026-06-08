@@ -11,5 +11,4 @@ resources:
   # - spegel/ks.yaml
   - system-upgrade
   - volsync/ks.yaml
-  - kube-prometheus-stack/ks.yaml
   - renovate/ks.yaml

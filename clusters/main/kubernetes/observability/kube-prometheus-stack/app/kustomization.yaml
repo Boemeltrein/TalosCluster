@@ -1,5 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+components:
+  - ../../../../components/notifications/discord
 resources:
   - namespace.yaml
   - alertmanagerconfig.yaml
@@ -8,5 +10,3 @@ resources:
   - scrapeconfig.yaml
   - promethuesrule.yaml
   - grafanadashboard.yaml
-components:
-  - ../../../../components/notifications/discord
