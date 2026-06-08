@@ -9,4 +9,5 @@ resources:
   - ./upgradesettings.yaml
   - ./namespace.yaml
   - ./podmonitor.yaml
+  - ./grafanadashboard.yaml
   # - sopssecret.secret.yaml
