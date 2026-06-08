@@ -21,6 +21,6 @@ spec:
         enabled: true
         grafanaOperator:
           enabled: true
-          folder: "Tuppr"
+          folder: "Kubernetes"
           matchLabels:
             dashboards: grafana
