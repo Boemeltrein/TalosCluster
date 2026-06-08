@@ -24,6 +24,8 @@ spec:
       enabled: "true"
     news:
       news_feed_enabled: "false"
+    panels:
+      disable_sanitize_html: "true"
     plugins:
       plugin_admin_enabled: "false"
     server:
