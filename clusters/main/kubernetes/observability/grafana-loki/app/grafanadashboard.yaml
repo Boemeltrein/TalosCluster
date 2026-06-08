@@ -3,8 +3,8 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: cloudnative-pg
-  namespace: cloudnative-pg
+  name: grafana-loki
+  namespace: grafana-loki
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:
