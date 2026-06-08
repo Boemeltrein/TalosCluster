@@ -14,3 +14,4 @@ spec:
     - inputName: DS_PROMETHEUS
       datasourceName: Prometheus
   url: https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/grafana/dashboards/nginx.json
+  folder: Networking

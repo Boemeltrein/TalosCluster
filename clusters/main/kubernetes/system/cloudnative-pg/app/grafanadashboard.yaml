@@ -16,3 +16,4 @@ spec:
   grafanaCom:
     id: 20417
     revision: 4
+  folder: Storage

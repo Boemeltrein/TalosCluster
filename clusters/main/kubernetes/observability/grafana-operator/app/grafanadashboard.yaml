@@ -16,4 +16,4 @@ spec:
   grafanaCom:
     id: 22785
     revision: 2
-  folder: Grafana
+  folder: Infrastructure

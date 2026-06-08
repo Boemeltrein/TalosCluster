@@ -80,7 +80,7 @@ spec:
       defaultDashboardsTimezone: Europe/Amsterdam
       operator:
         dashboardsConfigMapRefEnabled: true
-        folder: Observability
+        folder: "Kube Prometheus Stack" 
         matchLabels:
           dashboards: grafana
 
