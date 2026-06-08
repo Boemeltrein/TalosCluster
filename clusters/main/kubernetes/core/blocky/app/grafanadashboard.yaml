@@ -18,7 +18,7 @@ spec:
   grafanaCom:
     id: 13768
     revision: 7
-  folder: "🌐 Networking"
+  folder: "Networking 🌐"
 ---
 # yaml-language-server: $schema=https://k8s-schemas.home-operations.com/grafana.integreatly.org/grafanadashboard_v1beta1.json
 apiVersion: grafana.integreatly.org/v1beta1
@@ -37,4 +37,4 @@ spec:
   grafanaCom:
     id: 17996
     revision: 15
-  folder: "🌐 Networking"
+  folder: "Networking 🌐"
