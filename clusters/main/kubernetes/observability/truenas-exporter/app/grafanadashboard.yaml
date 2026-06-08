@@ -14,4 +14,4 @@ spec:
     - inputName: DS_PROMETHEUS
       datasourceName: Prometheus
   url: https://raw.githubusercontent.com/Supporterino/truenas-graphite-to-prometheus/refs/heads/main/dashboards/truenas_scale.json
-  folder: Storage
+  folder: "💾 Storage"

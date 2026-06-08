@@ -16,4 +16,4 @@ spec:
   grafanaCom:
     id: 23521
     revision: 2
-  folder: Storage    
+  folder: "💾 Storage"    

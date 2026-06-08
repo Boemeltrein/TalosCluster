@@ -16,4 +16,4 @@ spec:
   grafanaCom:
     id: 24838
     revision: 1
-  folder: Infrastructure
+  folder: "⚙️ Infrastructure"
