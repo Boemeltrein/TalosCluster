@@ -246,6 +246,7 @@ install_prometheus=false
 install_metallb=false
 install_arc=false
 install_gateway=false
+install_grafana=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 # grep -q "volsync.backube" "$RENDERED" && install_volsync=true
@@ -255,6 +256,7 @@ grep -q "monitoring.coreos.com" "$RENDERED" && install_prometheus=true
 grep -q "metallb.io" "$RENDERED" && install_metallb=true
 # grep -q "actions.github.com" "$RENDERED" && install_arc=true
 grep -q "gateway.networking.k8s.io" "$RENDERED" && install_gateway=true
+grep -q "grafana.integreatly.org" "$RENDERED" && install_grafana=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -265,6 +267,7 @@ echo "     Prometheus:  $install_prometheus"
 echo "     MetalLB:     $install_metallb"
 # echo "     GitHub ARC:  $install_arc"
 echo "     Gateway API: $install_gateway"
+echo "     Grafana:     $install_grafana"
 
 # --------------------------------------------------
 # Install dependencies
@@ -370,6 +373,35 @@ if $install_gateway; then
   fi
 
   echo "🌉 Done installing Gateway API"
+  echo "::endgroup::"
+fi
+
+if $install_grafana; then
+  echo "::group::📈 Installing Grafana Operator CRDs..."
+
+  kubectl apply -f \
+    https://raw.githubusercontent.com/grafana/grafana-operator/refs/heads/master/config/crd/bases/grafana.integreatly.org_grafanas.yaml
+
+  kubectl apply -f \
+    https://raw.githubusercontent.com/grafana/grafana-operator/refs/heads/master/config/crd/bases/grafana.integreatly.org_grafanadashboards.yaml
+
+  kubectl apply -f \
+    https://raw.githubusercontent.com/grafana/grafana-operator/refs/heads/master/config/crd/bases/grafana.integreatly.org_grafanadatasources.yaml
+
+  kubectl apply -f \
+    https://raw.githubusercontent.com/grafana/grafana-operator/refs/heads/master/config/crd/bases/grafana.integreatly.org_grafanafolders.yaml
+
+  kubectl wait \
+    --for=condition=Established \
+    crd/grafanas.grafana.integreatly.org \
+    --timeout=120s
+
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install Grafana CRDs"
+      exit 1
+  fi
+
+  echo "📈 Done installing Grafana Operator CRDs"
   echo "::endgroup::"
 fi
 
