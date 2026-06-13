@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  path: clusters/main/kubernetes/flux-sytem/konflate/app
+  path: clusters/main/kubernetes/flux-system/konflate/app
   prune: true
   sourceRef:
     kind: GitRepository
