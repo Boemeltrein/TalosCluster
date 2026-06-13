@@ -27,6 +27,6 @@ jobs:
 
           echo
           echo "== Versions =="
-          flux version
+          flux --version
           kubeconform -v
           kustomize version
