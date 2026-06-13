@@ -5,4 +5,4 @@ components:
 resources:
   - flux
   - webhooks
-  - konflate
+  - konflate/ks.yaml
