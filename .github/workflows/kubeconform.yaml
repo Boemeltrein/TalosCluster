@@ -40,10 +40,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@1141dcc5d01333e0891094766c3b2cf2ae3df7df # master
-      - name: Setup Workflow Tools
-        run: brew install fluxcd/tap/flux kubeconform kustomize
+      - name: Setup mise
+        uses: jdx/mise-action@dba19683ed58901619b14f395a24841710cb4925 # v4.1.0
       - name: Run kubeconform
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
