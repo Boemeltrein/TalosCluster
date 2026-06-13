@@ -1,0 +1,4 @@
+[tools]
+flux2 = "2.8.8"
+kubeconform = "0.8.0"
+kustomize = "5.8.1"

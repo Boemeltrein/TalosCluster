@@ -1,0 +1,32 @@
+---
+name: Mise Test
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup mise
+        uses: jdx/mise-action@v2
+
+      - name: Show installed tools
+        run: |
+          echo "== Installed binaries =="
+          which flux
+          which kubeconform
+          which kustomize
+
+          echo
+          echo "== Versions =="
+          flux version
+          kubeconform -v
+          kustomize version
