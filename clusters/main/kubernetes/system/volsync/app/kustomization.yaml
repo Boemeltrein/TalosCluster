@@ -7,3 +7,4 @@ resources:
   - helm-release.yaml
   - prometheusrule.yaml
   - grafanadashboard.yaml
+  - mutatingadmissionpolicy.yaml
