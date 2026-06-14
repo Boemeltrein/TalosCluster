@@ -34,12 +34,13 @@ spec:
       repo: github://Boemeltrein/TalosCluster
       closedPrMax: 0
       closedPrTtl: 720h      
-      # statusChecks: true
-      # prComments: true
+      statusChecks: true
+      prComments: true
       publicUrl: https://konflate.${DOMAIN}
-
-    # secret:
-    #   existingSecret: konflate-webhook-token-secret
+      appClientId: ${KONFLATE_APP_CLIENT_ID}
+    secret:
+      webhookSecret: ${KONFLATE_WEBHOOK_SECRET}
+      appPrivateKey: ${KONFLATE_APP_PRIVATE_KEY}
 
     ingress:
       enabled: true
