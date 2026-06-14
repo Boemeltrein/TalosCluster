@@ -167,7 +167,7 @@ jobs:
           version: v4.2.0
 
       - name: Create k3d cluster
-        uses: nolar/setup-k3d-k3s@v1.1.0
+        uses: nolar/setup-k3d-k3s@62c9d1bd2bc843275c85d2e7dcd696edc1160eee # v1.1.0
         with:
           version: v1.36.1+k3s1
           k3d-args: --k3s-arg --disable=metrics-server@server:*
