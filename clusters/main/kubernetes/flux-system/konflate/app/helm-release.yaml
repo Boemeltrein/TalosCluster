@@ -37,10 +37,8 @@ spec:
       statusChecks: true
       prComments: true
       publicUrl: https://konflate.${DOMAIN}
-      appClientId: ${KONFLATE_APP_CLIENT_ID}
     secret:
-      webhookSecret: ${KONFLATE_WEBHOOK_SECRET}
-      appPrivateKey: ${KONFLATE_APP_PRIVATE_KEY}
+      existingSecret: konflate-secret
 
     ingress:
       enabled: true
@@ -72,4 +70,3 @@ spec:
         cpu: 50m
       limits:
         memory: 1Gi
-        
