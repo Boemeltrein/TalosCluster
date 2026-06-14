@@ -72,3 +72,4 @@ spec:
         cpu: 50m
       limits:
         memory: 1Gi
+        
