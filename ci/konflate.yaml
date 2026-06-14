@@ -1,0 +1,5 @@
+config:  
+  statusChecks: false
+  prComments: false
+secret:
+  existingSecret: ""
