@@ -41,19 +41,13 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
 
-    securityContext:
-      container:
-        readOnlyRootFilesystem: false
-        runAsNonRoot: false
-        runAsUser: 568
-        runAsGroup: 568
-
     workload:
       main:
         podSpec:
           containers:
             main:
               env:
+                ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
                 HASHEOUS_API_ENABLED: true
 
     ingress:
