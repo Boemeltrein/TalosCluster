@@ -47,6 +47,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 1000
         runAsGroup: 1000
+      pod:
         fsGroup: 1000
 
     workload:
