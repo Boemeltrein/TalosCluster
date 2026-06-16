@@ -41,14 +41,14 @@ spec:
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
 
-    # securityContext:
-    #   container:
-    #     readOnlyRootFilesystem: true
-    #     runAsNonRoot: true
-    #     runAsUser: 1000
-    #     runAsGroup: 1000
-    #   pod:
-    #     fsGroup: 1000
+    securityContext:
+      container:
+        readOnlyRootFilesystem: true
+        runAsNonRoot: true
+        runAsUser: 568
+        runAsGroup: 568
+      pod:
+        fsGroup: 568
 
     workload:
       main:
@@ -71,33 +71,33 @@ spec:
             certificateIssuer: cloudflare
 
     persistence:
-      config:
-        volsync:
-          - name: config
-            type: restic
-            credentials: minio
-            dest: #VolSync Destination (Restore)
-              enabled: true
-            src: #VolSync Source (Backup)
-              enabled: true
-      assets:
-        volsync:
-          - name: assets
-            type: restic
-            credentials: minio
-            dest: #VolSync Destination (Restore)
-              enabled: true
-            src: #VolSync Source (Backup)
-              enabled: true
-      resources:
-        volsync:
-          - name: resources
-            type: restic
-            credentials: minio
-            dest: #VolSync Destination (Restore)
-              enabled: true
-            src: #VolSync Source (Backup)
-              enabled: true
+      # config:
+      #   volsync:
+      #     - name: config
+      #       type: restic
+      #       credentials: minio
+      #       dest: #VolSync Destination (Restore)
+      #         enabled: true
+      #       src: #VolSync Source (Backup)
+      #         enabled: true
+      # assets:
+      #   volsync:
+      #     - name: assets
+      #       type: restic
+      #       credentials: minio
+      #       dest: #VolSync Destination (Restore)
+      #         enabled: true
+      #       src: #VolSync Source (Backup)
+      #         enabled: true
+      # resources:
+      #   volsync:
+      #     - name: resources
+      #       type: restic
+      #       credentials: minio
+      #       dest: #VolSync Destination (Restore)
+      #         enabled: true
+      #       src: #VolSync Source (Backup)
+      #         enabled: true
       library:
         enabled: true
         type: nfs
@@ -118,13 +118,13 @@ spec:
         cluster:
           singleNode: true
         # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
-        backups:
-          enabled: true
-          credentials: minio
-          retentionPolicy: "14d"
-          # revision: "1"
-        recovery:
-          credentials: minio
-          # revision: "1"
-        monitoring:
-          enablePodMonitor: true
+        # backups:
+        #   enabled: true
+        #   credentials: minio
+        #   retentionPolicy: "14d"
+        #   # revision: "1"
+        # recovery:
+        #   credentials: minio
+        #   # revision: "1"
+        # monitoring:
+        #   enablePodMonitor: true
