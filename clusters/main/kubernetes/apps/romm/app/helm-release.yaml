@@ -107,7 +107,7 @@ spec:
       uploads:
         enabled: true
         type: emptyDir
-        mountPath: /romm/tmp/uploads
+        mountPath: /romm/tmp
       nginx-conf:
         enabled: true
         type: emptyDir        
