@@ -49,6 +49,7 @@ spec:
         runAsGroup: 568
       pod:
         fsGroup: 568
+        fsGroupChangePolicy: OnRootMismatch
 
     workload:
       main:
@@ -71,33 +72,33 @@ spec:
             certificateIssuer: cloudflare
 
     persistence:
-      # config:
-      #   volsync:
-      #     - name: config
-      #       type: restic
-      #       credentials: minio
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      # assets:
-      #   volsync:
-      #     - name: assets
-      #       type: restic
-      #       credentials: minio
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
-      # resources:
-      #   volsync:
-      #     - name: resources
-      #       type: restic
-      #       credentials: minio
-      #       dest: #VolSync Destination (Restore)
-      #         enabled: true
-      #       src: #VolSync Source (Backup)
-      #         enabled: true
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: minio
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+      assets:
+        volsync:
+          - name: assets
+            type: restic
+            credentials: minio
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+      resources:
+        volsync:
+          - name: resources
+            type: restic
+            credentials: minio
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
       library:
         enabled: true
         type: nfs
@@ -117,14 +118,14 @@ spec:
       main:
         cluster:
           singleNode: true
-        # mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
-        # backups:
-        #   enabled: true
-        #   credentials: minio
-        #   retentionPolicy: "14d"
-        #   # revision: "1"
-        # recovery:
-        #   credentials: minio
-        #   # revision: "1"
-        # monitoring:
-        #   enablePodMonitor: true
+        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: minio
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: minio
+          # revision: "1"
+        monitoring:
+          enablePodMonitor: true
