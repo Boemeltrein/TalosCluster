@@ -379,7 +379,7 @@ fi
 if $install_grafana; then
   echo "::group::📈 Installing Grafana Operator CRDs..."
 
-  helm show crds oci://ghcr.io/grafana/helm-charts/grafana-operator | kubectl apply -f -
+  kubectl apply -f https://github.com/grafana/grafana-operator/releases/latest/download/crds.yaml
 
   kubectl wait \
     --for=condition=Established \
