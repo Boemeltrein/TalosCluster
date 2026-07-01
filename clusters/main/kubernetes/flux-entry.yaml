@@ -35,8 +35,6 @@ spec:
             substituteFrom:
               - kind: ConfigMap
                 name: cluster-config
-              - kind: ConfigMap
-                name: upgrade-settings
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
