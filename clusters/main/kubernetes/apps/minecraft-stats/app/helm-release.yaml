@@ -33,7 +33,7 @@ spec:
     image:
       repository: ghcr.io/xstar97/mc-stats
       pullPolicy: IfNotPresent
-      tag: 3.3.1@sha256:bc2e9229723a1866a33d99bdb1d3a425a4312716615fc5ec8a739c26814bfec3
+      tag: 3.3.1@sha256:33ec545b3a24ef598789c37fa34ad2568d0602ada045927171c701df62147cc8
 
     TZ: Europe/Amsterdam
 
