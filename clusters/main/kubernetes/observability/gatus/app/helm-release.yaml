@@ -42,8 +42,6 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-          nginx:
-            enabled: true
 
     sidecar:
       enable: true
