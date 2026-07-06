@@ -50,6 +50,7 @@ spec:
         ingressClassName: internal
         annotations:
           gatus.home-operations.com/endpoint: |-
+            url: blocky.${BASE_DOMAIN}
             conditions: ["[STATUS] == 200"]
         hosts:
           - host: blocky.${BASE_DOMAIN}
