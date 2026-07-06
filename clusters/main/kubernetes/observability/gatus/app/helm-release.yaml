@@ -44,29 +44,6 @@ spec:
             certificateIssuer: cloudflare
           nginx:
             enabled: true
-            auth:
-              type: "authelia"
-              internalHost: "authelia.authelia.svc.cluster.local:9091"
-              externalHost: "auth.${DOMAIN}"
-      api:
-        enabled: true
-        ingressClassName: external
-        primary: false
-        targetSelector:
-          main: main
-        integrations:
-          nginx:
-            enabled: true
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-        hosts:
-          - host: status.${DOMAIN}
-            paths:
-              - path: /api
-                pathType: Prefix
-              - path: /health
-                pathType: Prefix
 
     sidecar:
       enable: true
