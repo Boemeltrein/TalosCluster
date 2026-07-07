@@ -1,4 +1,4 @@
 [tools]
-flux2 = "2.9.0"
+flux2 = "2.9.1"
 kubeconform = "0.8.0"
 kustomize = "5.8.1"
