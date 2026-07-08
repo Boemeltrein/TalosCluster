@@ -67,7 +67,7 @@ spec:
       - servux
       - sdlink
       - craterlib
-      - reusable-vault-blocks
+      # - reusable-vault-blocks
       # - dynmap
 
     workload:
