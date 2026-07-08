@@ -64,6 +64,7 @@ spec:
       - bluemap
       - armor-poser:beta
       - cloth-config
+      - forge-config-api-port
       - servux
       - sdlink
       - craterlib
