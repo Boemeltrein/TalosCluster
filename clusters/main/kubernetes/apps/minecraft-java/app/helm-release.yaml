@@ -68,7 +68,7 @@ spec:
       - sdlink
       - craterlib
       - reusable-vault-blocks
-      - dynmap
+      # - dynmap
 
     workload:
       main:
@@ -83,7 +83,7 @@ spec:
                 SNOOPER_ENABLED: "false"
                 OVERRIDE_SERVER_PROPERTIES: "true"
                 DUMP_SERVER_PROPERTIES: "true"
-                VERSION: "1.21.11"
+                VERSION: "26.2"
                 TYPE: "FABRIC"
                 DIFFICULTY: "hard"
                 MAX_PLAYERS: 20
@@ -100,7 +100,7 @@ spec:
                 SPAWN_NPCS: "true"
                 VIEW_DISTANCE: 32
                 MODE: survival
-                MOTD: "Fire up the furnace for The Copper Age drop!"
+                MOTD: "Tiny Takeover with Chaos Cubes"
                 PVP: "true"
                 LEVEL_TYPE: normal
                 LEVEL: Utopia
@@ -173,7 +173,7 @@ spec:
           vt-datapacks.json: |
             {
               "type": "datapacks",
-              "version": "1.21",
+              "version": "26.2",
               "packs": {
                 "Decorative/Cosmetic": [
                   "armor statues",
