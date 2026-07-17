@@ -15,5 +15,5 @@ spec:
       datasourceName: Prometheus
   grafanaCom:
     id: 22604
-    revision: 2
+    revision: 3
   folder: "Storage 💾"
