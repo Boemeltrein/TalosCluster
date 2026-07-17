@@ -11,7 +11,7 @@
   },
   customManagers: [
     {
-      description: "Process Grafana dashboards",
+      description: "Process Grafana dashboards (url)",
       customType: "regex",
       managerFilePatterns: ["/grafanadashboard\\.yaml(?:\\.j2)?$/"],
       matchStrings: [
@@ -20,6 +20,16 @@
       datasourceTemplate: "custom.grafana-dashboards",
       versioningTemplate: "regex:^(?<major>\\d+)$",
       autoReplaceStringTemplate: "dashboards/{{depName}}/revisions/{{newValue}}/download",
+    },
+    {
+      description: "Process Grafana dashboards (grafanaCom)",
+      customType: "regex",
+      managerFilePatterns: ["/grafanadashboard\\.yaml(?:\\.j2)?$/"],
+      matchStrings: [
+        "grafanaCom:\\s*\\n\\s*id:\\s*(?<depName>\\d+)\\s*\\n\\s*revision:\\s*(?<currentValue>\\d+)",
+      ],
+      datasourceTemplate: "custom.grafana-dashboards",
+      versioningTemplate: "regex:^(?<major>\\d+)$",
     },
   ],
   packageRules: [
