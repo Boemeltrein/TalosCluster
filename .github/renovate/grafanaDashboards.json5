@@ -30,6 +30,7 @@
       ],
       datasourceTemplate: "custom.grafana-dashboards",
       versioningTemplate: "regex:^(?<major>\\d+)$",
+      autoReplaceStringTemplate: "grafanaCom:\n    id: {{depName}}\n    revision: {{newValue}}",
     },
   ],
   packageRules: [
