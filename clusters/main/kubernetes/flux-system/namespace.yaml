@@ -5,3 +5,5 @@ metadata:
   name: flux-system
   labels:
     pod-security.kubernetes.io/enforce: privileged
+  annotations:
+    kustomize.toolkit.fluxcd.io/prune: disabled

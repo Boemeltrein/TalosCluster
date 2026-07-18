@@ -3,6 +3,7 @@ kind: Kustomization
 components:
   - ../../components/notifications/discord
 resources:
-  - flux
-  - webhooks
-  - konflate/ks.yaml
+  - ./namespace.yaml
+  - ./flux
+  - ./webhooks
+  - ./konflate/ks.yaml

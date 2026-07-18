@@ -6,7 +6,6 @@ resources:
   - ./deploykey.secret.yaml
   - ./clustersettings.secret.yaml
   - ./flux.yaml
-  - ./namespace.yaml
   - ./podmonitor.yaml
   - ./grafanadashboard.yaml
   # - sopssecret.secret.yaml
