@@ -4,7 +4,6 @@ resources:
   - apps
   - core
   - external-services
-  - flux-entry.yaml
   - flux-system
   - kube-system
   - networking
