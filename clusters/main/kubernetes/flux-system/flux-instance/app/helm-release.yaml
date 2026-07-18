@@ -78,6 +78,9 @@ spec:
               - op: add
                 path: /spec/template/spec/containers/0/args/-
                 value: --helm-cache-purge-interval=5m
+            target:
+              kind: Deployment
+              name: source-controller
           - # Flux near OOM detection for Helm
             patch: |-
               - op: add
