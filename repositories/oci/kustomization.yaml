@@ -6,3 +6,4 @@ resources:
   - flux-manifests.yaml
   - envoy-gateway.yaml
   - tuppr.yaml
+  - flux-operator.yaml
