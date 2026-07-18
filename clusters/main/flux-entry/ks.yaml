@@ -57,7 +57,7 @@ spec:
     name: cluster
     namespace: flux-system
   dependsOn:
-    - name: flux-entry-repos
+    - name: flux-entry-repos-operator
       namespace: flux-system    
   decryption:
     provider: sops
