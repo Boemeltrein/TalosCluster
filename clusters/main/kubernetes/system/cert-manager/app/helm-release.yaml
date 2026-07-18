@@ -36,3 +36,6 @@ spec:
     config:
       gatewayAPI:
         enabled: true
+        enableListenerSet: true
+      featureGates:
+        ListenerSets: true
