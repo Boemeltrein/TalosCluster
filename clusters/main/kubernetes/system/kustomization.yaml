@@ -8,7 +8,6 @@ resources:
   - metallb/ks.yaml
   - openebs/ks.yaml
   - snapshot-controller/ks.yaml
-  # - spegel/ks.yaml
   - system-upgrade
   - volsync/ks.yaml
   - renovate/ks.yaml
