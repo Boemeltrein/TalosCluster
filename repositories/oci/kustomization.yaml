@@ -7,3 +7,4 @@ resources:
   - envoy-gateway.yaml
   - tuppr.yaml
   - flux-operator.yaml
+  - flux-instance.yaml
