@@ -3,7 +3,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-entry-repos
+  name: flux-entry-repos-operator
   namespace: flux-system
 spec:
   interval: 10m
@@ -46,7 +46,7 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-entry
+  name: flux-entry-operator
   namespace: flux-system
 spec:
   interval: 10m
