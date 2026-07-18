@@ -33,3 +33,6 @@ spec:
       enabled: true
       servicemonitor:
         enabled: true
+    config:
+      gatewayAPI:
+        enabled: true
