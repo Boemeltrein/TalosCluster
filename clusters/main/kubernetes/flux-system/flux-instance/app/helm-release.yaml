@@ -19,13 +19,14 @@ spec:
         - kustomize-controller
         - helm-controller
         - notification-controller
-      # sync:
-      #   interval: 1h
-      #   kind: GitRepositor
-      #   url: ssh://git@github.com/Boemeltrein/TalosCluster.git
-      #   ref: refs/heads/main
-      #   path: ./kubernetes/flux/cluster  
-      #   pullSecret: deploy-key    
+      sync:
+        interval: 1h
+        kind: GitRepository
+        url: ssh://git@github.com/Boemeltrein/TalosCluster.git
+        ref: refs/heads/main
+        path: clusters/main/flux-entry 
+        name: cluster 
+        pullSecret: deploy-key          
       kustomize:
         patches:
           - # Increase the number of workers
