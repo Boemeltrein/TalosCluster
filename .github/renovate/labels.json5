@@ -46,8 +46,8 @@
       addLabels: ["system-upgrade"]
     },
     {
-      matchPackageNames: ["/fluxcd/"],
-      addLabels: ["fluxcd-update"]
+      matchPackageNames: ["/flux-operator/", "/flux-instance/"],
+      addLabels: ["flux-update"]
     },    
     {
       matchPackageNames: ["/longhorn/"],

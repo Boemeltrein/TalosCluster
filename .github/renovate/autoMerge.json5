@@ -9,7 +9,8 @@
       matchUpdateTypes: ["minor"],
       matchPackageNames: [
         "!/siderolabs/",
-        "!/fluxcd/",
+        "!/flux-operator/",
+        "!/flux-instance/",        
         "!/longhorn/",
         "!/cilium/"
       ],
@@ -19,7 +20,9 @@
     {
       matchUpdateTypes: ["patch"],
       matchPackageNames: [
-        "!/siderolabs/"
+        "!/siderolabs/",
+        "!/flux-operator/",
+        "!/flux-instance/"           
       ],
       automerge: true,
       addLabels: ["automerge"]
