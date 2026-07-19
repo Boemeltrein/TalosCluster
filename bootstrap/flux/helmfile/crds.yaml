@@ -25,3 +25,13 @@ releases:
     namespace: envoy-gateway
     labels:
       path: networking
+
+  - name: grafana-operator
+    namespace: observability
+    labels:
+      path: observability
+
+  - name: kube-prometheus-stack
+    namespace: observability
+    labels:
+      path: observability

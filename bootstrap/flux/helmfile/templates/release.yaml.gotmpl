@@ -1,4 +1,19 @@
-{{- $oci := fromYaml (readFile (printf "../../../repositories/oci/%s.yaml" .Release.Name)) -}}
+{{- $hr := fromYaml (readFile (printf "../../../clusters/main/kubernetes/%s/%s/app/helm-release.yaml" .Release.Labels.path .Release.Name)) -}}
+
+{{- if hasKey $hr.spec "chartRef" -}}
+
+{{- $chartRef := $hr.spec.chartRef -}}
+{{- $oci := fromYaml (readFile (printf "../../../repositories/oci/%s.yaml" $chartRef.name)) -}}
 
 chart: {{ $oci.spec.url }}
 version: {{ $oci.spec.ref.tag }}
+
+{{- else -}}
+
+{{- $chart := $hr.spec.chart.spec -}}
+{{- $repo := fromYaml (readFile (printf "../../../repositories/helm/%s.yaml" $chart.sourceRef.name)) -}}
+
+chart: {{ printf "%s/%s" $repo.spec.url $chart.chart }}
+version: {{ $chart.version }}
+
+{{- end -}}
