@@ -4,3 +4,5 @@ resources:
   - namespace.yaml
   - helm-release.yaml
   - konflate.secret.yaml
+components:
+  - ../../../../components/notifications/discord  

@@ -9,4 +9,3 @@ resources:
   - ./flux-operator/ks.yaml
   - ./flux-instance/ks.yaml
   - ./webhooks
-  - ./konflate/ks.yaml
