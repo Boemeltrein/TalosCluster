@@ -5,11 +5,25 @@ kind: HelmRelease
 metadata:
   name: flux-instance
 spec:
+  interval: 15m
   chartRef:
     kind: OCIRepository
     name: flux-instance
     namespace: flux-system
-  interval: 1h
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false  
   values:
     instance:
       cluster:
