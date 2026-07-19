@@ -1,0 +1,5 @@
+helmfile -f crds.yaml template -q \
+| yq ea -r -e 'select(.kind == "CustomResourceDefinition")' \
+| kubectl apply --server-side --force-conflicts -f -
+
+helmfile -f apps.yaml sync --hide-notes

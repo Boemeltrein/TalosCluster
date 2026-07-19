@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/helmfile
+
+# Bootstraps core applications that provide a minimal runtime base for the
+# cluster. These releases are installed first so the cluster has the resources
+# Flux needs before its own reconciliation begins.
+#
+# After this bootstrap phase, Flux is ready to take over management of the
+# application stack and continue reconciling downstream state.
+
+bases:
+  - default.yaml
+
+defaultInherit: default
+
+helmDefaults:
+  cleanupOnFail: true
+  forceConflicts: true
+  wait: true
+  waitForJobs: true
+
+releases:
+  - name: flux-operator
+    namespace: flux-system
+    labels:
+      path: flux-system
+
+  - name: flux-instance
+    namespace: flux-system
+    labels:
+      path: flux-system
+    needs:
+      - flux-system/flux-operator

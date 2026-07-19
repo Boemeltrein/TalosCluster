@@ -1,0 +1,1 @@
+{{ (fromYaml (readFile (printf "../../../../clusters/main/kubernetes/%s/%s/app/helm-release.yaml" .Release.Labels.path .Release.Name ))).spec.values | toYaml }}

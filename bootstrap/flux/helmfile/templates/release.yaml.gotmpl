@@ -1,0 +1,4 @@
+{{- $oci := fromYaml (readFile (printf "../../../repositories/oci/%s.yaml" .Release.Name)) -}}
+
+chart: {{ $oci.spec.url }}
+version: {{ $oci.spec.ref.tag }}
