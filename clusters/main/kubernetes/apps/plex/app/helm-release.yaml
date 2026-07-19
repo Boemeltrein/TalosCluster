@@ -15,7 +15,7 @@ spec:
         name: truecharts
         namespace: flux-system
       interval: 15m
-  timeout: 45m
+  timeout: 60m
   maxHistory: 3
   driftDetection:
     mode: warn
