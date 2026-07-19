@@ -32,6 +32,7 @@ spec:
   values:
     config:
       repo: github://Boemeltrein/TalosCluster
+      clusterPath: ./clusters/main/flux-entry
       closedPrMax: 0
       closedPrTtl: 720h      
       statusChecks: true
