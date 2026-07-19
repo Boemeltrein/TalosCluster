@@ -5,7 +5,4 @@ kind: Kustomization
 resources:
   - ./deploykey.secret.yaml
   - ./clustersettings.secret.yaml
-  # - ./flux.yaml
-  # - ./podmonitor.yaml
-  # - ./grafanadashboard.yaml
   # - sopssecret.secret.yaml
