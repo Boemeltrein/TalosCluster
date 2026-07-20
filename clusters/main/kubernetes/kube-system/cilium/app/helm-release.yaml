@@ -36,6 +36,8 @@ spec:
   values:
     # autoDirectNodeRoutes: true
     # routingMode: native
+    envoy:
+      enabled: false
     hubble:
       enabled: false
     cluster:
