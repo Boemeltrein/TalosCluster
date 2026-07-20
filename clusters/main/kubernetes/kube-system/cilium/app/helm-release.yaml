@@ -82,3 +82,5 @@ spec:
       rollOutPods: true
       replicas: 1
     rollOutCiliumPods: true
+    dashboards:
+      enabled: true
