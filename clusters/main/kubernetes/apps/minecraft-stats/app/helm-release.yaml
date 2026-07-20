@@ -126,7 +126,7 @@ spec:
               env:
                 PORT: "{{ .Values.service.main.ports.main.port }}"
                 INSTANCES: '{{ keys .Values.mcstats | sortAlpha | join "," }}'
-                INTERVAL_SECONDS: 300
+                INTERVAL_SECONDS: 3600
                 
     persistence:
       config:
