@@ -71,7 +71,7 @@ spec:
         server:
           sources:
             - # https://github.com/pdinklag/MinecraftStats/issues/269
-              path: /data/utopia/players/stats
+              path: /data/utopia/players
               worldName: Utopia
         data:
           documentRoot: /config/utopia/public
