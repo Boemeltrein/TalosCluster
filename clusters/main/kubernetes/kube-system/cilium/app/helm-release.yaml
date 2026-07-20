@@ -81,6 +81,12 @@ spec:
     operator:
       rollOutPods: true
       replicas: 1
+      dashboards:
+        enabled: true
+      prometheus:
+        enabled: true
+        serviceMonitor:
+          enabled: true
     rollOutCiliumPods: true
     dashboards:
       enabled: true
