@@ -71,8 +71,9 @@ spec:
         server:
           sources:
             - # https://github.com/pdinklag/MinecraftStats/issues/269
-              path: /data/utopia/players
-              worldName: Utopia
+              # https://github.com/pdinklag/MinecraftStats/issues/268#issuecomment-4885990880
+              path: /data/utopia
+              worldName: Utopia/players
         data:
           documentRoot: /config/utopia/public
           eventsDir: /config/utopia/events
