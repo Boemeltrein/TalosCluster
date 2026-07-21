@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: zwavejs2mqtt
-      version: 25.13.0
+      version: 25.14.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
