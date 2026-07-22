@@ -52,7 +52,7 @@ jobs:
 
       - name: Run flate diff
         env:
-          # FLATE_PATH: ./clusters/main/flux-entry
+          FLATE_PATH: "." # /clusters/main/flux-entry
           FLATE_OUTPUT: github
           FLATE_ALLOW_MISSING_SECRETS: true
           KIND: ${{ matrix.kind }}
