@@ -247,6 +247,7 @@ install_metallb=false
 install_arc=false
 install_gateway=false
 install_grafana=false
+install_nfd=false
 
 grep -q "postgresql.cnpg.io" "$RENDERED" && install_cnpg=true
 # grep -q "volsync.backube" "$RENDERED" && install_volsync=true
@@ -257,6 +258,7 @@ grep -q "metallb.io" "$RENDERED" && install_metallb=true
 # grep -q "actions.github.com" "$RENDERED" && install_arc=true
 grep -q "gateway.networking.k8s.io" "$RENDERED" && install_gateway=true
 grep -q "grafana.integreatly.org" "$RENDERED" && install_grafana=true
+grep -q "nfd.k8s-sigs.io" "$RENDERED" && install_nfd=true
 
 echo "🔎 Dependencies:"
 echo "     CNPG:        $install_cnpg"
@@ -268,6 +270,7 @@ echo "     MetalLB:     $install_metallb"
 # echo "     GitHub ARC:  $install_arc"
 echo "     Gateway API: $install_gateway"
 echo "     Grafana:     $install_grafana"
+echo "     NFD:         $install_nfd"
 
 # --------------------------------------------------
 # Install dependencies
@@ -392,6 +395,30 @@ if $install_grafana; then
   fi
 
   echo "📈 Done installing Grafana Operator CRDs"
+  echo "::endgroup::"
+fi
+
+if $install_nfd; then
+  echo "::group::🖥️ Installing Node Feature Discovery..."
+
+  kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/node-feature-discovery/master/deployment/helm/node-feature-discovery/crds/nfd-api-crds.yaml
+
+  kubectl wait \
+    --for=condition=Established \
+    crd/nodefeatures.nfd.k8s-sigs.io \
+    --timeout=120s
+
+  kubectl wait \
+    --for=condition=Established \
+    crd/nodefeaturerules.nfd.k8s-sigs.io \
+    --timeout=120s
+
+  if [[ "$?" != "0" ]]; then
+      echo "❌ Failed to install Node Feature Discovery CRDs"
+      exit 1
+  fi
+
+  echo "🖥️ Done installing Node Feature Discovery CRDs"
   echo "::endgroup::"
 fi
 
