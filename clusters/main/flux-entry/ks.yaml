@@ -13,7 +13,6 @@ spec:
     kind: GitRepository
     name: cluster
     namespace: flux-system
-  targetNamespace: flux-system
   decryption:
     provider: sops
     secretRef:
