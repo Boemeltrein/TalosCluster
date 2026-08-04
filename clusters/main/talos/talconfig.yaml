@@ -58,8 +58,6 @@ controlPlane:
                     - siderolabs/iscsi-tools
                     - siderolabs/util-linux-tools
                     - siderolabs/qemu-guest-agent
-                    - siderolabs/amd-ucode
-                    - siderolabs/amdgpu
     machineFiles:
     - content: |
         [plugins."io.containerd.cri.v1.images"]
@@ -90,9 +88,7 @@ worker:
                 officialExtensions:
                     - siderolabs/iscsi-tools
                     - siderolabs/util-linux-tools
-                    - siderolabs/qemu-guest-agent
-                    - siderolabs/amd-ucode
-                    - siderolabs/amdgpu                    
+                    - siderolabs/qemu-guest-agent                   
     machineFiles:
     - content: |
         [plugins."io.containerd.cri.v1.images"]
