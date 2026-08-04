@@ -93,6 +93,10 @@ spec:
             # renovate: datasource=docker depName=ghcr.io/headlamp-k8s/headlamp-plugin-ai-assistant
             version: 0.2.0-alpha
 
+    service:
+      type: LoadBalancer
+      loadBalancerIP: ${HEADLAMP_IP}
+
     ingress:
       enabled: true
       annotations:
