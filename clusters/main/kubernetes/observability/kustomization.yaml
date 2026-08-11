@@ -13,3 +13,4 @@ resources:
   - headlamp/ks.yaml
   - kube-prometheus-stack/ks.yaml
   - konflate/ks.yaml
+  - ipmi-exporter/ks.yaml

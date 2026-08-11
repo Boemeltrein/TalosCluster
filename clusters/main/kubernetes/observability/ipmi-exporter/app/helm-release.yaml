@@ -1,0 +1,58 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ipmi-exporter
+  namespace: ipmi-exporter
+spec:
+  interval: 15m
+  chart:
+    spec:
+      chart: prometheus-ipmi-exporter
+      version: 0.8.0
+      sourceRef:
+        kind: HelmRepository
+        name: prometheus-community
+        namespace: flux-system
+      interval: 15m
+  timeout: 20m
+  maxHistory: 3
+  driftDetection:
+    mode: warn
+  install:
+    createNamespace: true
+    remediation:
+      retries: 3
+  upgrade:
+    cleanupOnFail: true
+    remediation:
+      retries: 3
+  uninstall:
+    keepHistory: false
+  values:
+
+    image:
+      repository: quay.io/prometheuscommunity/ipmi-exporter
+
+    scrapeConfig:
+      enabled: true
+      mode: remote
+      scrapeInterval: 1m
+      scrapeTimeout: 30s
+      scheme: HTTP
+      staticConfigs:
+        - targets:
+            - ${IPMI_EXPORTER_IP}
+
+    modules:
+      default:
+        user: ${IPMI_EXPORTER_USER}
+        pass: ${IPMI_EXPORTER_PASS}
+        driver: "LAN_2_0"
+        privilege: "user"
+        timeout: 10000
+        collectors:
+          - bmc
+          - ipmi
+          - chassis
