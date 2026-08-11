@@ -5,6 +5,8 @@ kind: GrafanaDashboard
 metadata:
   name: ipmi-hardware-monitoring
   namespace: ipmi-exporter
+  annotations:
+    kustomize.toolkit.fluxcd.io/substitute: disabled
 spec:
   # folder: "Infrastructure"
   instanceSelector:
