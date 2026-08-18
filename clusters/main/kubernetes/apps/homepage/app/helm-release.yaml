@@ -87,10 +87,16 @@ spec:
               probes:
                 liveness:
                   path:  /api/healthcheck
+                  httpHeaders:
+                    Host: localhost:3000
                 readiness:
                   path:  /api/healthcheck
+                  httpHeaders:
+                    Host: localhost:3000
                 startup:
                   path:  /api/healthcheck
+                  httpHeaders:
+                    Host: localhost:3000
 
     resources:
       requests:
