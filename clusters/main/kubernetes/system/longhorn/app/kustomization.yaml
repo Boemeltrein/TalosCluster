@@ -10,3 +10,4 @@ resources:
   - trim.yaml
   - grafanadashboard.yaml
   - networkpolicy.yaml
+  - prometheusrule.yaml
