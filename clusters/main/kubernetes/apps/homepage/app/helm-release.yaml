@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: homepage
-      version: 13.0.0
+      version: 12.9.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -84,19 +84,6 @@ spec:
             main:
               env:
                 HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
-              probes:
-                liveness:
-                  path:  /api/healthcheck
-                  httpHeaders:
-                    Host: localhost:3000
-                readiness:
-                  path:  /api/healthcheck
-                  httpHeaders:
-                    Host: localhost:3000
-                startup:
-                  path:  /api/healthcheck
-                  httpHeaders:
-                    Host: localhost:3000
 
     resources:
       requests:
