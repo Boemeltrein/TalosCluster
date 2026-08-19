@@ -9,3 +9,4 @@ resources:
   - ingress.yaml
   - trim.yaml
   - grafanadashboard.yaml
+  - networkpolicy.yaml
