@@ -53,7 +53,7 @@ spec:
       minio:
         type: s3
         url: "http://${S3_URL}"
-        bucket: "taloscluster"
+        bucket: "${S3_BUCKET}-speedtest-tracker"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
@@ -111,3 +111,4 @@ spec:
     resources:
       requests:
         cpu: 10m
+
