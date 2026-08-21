@@ -17,7 +17,7 @@ resources:
   - lldap/ks.yaml
   - authelia/ks.yaml
   - librespeed/ks.yaml
-  #- speedtest-tracker/ks.yaml
+  - speedtest-tracker/ks.yaml
   - guacamole/ks.yaml
   - pgadmin/ks.yaml
   - signal-cli-rest-api/ks.yaml
