@@ -43,6 +43,13 @@ spec:
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
+      blaze:
+        type: s3
+        url: "https://${S3_BLAZE_URL}"
+        bucket: "${S3_BLAZE_BUCKET}"
+        accessKey: "${S3_BLAZE_ACCESKEY}"
+        secretKey: "${S3_BLAZE_SECRETKEY}"
+        encrKey: "${S3_BLAZE_ENCRKEY}"
 
     ingress:
       main:
@@ -107,11 +114,11 @@ spec:
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
-          credentials: minio
+          credentials: blaze
           retentionPolicy: "14d"
-          revision: "1"
+          # revision: "1"
         recovery:
-          credentials: minio
+          credentials: blaze
           # revision: ""
         monitoring:
           enablePodMonitor: true          
