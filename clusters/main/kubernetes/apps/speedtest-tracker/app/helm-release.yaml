@@ -101,10 +101,10 @@ spec:
           enabled: true
           credentials: blaze
           retentionPolicy: "14d"
-          revision: "5"
+          # revision: "5"
         recovery:
           credentials: blaze
-          revision: "4"
+          # revision: "4"
         monitoring:
           enablePodMonitor: true
 
