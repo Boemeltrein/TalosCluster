@@ -59,11 +59,18 @@ spec:
     credentials:
       minio:
         type: s3
-        url: "http://${S3_URL}"
+        url: "http://${S3_URL}-lldap"
         bucket: "taloscluster"
         accessKey: "${S3_ACCESKEY}"
         secretKey: "${S3_SECRETKEY}"
         encrKey: "${S3_ENCRKEY}"
+      blaze:
+        type: s3
+        url: "https://${S3_BLAZE_URL}"
+        bucket: "${S3_BLAZE_BUCKET}"
+        accessKey: "${S3_BLAZE_ACCESKEY}"
+        secretKey: "${S3_BLAZE_SECRETKEY}"
+        encrKey: "${S3_BLAZE_ENCRKEY}"
 
     ingress:
       main:
@@ -81,7 +88,7 @@ spec:
         volsync:
           - name: data
             type: restic
-            credentials: minio
+            credentials: blaze
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)
@@ -94,12 +101,12 @@ spec:
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
-          credentials: minio
+          credentials: blaze
           retentionPolicy: "14d"
-          revision: "3"
+          # revision: "3"
         recovery:
-          credentials: minio
-          revision: "2"
+          credentials: blaze
+          # revision: "2"
         monitoring:
           enablePodMonitor: true
           
