@@ -35,15 +35,6 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    credentials:
-      minio:
-        type: s3
-        url: "http://${S3_URL}"
-        bucket: "taloscluster"
-        accessKey: "${S3_ACCESKEY}"
-        secretKey: "${S3_SECRETKEY}"
-        encrKey: "${S3_ENCRKEY}"
-
     ingress:
       main:
         enabled: true
