@@ -1,0 +1,29 @@
+# Read-only CloudNativePG visibility across all namespaces.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: codex-cnpg-backup-reader
+rules:
+  - apiGroups:
+      - postgresql.cnpg.io
+    resources:
+      - backups
+      - scheduledbackups
+      - clusters
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: codex-cnpg-backup-reader
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: codex-cnpg-backup-reader

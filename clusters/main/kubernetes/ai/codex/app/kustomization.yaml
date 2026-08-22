@@ -4,3 +4,4 @@ resources:
   - clusterrolebinding.yaml  
   - serviceaccount.yaml
   - namespace.yaml
+  - rbac.yaml
