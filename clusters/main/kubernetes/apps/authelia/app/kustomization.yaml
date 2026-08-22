@@ -8,3 +8,4 @@ resources:
   - referencegrant.yaml
 components:
   - ../../../../components/notifications/discord
+  - ../../../../components/backup/credentials

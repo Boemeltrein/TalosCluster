@@ -43,22 +43,6 @@ spec:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
-    credentials:
-      minio:
-        type: s3
-        url: "http://${S3_URL}"
-        bucket: "${S3_BUCKET}-sabnzbd"
-        accessKey: "${S3_ACCESKEY}"
-        secretKey: "${S3_SECRETKEY}"
-        encrKey: "${S3_ENCRKEY}"
-      blaze:
-        type: s3
-        url: "https://${S3_BLAZE_URL}"
-        bucket: "${S3_BLAZE_BUCKET}"
-        accessKey: "${S3_BLAZE_ACCESKEY}"
-        secretKey: "${S3_BLAZE_SECRETKEY}"
-        encrKey: "${S3_BLAZE_ENCRKEY}"
-
     ingress:
       main:
         enabled: true
