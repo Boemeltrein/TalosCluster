@@ -3,10 +3,10 @@ kind: ClusterRoleBinding
 metadata:
   name: codex-readonly-view
 subjects:
-  - kind: User
+  - kind: ServiceAccount
     name: codex-readonly
-    apiGroup: rbac.authorization.k8s.io
+    namespace: codex
 roleRef:
+  apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: view
-  apiGroup: rbac.authorization.k8s.io
