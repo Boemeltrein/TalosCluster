@@ -13,11 +13,12 @@ dummyEnv:
 skipList:
   - clusters/main/kubernetes/apps/authelia/app
   - clusters/main/kubernetes/core/clusterissuer/app
+  - clusters/main/kubernetes/flux-system/flux-instance/app
   - clusters/main/kubernetes/kube-system/cilium/app
   - clusters/main/kubernetes/system/longhorn/app
   - clusters/main/kubernetes/system/renovate/app
   - clusters/main/kubernetes/system/spegel/app
+  - clusters/main/kubernetes/system/system-upgrade/tuppr/app
   - clusters/main/kubernetes/apps/actions-runner-system/actions-runner-controller/app
   - clusters/main/kubernetes/apps/actions-runner-system/boemel-runner/app
   - clusters/main/kubernetes/apps/actions-runner-system/test-runner/app
-
