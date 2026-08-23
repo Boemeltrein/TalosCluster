@@ -1,3 +1,4 @@
+---
 # CI test configuration.
 # dummyEnv: Placeholder environment variables for Helm templating.
 # skipList: HelmRelease paths excluded from CI deployment tests.

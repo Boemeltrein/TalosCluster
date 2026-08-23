@@ -1,3 +1,4 @@
+---
 config:  
   statusChecks: false
   prComments: false
