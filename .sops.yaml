@@ -1,3 +1,4 @@
+---
 ## Do not edit between this and DO NOT REMOVE
 creation_rules:
   - path_regex: ^clusters.*kubernetes.values.ya?ml$
