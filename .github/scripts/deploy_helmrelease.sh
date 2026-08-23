@@ -38,50 +38,67 @@ print_sub_section() {
 # --------------------------------------------------
 # Dependency Functions
 # --------------------------------------------------
-resolve_dependency_chart() {
+resolve_helm_chart() {
   local helmrelease_path="$1"
-  local chart_name source_name source_file source_url
+  local chart_ref_kind chart_name source_name source_file source_url
 
   if [[ ! -f "$helmrelease_path" ]]; then
-    echo "❌ Dependency HelmRelease not found: $helmrelease_path"
+    echo "❌ HelmRelease not found: $helmrelease_path"
     return 1
   fi
 
   if [[ "$(yq -r '.spec.chartRef.name // ""' "$helmrelease_path")" != "" ]]; then
+    chart_ref_kind="$(yq -r '.spec.chartRef.kind // ""' "$helmrelease_path")"
     source_name="$(yq -r '.spec.chartRef.name' "$helmrelease_path")"
-    source_file="repositories/oci/${source_name}.yaml"
 
-    if [[ ! -f "$source_file" ]]; then
-      echo "❌ Dependency OCIRepository not found: $source_file"
+    if [[ "$chart_ref_kind" != "OCIRepository" ]]; then
+      echo "❌ Unsupported chartRef kind '${chart_ref_kind}': $helmrelease_path"
       return 1
     fi
 
-    DEPENDENCY_CHART_REF="$(yq -r '.spec.url' "$source_file")"
-    DEPENDENCY_CHART_VERSION="$(yq -r '.spec.ref.tag' "$source_file")"
+    source_file="repositories/oci/${source_name}.yaml"
+
+    if [[ ! -f "$source_file" ]]; then
+      echo "❌ OCIRepository not found: $source_file"
+      return 1
+    fi
+
+    RESOLVED_CHART_NAME="$source_name"
+    RESOLVED_CHART_REF="$(yq -r '.spec.url // ""' "$source_file")"
+    RESOLVED_CHART_VERSION="$(yq -r '.spec.ref.tag // ""' "$source_file")"
+    RESOLVED_REPO_URL="$RESOLVED_CHART_REF"
   else
     chart_name="$(yq -r '.spec.chart.spec.chart // ""' "$helmrelease_path")"
     source_name="$(yq -r '.spec.chart.spec.sourceRef.name // ""' "$helmrelease_path")"
-    DEPENDENCY_CHART_VERSION="$(yq -r '.spec.chart.spec.version // ""' "$helmrelease_path")"
+    RESOLVED_CHART_VERSION="$(yq -r '.spec.chart.spec.version // ""' "$helmrelease_path")"
     source_file="repositories/helm/${source_name}.yaml"
 
     if [[ -z "$chart_name" || -z "$source_name" || ! -f "$source_file" ]]; then
-      echo "❌ Unable to resolve dependency chart from: $helmrelease_path"
+      echo "❌ Unable to resolve chart from: $helmrelease_path"
       return 1
     fi
 
     source_url="$(yq -r '.spec.url' "$source_file")"
+    RESOLVED_CHART_NAME="$chart_name"
+    RESOLVED_REPO_URL="$source_url"
     if [[ "$source_url" == oci://* ]]; then
-      DEPENDENCY_CHART_REF="${source_url}/${chart_name}"
+      RESOLVED_CHART_REF="${source_url}/${chart_name}"
     else
       helm repo add "$source_name" "$source_url" --force-update >/dev/null
-      DEPENDENCY_CHART_REF="${source_name}/${chart_name}"
+      RESOLVED_CHART_REF="${source_name}/${chart_name}"
     fi
   fi
 
-  if [[ -z "$DEPENDENCY_CHART_REF" || -z "$DEPENDENCY_CHART_VERSION" ]]; then
-    echo "❌ Dependency chart reference or version is empty: $helmrelease_path"
+  if [[ -z "$RESOLVED_CHART_REF" || -z "$RESOLVED_CHART_VERSION" ]]; then
+    echo "❌ Chart reference or version is empty: $helmrelease_path"
     return 1
   fi
+}
+
+resolve_dependency_chart() {
+  resolve_helm_chart "$1"
+  DEPENDENCY_CHART_REF="$RESOLVED_CHART_REF"
+  DEPENDENCY_CHART_VERSION="$RESOLVED_CHART_VERSION"
 }
 
 install_dependency_crds() {
@@ -170,25 +187,14 @@ fi
 # --------------------------------------------------
 RELEASE_NAME="$(yq '.metadata.name' "$HELMRELEASE_PATH")"
 NAMESPACE="$(yq '.metadata.namespace' "$HELMRELEASE_PATH")"
-CHART_NAME="$(yq '.spec.chart.spec.chart' "$HELMRELEASE_PATH")"
-CHART_VERSION="$(yq '.spec.chart.spec.version' "$HELMRELEASE_PATH")"
-REPO_NAME="$(yq '.spec.chart.spec.sourceRef.name' "$HELMRELEASE_PATH")"
-REPO_FILE="repositories/helm/${REPO_NAME}.yaml"
-REPO_URL="$(yq '.spec.url' "$REPO_FILE")"
+resolve_helm_chart "$HELMRELEASE_PATH"
+CHART_NAME="$RESOLVED_CHART_NAME"
+CHART_VERSION="$RESOLVED_CHART_VERSION"
+CHART_REF="$RESOLVED_CHART_REF"
+REPO_URL="$RESOLVED_REPO_URL"
 APP_DIR="$(dirname "$HELMRELEASE_PATH")"
 #CI_VALUES_FILE="$APP_DIR/ci/ci-values.yaml"
 CI_VALUES_FILE="ci/$CHART_NAME.yaml"
-
-# --------------------------------------------------
-# Setup chart repository reference
-# --------------------------------------------------
-if [[ "$REPO_URL" == oci://* ]]; then
-  CHART_REF="$REPO_URL/$CHART_NAME"
-else
-  helm repo add ci-repo "$REPO_URL" >/dev/null 2>&1 || true
-  helm repo update >/dev/null 2>&1
-  CHART_REF="ci-repo/$CHART_NAME"
-fi
 
 print_header "HelmRelease Deployment Test by Boemeltrein" "🚂"
 
