@@ -5,6 +5,10 @@ on:
   workflow_dispatch:
   pull_request:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
 jobs:
   detect:
     runs-on: ubuntu-latest
@@ -20,10 +24,36 @@ jobs:
       - name: Detect changed HelmReleases
         id: set
         run: |
-          files=$(git diff \
+          changed_files=$(git diff \
             "${{ github.event.pull_request.base.sha }}" \
             "${{ github.sha }}" \
-            --name-only | grep 'helm-release.yaml$' || true)
+            --name-only)
+
+          files="$({
+            printf '%s\n' "$changed_files" \
+              | grep 'helm-release.yaml$' || true
+
+            while IFS= read -r source_file; do
+              [ -f "$source_file" ] || continue
+
+              source_name=$(yq -r '.metadata.name // ""' "$source_file")
+              source_namespace=$(yq -r '.metadata.namespace // "default"' "$source_file")
+
+              while IFS= read -r helmrelease; do
+                if SOURCE_NAME="$source_name" SOURCE_NAMESPACE="$source_namespace" \
+                  yq -e '
+                    .spec.chartRef.kind == "OCIRepository" and
+                    .spec.chartRef.name == strenv(SOURCE_NAME) and
+                    (.spec.chartRef.namespace // .metadata.namespace // "default") == strenv(SOURCE_NAMESPACE)
+                  ' "$helmrelease" >/dev/null 2>&1; then
+                  echo "$helmrelease"
+                fi
+              done < <(find clusters/main/kubernetes -type f -name 'helm-release.yaml')
+            done < <(
+              printf '%s\n' "$changed_files" \
+                | grep '^repositories/oci/.*\.yaml$' || true
+            )
+          } | sort -u)"
           
           if [ -z "$files" ]; then
             echo "🔍 No HelmReleases changed"
@@ -168,10 +198,13 @@ jobs:
           version: v4.2.4
 
       - name: Create k3d cluster
+        timeout-minutes: 2
         uses: nolar/setup-k3d-k3s@62c9d1bd2bc843275c85d2e7dcd696edc1160eee # v1.1.0
         with:
           version: v1.36.1+k3s1
-          k3d-args: --k3s-arg --disable=metrics-server@server:*
+          k3d-args: >-
+            --k3s-arg --disable=metrics-server@server:*
+            --k3s-arg --disable=traefik@server:*
           # github-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Remove node taints
