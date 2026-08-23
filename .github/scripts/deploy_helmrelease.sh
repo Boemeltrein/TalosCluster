@@ -402,6 +402,11 @@ if $install_prometheus; then
 fi
 
 if $install_metallb; then
+  kubectl create namespace metallb \
+    --dry-run=client \
+    --output=yaml \
+  | kubectl apply --filename -
+
   install_dependency_crds \
     "metallb" \
     "📡" \
