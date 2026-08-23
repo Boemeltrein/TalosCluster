@@ -13,6 +13,7 @@ dummyEnv:
 skipList:
   - clusters/main/kubernetes/apps/authelia/app
   - clusters/main/kubernetes/core/clusterissuer/app
+  - clusters/main/kubernetes/flux-system/flux-instance/app
   - clusters/main/kubernetes/kube-system/cilium/app
   - clusters/main/kubernetes/system/longhorn/app
   - clusters/main/kubernetes/system/renovate/app
