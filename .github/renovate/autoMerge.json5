@@ -12,7 +12,9 @@
         "!/flux-operator/",
         "!/flux-instance/",        
         "!/longhorn/",
-        "!/cilium/"
+        "!/cilium/",
+        "!/k3s-io/",
+        "!/k3d-io/"
       ],
       automerge: true,
       addLabels: ["automerge"]  
@@ -22,7 +24,9 @@
       matchPackageNames: [
         "!/siderolabs/",
         "!/flux-operator/",
-        "!/flux-instance/"           
+        "!/flux-instance/",
+        "!/k3s-io/",
+        "!/k3d-io/"
       ],
       automerge: true,
       addLabels: ["automerge"]
