@@ -1,5 +1,5 @@
 ---
-name: HelmRelease test deployment
+name: HelmRelease Test
 
 on:
   workflow_dispatch:
