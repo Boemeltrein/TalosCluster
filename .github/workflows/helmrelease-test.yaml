@@ -1,5 +1,5 @@
 ---
-name: HelmRelease test deployment
+name: HelmRelease Test
 
 on:
   workflow_dispatch:
@@ -67,7 +67,7 @@ jobs:
           tooling_changed=false
 
           if printf '%s\n' "$changed_files" \
-            | grep -qxE '^(\.mise\.toml|ci/\.config\.yaml|\.github/workflows/testdeployment\.yaml|\.github/scripts/deploy_helmrelease\.sh)$'; then
+            | grep -qxE '^(\.mise\.toml|ci/\.config\.yaml|\.github/workflows/helmrelease-test\.yaml|\.github/scripts/deploy_helmrelease\.sh)$'; then
             tooling_changed=true
             canary_helmrelease=$(yq -r '.canaryHelmRelease // ""' ci/.config.yaml)
 
