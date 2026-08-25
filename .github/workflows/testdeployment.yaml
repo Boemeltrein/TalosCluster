@@ -64,9 +64,26 @@ jobs:
               --name-only)
           fi
 
+          tooling_changed=false
+
+          if printf '%s\n' "$changed_files" \
+            | grep -qxE '^(\.mise\.toml|ci/\.config\.yaml|\.github/workflows/testdeployment\.yaml|\.github/scripts/deploy_helmrelease\.sh)$'; then
+            tooling_changed=true
+            canary_helmrelease=$(yq -r '.canaryHelmRelease // ""' ci/.config.yaml)
+
+            if [ -z "$canary_helmrelease" ] || [ ! -f "$canary_helmrelease" ]; then
+              echo "❌ Canary HelmRelease not found: $canary_helmrelease"
+              exit 1
+            fi
+          fi
+
           files="$({
             printf '%s\n' "$changed_files" \
               | grep 'helm-release.yaml$' || true
+
+            if $tooling_changed; then
+              echo "$canary_helmrelease"
+            fi
 
             while IFS= read -r source_file; do
               [ -f "$source_file" ] || continue
@@ -245,7 +262,6 @@ jobs:
       # --------------------------------------------------
       - name: Test HelmRelease
         run: |
-          chmod +x .github/scripts/deploy_helmrelease.sh
           bash .github/scripts/deploy_helmrelease.sh "${{ matrix.helmrelease }}"
 
   test-summary:
