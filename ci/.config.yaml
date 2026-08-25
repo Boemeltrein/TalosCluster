@@ -1,7 +1,10 @@
 ---
 # CI test configuration.
 # dummyEnv: Placeholder environment variables for Helm templating.
+# canaryHelmRelease: HelmRelease tested when CI tooling changes.
 # skipList: HelmRelease paths excluded from CI deployment tests.
+
+canaryHelmRelease: clusters/main/kubernetes/apps/speedtest-tracker/app/helm-release.yaml
 
 dummyEnv:
   BASE_DOMAIN: base.dummy.local
