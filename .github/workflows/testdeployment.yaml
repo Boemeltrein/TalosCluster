@@ -3,6 +3,11 @@ name: HelmRelease test deployment
 
 on:
   workflow_dispatch:
+    inputs:
+      helmrelease:
+        description: Path to the HelmRelease to test
+        required: true
+        type: string
   pull_request:
 
 concurrency:
@@ -35,11 +40,29 @@ jobs:
 
       - name: Detect changed HelmReleases
         id: set
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          HELMRELEASE_INPUT: ${{ inputs.helmrelease }}
         run: |
-          changed_files=$(git diff \
-            "${{ github.event.pull_request.base.sha }}" \
-            "${{ github.sha }}" \
-            --name-only)
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            if [[ "$HELMRELEASE_INPUT" != clusters/main/kubernetes/*/helm-release.yaml ]]; then
+              echo "❌ Invalid HelmRelease path: $HELMRELEASE_INPUT"
+              echo "The path must point to a helm-release.yaml below clusters/main/kubernetes/."
+              exit 1
+            fi
+
+            if [ ! -f "$HELMRELEASE_INPUT" ]; then
+              echo "❌ HelmRelease not found: $HELMRELEASE_INPUT"
+              exit 1
+            fi
+
+            changed_files="$HELMRELEASE_INPUT"
+          else
+            changed_files=$(git diff \
+              "${{ github.event.pull_request.base.sha }}" \
+              "${{ github.sha }}" \
+              --name-only)
+          fi
 
           files="$({
             printf '%s\n' "$changed_files" \
