@@ -1,10 +1,10 @@
 ---
-name: Automerge and Approve
+name: Automerge
 
 on:
   workflow_dispatch:
   workflow_run:
-    workflows: ["HelmRelease test deployment"]  # Name of the main CI workflow
+    workflows: ["HelmRelease Test"]  # Name of the main CI workflow
     types:
       - completed
       
