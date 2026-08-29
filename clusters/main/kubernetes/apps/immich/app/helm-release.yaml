@@ -99,11 +99,11 @@ spec:
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
-          credentials: blaze
+          credentials: rustfs
           retentionPolicy: "14d"
           # revision: "1"
         recovery:
-          credentials: blaze
+          credentials: rustfs
           # revision: ""
         monitoring:
           enablePodMonitor: true          

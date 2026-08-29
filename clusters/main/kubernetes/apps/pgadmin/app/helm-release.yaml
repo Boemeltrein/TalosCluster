@@ -58,7 +58,7 @@ spec:
         volsync:
           - name: config
             type: restic
-            credentials: blaze
+            credentials: rustfs
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)

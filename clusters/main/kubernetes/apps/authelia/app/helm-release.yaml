@@ -52,7 +52,7 @@ spec:
         volsync:
           - name: config
             type: restic
-            credentials: blaze
+            credentials: rustfs
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)
@@ -84,11 +84,11 @@ spec:
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
-          credentials: blaze
+          credentials: rustfs
           retentionPolicy: "14d"
           # revision: "3"
         recovery:
-          credentials: blaze
+          credentials: rustfs
           # revision: "2"
         monitoring:
           enablePodMonitor: true
