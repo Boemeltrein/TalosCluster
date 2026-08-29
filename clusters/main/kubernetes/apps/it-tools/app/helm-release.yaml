@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: it-tools
-      version: 9.7.3
+      version: 9.8.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
