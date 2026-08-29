@@ -71,7 +71,7 @@ spec:
         volsync:
           - name: config
             type: restic
-            credentials: blaze
+            credentials: garage
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)
@@ -84,11 +84,11 @@ spec:
         mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
         backups:
           enabled: true
-          credentials: blaze
+          credentials: garage
           retentionPolicy: "14d"
           # revision: "5"
         recovery:
-          credentials: blaze
+          credentials: garage
           # revision: "4"
         monitoring:
           enablePodMonitor: true
