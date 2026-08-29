@@ -86,3 +86,14 @@ spec:
     resources:
       requests:
         cpu: 10m
+        
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: rustfs
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true

@@ -18,7 +18,6 @@ resources:
   - metube/ks.yaml
   - lldap/ks.yaml
   - authelia/ks.yaml
-  - librespeed/ks.yaml
   - speedtest-tracker/ks.yaml
   - guacamole/ks.yaml
   - pgadmin/ks.yaml
@@ -30,3 +29,4 @@ resources:
   - actions-runner-system
   - minecraft-stats/ks.yaml
   - romm/ks.yaml
+#  - librespeed/ks.yaml
