@@ -49,7 +49,7 @@ spec:
         volsync:
           - name: config
             type: restic
-            credentials: blaze
+            credentials: garage
             dest: #VolSync Destination (Restore)
               enabled: true
             src: #VolSync Source (Backup)
