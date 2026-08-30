@@ -61,9 +61,9 @@ spec:
         bootstrapToken: some_super_secret_token
       outposts:
         disableEmbeddedOutpost: true
-        # proxy:
-        #  enabled: true
-        #  token: some_super_secret_token
+        proxy:
+         enabled: true
+         token: some_super_secret_token
         radius:
           # Can't enable it before creating a
           # provider in the GUI
@@ -94,4 +94,31 @@ spec:
             enabled: true
             certificateIssuer: cloudflare
 
-
+    # ===== PROXY =====
+      proxy:
+        enabled: true
+        type: Deployment
+        podSpec:
+          containers:
+            proxy:
+              enabled: true
+              primary: true
+              imageSelector: proxyImage
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+              envFrom:
+                - configMapRef:
+                    name: proxy
+                - secretRef:
+                    name: proxy
+              probes:
+                liveness:
+                  enabled: true
+                  path: /outpost.goauthentik.io/ping
+                readiness:
+                  enabled: true
+                  path: /outpost.goauthentik.io/ping
+                startup:
+                  enabled: true
+                  path: /outpost.goauthentik.io/ping
