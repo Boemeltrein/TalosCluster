@@ -58,7 +58,6 @@ spec:
       credentials:
         email: ${EMAIL}
         password: ${AUTHENTIK_PASSW}
-        bootstrapToken: some_super_secret_token
       outposts:
         disableEmbeddedOutpost: true
         proxy:
@@ -115,10 +114,13 @@ spec:
             probes:
               liveness:
                 enabled: true
+                type: http
                 path: /outpost.goauthentik.io/ping
               readiness:
                 enabled: true
+                type: http
                 path: /outpost.goauthentik.io/ping
               startup:
                 enabled: true
+                type: http
                 path: /outpost.goauthentik.io/ping
