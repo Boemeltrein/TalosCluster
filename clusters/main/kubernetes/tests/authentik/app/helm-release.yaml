@@ -58,12 +58,12 @@ spec:
       credentials:
         email: ${EMAIL}
         password: ${AUTHENTIK_PASSW}
-        # bootstrapToken: some_super_secret_token
+        bootstrapToken: some_super_secret_token
       outposts:
         disableEmbeddedOutpost: true
-        proxy:
-          enabled: true
-          token: some_super_secret_token
+        # proxy:
+        #  enabled: true
+        #  token: some_super_secret_token
         radius:
           # Can't enable it before creating a
           # provider in the GUI
