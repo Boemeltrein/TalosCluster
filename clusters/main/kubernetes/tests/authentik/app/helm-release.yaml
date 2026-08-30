@@ -92,35 +92,36 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-
-  # ===== PROXY =====
-    proxy:
-      enabled: true
-      type: Deployment
-      podSpec:
-        containers:
-          proxy:
-            enabled: true
-            primary: true
-            imageSelector: proxyImage
-            securityContext:
-              runAsUser: 1000
-              runAsGroup: 1000
-            envFrom:
-              - configMapRef:
-                  name: proxy
-              - secretRef:
-                  name: proxy
-            probes:
-              liveness:
-                enabled: true
-                type: http
-                path: /outpost.goauthentik.io/ping
-              readiness:
-                enabled: true
-                type: http
-                path: /outpost.goauthentik.io/ping
-              startup:
-                enabled: true
-                type: http
-                path: /outpost.goauthentik.io/ping
+  
+    # ===== PROXY =====
+    workload:
+      proxy:
+        enabled: true
+        type: Deployment
+        podSpec:
+          containers:
+            proxy:
+              enabled: true
+              primary: true
+              imageSelector: proxyImage
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+              envFrom:
+                - configMapRef:
+                    name: proxy
+                - secretRef:
+                    name: proxy
+              probes:
+                liveness:
+                  enabled: true
+                  type: http
+                  path: /outpost.goauthentik.io/ping
+                readiness:
+                  enabled: true
+                  type: http
+                  path: /outpost.goauthentik.io/ping
+                startup:
+                  enabled: true
+                  type: http
+                  path: /outpost.goauthentik.io/ping
