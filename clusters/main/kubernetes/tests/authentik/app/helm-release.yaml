@@ -129,3 +129,17 @@ spec:
                   type: http
                   path: /outpost.goauthentik.io/ping
 
+    proxy:
+      enabled: true
+      targetSelector: proxy
+      ports:
+        http:
+          enabled: true
+          protocol: http
+          port: 9000
+          targetSelector: proxy
+        https:
+          enabled: true
+          protocol: https
+          port: 9443
+          targetSelector: proxy
