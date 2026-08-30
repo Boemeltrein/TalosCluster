@@ -58,7 +58,7 @@ spec:
       credentials:
         email: ${EMAIL}
         password: ${AUTHENTIK_PASSW}
-        bootstrapToken: some_super_secret_token
+        # bootstrapToken: some_super_secret_token
       outposts:
         disableEmbeddedOutpost: true
         proxy:
