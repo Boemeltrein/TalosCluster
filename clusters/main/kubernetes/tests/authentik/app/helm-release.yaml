@@ -33,11 +33,47 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    image:
+      repository: ghcr.io/goauthentik/server
+      tag: 2026.8.0@sha256:7421753cfea67e89a6d295a1f0173ccea3866b33768c88dad90453b151cdcfd5
+      pullPolicy: IfNotPresent
+    geoipImage:
+      repository: ghcr.io/maxmind/geoipupdate
+      tag: v8.0.0@sha256:51e70dd6f16cd3e4d845ac02d09940b10772a75b9d741427d235a78570923c1d
+      pullPolicy: IfNotPresent
+    ldapImage:
+      repository: ghcr.io/goauthentik/ldap
+      tag: 2026.8.0@sha256:ca356fd416528f15d6fd2c07ced9b414a0db902636efe378bf1bf45a86db31e7
+      pullPolicy: IfNotPresent
+    radiusImage:
+      repository: ghcr.io/goauthentik/radius
+      tag: 2026.8.0@sha256:a9dfe57b9b1c3958c78c780a01e06332497dbfdbbbe0bf6d9fc56ced8fc51e66
+      pullPolicy: IfNotPresent
+    proxyImage:
+      repository: ghcr.io/goauthentik/proxy
+      tag: 2026.8.0@sha256:896475410e78aafb82c605244b644a813e03806637798adbae6682dc5c3f8ff6
+      pullPolicy: IfNotPresent
+  
     authentik:
       credentials:
         email: ${EMAIL}
         password: ${AUTHENTIK_PASSW}
-
+      outposts:
+        disableEmbeddedOutpost: true
+        proxy:
+         enabled: true
+         token: some_super_secret_token
+        radius:
+          # Can't enable it before creating a
+          # provider in the GUI
+          enabled: false
+          token: some_super_secret_token
+        ldap:
+          # Can't enable it before creating a
+          # provider in the GUI
+          enabled: false
+          token: some_super_secret_token
+          
     ingress:
       main:
         enabled: true
@@ -56,3 +92,40 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+  
+    # ===== PROXY =====
+    workload:
+      proxy:
+        enabled: true
+        type: Deployment
+        podSpec:
+          containers:
+            proxy:
+              enabled: true
+              primary: true
+              imageSelector: proxyImage
+              securityContext:
+                runAsUser: 1000
+                runAsGroup: 1000
+              envFrom:
+                - configMapRef:
+                    name: proxy
+                - secretRef:
+                    name: proxy
+              probes:
+                liveness:
+                  enabled: false
+                  type: http
+                  port: 10231
+                  path: /outpost.goauthentik.io/ping
+                readiness:
+                  enabled: false
+                  type: http
+                  port: 10231
+                  path: /outpost.goauthentik.io/ping
+                startup:
+                  enabled: false
+                  port: 10231
+                  type: http
+                  path: /outpost.goauthentik.io/ping
+
