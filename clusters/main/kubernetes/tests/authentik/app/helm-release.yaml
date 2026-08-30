@@ -116,15 +116,15 @@ spec:
                 liveness:
                   enabled: true
                   type: http
-                  port: 10227
+                  port: 9300
                   path: /outpost.goauthentik.io/ping
                 readiness:
                   enabled: true
                   type: http
-                  port: 10227
+                  port: 9300
                   path: /outpost.goauthentik.io/ping
                 startup:
                   enabled: true
-                  port: 10227
+                  port: 9300
                   type: http
                   path: /outpost.goauthentik.io/ping
