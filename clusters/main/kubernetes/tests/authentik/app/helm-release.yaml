@@ -116,24 +116,16 @@ spec:
                 liveness:
                   enabled: true
                   type: http
-                  port: 9300
+                  port: 10231
                   path: /outpost.goauthentik.io/ping
                 readiness:
                   enabled: true
                   type: http
-                  port: 9300
+                  port: 10231
                   path: /outpost.goauthentik.io/ping
                 startup:
                   enabled: true
-                  port: 9300
+                  port: 10231
                   type: http
                   path: /outpost.goauthentik.io/ping
 
-    service:
-      proxy:
-        ports:
-          probe:
-            enabled: true
-            protocol: http
-            port: 9300
-            targetSelector: proxy
