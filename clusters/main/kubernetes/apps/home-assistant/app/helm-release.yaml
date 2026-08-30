@@ -53,11 +53,6 @@ spec:
               custom:
                 key: "${HP_API_HASS}"
 
-    homeassistant:
-      trusted_proxies:
-        - 172.16.0.0/16
-        - 172.17.0.0/16
-
     persistence:
       config:
         volsync:
