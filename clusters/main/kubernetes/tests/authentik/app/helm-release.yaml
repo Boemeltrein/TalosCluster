@@ -114,17 +114,17 @@ spec:
                     name: proxy
               probes:
                 liveness:
-                  enabled: true
+                  enabled: false
                   type: http
                   port: 10231
                   path: /outpost.goauthentik.io/ping
                 readiness:
-                  enabled: true
+                  enabled: false
                   type: http
                   port: 10231
                   path: /outpost.goauthentik.io/ping
                 startup:
-                  enabled: true
+                  enabled: false
                   port: 10231
                   type: http
                   path: /outpost.goauthentik.io/ping
