@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: authentik
-      version: 41.2.0
+      version: 41.3.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
