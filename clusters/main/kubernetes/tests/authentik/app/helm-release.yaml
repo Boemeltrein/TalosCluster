@@ -51,7 +51,7 @@ spec:
       pullPolicy: IfNotPresent
     proxyImage:
       repository: ghcr.io/goauthentik/proxy
-      tag: 2026.8.0@sha256:896475410e78aafb82c605244b644a813e03806637798adbae6682dc5c3f8ff6
+      tag: 2026.8.1@sha256:a4491a98d09666cd4a6a36581fd905762af1de938c40f17635238f1164d2a9f4
       pullPolicy: IfNotPresent
   
     authentik:
