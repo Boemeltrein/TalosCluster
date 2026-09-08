@@ -19,7 +19,7 @@ permissions:
 
 env:
   # renovate: datasource=github-releases depName=jdx/mise
-  MISE_VERSION: 2026.9.2
+  MISE_VERSION: 2026.9.3
 
 jobs:
   detect:
