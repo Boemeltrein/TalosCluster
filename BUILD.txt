@@ -1,4 +1,4 @@
-Version: test-b0188bc59629
-Commit: b0188bc596297fdfbe019dcaf191c58fc7a56270
+Version: test-c536c5809217
+Commit: c536c580921740408f7215f093445874819fb6cc
 Platform: linux/amd64
-Built at: 2026-09-12T10:12:35Z
+Built at: 2026-09-12T12:31:39Z
