@@ -1,0 +1,28 @@
+# ClusterTool configuration.
+# Talos settings belong in the patches directory next to this file.
+apiVersion: clustertool/v1
+kind: ClusterConfig
+
+# renovate: datasource=github-releases depName=siderolabs/talos
+talosVersion: v1.14.0
+# renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
+kubernetesVersion: v1.37.0
+
+bootstrapNode: control-1
+
+nodes:
+  - name: control-1
+    role: control-plane
+    address: ${CONTROL1IP}
+
+  # Optional additional nodes:
+  # Configure their addresses in clusterenv.yaml and create matching
+  # patches/nodes/<name>/ directories before enabling them.
+  #
+  # - name: control-2
+  #   role: control-plane
+  #   address: ${CONTROL2IP}
+  #
+  # - name: worker-1
+  #   role: worker
+  #   address: ${WORKER1IP}

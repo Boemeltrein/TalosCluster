@@ -1,0 +1,81 @@
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: docker.io
+endpoints:
+  - url: https://mirror.gcr.io
+  - url: https://registry-1.docker.io
+  - url: https://docker.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: registry-1.docker.io
+endpoints:
+  - url: https://mirror.gcr.io
+  - url: https://registry-1.docker.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: tccr.io
+endpoints:
+  - url: https://oci.trueforge.org
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: oci.trueforge.org
+endpoints:
+  - url: https://quay.io
+  - url: https://oci.trueforge.org
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: cgr.dev
+endpoints:
+  - url: https://cgr.dev
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: factory.talos.dev
+endpoints:
+  - url: https://factory.talos.dev
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: gcr.io
+endpoints:
+  - url: https://gcr.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: ghcr.io
+endpoints:
+  - url: https://ghcr.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: k8s.gcr.io
+endpoints:
+  - url: https://k8s.gcr.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: mcr.microsoft.com
+endpoints:
+  - url: https://mcr.microsoft.com
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: public.ecr.aws
+endpoints:
+  - url: https://public.ecr.aws
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: quay.io
+endpoints:
+  - url: https://quay.io
+---
+apiVersion: v1alpha1
+kind: RegistryMirrorConfig
+name: registry.k8s.io
+endpoints:
+  - url: https://registry.k8s.io

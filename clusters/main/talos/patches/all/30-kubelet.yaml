@@ -1,0 +1,13 @@
+apiVersion: v1alpha1
+kind: KubeletConfig
+extraArgs:
+  rotate-server-certificates: "true"
+config:
+  maxPods: 250
+  crashLoopBackOff:
+    maxContainerRestartPeriod: 60s
+  shutdownGracePeriod: 90s
+  shutdownGracePeriodCriticalPods: 60s
+  imageGCHighThresholdPercent: 50
+  imageGCLowThresholdPercent: 30
+  imageMinimumGCAge: "30m"

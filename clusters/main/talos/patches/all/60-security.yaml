@@ -1,0 +1,10 @@
+# Talos 1.14 defaults to running kubelet and pods in a sandboxed PID/mount
+# namespace, which breaks workloads that rely on hostPID or host mounts
+# Disable workload isolation for compatibility with workloads that require
+# access to host services outside the Talos sandbox, such as in-tree iSCSI.
+# Node-exporter and GPU plugins may also be affected, depending on how they
+# access host resources.
+# Set to true after verifying compatibility with your workloads.
+apiVersion: v1alpha1
+kind: SecurityProfileConfig
+workloadIsolation: false

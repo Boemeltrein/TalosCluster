@@ -1,0 +1,13 @@
+apiVersion: v1alpha1
+kind: LinkConfig
+name: eth0
+up: true
+addresses:
+  - address: ${CONTROL1IP}/24
+routes:
+  - gateway: ${GATEWAY}
+---
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: ${VIP}
+link: eth0

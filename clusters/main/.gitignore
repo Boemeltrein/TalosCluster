@@ -1,16 +1,9 @@
-talconfig.json
-clusterconfig
-# patches/all.yaml
-# patches/controlplane.yaml
-# patches/worker.yaml
-# *patches/all.yaml
-# *patches/controlplane.yaml
-# *patches/worker.yaml
-# all.yaml
-# controlplane.yaml
-# worker.yaml
+talos/generated/
 *sopssecret.secret.yaml
-sopssecret.secret.yaml
-cluster/main/kubernetes/**/bootstrap-values.yaml.ct
 *kubeconfig
+talos/.generate-*/
+talos/.secrets-*/
+talos/generated.previous/
+talos/.bootstrap-in-progress.json
+
 .decrypted~*.yaml

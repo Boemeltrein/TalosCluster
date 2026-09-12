@@ -1,0 +1,4 @@
+Version: test-b0188bc59629
+Commit: b0188bc596297fdfbe019dcaf191c58fc7a56270
+Platform: linux/amd64
+Built at: 2026-09-12T10:12:35Z
