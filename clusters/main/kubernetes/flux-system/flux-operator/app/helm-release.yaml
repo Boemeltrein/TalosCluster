@@ -29,19 +29,19 @@ spec:
     serviceMonitor:
       create: true
     web:
-      config:
-        authentication:
-          type: Anonymous
-          anonymous:
-            username: flux
-            groups:
-              - flux-admin
-      httpRoute:
-        enabled: true
-        hostnames:
-          - flux-operator.boemeltrein.nl
-        parentRefs:
-          - name: envoy-internal
-            namespace: envoy-gateway
-      networkPolicy:
-        create: false
+      # config:
+      #   authentication:
+      #     type: Anonymous
+      #     anonymous:
+      #       username: flux
+      #       groups:
+      #         - flux-admin
+      # httpRoute:
+      #   enabled: true
+      #   hostnames:
+      #     - flux-operator.boemeltrein.nl
+      #   parentRefs:
+      #     - name: envoy-internal
+      #       namespace: envoy-gateway
+      # networkPolicy:
+      #   create: false
