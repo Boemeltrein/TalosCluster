@@ -45,3 +45,18 @@ spec:
       #       namespace: envoy-gateway
       # networkPolicy:
       #   create: false
+      ingress:
+        enabled: true
+        className: internal
+        annotations:
+          cert-manager.io/cluster-issuer: cloudflare
+          cert-manager.io/private-key-rotation-policy: Always
+        hosts:
+          - host: flux-operator.${BASE_DOMAIN}
+            paths:
+              - path: /
+                pathType: ImplementationSpecific
+        tls:
+          - secretName: flux-operator-tls
+            hosts:
+              - flux-operator.${BASE_DOMAIN}
