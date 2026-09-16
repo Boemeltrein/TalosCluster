@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: immich
-      version: 33.17.6
+      version: 33.17.11
       sourceRef:
         kind: HelmRepository
         name: truecharts
