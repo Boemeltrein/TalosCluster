@@ -1,13 +1,19 @@
 ---
-## Do not edit between this and DO NOT REMOVE
+stores:
+  yaml:
+    indent: 2
 creation_rules:
   - path_regex: ^clusters/[^/]+/(kubernetes|components|secrets)/.*\.(secret|sops)\.ya?ml$
     encrypted_regex: "^(data|stringData)$"
+    mac_only_encrypted: true
     age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
   - path_regex: ^clusters/[^/]+/talos/secrets\.sops\.ya?ml$
     age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
+# Compatibility with previous version of clustertool:
+  - path_regex: ^clusters.*kubernetes.*values.ya?ml$
+    encrypted_regex: "((?i)(displayname|email|pass|ca|id|bootstraptoken|secretboxencryptionsecret|secrets|password|cert|secret($|[^N])|key|token|^data$|^stringData))"
+    age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych    
   - path_regex: (^|/)clusterenv\.yaml$
     age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
   - path_regex: (^|/)talsecret\.ya?ml$
-    age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych    
-## DO NOT REMOVE: Personal setting go under this line
+    age: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
