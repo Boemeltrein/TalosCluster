@@ -1,9 +1,5 @@
 talos/generated/
-*sopssecret.secret.yaml
-*kubeconfig
 talos/.generate-*/
 talos/.secrets-*/
 talos/generated.previous/
 talos/.bootstrap-in-progress.json
-
-.decrypted~*.yaml
