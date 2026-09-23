@@ -1,4 +1,4 @@
-Version: test-c536c5809217
-Commit: c536c580921740408f7215f093445874819fb6cc
+Version: 5.0.0-alpha.6
+Commit: 3f7c2d62b3a92425268961752ffb1f2ca6cf1ea3
 Platform: linux/amd64
-Built at: 2026-09-12T12:31:39Z
+Built at: 2026-09-21T19:56:38Z
