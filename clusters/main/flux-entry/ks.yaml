@@ -40,8 +40,8 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
+      - kind: Secret
+        name: cluster-settings
   wait: true
   patches:
     - patch: |-
@@ -56,8 +56,8 @@ spec:
               name: sops-age
           postBuild:
             substituteFrom:
-              - kind: ConfigMap
-                name: cluster-config
+              - kind: Secret
+                name: cluster-settings
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
@@ -86,8 +86,8 @@ spec:
       name: sops-age
   postBuild:
     substituteFrom:
-      - kind: ConfigMap
-        name: cluster-config
+      - kind: Secret
+        name: cluster-settings
   patches:
     - patch: |-
         apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -101,8 +101,8 @@ spec:
               name: sops-age
           postBuild:
             substituteFrom:
-              - kind: ConfigMap
-                name: cluster-config
+              - kind: Secret
+                name: cluster-settings
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization

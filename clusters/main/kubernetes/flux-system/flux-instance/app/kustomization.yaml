@@ -7,3 +7,5 @@ resources:
   - ./podmonitor.yaml  
   - ./grafanadashboard.yaml
   - ./promethuesrule.yaml
+  - ./deploy-key.sops.yaml
+  # - sops-age.sops.yaml
