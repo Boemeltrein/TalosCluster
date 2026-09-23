@@ -7,7 +7,6 @@ components:
   - ../../components/notifications/discord
 resources:
   - ./namespace.yaml
-  - ./flux
   - ./flux-operator/ks.yaml
   - ./flux-instance/ks.yaml
   - ./webhooks
