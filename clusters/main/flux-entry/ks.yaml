@@ -12,7 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: cluster
-    namespace: flux-system 
+    namespace: flux-system
   decryption:
     provider: sops
     secretRef:
@@ -79,7 +79,7 @@ spec:
     namespace: flux-system
   # dependsOn:
   #   - name: flux-entry-secrets
-  #   - name: flux-entry-repos 
+  #   - name: flux-entry-repos
   decryption:
     provider: sops
     secretRef:
