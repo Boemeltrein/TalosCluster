@@ -1,4 +1,4 @@
-Version: 5.0.0-alpha.6
-Commit: 3f7c2d62b3a92425268961752ffb1f2ca6cf1ea3
+Version: 5.0.0-beta.1
+Commit: ee76a8cd79d08b287582d1c69db82280e805f0db
 Platform: linux/amd64
-Built at: 2026-09-21T19:56:38Z
+Built at: 2026-09-28T08:20:13Z
