@@ -114,9 +114,9 @@ spec:
           title: Memory
 
         - id: cluster_power_usage
-          query: round(shellyplug_power{name="server"}, 1)
+          query: round(increase(shellyplug_total{name="server"}[1h]) / 60, 1)
           valueExpr: string(result) + "w"
-          colorExpr: 'result < 110 ? "green" : result < 150 ? "orange" : "red"'
+          colorExpr: 'result < 185 ? "green" : result < 200 ? "orange" : "red"'
           title: Power
 
         - id: cluster_age_days
