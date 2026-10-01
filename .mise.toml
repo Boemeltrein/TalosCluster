@@ -1,5 +1,5 @@
 [tools]
-flux2 = "2.9.5"
+flux2 = "2.9.6"
 helm = "4.3.0"
 jq = "1.8.2"
 kubeconform = "0.8.0"
