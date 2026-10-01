@@ -37,3 +37,20 @@ spec:
       repository: ghcr.io/kube-rbac-proxy/kube-rbac-proxy
       pullPolicy: IfNotPresent
       tag: v0.23.0@sha256:296fd0a10fb635414b4533b983f0d5a686ce0ce73567b7079b6595ba75034f1a
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              args:
+                - --health-probe-bind-address=:8081
+                - --metrics-bind-address=127.0.0.1:8080
+                - --metrics-secure=false
+                - --leader-elect
+                - --rclone-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --restic-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --rsync-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --rsync-tls-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --syncthing-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
+                - --scc-name=volsync-privileged-mover
