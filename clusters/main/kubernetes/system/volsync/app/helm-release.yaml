@@ -29,3 +29,11 @@ spec:
     configmap:
       dashboard-volsync:
         enabled: false
+    image:
+      repository: quay.io/backube/volsync
+      pullPolicy: IfNotPresent
+      tag: 0.16.0@sha256:0d03a6aad57569eba2c0eaa0848cf4a908d9744b372ff2224bb291a320f36d76
+    proxyImage:
+      repository: ghcr.io/kube-rbac-proxy/kube-rbac-proxy
+      pullPolicy: IfNotPresent
+      tag: v0.23.0@sha256:296fd0a10fb635414b4533b983f0d5a686ce0ce73567b7079b6595ba75034f1a
