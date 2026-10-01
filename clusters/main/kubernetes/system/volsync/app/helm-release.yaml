@@ -29,6 +29,7 @@ spec:
     configmap:
       dashboard-volsync:
         enabled: false
+
     image:
       repository: quay.io/backube/volsync
       pullPolicy: IfNotPresent
@@ -45,8 +46,9 @@ spec:
             main:
               args:
                 - --health-probe-bind-address=:8081
-                - --metrics-bind-address=127.0.0.1:8080
-                - --metrics-secure=false
+                - --metrics-bind-address=:8443
+                - --metrics-secure=true
+                - --metrics-require-rbac=false
                 - --leader-elect
                 - --rclone-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
                 - --restic-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
@@ -54,3 +56,28 @@ spec:
                 - --rsync-tls-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
                 - --syncthing-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
                 - --scc-name=volsync-privileged-mover
+            kube-rbac-proxy:
+              enabled: false
+
+    service:
+      metrics:
+        enabled: true
+        type: ClusterIP
+        ports:
+          metrics:
+            enabled: true
+            port: 8443
+            targetPort: 8443
+            protocol: https
+
+    metrics:
+      main:
+        enabled: true
+        type: servicemonitor
+        targetSelector: metrics
+        endpoints:
+          - port: metrics
+            path: /metrics
+            scheme: https
+            tlsConfig:
+              insecureSkipVerify: true
