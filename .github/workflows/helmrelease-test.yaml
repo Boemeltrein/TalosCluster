@@ -263,6 +263,7 @@ jobs:
           k3d-args: >-
             --k3s-arg --disable=metrics-server@server:*
             --k3s-arg --disable=traefik@server:*
+            --k3s-arg --disable=gateway-api-crd@server:*
       # --------------------------------------------------
       # Deploy & test HelmRelease
       # --------------------------------------------------
