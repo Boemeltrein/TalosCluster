@@ -14,7 +14,22 @@
         "!/longhorn/",
         "!/cilium/",
         "!/k3s-io/",
-        "!/k3d-io/"
+        "!/k3d-io/",
+        "!/alloy/",
+        "!/blocky/",
+        "!/gatus/",
+        "!/gha-runner-scale-set/",
+        "!/konflate/",
+        "!/kromgo/",
+        "!/kube-prometheus-stack/",
+        "!/lldap/",
+        "!/metallb/",
+        "!/metrics-server/",
+        "!/node-feature-discovery/",
+        "!/signal-cli-rest-api/",
+        "!/truenas-exporter/",
+        "!/tuppr/",
+        "!/volsync/"
       ],
       automerge: true,
       addLabels: ["automerge"]  
