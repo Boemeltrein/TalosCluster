@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: prowlarr
-      version: 22.13.5
+      version: 22.13.6
       sourceRef:
         kind: HelmRepository
         name: truecharts
