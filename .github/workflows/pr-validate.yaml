@@ -23,7 +23,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Setup Homebrew
-        uses: Homebrew/actions/setup-homebrew@dc7099b3e807f1e2ecc61f3ecabc840eedd5586a # main
+        uses: Homebrew/actions/setup-homebrew@9ffcbcc2c89631400988e8d4b1e3ac17dbbe3fe9 # main
       - name: Setup Workflow Tools
         run: brew install fluxcd/tap/flux kubeconform kustomize
       - name: Run kubeconform
