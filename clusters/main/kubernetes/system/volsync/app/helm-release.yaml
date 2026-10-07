@@ -26,58 +26,12 @@ spec:
     remediation:
       retries: 3
   values:
-    configmap:
-      dashboard-volsync:
-        enabled: false
 
     image:
       repository: quay.io/backube/volsync
       pullPolicy: IfNotPresent
       tag: 0.16.0@sha256:0d03a6aad57569eba2c0eaa0848cf4a908d9744b372ff2224bb291a320f36d76
-    proxyImage:
-      repository: ghcr.io/kube-rbac-proxy/kube-rbac-proxy
-      pullPolicy: IfNotPresent
-      tag: v0.23.0@sha256:296fd0a10fb635414b4533b983f0d5a686ce0ce73567b7079b6595ba75034f1a
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              args:
-                - --health-probe-bind-address=:8081
-                - --metrics-bind-address=:8443
-                - --metrics-secure=true
-                - --metrics-require-rbac=false
-                - --leader-elect
-                - --rclone-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
-                - --restic-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
-                - --rsync-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
-                - --rsync-tls-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
-                - --syncthing-container-image={{ printf "%s:%s" .Values.image.repository .Values.image.tag }}
-                - --scc-name=volsync-privileged-mover
-            kube-rbac-proxy:
-              enabled: false
-
-    service:
-      metrics:
-        enabled: true
-        type: ClusterIP
-        ports:
-          metrics:
-            enabled: true
-            port: 8443
-            targetPort: 8443
-            protocol: https
-
-    metrics:
-      main:
-        enabled: true
-        type: servicemonitor
-        targetSelector: metrics
-        endpoints:
-          - port: metrics
-            path: /metrics
-            scheme: https
-            tlsConfig:
-              insecureSkipVerify: true
+    configmap:
+      dashboard-volsync:
+        enabled: false
