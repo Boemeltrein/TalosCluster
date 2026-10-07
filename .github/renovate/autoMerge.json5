@@ -21,7 +21,6 @@
         "!/gha-runner-scale-set/",
         "!/konflate/",
         "!/kromgo/",
-        "!/kube-prometheus-stack/",
         "!/lldap/",
         "!/metallb/",
         "!/metrics-server/",
