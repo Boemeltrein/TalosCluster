@@ -53,3 +53,11 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
+
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                MINIO_BROWSER_REDIRECT_URL: "minio.${BASE_DOMAIN}"
