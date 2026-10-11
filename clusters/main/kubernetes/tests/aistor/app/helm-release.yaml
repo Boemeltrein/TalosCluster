@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: aistor
-      version: 0.1.0
+      version: 1.0.1
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -33,15 +33,10 @@ spec:
   
   values:
     minio:
-      # Without a valid license, AIStor starts in offline mode and blocks S3 operations.
-      # Obtain a free license at https://www.min.io/pricing and encrypt it with SOPS.
       licence: "${MINIO_LICENCE}"
-      # Use HTTPS for service protocols and health probes.
-      # Enable when AIStor serves TLS using public.crt and private.key in /etc/minio/certs.
-      # Leave false when TLS terminates at the ingress and AIStor serves HTTP.
-      tls: false
       rootUser: minio
       rootPassword: minio123
+      browserRedirectUrl: https://minio.${BASE_DOMAIN}
 
     ingress:
       main:
@@ -53,11 +48,12 @@ spec:
           certManager:
             enabled: true
             certificateIssuer: cloudflare
-
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                MINIO_BROWSER_REDIRECT_URL: "https://minio.${BASE_DOMAIN}"
+      api:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: minioapi.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
