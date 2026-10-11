@@ -6,11 +6,11 @@ metadata:
   name: flux-instance
   namespace: flux-system
 spec:
+  interval: 1h
   chartRef:
     kind: OCIRepository
     name: flux-instance
     namespace: flux-system
-  timeout: 20m
   values:
     instance:
       cluster:

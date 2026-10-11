@@ -6,6 +6,7 @@ metadata:
   name: grafana-loki
   namespace: grafana-loki
 spec:
+  interval: 1h
   chart:
     spec:
       chart: loki
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: grafana-community
         namespace: flux-system
-  timeout: 20m
   values:
     deploymentMode: Monolithic
     loki:

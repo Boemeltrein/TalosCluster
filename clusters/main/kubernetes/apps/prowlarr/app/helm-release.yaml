@@ -6,6 +6,7 @@ metadata:
   name: prowlarr
   namespace: prowlarr
 spec:
+  interval: 1h
   chart:
     spec:
       chart: prowlarr
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     TZ: Europe/Amsterdam
 

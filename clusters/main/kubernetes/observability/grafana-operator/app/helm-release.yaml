@@ -6,6 +6,7 @@ metadata:
   name: grafana-operator
   namespace: grafana-operator
 spec:
+  interval: 1h
   chart:
     spec:
       chart: grafana-operator
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: grafana
         namespace: flux-system
-  timeout: 20m
   values:
     serviceMonitor:
       enabled: true

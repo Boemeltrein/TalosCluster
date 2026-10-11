@@ -6,6 +6,7 @@ metadata:
   name: home-assistant
   namespace: home-assistant
 spec:
+  interval: 1h
   chart:
     spec:
       chart: home-assistant
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     TZ: Europe/Amsterdam
 

@@ -6,6 +6,7 @@ metadata:
   name: node-feature-discovery
   namespace: kube-system
 spec:
+  interval: 1h
   chart:
     spec:
       chart: node-feature-discovery

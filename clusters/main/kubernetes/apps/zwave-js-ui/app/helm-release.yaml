@@ -6,6 +6,7 @@ metadata:
   name: zwave-js-ui
   namespace: zwave-js-ui
 spec:
+  interval: 1h
   chart:
     spec:
       chart: zwavejs2mqtt
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     TZ: Europe/Amsterdam
 

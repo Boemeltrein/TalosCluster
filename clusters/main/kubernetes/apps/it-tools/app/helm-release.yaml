@@ -6,6 +6,7 @@ metadata:
   name: it-tools
   namespace: it-tools
 spec:
+  interval: 1h
   chart:
     spec:
       chart: it-tools

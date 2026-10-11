@@ -6,6 +6,7 @@ metadata:
   name: headlamp
   namespace: headlamp
 spec:
+  interval: 1h
   chart:
     spec:
       chart: headlamp
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: home-ops-mirror
         namespace: flux-system
-  timeout: 20m
   values:
 
     initContainers:

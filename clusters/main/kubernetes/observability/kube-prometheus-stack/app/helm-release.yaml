@@ -6,6 +6,7 @@ metadata:
   name: kube-prometheus-stack
   namespace: kube-prometheus-stack
 spec:
+  interval: 1h
   chart:
     spec:
       chart: kube-prometheus-stack
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-  timeout: 20m
   values:
 
     crds:

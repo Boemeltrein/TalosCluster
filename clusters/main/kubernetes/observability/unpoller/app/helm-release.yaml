@@ -6,6 +6,7 @@ metadata:
   name: unpoller
   namespace: unpoller
 spec:
+  interval: 1h
   chart:
     spec:
       chart: unpoller
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     TZ: Europe/Amsterdam
 

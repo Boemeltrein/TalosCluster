@@ -6,6 +6,7 @@ metadata:
   name: volsync
   namespace: volsync
 spec:
+  interval: 1h
   chart:
     spec:
       chart: volsync

@@ -121,7 +121,6 @@ spec:
                 metadata:
                   name: _
                 spec:
-                  interval: 1h
                   driftDetection:
                     mode: warn
                   install:

@@ -6,6 +6,7 @@ metadata:
   name: actions-runner-controller
   namespace: actions-runner-system
 spec:
+  interval: 1h
   chart:
     spec:
       chart: gha-runner-scale-set-controller
@@ -14,6 +15,5 @@ spec:
         kind: HelmRepository
         name: actions-runner-system
         namespace: flux-system
-  timeout: 20m
   values:
     fullnameOverride: actions-runner-controller

@@ -28,7 +28,6 @@ jobs:
           patterns: |
             clusters/main/kubernetes/**/*
             repositories/**/*
-            clusters/main/flux-entry/**/*
 
   flate:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}

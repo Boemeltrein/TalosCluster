@@ -6,6 +6,7 @@ metadata:
   name: metrics-server
   namespace: kube-system
 spec:
+  interval: 1h
   chart:
     spec:
       chart: metrics-server
@@ -14,5 +15,4 @@ spec:
         kind: HelmRepository
         name: home-ops-mirror
         namespace: flux-system
-  timeout: 20m
   values: {}

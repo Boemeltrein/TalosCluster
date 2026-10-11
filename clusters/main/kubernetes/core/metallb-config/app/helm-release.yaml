@@ -6,6 +6,7 @@ metadata:
   name: metallb-config
   namespace: metallb-config
 spec:
+  interval: 1h
   chart:
     spec:
       chart: metallb-config
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     L2Advertisements:
       - name: main

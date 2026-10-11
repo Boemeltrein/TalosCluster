@@ -6,6 +6,7 @@ metadata:
   name: minecraft-stats
   namespace: minecraft-stats
 spec:
+  interval: 1h
   chart:
     spec:
       chart: app-template
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     image:
       repository: ghcr.io/xstar97/mc-stats

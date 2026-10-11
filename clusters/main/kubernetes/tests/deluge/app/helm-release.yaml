@@ -6,6 +6,7 @@ metadata:
   name: deluge
   namespace: deluge
 spec:
+  interval: 1h
   chart:
     spec:
       chart: deluge
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
 
     ingress:

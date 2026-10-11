@@ -6,6 +6,7 @@ metadata:
   name: openebs
   namespace: openebs
 spec:
+  interval: 1h
   releaseName: openebs
   chart:
     spec:

@@ -6,6 +6,7 @@ metadata:
   name: kubernetes-reflector
   namespace: kubernetes-reflector
 spec:
+  interval: 1h
   chart:
     spec:
       chart: kubernetes-reflector
@@ -14,4 +15,3 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m

@@ -6,6 +6,7 @@ metadata:
   name: truenas-exporter
   namespace: truenas-exporter
 spec:
+  interval: 1h
   chart:
     spec:
       chart: truenas-exporter
@@ -14,7 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  timeout: 20m
   values:
     TZ: Europe/Amsterdam
 
