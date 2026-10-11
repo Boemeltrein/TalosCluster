@@ -40,7 +40,8 @@ spec:
     minio:
       # Without a valid license, AIStor starts in offline mode and blocks all S3 operations.
       # Get a free license at https://www.min.io/pricing
-      licence: ${MINIO_LICENCE}
+      # licence: "${MINIO_LICENCE}"
+      licence: ""
       tls: false
       rootUser: "minio"
       rootPassword: "CHANGE-ME-TO-A-LONG-PASSWORD"
