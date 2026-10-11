@@ -31,6 +31,9 @@ jobs:
           patterns: |
             clusters/main/kubernetes/**/*
             repositories/**/*
+            clusters/main/flux-entry/**/*
+            .github/scripts/kubeconform.sh
+            .github/workflows/kubeconform.yaml
 
   kubeconform:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -47,6 +50,7 @@ jobs:
           install_args: >-
             kubeconform
             kustomize
+            yq
       - name: Run kubeconform
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}

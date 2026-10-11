@@ -25,7 +25,7 @@ jobs:
       - name: Setup Homebrew
         uses: Homebrew/actions/setup-homebrew@eb02c69dbabdb66ff183c614f4ce7ab3c077592c # main
       - name: Setup Workflow Tools
-        run: brew install fluxcd/tap/flux kubeconform kustomize
+        run: brew install fluxcd/tap/flux kubeconform kustomize yq
       - name: Run kubeconform
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
