@@ -37,6 +37,9 @@ spec:
       tag: RELEASE.2026-09-19T17-05-25Z
       pullPolicy: IfNotPresent
 
+    minio:
+      licence: "Very-Secret-Licence-REPLACE_ME"
+
     workload:
       main:
         podSpec:
@@ -82,7 +85,24 @@ spec:
             enabled: true
             port: 10106
 
+    configmap:
+      license:
+        enabled: true
+        data:
+          minio.license: "{{ .Values.minio.licence }}"
+
     persistence:
       data:
         enabled: true
-        mountPath: /data
+        size: 20Gi
+        mountPath: /mnt/data
+      certs:
+        enabled: true
+        size: 1Gi
+        mountPath: /etc/minio/certs
+      license:
+        enabled: true
+        type: configmap
+        objectName: license
+        mountPath: /minio.license
+        subPath: minio.license
