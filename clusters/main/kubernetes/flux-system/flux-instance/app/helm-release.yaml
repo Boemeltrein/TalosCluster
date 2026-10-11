@@ -6,25 +6,11 @@ metadata:
   name: flux-instance
   namespace: flux-system
 spec:
-  interval: 15m
   chartRef:
     kind: OCIRepository
     name: flux-instance
     namespace: flux-system
   timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false  
   values:
     instance:
       cluster:

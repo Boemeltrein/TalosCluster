@@ -6,7 +6,6 @@ metadata:
   name: node-feature-discovery
   namespace: kube-system
 spec:
-  interval: 30m
   chart:
     spec:
       chart: node-feature-discovery
@@ -15,16 +14,6 @@ spec:
         kind: HelmRepository
         name: node-feature-discovery
         namespace: flux-system
-  install:
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      strategy: rollback
-      retries: 3
   values:
     worker:
       config:

@@ -6,7 +6,6 @@ metadata:
   name: openebs
   namespace: openebs
 spec:
-  interval: 5m
   releaseName: openebs
   chart:
     spec:
@@ -16,15 +15,6 @@ spec:
         kind: HelmRepository
         name: openebs
         namespace: flux-system
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
   values:
     localpv-provisioner:
       localpv:

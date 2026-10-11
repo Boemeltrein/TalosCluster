@@ -6,7 +6,6 @@ metadata:
   name: tuppr
   namespace: system-upgrade
 spec:
-  interval: 1h
   chartRef:
     kind: OCIRepository
     name: tuppr

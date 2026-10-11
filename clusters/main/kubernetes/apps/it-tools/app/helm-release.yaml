@@ -6,7 +6,6 @@ metadata:
   name: it-tools
   namespace: it-tools
 spec:
-  interval: 5m
   chart:
     spec:
       chart: it-tools
@@ -15,16 +14,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-      interval: 5m
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
   values:
     TZ: Europe/Amsterdam
 

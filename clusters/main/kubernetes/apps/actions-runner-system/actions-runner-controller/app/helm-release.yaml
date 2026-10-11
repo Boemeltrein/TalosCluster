@@ -6,7 +6,6 @@ metadata:
   name: actions-runner-controller
   namespace: actions-runner-system
 spec:
-  interval: 15m
   chart:
     spec:
       chart: gha-runner-scale-set-controller
@@ -15,22 +14,6 @@ spec:
         kind: HelmRepository
         name: actions-runner-system
         namespace: flux-system
-      interval: 15m
   timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     fullnameOverride: actions-runner-controller
