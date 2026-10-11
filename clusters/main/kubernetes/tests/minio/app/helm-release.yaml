@@ -40,7 +40,7 @@ spec:
     minio:
       # Without a valid license, AIStor starts in offline mode and blocks all S3 operations.
       # Get a free license at https://www.min.io/pricing
-      licence: ""
+      licence: ${MINIO_LICENCE}
       tls: false
       rootUser: "minio"
       rootPassword: "CHANGE-ME-TO-A-LONG-PASSWORD"
@@ -73,7 +73,7 @@ spec:
                   port: 9000
                 readiness:
                   type: '{{ ternary "https" "http" .Values.minio.tls }}'
-                  path: /minio/health/live
+                  path: /minio/health/ready
                   port: 9000
 
     service:
