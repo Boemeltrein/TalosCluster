@@ -38,8 +38,12 @@ spec:
       pullPolicy: IfNotPresent
 
     minio:
-      licence: "Very-Secret-Licence-REPLACE_ME"
+      # Without a valid license, AIStor starts in offline mode and blocks all S3 operations.
+      # Get a free license at https://www.min.io/pricing
+      licence: ""
       tls: false
+      rootUser: "minio"
+      rootPassword: "CHANGE-ME-TO-A-LONG-PASSWORD"
 
     workload:
       main:
@@ -53,8 +57,8 @@ spec:
                 - --certs-dir
                 - /etc/minio/certs
               env:
-                MINIO_ROOT_USER: "minio"
-                MINIO_ROOT_PASSWORD: "CHANGE-ME-TO-A-LONG-PASSWORD"
+                MINIO_ROOT_USER: "{{ .Values.minio.rootUser }}"
+                MINIO_ROOT_PASSWORD: "{{ .Values.minio.rootPassword }}"
                 MINIO_VOLUMES: "/mnt/data"
                 MINIO_CONSOLE_ADDRESS: ":9001"
                 MINIO_LICENSE: "/minio.license"
@@ -93,11 +97,9 @@ spec:
     persistence:
       data:
         enabled: true
-        size: 20Gi
         mountPath: /mnt/data
       certs:
         enabled: true
-        size: 1Gi
         mountPath: /etc/minio/certs
       license:
         enabled: true
