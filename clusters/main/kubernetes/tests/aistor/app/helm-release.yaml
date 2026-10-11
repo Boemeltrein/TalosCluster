@@ -50,6 +50,8 @@ spec:
             certificateIssuer: cloudflare
       api:
         enabled: true
+        targetSelector:
+          api: api
         ingressClassName: internal
         hosts:
           - host: minioapi.${BASE_DOMAIN}
