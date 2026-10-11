@@ -6,7 +6,7 @@ metadata:
   name: headlamp
   namespace: headlamp
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: headlamp
@@ -15,22 +15,6 @@ spec:
         kind: HelmRepository
         name: home-ops-mirror
         namespace: flux-system
-      interval: 15m
-  timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
-
   values:
 
     initContainers:

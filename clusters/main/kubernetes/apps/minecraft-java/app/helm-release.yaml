@@ -6,7 +6,7 @@ metadata:
   name: minecraft-java
   namespace: minecraft-java
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: minecraft-java
@@ -15,21 +15,6 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-      interval: 15m
-  timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     TZ: Europe/Amsterdam
 
@@ -108,7 +93,7 @@ spec:
                 LEVEL: Utopia
                 ONLINE_MODE: "true"                
                 # The default password is randomly generated on each startup; however, a specific one can be set with RCON_PASSWORD.
-                RCON_PASSWORD:
+                RCON_PASSWORD: null
                 MEMORY: ""
                 OPS: ${MINECRAFT_OPS}
                 OVERRIDE_OPS: "true"

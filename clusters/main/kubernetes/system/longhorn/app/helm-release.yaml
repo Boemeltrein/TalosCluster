@@ -6,7 +6,7 @@ metadata:
   name: longhorn
   namespace: longhorn-system
 spec:
-  interval: 5m
+  interval: 1h
   releaseName: longhorn
   chart:
     spec:
@@ -16,15 +16,6 @@ spec:
         kind: HelmRepository
         name: home-ops-mirror
         namespace: flux-system
-  install:
-    createNamespace: true
-    crds: CreateReplace
-    remediation:
-      retries: 3
-  upgrade:
-    crds: CreateReplace
-    remediation:
-      retries: 3
   values:
     defaultSettings:
       # Matches the Talos UserVolumeConfig named longhorn.

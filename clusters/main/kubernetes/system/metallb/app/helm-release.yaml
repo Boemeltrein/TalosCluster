@@ -6,7 +6,7 @@ metadata:
   name: metallb
   namespace: metallb
 spec:
-  interval: 5m
+  interval: 1h
   chart:
     spec:
       chart: metallb
@@ -15,14 +15,6 @@ spec:
         kind: HelmRepository
         name: metallb
         namespace: flux-system
-      interval: 5m
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    remediation:
-      retries: 3
   values:
     speaker:
       ignoreExcludeLB: true

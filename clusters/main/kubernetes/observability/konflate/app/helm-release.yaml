@@ -6,7 +6,7 @@ metadata:
   name: konflate
   namespace: konflate
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: konflate
@@ -15,21 +15,6 @@ spec:
         kind: HelmRepository
         name: home-operations
         namespace: flux-system
-      interval: 15m
-  timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    createNamespace: true
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-  uninstall:
-    keepHistory: false
   values:
     config:
       repo: github://Boemeltrein/TalosCluster

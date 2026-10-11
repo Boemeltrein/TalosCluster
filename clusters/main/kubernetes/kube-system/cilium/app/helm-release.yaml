@@ -11,7 +11,7 @@ metadata:
   labels:
     app.kubernetes.io/managed-by: Helm
 spec:
-  interval: 15m
+  interval: 1h
   chart:
     spec:
       chart: cilium
@@ -20,21 +20,6 @@ spec:
         kind: HelmRepository
         name: cilium
         namespace: flux-system
-      interval: 15m
-  timeout: 20m
-  maxHistory: 3
-  driftDetection:
-    mode: warn
-  install:
-    remediation:
-      retries: 3
-  upgrade:
-    cleanupOnFail: true
-    remediation:
-      retries: 3
-      remediateLastFailure: true
-  uninstall:
-    keepHistory: false
   values:
     # autoDirectNodeRoutes: true
     # routingMode: native

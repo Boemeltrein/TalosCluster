@@ -6,7 +6,7 @@ metadata:
   name: kubelet-csr-approver
   namespace: kube-system
 spec:
-  interval: 30m
+  interval: 1h
   chart:
     spec:
       chart: kubelet-csr-approver
@@ -15,5 +15,4 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-      interval: 30m
   values: {}
