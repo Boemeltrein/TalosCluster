@@ -49,13 +49,11 @@ spec:
                 - minio
               args:
                 - server
-                - /data
-                - --address
-                - ":10106"
-                - --console-address
-                - ":10107"
+                - /mnt/data
                 - --certs-dir
-                - /tmp/minio-certs
+                - /etc/minio/certs                
+                - --license 
+                - /minio.license
               env:
                 MINIO_ROOT_USER: "minio"
                 MINIO_ROOT_PASSWORD: "CHANGE-ME-TO-A-LONG-PASSWORD"
@@ -63,29 +61,29 @@ spec:
                 startup:
                   type: http
                   path: /minio/health/live
-                  port: 10106
+                  port: 9000
                 liveness:
                   type: http
                   path: /minio/health/live
-                  port: 10106
+                  port: 9000
                 readiness:
                   type: http
                   path: /minio/health/ready
-                  port: 10106
+                  port: 9000
 
     service:
       main:
         ports:
           main:
-            port: 10107
-      api:
+            port: 9000
+      console:
         enabled: true
         ports:
-          api:
+          console:
             enabled: true
-            port: 10106
+            port: 9001
 
-    configmap:
+    secret:
       license:
         enabled: true
         data:
@@ -102,7 +100,7 @@ spec:
         mountPath: /etc/minio/certs
       license:
         enabled: true
-        type: configmap
+        type: secret
         objectName: license
         mountPath: /minio.license
         subPath: minio.license
