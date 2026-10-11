@@ -42,3 +42,14 @@ spec:
       tls: false
       rootUser: minio
       rootPassword: minio123
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: minio.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
