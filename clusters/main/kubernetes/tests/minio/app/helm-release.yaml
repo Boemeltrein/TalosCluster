@@ -73,7 +73,7 @@ spec:
                   port: 9000
                 readiness:
                   type: '{{ ternary "https" "http" .Values.minio.tls }}'
-                  path: /minio/health/ready
+                  path: '{{ ternary "/minio/health/ready" "/minio/health/live" (ne (trim .Values.minio.licence) "") }}'
                   port: 9000
 
     service:
