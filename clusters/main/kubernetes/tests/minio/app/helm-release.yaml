@@ -39,6 +39,7 @@ spec:
 
     minio:
       licence: "Very-Secret-Licence-REPLACE_ME"
+      tls: false
 
     workload:
       main:
@@ -49,26 +50,26 @@ spec:
                 - minio
               args:
                 - server
-                - /mnt/data
                 - --certs-dir
-                - /etc/minio/certs                
-                - --license 
-                - /minio.license
+                - /etc/minio/certs
               env:
                 MINIO_ROOT_USER: "minio"
                 MINIO_ROOT_PASSWORD: "CHANGE-ME-TO-A-LONG-PASSWORD"
+                MINIO_VOLUMES: "/mnt/data"
+                MINIO_CONSOLE_ADDRESS: ":9001"
+                MINIO_LICENSE: "/minio.license"
               probes:
                 startup:
-                  type: http
+                  type: '{{ ternary "https" "http" .Values.minio.tls }}'
                   path: /minio/health/live
                   port: 9000
                 liveness:
-                  type: http
+                  type: '{{ ternary "https" "http" .Values.minio.tls }}'
                   path: /minio/health/live
                   port: 9000
                 readiness:
-                  type: http
-                  path: /minio/health/ready
+                  type: '{{ ternary "https" "http" .Values.minio.tls }}'
+                  path: /minio/health/live
                   port: 9000
 
     service:
