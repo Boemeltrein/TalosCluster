@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: gatus
-      version: 4.17.1
+      version: 5.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts

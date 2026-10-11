@@ -9,7 +9,7 @@ spec:
   chart:
     spec:
       chart: kubernetes-reflector
-      version: 9.10.0
+      version: 10.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
