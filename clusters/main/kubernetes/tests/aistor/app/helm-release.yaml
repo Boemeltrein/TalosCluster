@@ -60,4 +60,4 @@ spec:
           containers:
             main:
               env:
-                MINIO_BROWSER_REDIRECT_URL: "minio.${BASE_DOMAIN}"
+                MINIO_BROWSER_REDIRECT_URL: "https://minio.${BASE_DOMAIN}"
