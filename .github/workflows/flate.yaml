@@ -27,13 +27,17 @@ jobs:
         with:
           patterns: |
             clusters/main/kubernetes/**/*
+            clusters/main/flux-entry/**/*
             repositories/**/*
+            .github/workflows/flate.yaml
 
   flate:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
     needs: filter
     name: Flate
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.setup-flate.outputs.version }}
     strategy:
       matrix:
         kind:
@@ -48,6 +52,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Flate
+        id: setup-flate
         uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
 
       - name: Run flate diff
@@ -69,22 +74,22 @@ jobs:
           retention-days: 1
 
   comment:
-    if: ${{ !cancelled() && needs.flate.result != 'skipped' }}
-    needs: flate
+    if: ${{ !cancelled() }}
+    needs: [filter, flate]
     name: Flate - Comment
     runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: write
     steps:
-      - name: Download diffs
+      - if: ${{ needs.flate.result != 'skipped' }}
+        name: Download diffs
         uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: flate-diff-*
           merge-multiple: true
 
-      - if: ${{ hashFiles('helmrelease.diff', 'kustomization.diff') != '' }}
-        name: Generate Token
+      - name: Generate Token
         uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
         id: app-token
         with:
@@ -92,8 +97,12 @@ jobs:
           private-key: ${{ secrets.BOEMEL_ACTIONS_APP_PRIVATE_KEY }}
           permission-pull-requests: write
 
-      - if: ${{ hashFiles('helmrelease.diff', 'kustomization.diff') != '' }}
-        name: Add or Update Comment
+      - name: Add or Update Comment
+        env:
+          FILTER_RESULT: ${{ needs.filter.result }}
+          FLATE_RESULT: ${{ needs.flate.result }}
+          FLATE_VERSION: ${{ needs.flate.outputs.version }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           github-token: ${{ steps.app-token.outputs.token }}
@@ -109,6 +118,8 @@ jobs:
               Kustomization: read("kustomization.diff"),
               HelmRelease: read("helmrelease.diff"),
             };
+            const comparisonSucceeded = process.env.FILTER_RESULT === 'success' && process.env.FLATE_RESULT === 'success';
+            const comparisonSkipped = process.env.FILTER_RESULT === 'success' && process.env.FLATE_RESULT === 'skipped';
             const LIMIT = 65000; // GitHub caps comment bodies at 65,536; leave headroom
 
             const inlineSection = (label, diff) => [
@@ -130,14 +141,22 @@ jobs:
 
             // Inline every diff, then evict the largest to a link until the whole
             // comment fits — so a small diff never bumps a big one off inline.
-            const present = Object.entries(diffs).filter(([, diff]) => diff.trim());
+            const present = comparisonSucceeded
+              ? Object.entries(diffs).filter(([, diff]) => diff.trim())
+              : [];
+            const status = !comparisonSucceeded && !comparisonSkipped
+              ? '> [!WARNING]\n> Comparison did not complete successfully. No current diff is available.'
+              : comparisonSkipped
+                ? 'No relevant manifest changes. Rendering was skipped.'
+                : present.length === 0 ? 'No rendered changes.' : '';
             const linked = new Set();
             const render = () => [
               marker,
+              ...(status ? ['', status, ''] : []),
               ...present.flatMap(([label, diff]) =>
                 linked.has(label) ? linkedSection(label, diff) : inlineSection(label, diff)),
               ``,
-              `<sub>Diff created by [flate](https://github.com/home-operations/flate) — [Workflow run](${runUrl})</sub>`,
+              `<sub>flate${process.env.FLATE_VERSION ? ` ${process.env.FLATE_VERSION}` : ''} · ${comparisonSucceeded ? 'rendered' : 'revision'} \`${process.env.HEAD_SHA.slice(0, 7)}\` · [workflow run →](${runUrl})</sub>`,
             ].join("\n");
             for (const [label] of [...present].sort((a, b) => b[1].length - a[1].length)) {
               if (render().length <= LIMIT) break;
@@ -151,6 +170,10 @@ jobs:
             });
             const existing = comments.find(c => c.body?.includes(marker));
 
+            // Clear an old diff even when rendering was skipped, but avoid a new
+            // comment on unrelated PRs that have no existing Flate comment.
+            if (!existing && comparisonSkipped) return;
+
             if (existing) {
               await github.rest.issues.updateComment({ owner, repo, comment_id: existing.id, body });
             } else {
@@ -160,6 +183,7 @@ jobs:
   success:
     if: ${{ !cancelled() }}
     needs:
+      - filter
       - flate
       - comment
     name: Flate - Success
