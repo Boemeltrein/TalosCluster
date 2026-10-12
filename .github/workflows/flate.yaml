@@ -36,6 +36,8 @@ jobs:
     needs: filter
     name: Flate
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.setup-flate.outputs.version }}
     strategy:
       matrix:
         kind:
@@ -50,6 +52,7 @@ jobs:
           persist-credentials: false
 
       - name: Install Flate
+        id: setup-flate
         uses: home-operations/flate/action@631b76b69c4e58c6f4d1cb01e23616fa61aebafa # v0.6.5
 
       - name: Run flate diff
@@ -98,6 +101,7 @@ jobs:
         env:
           FILTER_RESULT: ${{ needs.filter.result }}
           FLATE_RESULT: ${{ needs.flate.result }}
+          FLATE_VERSION: ${{ needs.flate.outputs.version }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
         uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
@@ -152,7 +156,7 @@ jobs:
               ...present.flatMap(([label, diff]) =>
                 linked.has(label) ? linkedSection(label, diff) : inlineSection(label, diff)),
               ``,
-              `<sub>[flate](https://github.com/home-operations/flate) · revision \`${process.env.HEAD_SHA.slice(0, 7)}\` · [Workflow run](${runUrl})</sub>`,
+              `<sub>flate${process.env.FLATE_VERSION ? ` ${process.env.FLATE_VERSION}` : ''} · ${comparisonSucceeded ? 'rendered' : 'revision'} \`${process.env.HEAD_SHA.slice(0, 7)}\` · [Workflow run →](${runUrl})</sub>`,
             ].join("\n");
             for (const [label] of [...present].sort((a, b) => b[1].length - a[1].length)) {
               if (render().length <= LIMIT) break;
