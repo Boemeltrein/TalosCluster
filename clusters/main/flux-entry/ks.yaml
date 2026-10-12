@@ -121,8 +121,6 @@ spec:
                 metadata:
                   name: _
                 spec:
-                  driftDetection:
-                    mode: warn
                   install:
                     crds: CreateReplace
                   rollback:
@@ -138,6 +136,19 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+            - # Allow individual HelmReleases to opt out of the default drift mode
+              patch: |-
+                apiVersion: helm.toolkit.fluxcd.io/v2
+                kind: HelmRelease
+                metadata:
+                  name: _
+                spec:
+                  driftDetection:
+                    mode: warn
+              target:
+                group: helm.toolkit.fluxcd.io
+                kind: HelmRelease
+                labelSelector: drift-detection.flux.home.arpa/defaults notin (disabled)
       target:
         group: kustomize.toolkit.fluxcd.io
         kind: Kustomization
