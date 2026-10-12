@@ -156,7 +156,7 @@ jobs:
               ...present.flatMap(([label, diff]) =>
                 linked.has(label) ? linkedSection(label, diff) : inlineSection(label, diff)),
               ``,
-              `<sub>flate${process.env.FLATE_VERSION ? ` ${process.env.FLATE_VERSION}` : ''} · ${comparisonSucceeded ? 'rendered' : 'revision'} \`${process.env.HEAD_SHA.slice(0, 7)}\` · [Workflow run →](${runUrl})</sub>`,
+              `<sub>flate${process.env.FLATE_VERSION ? ` ${process.env.FLATE_VERSION}` : ''} · ${comparisonSucceeded ? 'rendered' : 'revision'} \`${process.env.HEAD_SHA.slice(0, 7)}\` · [workflow run →](${runUrl})</sub>`,
             ].join("\n");
             for (const [label] of [...present].sort((a, b) => b[1].length - a[1].length)) {
               if (render().length <= LIMIT) break;
