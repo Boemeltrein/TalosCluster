@@ -5,8 +5,6 @@ kind: HelmRelease
 metadata:
   name: bazarr
   namespace: bazarr
-  labels:
-    drift-detection.flux.home.arpa/defaults: disabled  
 spec:
   interval: 1h
   chart:
