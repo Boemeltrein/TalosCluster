@@ -19,7 +19,7 @@ spec:
     TZ: Europe/Amsterdam
 
     global:
-      stopAll: true
+      stopAll: false
 
     service:
       main:
