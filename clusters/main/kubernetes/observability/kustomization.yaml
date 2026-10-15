@@ -14,5 +14,5 @@ resources:
   - shelly-exporter/ks.yaml
   - headlamp/ks.yaml
   - kube-prometheus-stack/ks.yaml
-  # - konflate/ks.yaml
+  - konflate/ks.yaml
   - ipmi-exporter/ks.yaml
