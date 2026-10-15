@@ -32,7 +32,7 @@ spec:
       pullPolicy: IfNotPresent
     radiusImage:
       repository: ghcr.io/goauthentik/radius
-      tag: 2026.8.3@sha256:d2e8ed0898a0f4788521e98e4a5b87f5e22071d8ecdbae8f64801fba88943568
+      tag: 2026.8.4@sha256:cb74d7097626ad9c7d1f96c81a9aad394f000af153dc28b864c243b36519e49c
       pullPolicy: IfNotPresent
     proxyImage:
       repository: ghcr.io/goauthentik/proxy
