@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: tandoor-recipes
-      version: 22.0.0
+      version: 22.0.2
       sourceRef:
         kind: HelmRepository
         name: truecharts
