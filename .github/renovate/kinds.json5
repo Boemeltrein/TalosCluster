@@ -3,6 +3,10 @@
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
     branchPrefix: "renovate/flux-"
+    registryAliases: {
+      truecharts: "oci://oci.trueforge.org/truecharts",
+      "home-ops-mirror": "oci://ghcr.io/home-operations/charts-mirror",
+    },
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
