@@ -33,13 +33,13 @@ spec:
                 MEND_RNV_GITHUB_APP_ID: ${RENOVATE_APP_ID}
                 MEND_RNV_GITHUB_APP_KEY: ${RENOVATE_APP_KEY}
                 MEND_RNV_WEBHOOK_SECRET: ${RENOVATE_WEBHOOK_SECRET}
-                RENOVATE_REPOSITORY_CACHE: "enabled"
-                RENOVATE_CACHE_DIR: /tmp/renovate/cache
+    #             RENOVATE_REPOSITORY_CACHE: "enabled"
+    #             RENOVATE_CACHE_DIR: /tmp/renovate/cache
   
-    persistence:
-      renovate-cache:
-        enabled: true
-        mountPath: /tmp/renovate/cache
+    # persistence:
+    #   renovate-cache:
+    #     enabled: true
+    #     mountPath: /tmp/renovate/cache
     
     ingress:
       main:

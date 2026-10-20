@@ -2,7 +2,10 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   flux: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
-    branchPrefix: "renovate/flux-"
+    branchPrefix: "renovate/flux-",
+    registryAliases: {
+      truecharts: "oci://oci.trueforge.org/truecharts",
+    },
   },
   kubernetes: {
     managerFilePatterns: ["/\\.yaml(?:\\.j2)?$/"],
