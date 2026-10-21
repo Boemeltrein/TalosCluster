@@ -52,7 +52,8 @@ spec:
           title: Talos
           icon: si:talos
           valueExpr: labels["version_id"]
-          colorExpr: '"blue"'          
+          colorExpr: '"blue"'
+          style: for-the-badge
 
         - id: kubernetes_version
           query: label_replace(kubernetes_build_info{service="kubernetes"}, "git_version", "$1", "git_version", "v(.+)")
@@ -60,6 +61,7 @@ spec:
           icon: si:kubernetes
           valueExpr: labels["git_version"]
           colorExpr: '"blue"'          
+          style: for-the-badge
 
         - id: flux_version
           query: label_replace(flux_instance_info, "revision", "$1", "revision", "v(.+)@sha256:.+")
@@ -67,6 +69,7 @@ spec:
           icon: si:flux
           valueExpr: labels["revision"]
           colorExpr: '"blue"'          
+          style: for-the-badge
 
         - id: truenas_version
           query: truenas_info
@@ -74,6 +77,7 @@ spec:
           icon: si:truenas          
           valueExpr: labels["version"]
           colorExpr: '"blue"'
+          style: for-the-badge
 
         - id: cluster_node_count
           query: count(count by (node) (kube_node_status_condition{condition="Ready"}))
