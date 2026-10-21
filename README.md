@@ -9,6 +9,13 @@
 [![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://www.kubernetes.io/)&nbsp;&nbsp;
 [![Flux](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
+
+![Truenas](https://kromgo.boemeltrein.nl/badges/truenas_version)&nbsp;&nbsp;
+![Talos](https://kromgo.boemeltrein.nl/badges/talos_version)&nbsp;&nbsp;
+![Kubernetes](https://kromgo.boemeltrein.nl/badges/kubernetes_version)&nbsp;&nbsp;
+![Flux](https://kromgo.boemeltrein.nl/badges/flux_version)&nbsp;&nbsp;
+
+
 [![Home-Internet](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_ping-(buddy)/health/badge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Status-Page](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_status-page-(buddy)/health/badge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Alertmanager](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_heartbeat-(buddy)/health/badge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)
