@@ -5,6 +5,6 @@ kind: Kustomization
 resources:
   - aistor/ks.yaml
   #- wg-easy/ks.yaml
-  #- authentik/ks.yaml
+  - authentik/ks.yaml
   #- tandoor/ks.yaml
   #- deluge/ks.yaml
