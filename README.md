@@ -24,6 +24,15 @@
 [![Power](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_power_usage?format=shields&style=flat-square&label=Power)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 
 
+![Age](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
+![Uptime](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
+![Nodes](https://kromgo.boemeltrein.nl/badges/cluster_node_count)&nbsp;&nbsp;
+![Pods](https://kromgo.boemeltrein.nl/badges/cluster_pod_count)&nbsp;&nbsp;
+![Alerts](https://kromgo.boemeltrein.nl/badges/cluster_alert_count)&nbsp;&nbsp;
+![CPU](https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage)&nbsp;&nbsp;
+![Memory](https://kromgo.boemeltrein.nl/badges/cluster_memory_usage)&nbsp;&nbsp;
+![Power](https://kromgo.boemeltrein.nl/badges/cluster_power_usage)&nbsp;&nbsp;
+
 </div>
 
 ---
