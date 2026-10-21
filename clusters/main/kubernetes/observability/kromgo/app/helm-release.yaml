@@ -34,7 +34,7 @@ spec:
         badge:
           font: dejavu-sans # dejavu-sans (default, shields.io-style), dejavu-sans-bold, comic-neue, comic-neue-bold
           size: 11 # badge font size in points
-          style: flat # flat (default), flat-square, or plastic
+          style: for-the-badge # flat (default), flat-square, plastic, or for-the-badge
           gallery:
             hidden: false # list badges in the gallery (default); true hides them
         graph:
