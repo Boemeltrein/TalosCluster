@@ -28,7 +28,7 @@ spec:
       pullPolicy: IfNotPresent
     ldapImage:
       repository: ghcr.io/goauthentik/ldap
-      tag: 2026.8.3@sha256:7114c560be4e24dc61080fe5bd7684cf0ebf4b0a6230a8247943ffa8957b73d4
+      tag: 2026.8.5@sha256:4c75bd27918418d2d6fbbfe4581bbd5a199fe38942d24559c4483edd64a1ea87
       pullPolicy: IfNotPresent
     radiusImage:
       repository: ghcr.io/goauthentik/radius
