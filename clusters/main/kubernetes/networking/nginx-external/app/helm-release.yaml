@@ -53,6 +53,10 @@ spec:
         proxy-busy-buffers-size: 32k
         ssl-protocols: TLSv1.3 TLSv1.2
         use-forwarded-headers: "true"
+        # TEST
+        forwarded-for-header: "CF-Connecting-IP"
+        proxy-real-ip-cidr: "172.16.0.0/16"
+        compute-full-forwarded-for: "false"        
       metrics:
         enabled: true
         serviceMonitor:
