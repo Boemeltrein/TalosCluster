@@ -24,7 +24,7 @@ spec:
           containers:
             main:
               env:
-                SONARR__SERVER__TRUSTEDNETWORKS: "192.168.50.0/24"          
+                SONARR__SERVER__TRUSTEDNETWORKS: "192.168.1.0/24"          
             exportarr:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
