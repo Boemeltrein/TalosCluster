@@ -18,6 +18,17 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                SONARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16, 172.17.0.0/16"          
+            exportarr:
+              env:
+                ENABLE_ADDITIONAL_METRICS: true
+
     ingress:
       main:
         enabled: true
@@ -62,11 +73,3 @@ spec:
     resources:
       requests:
         cpu: 10m
-
-    workload:
-      main:
-        podSpec:
-          containers:
-            exportarr:
-              env:
-                ENABLE_ADDITIONAL_METRICS: true
