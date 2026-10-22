@@ -32,10 +32,9 @@ spec:
     ingress:
       main:
         enabled: true
-        ingressClassName: external
+        ingressClassName: internal
         hosts:
-          #- host: sonarr.${BASE_DOMAIN}
-          - host: sonarr.${DOMAIN}
+          - host: sonarr.${BASE_DOMAIN}         
         integrations:
           certManager:
             enabled: true
