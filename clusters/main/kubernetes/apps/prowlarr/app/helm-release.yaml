@@ -18,6 +18,14 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              env:
+                PROWLARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16"     
+     
     ingress:
       main:
         enabled: true
