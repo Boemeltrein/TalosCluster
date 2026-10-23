@@ -1,0 +1,4 @@
+apiVersion: v1alpha1
+kind: Layer2VIPConfig
+name: ${VIP}
+link: mgmt

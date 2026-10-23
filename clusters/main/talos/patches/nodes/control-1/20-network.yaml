@@ -1,13 +1,14 @@
 apiVersion: v1alpha1
+kind: LinkAliasConfig
+name: mgmt
+selector:
+  match: true  # When more than one network interface is available, adjust the configuration accordingly.
+---
+apiVersion: v1alpha1
 kind: LinkConfig
-name: eth0
+name: mgmt
 up: true
 addresses:
   - address: ${CONTROL1IP}/24
 routes:
   - gateway: ${GATEWAY}
----
-apiVersion: v1alpha1
-kind: Layer2VIPConfig
-name: ${VIP}
-link: eth0
