@@ -112,17 +112,19 @@ spec:
         apiVersion: kustomize.toolkit.fluxcd.io/v1
         kind: Kustomization
         metadata:
-          name: _
+          name: not-used
         spec:
           patches:
             - patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
-                  name: _
+                  name: not-used
                 spec:
                   install:
                     crds: CreateReplace
+                    strategy:
+                      name: RetryOnFailure
                   rollback:
                     cleanupOnFail: true
                   upgrade:
@@ -131,18 +133,17 @@ spec:
                     strategy:
                       name: RemediateOnFailure
                     remediation:
-                      remediateLastFailure: true
                       retries: 2
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
-                labelSelector: helmrelease.flux.home.arpa/defaults notin (disabled)                
+                labelSelector: helmrelease.flux.home.arpa/defaults notin (disabled)
             - # Allow individual HelmReleases to opt out of the default drift mode
               patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
                 kind: HelmRelease
                 metadata:
-                  name: _
+                  name: not-used
                 spec:
                   driftDetection:
                     mode: warn
