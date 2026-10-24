@@ -24,6 +24,9 @@ spec:
       defaultReplicaCount: "1"
       # Overprovisioning might be needed when using volsync
       storageOverProvisioningPercentage: "100000"
+      # Automatically upgrade volume engines after a Longhorn upgrade,
+      # so old engine images can be cleaned up
+      concurrentAutomaticEngineUpgradePerNodeLimit: "3"      
       # Percentage of the total allocatable CPU resources on each node to be reserved for each instance manager pod. The default value is {"v1":"12","v2":"12"}.
       guaranteedInstanceManagerCPU: 5
     persistence:
