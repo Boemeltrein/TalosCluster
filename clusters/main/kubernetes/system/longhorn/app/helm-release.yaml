@@ -46,3 +46,14 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: internal
+      host: longhorn.${BASE_DOMAIN}    
+      annotations:
+        cert-manager.io/cluster-issuer: cloudflare
+        cert-manager.io/private-key-rotation-policy: Always
+      path: /
+      pathType: ImplementationSpecific
+      tls: true
+      tlsSecret: longhorn-tls
