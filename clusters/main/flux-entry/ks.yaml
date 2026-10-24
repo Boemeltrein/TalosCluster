@@ -136,6 +136,7 @@ spec:
               target:
                 group: helm.toolkit.fluxcd.io
                 kind: HelmRelease
+                labelSelector: helmrelease.flux.home.arpa/defaults notin (disabled)                
             - # Allow individual HelmReleases to opt out of the default drift mode
               patch: |-
                 apiVersion: helm.toolkit.fluxcd.io/v2
