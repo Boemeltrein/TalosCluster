@@ -6,6 +6,8 @@ metadata:
   name: flux-operator
 spec:
   interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: clusters/main/kubernetes/flux-system/flux-operator/app
   prune: true
   sourceRef:

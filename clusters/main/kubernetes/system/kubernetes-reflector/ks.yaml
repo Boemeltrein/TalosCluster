@@ -6,7 +6,9 @@ metadata:
   name: kubernetes-reflector
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: clusters/main/kubernetes/system/kubernetes-reflector/app
   prune: true
   sourceRef:
