@@ -8,7 +8,6 @@ resources:
   - namespace.yaml
   - helm-release.yaml
   - volumeSnapshotClass.yaml
-  - trim.yaml
   - grafanadashboard.yaml
   - networkpolicy.yaml
   - prometheusrule.yaml
