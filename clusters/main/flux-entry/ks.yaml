@@ -6,7 +6,9 @@ metadata:
   name: flux-entry-secrets
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: ./clusters/main/secrets
   prune: true
   sourceRef:
@@ -25,7 +27,9 @@ metadata:
   name: flux-entry-repos
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: ./repositories
   prune: true
   sourceRef:
@@ -70,7 +74,9 @@ metadata:
   name: flux-entry
   namespace: flux-system
 spec:
-  interval: 10m
+  interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: ./clusters/main/kubernetes
   prune: true
   sourceRef:

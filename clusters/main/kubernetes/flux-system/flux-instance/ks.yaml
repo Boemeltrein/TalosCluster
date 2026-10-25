@@ -9,6 +9,8 @@ spec:
     - name: flux-operator
       namespace: flux-system
   interval: 1h
+  retryInterval: 10m
+  timeout: 10m
   path: clusters/main/kubernetes/flux-system/flux-instance/app
   prune: true
   sourceRef:
