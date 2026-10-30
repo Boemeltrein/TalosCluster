@@ -10,10 +10,10 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: 4.13.0
+      version: v4.13.2
       sourceRef:
         kind: HelmRepository
-        name: home-ops-mirror
+        name: ingress-nginx
         namespace: flux-system
   values:
     controller:
