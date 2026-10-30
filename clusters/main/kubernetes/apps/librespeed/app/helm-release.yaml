@@ -18,55 +18,15 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    # ingress:
-    #   main:
-    #     enabled: true
-    #     ingressClassName: internal
-    #     hosts:
-    #       - host: librespeed.${BASE_DOMAIN}
-    #     integrations:
-    #       certManager:
-    #         enabled: true
-    #         certificateIssuer: cloudflare
-
     route:
       main:
-        # -- Enables or disables the route
         enabled: true
-        # -- Set the route kind
-        # Valid options are GRPCRoute, HTTPRoute, TCPRoute, TLSRoute, UDPRoute
-        kind: HTTPRoute
-        # -- Provide additional annotations which may be required.
-        annotations: {}
-          ## Dit gaat dus niet, kan enkel op de gateway. Moet ook worden geactiveerd in Certmanager zelf.
-          ## https://cert-manager.io/docs/usage/gateway/
-          # cert-manager.io/cluster-issuer: cloudflare
-          # cert-manager.io/private-key-rotation-policy: Always
-        labels: {}
-        # -- Configure the resource the route attaches to.
         parentRefs:
-          - group: gateway.networking.k8s.io
-            kind: Gateway
-            name: envoy-internal
+          - name: envoy-internal
             namespace: envoy-gateway
-            sectionName: https
-        # -- Host addresses
+            # sectionName: https
         hostnames: 
           - libretest.${DOMAIN}
-        # -- Configure rules for routing. Defaults to the primary service.
-        rules:
-          - backendRefs:
-              - group: ""
-                kind: Service
-                name:
-                namespace:
-                port:
-                weight: 1
-            ## Configure conditions used for matching incoming requests. Only for HTTPRoutes
-            matches:
-              - path:
-                  type: PathPrefix
-                  value: /
 
     resources:
       requests:
