@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      version: v4.13.2
+      version: v4.15.1
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
