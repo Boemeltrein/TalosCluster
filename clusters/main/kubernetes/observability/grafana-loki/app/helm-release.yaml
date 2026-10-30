@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: loki
-      version: 20.0.3
+      version: 20.2.0
       sourceRef:
         kind: HelmRepository
         name: grafana-community
