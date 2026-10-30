@@ -28,3 +28,47 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: codex-cnpg-backup-reader
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: codex-gateway-readonly
+rules:
+  - apiGroups:
+      - gateway.networking.k8s.io
+    resources:
+      - gatewayclasses
+      - gateways
+      - httproutes
+      - grpcroutes
+      - tcproutes
+      - tlsroutes
+      - udproutes
+      - referencegrants
+    verbs:
+      - get
+      - list
+
+  - apiGroups:
+      - gateway.envoyproxy.io
+    resources:
+      - envoyproxies
+      - securitypolicies
+      - backendtrafficpolicies
+      - clienttrafficpolicies
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: codex-gateway-readonly
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: codex-gateway-readonly
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex
