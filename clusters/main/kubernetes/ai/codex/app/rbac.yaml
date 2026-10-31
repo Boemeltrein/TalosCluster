@@ -72,3 +72,32 @@ subjects:
   - kind: ServiceAccount
     name: codex-readonly
     namespace: codex
+---
+# Read-only access to Tuppr upgrade configuration and status.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: codex-tuppr-readonly
+rules:
+  - apiGroups:
+      - tuppr.home-operations.com
+    resources:
+      - talosupgrades
+      - kubernetesupgrades
+    verbs:
+      - get
+      - list
+      - watch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: codex-tuppr-readonly
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: codex-tuppr-readonly
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex    
