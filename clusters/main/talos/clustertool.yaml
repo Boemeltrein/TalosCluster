@@ -8,8 +8,6 @@ talosVersion: v1.14.4
 # renovate: datasource=docker depName=ghcr.io/siderolabs/kubelet
 kubernetesVersion: v1.37.1
 
-bootstrapNode: control-1
-
 nodes:
   - name: control-1
     role: control-plane
