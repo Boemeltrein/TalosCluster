@@ -6,8 +6,23 @@ config:
   maxPods: 250
   crashLoopBackOff:
     maxContainerRestartPeriod: 60s
-  shutdownGracePeriod: 90s
-  shutdownGracePeriodCriticalPods: 60s
+  # Stop workloads (including CNPG) before Longhorn, then stop system-critical pods.
+  # Explicit zeros prevent Talos defaults from conflicting with priority-based shutdown.
+  shutdownGracePeriod: 0s
+  shutdownGracePeriodCriticalPods: 0s
+  shutdownGracePeriodByPodPriority:
+    # Ordinary workloads, including databases without a separate priority class.
+    - priority: 0
+      shutdownGracePeriodSeconds: 210
+    # longhorn-critical
+    - priority: 1000000000
+      shutdownGracePeriodSeconds: 60
+    # system-cluster-critical
+    - priority: 2000000000
+      shutdownGracePeriodSeconds: 30
+    # system-node-critical
+    - priority: 2000001000
+      shutdownGracePeriodSeconds: 30
   imageGCHighThresholdPercent: 50
   imageGCLowThresholdPercent: 30
   imageMinimumGCAge: "30m"
