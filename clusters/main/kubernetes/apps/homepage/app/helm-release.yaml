@@ -18,16 +18,38 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: homepage.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: homepage.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        primary: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - homepage.${DOMAIN}
+      codeserver:
+        enabled: true
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - cs-homepage.${DOMAIN}
+        rules:
+          - backendRefs:
+              - name: homepage-codeserver
+                port: 12321
 
     persistence:
       config:
@@ -43,15 +65,16 @@ spec:
     addons:
       codeserver:
         enabled: true
-        ingress:
-          enabled: true
-          ingressClassName: internal
-          hosts:
-            - host: cs-homepage.${BASE_DOMAIN}
-          integrations:
-            certManager:
-              enabled: true
-              certificateIssuer: cloudflare
+        # Legacy Ingress configuration retained temporarily for reference.
+        # ingress:
+        #   enabled: true
+        #   ingressClassName: internal
+        #   hosts:
+        #     - host: cs-homepage.${BASE_DOMAIN}
+        #   integrations:
+        #     certManager:
+        #       enabled: true
+        #       certificateIssuer: cloudflare
 
     workload:
       main:
@@ -60,8 +83,9 @@ spec:
           containers:
             main:
               env:
-                HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
+                HOMEPAGE_ALLOWED_HOSTS: "homepage.${DOMAIN}"
 
     resources:
       requests:
         cpu: 10m
+

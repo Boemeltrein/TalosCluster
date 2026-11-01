@@ -24,28 +24,51 @@ spec:
           containers:
             main:
               env:
-                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
+                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
             exportarr:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
-    ingress:
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: sabnzbd.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 4
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_SABNZBD}"
+
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: sabnzbd.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Arr"
-            weight: 4
-            widget:
-              custom:
-                key: "${HP_API_SABNZBD}"
+        annotations:
+          gethomepage.dev/description: Free and easy binary newsreader
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Arr
+          gethomepage.dev/href: https://sabnzbd.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/sabnzbd.webp
+          gethomepage.dev/name: Sabnzbd
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=sabnzbd,pod.lifecycle in (permanent)
+          gethomepage.dev/weight: '4'
+          gethomepage.dev/widget.key: ${HP_API_SABNZBD}
+          gethomepage.dev/widget.type: sabnzbd
+          gethomepage.dev/widget.url: http://sabnzbd.sabnzbd.svc:10097
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - sabnzbd.${DOMAIN}
 
     persistence:
       config:
@@ -78,3 +101,4 @@ spec:
       requests:
         cpu: 1000m
         memory: 2Gi 
+

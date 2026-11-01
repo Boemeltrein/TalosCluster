@@ -26,23 +26,46 @@ spec:
               env:
                 RADARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16"    
 
-    ingress:
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: radarr.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 2
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_RADARR}"
+
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: radarr.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Arr"
-            weight: 2
-            widget:
-              custom:
-                key: "${HP_API_RADARR}"
+        annotations:
+          gethomepage.dev/description: A fork of Sonarr to work with movies à la Couchpotato
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Arr
+          gethomepage.dev/href: https://radarr.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/radarr.webp
+          gethomepage.dev/name: Radarr
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=radarr,pod.lifecycle in (permanent)
+          gethomepage.dev/weight: '2'
+          gethomepage.dev/widget.key: ${HP_API_RADARR}
+          gethomepage.dev/widget.type: radarr
+          gethomepage.dev/widget.url: http://radarr.radarr.svc:7878
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - radarr.${DOMAIN}
 
     persistence:
       config:

@@ -29,23 +29,46 @@ spec:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
-    ingress:
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: sonarr.${BASE_DOMAIN}         
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 1
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_SONARR}"
+
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: sonarr.${BASE_DOMAIN}         
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Arr"
-            weight: 1
-            widget:
-              custom:
-                key: "${HP_API_SONARR}"
+        annotations:
+          gethomepage.dev/description: Smart PVR for newsgroup and bittorrent users
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Arr
+          gethomepage.dev/href: https://sonarr.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/sonarr.webp
+          gethomepage.dev/name: Sonarr
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=sonarr,pod.lifecycle in (permanent)
+          gethomepage.dev/weight: '1'
+          gethomepage.dev/widget.key: ${HP_API_SONARR}
+          gethomepage.dev/widget.type: sonarr
+          gethomepage.dev/widget.url: http://sonarr.sonarr.svc:8989
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - sonarr.${DOMAIN}
 
     persistence:
       config:
@@ -73,3 +96,4 @@ spec:
     resources:
       requests:
         cpu: 10m
+

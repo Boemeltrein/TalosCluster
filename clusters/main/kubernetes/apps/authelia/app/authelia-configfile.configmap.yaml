@@ -73,7 +73,7 @@ data:
             require_pkce: false
             pkce_challenge_method: ''
             redirect_uris:
-              - 'https://guacamole.${BASE_DOMAIN}'
+              - 'https://guacamole.${DOMAIN}'
             scopes:
               - 'openid'
               - 'profile'
