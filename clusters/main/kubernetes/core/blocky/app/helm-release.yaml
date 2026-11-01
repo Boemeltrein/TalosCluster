@@ -18,6 +18,23 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     annotations:
+    #       gatus.home-operations.com/endpoint: |
+    #         path: ""
+    #     hosts:
+    #       - host: blocky.${BASE_DOMAIN}
+    #         paths:
+    #           - path: /
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
     route:
       main:
         enabled: true

@@ -42,6 +42,18 @@ spec:
                 LLDAP_SMTP_OPTIONS__USER: ${SMTP_USER}
                 LLDAP_key_file: /data/private_key
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: lldap.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
     route:
       main:
         enabled: true

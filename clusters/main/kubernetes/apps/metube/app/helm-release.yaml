@@ -18,6 +18,18 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: metube.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
     route:
       main:
         enabled: true

@@ -29,6 +29,25 @@ spec:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: sonarr.${BASE_DOMAIN}         
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 1
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_SONARR}"
+
     route:
       main:
         enabled: true

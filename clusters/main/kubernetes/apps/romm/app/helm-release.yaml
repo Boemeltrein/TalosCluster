@@ -37,6 +37,18 @@ spec:
                 ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
                 HASHEOUS_API_ENABLED: true
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: romm.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+
     route:
       main:
         enabled: true

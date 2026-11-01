@@ -26,6 +26,25 @@ spec:
               env:
                 RADARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16"    
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: radarr.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 2
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_RADARR}"
+
     route:
       main:
         enabled: true

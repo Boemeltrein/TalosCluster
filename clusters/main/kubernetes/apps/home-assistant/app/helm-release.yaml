@@ -21,6 +21,24 @@ spec:
     global:
       stopAll: false
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: homeassistant.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Network"
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_HASS}"
+
     route:
       main:
         enabled: true

@@ -21,6 +21,25 @@ spec:
     global:
       stopAll: false
 
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: immich.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Media"
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_IMMICH}"
+    #             version: "2"
+
     route:
       main:
         enabled: true
