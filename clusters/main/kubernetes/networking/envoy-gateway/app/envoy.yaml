@@ -185,4 +185,3 @@ spec:
           requestRedirect:
             scheme: https
             statusCode: 301
-

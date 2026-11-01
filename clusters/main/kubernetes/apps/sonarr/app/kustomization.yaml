@@ -9,4 +9,3 @@ resources:
   - namespace.yaml
   - helm-release.yaml
   - grafanadashboard.yaml
-
