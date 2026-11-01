@@ -101,3 +101,34 @@ subjects:
   - kind: ServiceAccount
     name: codex-readonly
     namespace: codex    
+---
+# Read-only access to Longhorn volume, engine, and replica status.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: codex-longhorn-readonly
+  namespace: longhorn-system
+rules:
+  - apiGroups:
+      - longhorn.io
+    resources:
+      - volumes
+      - engines
+      - replicas
+    verbs:
+      - get
+      - list
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: codex-longhorn-readonly
+  namespace: longhorn-system
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: codex-longhorn-readonly
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex
