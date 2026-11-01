@@ -21,14 +21,15 @@ spec:
     route:
       main:
         enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: 'true'
+          gatus.home-operations.com/endpoint: |
+            path: ''
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway
         hostnames:
           - blocky.${DOMAIN}
-
-    gatus:
-      path: ''
 
     service:    
       dns:

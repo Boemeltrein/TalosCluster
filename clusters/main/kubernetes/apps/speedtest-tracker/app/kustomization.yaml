@@ -6,7 +6,6 @@ resources:
   - namespace.yaml
   - helm-release.yaml
 components:
-  - ../../../../components/gates/route-internal
   - ../../../../components/notifications/discord
   - ../../../../components/backup/credentials
 

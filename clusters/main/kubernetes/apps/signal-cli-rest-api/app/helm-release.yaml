@@ -48,15 +48,16 @@ spec:
     route:
       main:
         enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: 'true'
+          gatus.home-operations.com/endpoint: |
+            conditions:
+              - '[STATUS] == 404'
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway
         hostnames:
           - signalapi.${DOMAIN}
-
-    gatus:
-      conditions:
-        - '[STATUS] == 404'
 
     persistence:
       config:

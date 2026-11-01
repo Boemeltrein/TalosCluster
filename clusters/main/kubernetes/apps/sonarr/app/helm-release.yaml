@@ -33,6 +33,7 @@ spec:
       main:
         enabled: true
         annotations:
+          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Smart PVR for newsgroup and bittorrent users
           gethomepage.dev/enabled: 'true'
           gethomepage.dev/group: Arr

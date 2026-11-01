@@ -31,6 +31,8 @@ spec:
     route:
       main:
         enabled: true
+        annotations:
+          gatus.home-operations.com/enabled: 'true'
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway

@@ -22,6 +22,8 @@ spec:
       main:
         enabled: true
         primary: true
+        annotations:
+          gatus.home-operations.com/enabled: 'true'
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway
@@ -31,13 +33,6 @@ spec:
         enabled: true
         annotations:
           gatus.home-operations.com/enabled: 'true'
-          gatus.home-operations.com/endpoint: |
-            group: internal
-            client:
-              dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
-            ui:
-              hide-url: true
-              hide-hostname: true
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway

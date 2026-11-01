@@ -22,6 +22,7 @@ spec:
       main:
         enabled: true
         annotations:
+          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Bazarr is a companion application to Sonarr and Radarr. It manages and downloads subtitles
             based on your requirements
           gethomepage.dev/enabled: 'true'
