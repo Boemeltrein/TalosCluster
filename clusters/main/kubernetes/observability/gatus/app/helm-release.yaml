@@ -36,7 +36,6 @@ spec:
       autoIngress: true
       enableHttproute: true
       autoHttproute: true
-      gatewayName: envoy-internal
 
     cnpg:
       main:
