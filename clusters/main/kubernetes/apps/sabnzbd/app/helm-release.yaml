@@ -33,7 +33,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Free and easy binary newsreader
           gethomepage.dev/enabled: 'true'
           gethomepage.dev/group: Arr

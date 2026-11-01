@@ -25,7 +25,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Open source home automation that puts local control and privacy first.
           gethomepage.dev/enabled: 'true'
           gethomepage.dev/group: Network

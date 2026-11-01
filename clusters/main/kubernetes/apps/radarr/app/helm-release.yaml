@@ -30,7 +30,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: A fork of Sonarr to work with movies à la Couchpotato
           gethomepage.dev/enabled: 'true'
           gethomepage.dev/group: Arr

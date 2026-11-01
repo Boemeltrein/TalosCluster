@@ -39,7 +39,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Speedtest Tracker is a self-hosted internet performance tracking application that runs
             speedtest checks against Ookla's Speedtest service.
           gethomepage.dev/enabled: 'true'

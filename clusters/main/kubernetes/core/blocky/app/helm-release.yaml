@@ -22,7 +22,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gatus.home-operations.com/endpoint: |
             path: ''
         parentRefs:

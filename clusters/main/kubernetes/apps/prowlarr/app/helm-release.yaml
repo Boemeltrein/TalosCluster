@@ -30,7 +30,6 @@ spec:
       main:
         enabled: true
         annotations:
-          gatus.home-operations.com/enabled: 'true'
           gethomepage.dev/description: Indexer manager/proxy built on the popular arr net base stack to integrate with your various
             PVR apps.
           gethomepage.dev/enabled: 'true'
