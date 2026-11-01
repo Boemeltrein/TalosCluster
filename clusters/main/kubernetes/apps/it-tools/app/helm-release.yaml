@@ -21,13 +21,12 @@ spec:
     global:
       stopAll: false
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: it-tools.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - it-tools.${DOMAIN}
+

@@ -26,23 +26,28 @@ spec:
               env:
                 PROWLARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16"     
      
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: prowlarr.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Arr"
-            weight: 3
-            widget:
-              custom:
-                key: "${HP_API_PROWLARR}"
+        annotations:
+          gethomepage.dev/description: Indexer manager/proxy built on the popular arr net base stack to integrate with your various
+            PVR apps.
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Arr
+          gethomepage.dev/href: https://prowlarr.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/prowlarr.webp
+          gethomepage.dev/name: Prowlarr
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=prowlarr,pod.lifecycle in (permanent)
+          gethomepage.dev/weight: '3'
+          gethomepage.dev/widget.key: ${HP_API_PROWLARR}
+          gethomepage.dev/widget.type: prowlarr
+          gethomepage.dev/widget.url: http://prowlarr.prowlarr.svc:9696
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - prowlarr.${DOMAIN}
 
     persistence:
       config:

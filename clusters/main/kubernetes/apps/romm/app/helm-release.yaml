@@ -37,16 +37,14 @@ spec:
                 ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
                 HASHEOUS_API_ENABLED: true
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: romm.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - romm.${DOMAIN}
 
     persistence:
       config:

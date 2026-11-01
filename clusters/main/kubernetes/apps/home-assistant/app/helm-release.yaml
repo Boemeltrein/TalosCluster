@@ -21,22 +21,26 @@ spec:
     global:
       stopAll: false
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: homeassistant.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Network"
-            widget:
-              custom:
-                key: "${HP_API_HASS}"
+        annotations:
+          gethomepage.dev/description: Open source home automation that puts local control and privacy first.
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Network
+          gethomepage.dev/href: https://homeassistant.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/home-assistant.webp
+          gethomepage.dev/name: HomeAssistant
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=home-assistant,pod.lifecycle in (permanent)
+          gethomepage.dev/widget.key: ${HP_API_HASS}
+          gethomepage.dev/widget.type: homeassistant
+          gethomepage.dev/widget.url: http://home-assistant.home-assistant.svc:8123
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - homeassistant.${DOMAIN}
 
     persistence:
       config:

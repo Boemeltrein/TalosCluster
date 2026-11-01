@@ -32,6 +32,7 @@ spec:
     sidecar:
       enable: true
       enableService: true
+      enableHttproute: true
       enableIngress: true
       autoIngress: true 
 

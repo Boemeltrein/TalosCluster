@@ -35,18 +35,17 @@ spec:
     podOptions:
       enableServiceLinks: true
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: dashboard.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - dashboard.${DOMAIN}
 
     configmap:
       kubernetes-dashboard-settings:
         data:
           settings: '{"itemsPerPage":100,"defaultNamespace":"_all"}'
+

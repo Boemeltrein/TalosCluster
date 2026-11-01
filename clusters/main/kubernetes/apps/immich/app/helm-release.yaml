@@ -21,23 +21,26 @@ spec:
     global:
       stopAll: false
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: immich.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Media"
-            widget:
-              custom:
-                key: "${HP_API_IMMICH}"
-                version: "2"
+        annotations:
+          gethomepage.dev/description: High performance self-hosted photo and video backup solution.
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Media
+          gethomepage.dev/href: https://immich.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/immich.webp
+          gethomepage.dev/name: Immich
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=immich,pod.lifecycle in (permanent)
+          gethomepage.dev/widget.key: ${HP_API_IMMICH}
+          gethomepage.dev/widget.type: immich
+          gethomepage.dev/widget.url: http://immich.immich.svc:10323
+          gethomepage.dev/widget.version: '2'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - immich.${DOMAIN}
 
     persistence:
       library:

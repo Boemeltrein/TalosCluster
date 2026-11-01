@@ -18,16 +18,14 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: metube.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - metube.${DOMAIN}
 
     persistence:
       config:

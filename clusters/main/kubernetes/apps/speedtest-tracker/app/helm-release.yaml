@@ -35,21 +35,26 @@ spec:
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
                 SPEEDTEST_SERVERS: "52857"
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: speedtest-tracker.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Network"
-            widget:
-              type: "speedtest"
+        annotations:
+          gethomepage.dev/description: Speedtest Tracker is a self-hosted internet performance tracking application that runs
+            speedtest checks against Ookla's Speedtest service.
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Network
+          gethomepage.dev/href: https://speedtest-tracker.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/speedtest-tracker.webp
+          gethomepage.dev/name: SpeedtestTracker
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=speedtest-tracker,pod.lifecycle in (permanent)
+          gethomepage.dev/widget.type: speedtest
+          gethomepage.dev/widget.url: http://speedtest-tracker.speedtest-tracker.svc:9004
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - speedtest-tracker.${DOMAIN}
 
     persistence:
       config:
@@ -81,4 +86,5 @@ spec:
     resources:
       requests:
         cpu: 10m
+
 

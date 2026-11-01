@@ -21,16 +21,14 @@ spec:
     global:
       stopAll: false
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: guacamole.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - guacamole.${DOMAIN}
 
     guacamole:
       general:
@@ -40,10 +38,11 @@ spec:
         OPENID_JWKS_ENDPOINT: "https://auth.${DOMAIN}/jwks.json"
         OPENID_ISSUER: "https://auth.${DOMAIN}"
         OPENID_CLIENT_ID: "guacamole"
-        OPENID_REDIRECT_URI: "https://guacamole.${BASE_DOMAIN}"
+        OPENID_REDIRECT_URI: "https://guacamole.${DOMAIN}"
         OPENID_USERNAME_CLAIM_TYPE: preferred_username
         OPENID_GROUPS_CLAIM_TYPE: groups
         OPENID_SCOPE: openid profile groups email
         OPENID_ALLOWED_CLOCK_SKEW: 30
         OPENID_MAX_TOKEN_VALIDITY: 300
         OPENID_MAX_NONCE_VALIDITY: 300
+
