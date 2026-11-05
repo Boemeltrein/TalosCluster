@@ -6,5 +6,5 @@ components:
   - ../../../../components/notifications/discord
 resources:
   - namespace.yaml
-  # - helm-release.yaml
+  - helm-release.yaml
   - grafanadashboard.yaml
