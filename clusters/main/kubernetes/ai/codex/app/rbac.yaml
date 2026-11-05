@@ -162,3 +162,34 @@ subjects:
   - kind: ServiceAccount
     name: codex-readonly
     namespace: codex
+---
+# Allow GET requests to this Loki service through the Kubernetes API proxy.
+# This grants access to stored logs from all namespaces, not just grafana-loki.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: codex-loki-reader
+  namespace: grafana-loki
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - services/proxy
+    resourceNames:
+      - http:grafana-loki:3100
+    verbs:
+      - get
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: codex-loki-reader
+  namespace: grafana-loki
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: codex-loki-reader
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex
