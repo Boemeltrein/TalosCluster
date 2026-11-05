@@ -1,6 +1,6 @@
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/provider_v1beta3.json
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/provider_v1.json
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Provider
 metadata:
   name: discord
@@ -8,8 +8,8 @@ spec:
   type: discord
   address: ${DISCORD_WEBHOOK_NOTIFICATION}
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/alert_v1beta3.json
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/alert_v1.json
+apiVersion: notification.toolkit.fluxcd.io/v1
 kind: Alert
 metadata:
   name: discord-info
@@ -21,9 +21,8 @@ spec:
     - kind: HelmRelease
       name: "*"
 ---
-# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/alert_v1beta3.json
-apiVersion: notification.toolkit.fluxcd.io/v1beta3
-kind: Alert
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/notification.toolkit.fluxcd.io/alert_v1.json
+apiVersion: notification.toolkit.fluxcd.io/v1
 metadata:
   name: discord-error
 spec:
