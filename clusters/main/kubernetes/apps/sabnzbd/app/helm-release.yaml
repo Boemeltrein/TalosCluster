@@ -29,6 +29,9 @@ spec:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
+    exportarr:
+      apiKey: ${HP_API_SABNZBD}
+
     ingress:
       main:
         enabled: true
@@ -67,7 +70,6 @@ spec:
     metrics:
       main:
         enabled: true
-        apiKey: ${HP_API_SABNZBD}
         prometheusRule:
           enabled: false
 
