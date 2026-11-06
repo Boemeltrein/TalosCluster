@@ -18,23 +18,47 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    # Legacy Ingress configuration retained temporarily for reference.
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: bazarr.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Arr"
+    #         weight: 5
+    #         widget:
+    #           custom:
+    #             key: "${HP_API_BAZARR}"
+
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: bazarr.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          homepage:
-            enabled: true
-            group: "Arr"
-            weight: 5
-            widget:
-              custom:
-                key: "${HP_API_BAZARR}"
+        annotations:
+          gethomepage.dev/description: Bazarr is a companion application to Sonarr and Radarr. It manages and downloads subtitles
+            based on your requirements
+          gethomepage.dev/enabled: 'true'
+          gethomepage.dev/group: Arr
+          gethomepage.dev/href: https://bazarr.${DOMAIN}/
+          gethomepage.dev/icon: https://truecharts.org/img/hotlink-ok/chart-icons/bazarr.webp
+          gethomepage.dev/name: Bazarr
+          gethomepage.dev/pod-selector: app.kubernetes.io/instance=bazarr,pod.lifecycle in (permanent)
+          gethomepage.dev/weight: '5'
+          gethomepage.dev/widget.key: ${HP_API_BAZARR}
+          gethomepage.dev/widget.type: bazarr
+          gethomepage.dev/widget.url: http://bazarr.bazarr.svc:6767
+          gethomepage.dev/widget.version: '1'
+        parentRefs:
+          - name: envoy-internal
+            namespace: envoy-gateway
+        hostnames:
+          - bazarr.${DOMAIN}
 
     persistence:
       config:
