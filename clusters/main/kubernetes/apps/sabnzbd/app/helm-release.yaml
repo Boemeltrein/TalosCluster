@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: sabnzbd
-      version: 26.0.6
+      version: 27.1.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -28,6 +28,9 @@ spec:
             exportarr:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
+
+    exportarr:
+      apiKey: ${HP_API_SABNZBD}
 
     ingress:
       main:
@@ -67,7 +70,6 @@ spec:
     metrics:
       main:
         enabled: true
-        apiKey: ${HP_API_SABNZBD}
         prometheusRule:
           enabled: false
 
