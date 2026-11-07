@@ -11,7 +11,7 @@
       "type": "object",
       "properties": {
         "values": {
-          "$ref": "https://raw.githubusercontent.com/trueforge-org/truecharts/master/charts/library/common/values.schema.json"
+          "$ref": "https://raw.githubusercontent.com/trueforge-org/websites/refs/heads/main/truecharts/public/schemas/common/30.4.1.schema.json"
         }
       }
     }
