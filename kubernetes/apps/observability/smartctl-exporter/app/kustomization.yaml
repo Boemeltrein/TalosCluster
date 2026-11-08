@@ -5,6 +5,6 @@ kind: Kustomization
 components:
   - ../../../../components/notifications/discord
 resources:
+  - grafanadashboard.yaml
   - namespace.yaml
   - prometheusrule.yaml
-  - grafanadashboard.yaml

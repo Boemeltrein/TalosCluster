@@ -5,11 +5,13 @@ kind: Kustomization
 resources:
   - cert-manager/ks.yaml
   - cloudnative-pg/ks.yaml
+  - clusterissuer/ks.yaml
   - kubernetes-reflector/ks.yaml
   - longhorn/ks.yaml
+  - metallb-config/ks.yaml
   - metallb/ks.yaml
   - openebs/ks.yaml
+  - renovate/ks.yaml
   - snapshot-controller/ks.yaml
   - system-upgrade
   - volsync/ks.yaml
-  - renovate/ks.yaml

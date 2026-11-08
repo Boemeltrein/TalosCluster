@@ -6,5 +6,5 @@ components:
   - ../../../../components/notifications/discord
   - ../../../../components/backup/credentials
 resources:
-  - namespace.yaml
   - helm-release.yaml
+  - namespace.yaml

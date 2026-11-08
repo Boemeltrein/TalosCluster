@@ -5,9 +5,9 @@ kind: Kustomization
 components:
   - ../../components/notifications/discord
 resources:
-  - namespace.yaml
   - cilium/ks.yaml
   - kubelet-csr-approver/ks.yaml
   - metrics-server/ks.yaml
+  - namespace.yaml
   - node-feature-discovery/ks.yaml
 

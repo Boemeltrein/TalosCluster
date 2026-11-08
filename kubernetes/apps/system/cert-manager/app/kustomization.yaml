@@ -5,7 +5,7 @@ kind: Kustomization
 components:
   - ../../../../components/notifications/discord
 resources:
-  - namespace.yaml
-  - helm-release.yaml
-  - prometheusrule.yaml
   - grafanadashboard.yaml
+  - helm-release.yaml
+  - namespace.yaml
+  - prometheusrule.yaml

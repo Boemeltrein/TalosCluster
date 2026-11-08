@@ -5,7 +5,8 @@ kind: Kustomization
 components:
   - ../../components/notifications/discord
 resources:
-  - namespace.yaml
-  - flux-operator/ks.yaml
+  # - sops-age.sops.yaml # Applied during the bootstrap phase.
   - flux-instance/ks.yaml
+  - flux-operator/ks.yaml
+  - namespace.yaml
   - webhooks

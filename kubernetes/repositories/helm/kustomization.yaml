@@ -10,8 +10,8 @@ resources:
   - bjw-s.yaml
   - cilium.yaml
   - cloudnative-pg.yaml
-  - grafana.yaml
   - grafana-community.yaml
+  - grafana.yaml
   - home-operations.yaml
   - home-ops-mirror.yaml
   - ingress-nginx.yaml

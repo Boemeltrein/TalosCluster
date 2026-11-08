@@ -5,10 +5,10 @@ kind: Kustomization
 components:
   - ../../../../components/notifications/discord
 resources:
-  - namespace.yaml
-  - alertmanagerconfig.yaml
   - alertmanager.secret.yaml
-  - helm-release.yaml
-  - scrapeconfig.yaml
-  - promethuesrule.yaml
+  - alertmanagerconfig.yaml
   - grafanadashboard.yaml
+  - helm-release.yaml
+  - namespace.yaml
+  - promethuesrule.yaml
+  - scrapeconfig.yaml

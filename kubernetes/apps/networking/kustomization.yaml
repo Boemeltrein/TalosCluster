@@ -4,8 +4,8 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - blocky/ks.yaml
-  - nginx-internal/ks.yaml
-  - nginx-external/ks.yaml
   - cloudflared/ks.yaml
   - cloudflareddns/ks.yaml
   - envoy-gateway/ks.yaml
+  - nginx-external/ks.yaml
+  - nginx-internal/ks.yaml

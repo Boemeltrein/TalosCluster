@@ -5,6 +5,6 @@ kind: Kustomization
 components:
   - ../../../../components/notifications/discord
 resources:
-  - namespace.yaml
-  - helm-release.yaml
   - grafana-dashboard.yaml
+  - helm-release.yaml
+  - namespace.yaml
