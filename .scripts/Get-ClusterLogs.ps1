@@ -8,13 +8,13 @@ combine with AND. The request uses only GET on the fixed Loki service proxy.
 Project instructions requiring permission for kubectl also apply to this script.
 Use -Preview to inspect the request without running kubectl or contacting the cluster.
 .EXAMPLE
-./scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h
+./.scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h
 .EXAMPLE
-./scripts/Get-ClusterLogs.ps1 -Namespace flux-system -Container helm-controller -Contains metallb -Since 24h
+./.scripts/Get-ClusterLogs.ps1 -Namespace flux-system -Container helm-controller -Contains metallb -Since 24h
 .EXAMPLE
-./scripts/Get-ClusterLogs.ps1 -AllNamespaces -Since 15m -Limit 100 -Preview
+./.scripts/Get-ClusterLogs.ps1 -AllNamespaces -Since 15m -Limit 100 -Preview
 .EXAMPLE
-./scripts/Get-ClusterLogs.ps1 -Namespace metallb -PodPattern 'metallb-frr-k8s-statuscleaner-.*' -Start '2026-11-05T00:00:00+01:00' -End '2026-11-05T00:25:00+01:00' -Json
+./.scripts/Get-ClusterLogs.ps1 -Namespace metallb -PodPattern 'metallb-frr-k8s-statuscleaner-.*' -Start '2026-11-05T00:00:00+01:00' -End '2026-11-05T00:25:00+01:00' -Json
 #>
 [CmdletBinding(DefaultParameterSetName = 'Relative')]
 param(

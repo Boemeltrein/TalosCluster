@@ -12,22 +12,22 @@ context. No additional credentials are needed.
 
 ```powershell
 # Inspect a request without invoking kubectl or contacting the cluster.
-./scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h -Preview
+./.scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h -Preview
 
 # Read logs from a namespace.
-./scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h
+./.scripts/Get-ClusterLogs.ps1 -Namespace home-assistant -Since 2h
 
 # Read one container and filter its log text literally.
-./scripts/Get-ClusterLogs.ps1 -Namespace flux-system -Container helm-controller -Contains metallb -Since 24h
+./.scripts/Get-ClusterLogs.ps1 -Namespace flux-system -Container helm-controller -Contains metallb -Since 24h
 
 # Match Pod names with a Loki regular expression.
-./scripts/Get-ClusterLogs.ps1 -Namespace metallb -PodPattern 'metallb-frr-k8s-statuscleaner-.*' -Since 24h
+./.scripts/Get-ClusterLogs.ps1 -Namespace metallb -PodPattern 'metallb-frr-k8s-statuscleaner-.*' -Since 24h
 
 # Query a fixed time window with an explicit timezone offset.
-./scripts/Get-ClusterLogs.ps1 -Namespace metallb -Start '2026-11-05T00:00:00+01:00' -End '2026-11-05T00:25:00+01:00' -Json
+./.scripts/Get-ClusterLogs.ps1 -Namespace metallb -Start '2026-11-05T00:00:00+01:00' -End '2026-11-05T00:25:00+01:00' -Json
 
 # Searching all namespaces requires an explicit switch.
-./scripts/Get-ClusterLogs.ps1 -AllNamespaces -Since 15m -Limit 100 -Json
+./.scripts/Get-ClusterLogs.ps1 -AllNamespaces -Since 15m -Limit 100 -Json
 ```
 
 `-Pod` matches an exact name; `-PodPattern` uses Loki's regular-expression syntax.
@@ -66,7 +66,7 @@ that never started may have no container logs.
 ## Offline validation
 
 ```powershell
-pwsh -NoProfile -File ./scripts/tests/Get-ClusterLogs.Tests.ps1
+pwsh -NoProfile -File ./.scripts/tests/Get-ClusterLogs.Tests.ps1
 ```
 
 The tests replace `kubectl` with a local mock, covering request boundaries,

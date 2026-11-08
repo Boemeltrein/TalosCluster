@@ -108,17 +108,23 @@ This cluster assumes a **simple and reliable home network environment**.
 ## 🗂 Directory Structure
 
 ~~~text
-clusters/
-└── main/
-    ├── components/   # Common components applied to multiple parts of the cluster
-    ├── kubernetes/   # Applications and Kubernetes workloads
-    └── talos/        # Talos Linux machine and cluster configuration
+kubernetes/
+├── apps/             # Applications grouped by function
+├── components/       # Shared Kustomize components
+├── config/           # Cluster configuration
+├── flux-entry/       # Flux reconciliation entry point
+└── repositories/     # Helm and OCI sources
+    ├── helm/
+    └── oci/
 
-repositories/
-├── entries/           # Repository entry definitions
-├── git/               # Flux GitRepository sources
-├── helm/              # Flux HelmRepository sources
-└── oci/               # Flux OCIRepository sources
+talos/
+├── clustertool.yaml  # Cluster and node definitions
+└── patches/          # Shared, role-specific and node-specific patches
+
+ci/                   # HelmRelease test overrides and CI configuration
+.github/              # Workflows, scripts and Renovate configuration
+.scripts/             # Local maintenance tools
+.schemas/             # Local editor schemas
 ~~~
 
 ---
