@@ -133,12 +133,11 @@ subjects:
     name: codex-readonly
     namespace: codex
 ---
-# Read-only access to Speedtest Tracker VolSync backup and restore status.
+# Read-only access to VolSync backup and restore status across all namespaces.
 apiVersion: rbac.authorization.k8s.io/v1
-kind: Role
+kind: ClusterRole
 metadata:
   name: codex-volsync-readonly
-  namespace: speedtest-tracker
 rules:
   - apiGroups:
       - volsync.backube
@@ -148,20 +147,20 @@ rules:
     verbs:
       - get
       - list
+      - watch
 ---
 apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
+kind: ClusterRoleBinding
 metadata:
-  name: codex-volsync-readonly
-  namespace: speedtest-tracker
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: Role
   name: codex-volsync-readonly
 subjects:
   - kind: ServiceAccount
     name: codex-readonly
     namespace: codex
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: codex-volsync-readonly
 ---
 # Allow GET requests to this Loki service through the Kubernetes API proxy.
 # This grants access to stored logs from all namespaces, not just grafana-loki.
