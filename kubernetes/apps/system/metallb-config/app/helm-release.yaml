@@ -1,0 +1,31 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: metallb-config
+  namespace: metallb-config
+spec:
+  interval: 1h
+  dependsOn:
+    - name: metallb
+      namespace: metallb  
+  chart:
+    spec:
+      chart: metallb-config
+      version: 11.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    L2Advertisements:
+      - name: main
+        addressPools:
+          - main
+    ipAddressPools:
+      - name: main
+        autoAssign: false
+        avoidBuggyIPs: true
+        addresses:
+          - ${METALLB_RANGE}

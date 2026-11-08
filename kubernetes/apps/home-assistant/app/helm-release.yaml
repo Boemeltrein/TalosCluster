@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: home-assistant
+  namespace: home-assistant
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: home-assistant
+      version: 32.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: homeassistant.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Network"
+            widget:
+              custom:
+                key: "${HP_API_HASS}"
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: rustfs
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+      p1meter:
+        enabled: true
+        type: device
+        hostPath: /dev/serial/by-id/usb-FTDI_P1_Converter_Cable_A6X1Y2R3-if00-port0
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: rustfs
+          retentionPolicy: "14d"
+          # revision: "4"
+        recovery:
+          credentials: rustfs
+          # revision: "3"
+        monitoring:
+          enablePodMonitor: true

@@ -1,0 +1,77 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: shelly-exporter
+  namespace: shelly-exporter
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: app-template
+      version: 21.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+  
+    image:
+      repository: ghcr.io/d1ceward/shellyplug-exporter
+      tag: v3.2.0
+      pullPolicy: IfNotPresent
+
+    service:
+      main:
+        ports:
+          main:
+            port: 5000
+        annotations:
+          gatus.home-operations.com/enabled: "true"
+          gatus.home-operations.com/endpoint: |
+            group: services
+            interval: 60s
+            ui:
+              hide-url: true
+              hide-hostname: true
+            conditions:
+              - "[CONNECTED] == true"
+              - "[RESPONSE_TIME] < 100"
+            alerts:
+              - type: discord
+
+    configmap:
+      exporter-configfile:
+        enabled: true
+        data:
+          config.yaml: |
+            {{- $.Values.exporter | toYaml | nindent 2 }}
+
+    persistence:
+      configfile:
+        enabled: true
+        type: configmap
+        readOnly: true
+        objectName: exporter-configfile
+        mountPath: /config.yaml
+        subPath: config.yaml
+
+    exporter:
+      exporter_port: 5000
+      plugs:
+        - name: server
+          host: 192.168.1.74  
+          port: 80
+
+    metrics:
+      main:
+        enabled: true
+        type: servicemonitor
+        endpoints:
+          - port: main
+            path: /metrics
+            interval: 10s
+            scrapeTimeout: 5s
+        targetSelector: main

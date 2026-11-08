@@ -1,0 +1,5 @@
+generated/
+.generate-*/
+.secrets-*/
+generated.previous/
+.bootstrap-in-progress.json

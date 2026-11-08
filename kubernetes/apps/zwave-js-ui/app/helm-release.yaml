@@ -1,0 +1,52 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: zwave-js-ui
+  namespace: zwave-js-ui
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: zwavejs2mqtt
+      version: 26.2.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: zwave.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: rustfs
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+      zwave:
+        enabled: true
+        type: device
+        hostPath: /dev/serial/by-id/usb-0658_0200-if00
+
+    resources:
+      requests:
+        cpu: 10m

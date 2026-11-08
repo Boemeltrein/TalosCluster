@@ -1,0 +1,125 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: gatus
+  namespace: gatus
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: gatus
+      version: 5.3.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+    
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        hosts:
+          - host: status.${DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    sidecar:
+      enable: true
+      enableService: true
+      enableIngress: true
+      autoIngress: true 
+
+    cnpg:
+      main:
+        monitoring:
+          enablePodMonitor: true
+
+    configmap:
+      config:
+        enabled: true
+        data:
+          config.yaml: |
+            {{- if .Values.cnpg.main.enabled }}
+            storage:
+              type: postgres
+              path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
+            {{- end }}
+            ui:
+              title: Status | Gatus
+              header: Status
+              logo: https://avatars.githubusercontent.com/u/130394941
+              link: https://github.com/Boemeltrein
+              buttons:
+                - name: Github
+                  link: https://github.com/Boemeltrein
+                - name: TalosCluster
+                  link: https://github.com/Boemeltrein/TalosCluster
+            metrics: true
+            alerting:
+              discord:
+                webhook-url: ${GATUS_WEBHOOK}
+                default-alert:
+                  description: "health check failed"
+                  send-on-resolved: true
+                overrides:
+                  - group: "buddy"
+                    webhook-url: ${GATUS_BUDDY_ALERT_WEBHOOK}
+            endpoints:
+              - name: Cloudflare
+                group: connectivity
+                url: icmp://1.1.1.1
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
+              - name: Google
+                group: connectivity
+                url: icmp://8.8.8.8
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
+              - name: Quad9
+                group: connectivity
+                url: icmp://9.9.9.9
+                interval: 1m
+                conditions:
+                  - "[CONNECTED] == true"
+              - name: Status Page (Buddy)
+                group: buddy
+                url: https://${GATUS_BUDDY_STATUS_HOSTNAME}
+                interval: 1m
+                ui:
+                  hide-url: true
+                  hide-hostname: true
+                conditions:
+                  - "[STATUS] == 200"
+                  - "[BODY].status == UP"
+                alerts:
+                  - type: discord
+                  - minimum-reminder-interval: 12h
+              - name: Ping (Buddy)
+                group: buddy
+                url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
+                interval: 1m
+                ui:
+                  hide-url: true
+                  hide-hostname: true
+                conditions:
+                  - "[CONNECTED] == true"
+                alerts:
+                  - type: discord
+                  - minimum-reminder-interval: 12h
+            external-endpoints:
+              - name: Heartbeat (Buddy)
+                group: buddy
+                token: ${GATUS_BUDDY_HEARTBEAT_TOKEN}
+                heartbeat:
+                  interval: 5m
+                alerts:
+                  - type: discord
+                  - minimum-reminder-interval: 12h

@@ -1,0 +1,50 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: webserver-dynmap
+  namespace: webserver-dynmap
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: static-web-server
+      version: 9.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: external
+        hosts:
+          - host: dynmap.${DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+          nginx:
+            enabled: true
+            auth:
+              type: "authelia"
+              internalHost: "authelia.authelia.svc.cluster.local:9091"
+              externalHost: "auth.${DOMAIN}"
+
+    persistence:
+      dynmap:
+        enabled: true
+        type: nfs
+        path: /mnt/SSD_Cluster/app_minecraft_data/dynmap/web
+        server: 192.168.1.50
+        mountPath: /public
+      config:
+        enabled: false
+
