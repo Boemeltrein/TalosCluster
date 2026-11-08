@@ -4,10 +4,10 @@ installer:
   # Image Factory customization included in the schematic ID below:
   # customization:
   #   systemExtensions:
-  #       officialExtensions:
-  #         - siderolabs/iscsi-tools
-  #         - siderolabs/qemu-guest-agent
-  #         - siderolabs/util-linux-tools
+  #     officialExtensions:
+  #       - siderolabs/iscsi-tools
+  #       - siderolabs/qemu-guest-agent
+  #       - siderolabs/util-linux-tools
   # These comments are documentation only. To change the image, register the
   # updated customization with Image Factory and replace the schematic ID below.
   # Existing nodes require an image upgrade; genconfig/apply alone is not enough.
