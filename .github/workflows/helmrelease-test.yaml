@@ -50,9 +50,9 @@ jobs:
           HELMRELEASE_INPUT: ${{ inputs.helmrelease }}
         run: |
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
-            if [[ "$HELMRELEASE_INPUT" != clusters/main/kubernetes/*/helm-release.yaml ]]; then
+            if [[ "$HELMRELEASE_INPUT" != kubernetes/*/helm-release.yaml ]]; then
               echo "❌ Invalid HelmRelease path: $HELMRELEASE_INPUT"
-              echo "The path must point to a helm-release.yaml below clusters/main/kubernetes/."
+              echo "The path must point to a helm-release.yaml below kubernetes/."
               exit 1
             fi
 
@@ -105,10 +105,10 @@ jobs:
                   ' "$helmrelease" >/dev/null 2>&1; then
                   echo "$helmrelease"
                 fi
-              done < <(find clusters/main/kubernetes -type f -name 'helm-release.yaml')
+              done < <(find kubernetes -type f -name 'helm-release.yaml')
             done < <(
               printf '%s\n' "$changed_files" \
-                | grep '^repositories/oci/.*\.yaml$' || true
+                | grep '^kubernetes/repositories/oci/.*\.yaml$' || true
             )
           } | sort -u)"
           

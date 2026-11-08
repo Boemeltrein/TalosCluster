@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.config.k8s.io/kustomization_v1beta1.json
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - actions-runner-system
+  - ai
+  - external-services
+  - flux-system
+  - gaming
+  - home-automation
+  - kube-system
+  - media
+  - networking
+  - observability
+  - security
+  - system
+  - tests
+  - tools

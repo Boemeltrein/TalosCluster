@@ -1,0 +1,28 @@
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/core/secret_v1.json
+apiVersion: v1
+kind: Secret
+metadata:
+  name: deploy-key
+  namespace: flux-system
+stringData:
+  identity: ENC[AES256_GCM,data:rqjYl/fx+sIz7ncRRNnngMqUvlwMBfnPADcU0L+nj+7P1gDXzdj4uX27K2LGAxF/DhGyo6fvZYd1ZfW/sZv97ULYJWfAo7yYX2A3KDXX4iNMAvNUT6cAIAt/Lw0HxdIo//UvWskeZZ4Nqy1ZMldC1fqS195ThCCkPl3rP6b5KWMsjeT7M32WApK9YbgZUPc0J0U8tAM3quEWg2/CYG9XUpAjbDjEyfu39Ixk7bhDEpA0b6iLUgydbjxRH8q5FQRBCePjees/hT9CTAojnE782eD0z+SIPJ2Zjs6fiWEHZgSmYZWBLyWgVRlM1hzZ+M+9ciwxHnbcQoQXvM+eR/YXGL2ZR90ylrarrxussfC7L34SWo2whJ8iqbT+EfNJ6Hq/,iv:lUZxykl0izapWq+9FK7AcV5yXF4blEIOnRACoB43Y+s=,tag:VaJL7BmwX7BI5bOR2fjhYA==,type:str]
+  identity.pub: ENC[AES256_GCM,data:1y2UJCQz6knZsJdBd69BWoOn6ZvkCw4opUQpKhLZqJftURu7QJ8h+ippcOMZfqWhuRW8JKW9g684+0CkaFMaMJwdUwGT/U3AJIXmklJMM6HW/t5m3SBs/mot4hyVBYPHWMFVXK5TEus3UCT/hBKbU4q2iXWgNkzrOBFGzxR+a4CgeSnhgSAHJ56oDKwnCZevDjkBpwgK5PWlPRrHTOazJhJjruiIDIe5rxwqewVXn3lgLIb4bviNcsSIvch0QigmFkugAMammGYXZpe6wg==,iv:sG1qQsH5pkjhbAePzvtFbiHRkcGKip3b641SUTWm/r4=,tag:l6/zCwbZvgQe9wb82tJcYw==,type:str]
+  known_hosts: ENC[AES256_GCM,data:6Zt2tHu28SR7oVsF/7dWhcGunbc6Lqj4EEhbajTFCIHEL4K5NYVaqx7I2qJsKfN0eC+VgWMgNHUrcXHXeQ9tMhmyZG/+/p2g83xxvsbdC/Rm+yYlExWaBOa2VwBAeTCrk8SxP6FSSbEp/F13FUNjzYxX7hXlIci3NdEY6/iIiiRm4rHokDx2ofDsUXM1swANVr3s6ORrVP9Q4emy7QFeVl838alN6LBmI05v,iv:Kn/wr5XvV2xvGzY09MnGIACDFqmVCsZ2bE/6MUXGZB4=,tag:H9DE3y81tdtEi5eALJWq/g==,type:str]
+type: Opaque
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBObHhLUkpTRVhLckJBNVRE
+        dzVRMlpCaVZDOGIzODNkTitnTTh6cEExT0V3ClBMZVBKeDdxeFZkbDI0ZUxBOXhm
+        VVNOWFI1Rmt6bUxUaExOdHp0WEFYQlkKLS0tIFAxZSttVUUwTnRUdFFGWWdBSmE0
+        Y3BDSTlNRzFpK29zZ2s0UWt2Sk4zcmcK+g/JQf1XQ2e25eLO7wiDVRqSnKCVUMul
+        5ekz9iZw94mely9eiGiBAXyaOPAksp0i2m4usYZr9afTP2+MGZ9CBw==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1q8xty9t8mzeekkgs0pc9uezeu4lm3cdssq68gn0mtxyc9wmn6vhq3m2ych
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-11-08T12:33:59Z"
+  mac: ENC[AES256_GCM,data:Wxc6ceO9Ig+aCTvdMcSV+I0cGSm4FuzoXVQNSD9DC38ojOTOjKWtyqyPnhSVfQ/IGz5Y2eyMAnZ16KD8FC6jDN/iapCaMAUQafg+S5kqqc7+MgFKy+wyESJo4QG3TjSnUzOPOrBOuClPUWUwizgxAsTeo+j+wawUVFqeZgd7lsA=,iv:HyftC/dl7G+MV3OwcFarw0vTVJkMD+3lxX4EfVKoKqQ=,tag:bFGpaW34+eaiHBgBXBPaLw==,type:str]
+  mac_only_encrypted: true
+  shamir_threshold: 3
+  version: 3.13.3

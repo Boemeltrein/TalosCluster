@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: kubernetes-reflector
+  namespace: kubernetes-reflector
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: kubernetes-reflector
+      version: 10.1.1
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system

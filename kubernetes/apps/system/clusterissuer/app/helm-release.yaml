@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: clusterissuer
+  namespace: clusterissuer
+spec:
+  interval: 1h
+  dependsOn:
+    - name: cert-manager
+      namespace: cert-manager
+  chart:
+    spec:
+      chart: clusterissuer
+      version: 12.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+    clusterIssuer:
+      ACME:
+        - name: cloudflare
+          email: "${EMAIL}"
+          server: "https://acme-v02.api.letsencrypt.org/directory"
+          type: cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN}"
+        - name: cloudflare-staging
+          email: "${EMAIL}"
+          server: "https://acme-staging-v02.api.letsencrypt.org/directory"
+          type: cloudflare
+          cfapitoken: "${CLOUDFLARE_TOKEN}"
+    clusterCertificates:
+      # Namespaces in which the certificates must be available
+      # Accepts comma-separated regex expressions
+      replicationNamespaces: '.*'
+      certificates:
+        - name: domain-wildcard
+          enabled: true
+          certificateIssuer: cloudflare
+          hosts:
+            - ${DOMAIN}
+            - '*.${DOMAIN}'

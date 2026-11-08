@@ -1,0 +1,94 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: immich
+      version: 35.1.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+
+    global:
+      stopAll: false
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: immich.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Media"
+            widget:
+              custom:
+                key: "${HP_API_IMMICH}"
+                version: "2"
+
+    persistence:
+      library:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/library
+      uploads:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/uploads
+      backups:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/backups
+      thumbs:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/thumbs
+      profile:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/profile
+      video:
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/SSD_Cluster/app_immich/encoded-video
+      afbeeldingen:
+        enabled: true
+        type: nfs
+        server: 192.168.1.50
+        path: /mnt/HDD_Cluster/Afbeeldingen
+        mountPath: /mnt/afbeeldingen
+        readOnly: true
+        targetSelector:
+          main:
+            main: {}
+          microservices:
+            microservices: {}
+
+    cnpg:
+      main:
+        cluster:
+          singleNode: true
+        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+        backups:
+          enabled: true
+          credentials: rustfs
+          retentionPolicy: "14d"
+          # revision: "1"
+        recovery:
+          credentials: rustfs
+          # revision: ""
+        monitoring:
+          enablePodMonitor: true          

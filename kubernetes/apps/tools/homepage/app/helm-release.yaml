@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: homepage
+  namespace: homepage
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: homepage
+      version: 14.4.0
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    TZ: Europe/Amsterdam
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: homepage.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+
+    persistence:
+      config:
+        volsync:
+          - name: config
+            type: restic
+            credentials: rustfs
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true
+
+    addons:
+      codeserver:
+        enabled: true
+        ingress:
+          enabled: true
+          ingressClassName: internal
+          hosts:
+            - host: cs-homepage.${BASE_DOMAIN}
+          integrations:
+            certManager:
+              enabled: true
+              certificateIssuer: cloudflare
+
+    workload:
+      main:
+        podSpec:
+          automountServiceAccountToken: true
+          containers:
+            main:
+              env:
+                HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
+
+    resources:
+      requests:
+        cpu: 10m

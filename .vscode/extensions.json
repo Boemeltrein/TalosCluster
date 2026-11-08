@@ -13,6 +13,7 @@
         "ms-kubernetes-tools.vscode-kubernetes-tools",
         "sandipchitale.vscode-kubernetes-helm-extras",
         "VadzimNestsiarenka.helm-template-preview-and-more",
-        "karyan40024.helmix"
+        "karyan40024.helmix",
+        "blueglassblock.better-json5"
     ]
 }

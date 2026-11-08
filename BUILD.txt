@@ -1,4 +1,4 @@
-Version: 5.0.0-beta.2
-Commit: 00ae0a0c1bbd2fa3ec06ea582f2ea20b07124489
+Version: test-2a86e9352def
+Commit: 2a86e9352def6cac6095b77d2c22562d45eb02b4
 Platform: linux/amd64
-Built at: 2026-10-31T15:49:28Z
+Built at: 2026-11-07T19:46:19Z

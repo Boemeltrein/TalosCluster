@@ -1,18 +1,13 @@
 {
     "files.associations": {
-      "*.json5": "json5",
-      "./kubernetes/**/*.sops.toml": "plaintext"
+      "*.json5": "json5"
     },
     "sops.defaults.ageKeyFile": "age.agekey",
-    "yaml.schemas": {
-        "Kubernetes": "./kubernetes/*.yaml"
-    },
     "terminal.integrated.profiles.linux": {
         "bash": {
           "path": "/usr/bin/fish"
         }
       },
-    "terminal.integrated.defaultProfile.linux": "fish",
     "editor.tabSize": 2,
     "editor.detectIndentation": false,
     "search.useIgnoreFiles": false

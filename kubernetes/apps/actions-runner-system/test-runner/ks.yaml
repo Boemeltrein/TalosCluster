@@ -1,0 +1,19 @@
+---
+# yaml-language-server: $schema=https://k8s-schemas.home-operations.com/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: test-runner
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: actions-runner-controller
+    - name: openebs
+  interval: 1h
+  retryInterval: 10m
+  timeout: 10m
+  path: kubernetes/apps/actions-runner-system/test-runner/app
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: cluster

@@ -1,0 +1,45 @@
+---
+# yaml-language-server: $schema=../../../../../.schemas/truecharts-helmrelease.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: aistor
+  namespace: aistor
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: aistor
+      version: 1.1.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+    minio:
+      licence: "${MINIO_LICENCE}"
+      rootUser: minio
+      rootPassword: minio123
+      browserRedirectUrl: https://minio.${BASE_DOMAIN}
+
+    ingress:
+      main:
+        enabled: true
+        ingressClassName: internal
+        hosts:
+          - host: minio.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+      api:
+        enabled: true
+        targetSelector:
+          api: api
+        ingressClassName: internal
+        hosts:
+          - host: minioapi.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
