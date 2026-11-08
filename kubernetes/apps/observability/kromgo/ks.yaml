@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/observability/kromgo/app
+  path: kubernetes/apps/observability/kromgo/app
   prune: true
   sourceRef:
     kind: GitRepository

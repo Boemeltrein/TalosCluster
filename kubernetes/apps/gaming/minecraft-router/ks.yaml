@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/apps/minecraft-router/app
+  path: kubernetes/apps/gaming/minecraft-router/app
   prune: true
   sourceRef:
     kind: GitRepository

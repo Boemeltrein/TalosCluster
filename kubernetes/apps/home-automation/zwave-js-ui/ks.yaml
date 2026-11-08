@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/apps/zwave-js-ui/app
+  path: kubernetes/apps/home-automation/zwave-js-ui/app
   prune: true
   sourceRef:
     kind: GitRepository

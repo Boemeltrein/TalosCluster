@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/observability/shelly-exporter/app
+  path: kubernetes/apps/observability/shelly-exporter/app
   prune: true
   sourceRef:
     kind: GitRepository

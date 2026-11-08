@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/apps/plex/app
+  path: kubernetes/apps/media/plex/app
   prune: true
   sourceRef:
     kind: GitRepository

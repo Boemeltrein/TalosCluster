@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/external-services/ext-plugwise/app
+  path: kubernetes/apps/external-services/ext-plugwise/app
   prune: true
   sourceRef:
     kind: GitRepository

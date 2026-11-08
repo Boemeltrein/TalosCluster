@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/apps/radarr/app
+  path: kubernetes/apps/media/radarr/app
   prune: true
   sourceRef:
     kind: GitRepository

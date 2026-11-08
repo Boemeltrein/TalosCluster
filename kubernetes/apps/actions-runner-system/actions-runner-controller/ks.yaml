@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/apps/actions-runner-system/actions-runner-controller/app
+  path: kubernetes/apps/actions-runner-system/actions-runner-controller/app
   prune: true
   sourceRef:
     kind: GitRepository

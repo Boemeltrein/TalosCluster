@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/system/openebs/app
+  path: kubernetes/apps/system/openebs/app
   prune: true
   sourceRef:
     kind: GitRepository

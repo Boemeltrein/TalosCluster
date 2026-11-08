@@ -9,7 +9,7 @@ spec:
   interval: 1h
   retryInterval: 10m
   timeout: 10m
-  path: clusters/main/kubernetes/system/kubernetes-reflector/app
+  path: kubernetes/apps/system/kubernetes-reflector/app
   prune: true
   sourceRef:
     kind: GitRepository
