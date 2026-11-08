@@ -193,3 +193,29 @@ subjects:
   - kind: ServiceAccount
     name: codex-readonly
     namespace: codex
+---
+# Allow GET requests to the Prometheus API through the service proxy.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: codex-prometheus-reader
+  namespace: kube-prometheus-stack
+rules:
+  - apiGroups: [""]
+    resources: ["services/proxy"]
+    resourceNames: ["http:kube-prometheus-stack-prometheus:9090"]
+    verbs: ["get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: codex-prometheus-reader
+  namespace: kube-prometheus-stack
+subjects:
+  - kind: ServiceAccount
+    name: codex-readonly
+    namespace: codex
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: codex-prometheus-reader
