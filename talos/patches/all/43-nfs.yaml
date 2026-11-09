@@ -8,3 +8,4 @@ contents: |
   hard=True
   nconnect=16
   noatime=True
+  sec=sys
