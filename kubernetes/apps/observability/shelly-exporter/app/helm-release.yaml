@@ -20,7 +20,7 @@ spec:
   
     image:
       repository: ghcr.io/d1ceward/shellyplug-exporter
-      tag: v3.2.0
+      tag: v3.3.0
       pullPolicy: IfNotPresent
 
     service:
