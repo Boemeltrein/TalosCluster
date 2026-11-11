@@ -46,14 +46,10 @@ spec:
     metrics:
       serviceMonitor:
         enabled: true
-    ingress:
+    httproute:
       enabled: true
-      ingressClassName: internal
-      host: longhorn.${BASE_DOMAIN}    
-      annotations:
-        cert-manager.io/cluster-issuer: cloudflare
-        cert-manager.io/private-key-rotation-policy: Always
-      path: /
-      pathType: ImplementationSpecific
-      tls: true
-      tlsSecret: longhorn-tls
+      parentRefs:
+        - name: envoy-internal
+          namespace: envoy-gateway
+      hostnames:
+        - longhorn.${DOMAIN}
