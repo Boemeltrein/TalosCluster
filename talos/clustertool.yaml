@@ -15,25 +15,28 @@ nodes:
     role: control-plane
     address: ${CONTROL1IP}
 
-# Cilium and the kubelet CSR approver are installed before this list.
-# Chart and CRD names refer to HelmRelease metadata.name. All steps run in order.
+# CRDs are applied before Cilium and the kubelet CSR approver.
+# Steps run once both charts and all nodes are ready, namespaces exist and health checks pass.
+# Chart and CRD names refer to HelmRelease metadata.name. Each list runs in order.
 bootstrap:
-  - crd: kube-prometheus-stack
-  - crd: grafana-operator
-  - crd: envoy-gateway
-  - manifest: kubernetes/config/cluster-secrets.sops.yaml
-  - manifest: kubernetes/apps/flux-system/flux-instance/app/deploy-key.sops.yaml
-  - manifest: kubernetes/apps/flux-system/sops-age.sops.yaml
-  - chart: cert-manager
-  - chart: clusterissuer
-    wait: false
-  - chart: metallb
-  - chart: metallb-config
-  - chart: snapshot-controller
-  - chart: longhorn
-  - manifest: kubernetes/apps/system/longhorn/app/volumeSnapshotClass.yaml
-  - chart: volsync
-  - chart: cloudnative-pg
-  - chart: flux-operator
-  - chart: flux-instance
-    wait: false
+  crd:
+    - kube-prometheus-stack
+    - envoy-gateway
+    - grafana-operator
+  steps:
+    - manifest: kubernetes/config/cluster-secrets.sops.yaml
+    - manifest: kubernetes/apps/flux-system/flux-instance/app/deploy-key.sops.yaml
+    - manifest: kubernetes/apps/flux-system/sops-age.sops.yaml
+    - chart: cert-manager
+    - chart: clusterissuer
+      wait: false
+    - chart: metallb
+    - chart: metallb-config
+    - chart: snapshot-controller
+    - chart: longhorn
+    - manifest: kubernetes/apps/system/longhorn/app/volumeSnapshotClass.yaml
+    - chart: volsync
+    - chart: cloudnative-pg
+    - chart: flux-operator
+    - chart: flux-instance
+      wait: false
