@@ -5,11 +5,7 @@ kind: HelmRelease
 metadata:
   name: tuppr
   namespace: system-upgrade
-  labels:
-    drift-detection.flux.home.arpa/defaults: disabled  
 spec:
-  driftDetection:
-    mode: enabled
   interval: 1h
   chartRef:
     kind: OCIRepository
