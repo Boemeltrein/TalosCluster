@@ -1,4 +1,4 @@
-Version: test-2a86e9352def
-Commit: 2a86e9352def6cac6095b77d2c22562d45eb02b4
+Version: 5.0.0-beta.3
+Commit: d18133a2bfa73e18e492fed226b3cc90f6beab6b
 Platform: linux/amd64
-Built at: 2026-11-07T19:46:19Z
+Built at: 2026-11-12T18:49:57Z
