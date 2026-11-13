@@ -32,7 +32,7 @@ spec:
     kromgo:
       defaults:
         badge:
-          font: dejavu-sans # dejavu-sans (default, shields.io-style), dejavu-sans-bold, comic-neue, comic-neue-bold
+          font: verdana # dejavu-sans (default, shields.io-style), dejavu-sans-bold, comic-neue, comic-neue-bold
           size: 11 # badge font size in points
           style: flat-square # flat (default), flat-square, plastic, or for-the-badge
           gallery:
