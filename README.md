@@ -10,7 +10,7 @@
 [![Flux](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
 
 
-![Truenas](https://kromgo.boemeltrein.nl/badges/truenas_version)&nbsp;&nbsp;
+![TrueNAS](https://kromgo.boemeltrein.nl/badges/truenas_version)&nbsp;&nbsp;
 ![Talos](https://kromgo.boemeltrein.nl/badges/talos_version)&nbsp;&nbsp;
 ![Kubernetes](https://kromgo.boemeltrein.nl/badges/kubernetes_version)&nbsp;&nbsp;
 ![Flux](https://kromgo.boemeltrein.nl/badges/flux_version)&nbsp;&nbsp;
@@ -31,14 +31,14 @@
 [![Power](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_power_usage?format=shields&style=flat-square&label=Power)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 
 
-![Age](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
-![Uptime](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
-![Nodes](https://kromgo.boemeltrein.nl/badges/cluster_node_count)&nbsp;&nbsp;
-![Pods](https://kromgo.boemeltrein.nl/badges/cluster_pod_count)&nbsp;&nbsp;
+![Age-Days](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
+![Uptime-Days](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
+![Node-Count](https://kromgo.boemeltrein.nl/badges/cluster_node_count)&nbsp;&nbsp;
+![Pod-Count](https://kromgo.boemeltrein.nl/badges/cluster_pod_count)&nbsp;&nbsp;
 ![Alerts](https://kromgo.boemeltrein.nl/badges/cluster_alert_count)&nbsp;&nbsp;
-![CPU](https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage)&nbsp;&nbsp;
-![Memory](https://kromgo.boemeltrein.nl/badges/cluster_memory_usage)&nbsp;&nbsp;
-![Power](https://kromgo.boemeltrein.nl/badges/cluster_power_usage)&nbsp;&nbsp;
+![CPU-Usage](https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage)&nbsp;&nbsp;
+![Memory-Usage](https://kromgo.boemeltrein.nl/badges/cluster_memory_usage)&nbsp;&nbsp;
+![Power-Usage](https://kromgo.boemeltrein.nl/badges/cluster_power_usage)&nbsp;&nbsp;
 
 </div>
 
