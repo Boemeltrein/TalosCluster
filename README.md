@@ -4,10 +4,10 @@
 
 *A self-hosted, GitOps-driven Kubernetes cluster built on Talos Linux, focused on reliability, observability, and clean automation.*
 
-![TrueNAS](https://kromgo.boemeltrein.nl/badges/truenas_version)&nbsp;&nbsp;
-![Talos](https://kromgo.boemeltrein.nl/badges/talos_version)&nbsp;&nbsp;
-![Kubernetes](https://kromgo.boemeltrein.nl/badges/kubernetes_version)&nbsp;&nbsp;
-![Flux](https://kromgo.boemeltrein.nl/badges/flux_version)&nbsp;&nbsp;
+[![TrueNAS](https://kromgo.boemeltrein.nl/badges/truenas_version)](https://www.truenas.com/)&nbsp;&nbsp;
+[![Talos](https://kromgo.boemeltrein.nl/badges/talos_version)](https://www.talos.dev/)&nbsp;&nbsp;
+[![Kubernetes](https://kromgo.boemeltrein.nl/badges/kubernetes_version)](https://kubernetes.io/)&nbsp;&nbsp;
+[![Flux](https://kromgo.boemeltrein.nl/badges/flux_version)](https://fluxcd.io/)&nbsp;&nbsp;
 
 [![Home-Internet](https://kromgo.alfi0812.de/badges/buddy_ping)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Status-Page](https://kromgo.alfi0812.de/badges/buddy_status_page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
