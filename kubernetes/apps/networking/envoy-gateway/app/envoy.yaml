@@ -13,15 +13,14 @@ spec:
     type: Kubernetes
     kubernetes:
       envoyDeployment:
-        replicas: 2
+        replicas: 1
         container:
-          image: mirror.gcr.io/envoyproxy/envoy:v1.40.2
-          # imageRepository: mirror.gcr.io/envoyproxy/envoy
+          imageRepository: mirror.gcr.io/envoyproxy/envoy
           resources:
             requests:
               cpu: 100m
             limits:
-              memory: 2Gi
+              memory: 1Gi
       envoyService:
         externalTrafficPolicy: Local
   shutdown:
@@ -143,7 +142,7 @@ spec:
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
-        - 172.16.0.0/16
+        - ${PODNET}
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
