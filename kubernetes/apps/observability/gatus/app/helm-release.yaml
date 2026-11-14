@@ -123,3 +123,7 @@ spec:
                 alerts:
                   - type: discord
                   - minimum-reminder-interval: 12h
+
+    metrics:
+      main:
+        enabled: true
