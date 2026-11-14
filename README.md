@@ -11,7 +11,11 @@
 
 [![Home-Internet](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_ping-(buddy)/health/badge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Status-Page](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_status-page-(buddy)/health/badge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
-[![Alertmanager](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_heartbeat-(buddy)/health/badge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)
+[![Alertmanager](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_heartbeat-(buddy)/health/badge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)&nbsp;&nbsp;
+
+[![Home-Internet](https://kromgo.alfi0812.de/badges/buddy_ping)](https://status.boemeltrein.nl)&nbsp;&nbsp;
+[![Status-Page](https://kromgo.alfi0812.de/badges/buddy_status_page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
+[![Alertmanager](https://kromgo.alfi0812.de/badges/buddy_heartbeat)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 
 ![Age-Days](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
 ![Uptime-Days](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
