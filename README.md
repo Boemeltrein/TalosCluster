@@ -4,32 +4,14 @@
 
 *A self-hosted, GitOps-driven Kubernetes cluster built on Talos Linux, focused on reliability, observability, and clean automation.*
 
-[![TrueNAS](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/truenas_version?format=shields&style=for-the-badge&logo=truenas&logoColor=white&label=%20)](https://www.truenas.com/)&nbsp;&nbsp;
-[![Talos](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/talos_version?format=shields&style=for-the-badge&logo=talos&logoColor=white&label=%20)](https://www.talos.dev/)&nbsp;&nbsp;
-[![Kubernetes](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/kubernetes_version?format=shields&style=for-the-badge&logo=kubernetes&logoColor=white&label=%20)](https://www.kubernetes.io/)&nbsp;&nbsp;
-[![Flux](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/flux_version?format=shields&style=for-the-badge&logo=flux&logoColor=white&label=%20)](https://fluxcd.io)&nbsp;&nbsp;
-
-
 ![TrueNAS](https://kromgo.boemeltrein.nl/badges/truenas_version)&nbsp;&nbsp;
 ![Talos](https://kromgo.boemeltrein.nl/badges/talos_version)&nbsp;&nbsp;
 ![Kubernetes](https://kromgo.boemeltrein.nl/badges/kubernetes_version)&nbsp;&nbsp;
 ![Flux](https://kromgo.boemeltrein.nl/badges/flux_version)&nbsp;&nbsp;
 
-
 [![Home-Internet](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_ping-(buddy)/health/badge.shields&style=for-the-badge&logo=ubiquiti&logoColor=white&label=Home%20Internet)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Status-Page](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_status-page-(buddy)/health/badge.shields&style=for-the-badge&logo=statuspage&logoColor=white&label=Status%20Page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Alertmanager](https://img.shields.io/endpoint?url=https://status.goeppel.dev/api/v1/endpoints/buddy_heartbeat-(buddy)/health/badge.shields&style=for-the-badge&logo=prometheus&logoColor=white&label=Alertmanager)](https://status.boemeltrein.nl)
-
-
-[![Age-Days](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_age_days?format=shields&style=flat-square&label=Age)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Uptime-Days](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_uptime_days?format=shields&style=flat-square&label=Uptime)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Node-Count](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_node_count?format=shields&style=flat-square&label=Nodes)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Pod-Count](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_pod_count?format=shields&style=flat-square&label=Pods)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Alerts](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_alert_count?format=shields&style=flat-square&label=Alerts)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![CPU-Usage](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage?format=shields&style=flat-square&label=CPU)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Memory-Usage](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_memory_usage?format=shields&style=flat-square&label=Memory)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-[![Power](https://img.shields.io/endpoint?url=https://kromgo.boemeltrein.nl/badges/cluster_power_usage?format=shields&style=flat-square&label=Power)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
-
 
 ![Age-Days](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
 ![Uptime-Days](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
