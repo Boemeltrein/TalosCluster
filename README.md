@@ -13,14 +13,14 @@
 [![Status-Page](https://kromgo.alfi0812.de/badges/buddy_status_page)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 [![Alertmanager](https://kromgo.alfi0812.de/badges/buddy_heartbeat)](https://status.boemeltrein.nl)&nbsp;&nbsp;
 
-![Age-Days](https://kromgo.boemeltrein.nl/badges/cluster_age_days)&nbsp;&nbsp;
-![Uptime-Days](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)&nbsp;&nbsp;
-![Node-Count](https://kromgo.boemeltrein.nl/badges/cluster_node_count)&nbsp;&nbsp;
-![Pod-Count](https://kromgo.boemeltrein.nl/badges/cluster_pod_count)&nbsp;&nbsp;
-![Alerts](https://kromgo.boemeltrein.nl/badges/cluster_alert_count)&nbsp;&nbsp;
-![CPU-Usage](https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage)&nbsp;&nbsp;
-![Memory-Usage](https://kromgo.boemeltrein.nl/badges/cluster_memory_usage)&nbsp;&nbsp;
-![Power-Usage](https://kromgo.boemeltrein.nl/badges/cluster_power_usage)&nbsp;&nbsp;
+[![Age](https://kromgo.boemeltrein.nl/badges/cluster_age_days)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Uptime](https://kromgo.boemeltrein.nl/badges/cluster_uptime_days)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Nodes](https://kromgo.boemeltrein.nl/badges/cluster_node_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Pods](https://kromgo.boemeltrein.nl/badges/cluster_pod_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Alerts](https://kromgo.boemeltrein.nl/badges/cluster_alert_count)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![CPU](https://kromgo.boemeltrein.nl/badges/cluster_cpu_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Memory](https://kromgo.boemeltrein.nl/badges/cluster_memory_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
+[![Power](https://kromgo.boemeltrein.nl/badges/cluster_power_usage)](https://github.com/home-operations/kromgo)&nbsp;&nbsp;
 
 </div>
 
