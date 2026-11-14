@@ -127,3 +127,5 @@ spec:
     metrics:
       main:
         enabled: true
+        endpoints:
+          - path: /metrics
