@@ -125,7 +125,7 @@ spec:
           title: Alerts
 
         - id: buddy_ping
-          query: gatus_results_endpoint_success{key="buddy_ping"}
+          query: gatus_results_endpoint_success{key="buddy_ping-(buddy)"}
           valueExpr: 'result == 1.0 ? "up" : "down"'
           colorExpr: 'result == 1.0 ? "brightgreen" : "red"'
           icon: si:ubiquiti
@@ -133,7 +133,7 @@ spec:
           title: Home Internet
 
         - id: buddy_status_page
-          query: gatus_results_endpoint_success{key="buddy_status-page"}
+          query: gatus_results_endpoint_success{key="buddy_status-page-(buddy)"}
           valueExpr: 'result == 1.0 ? "up" : "down"'
           colorExpr: 'result == 1.0 ? "brightgreen" : "red"'
           icon: si:statuspage
@@ -141,7 +141,7 @@ spec:
           title: Status Page
 
         - id: buddy_heartbeat
-          query: gatus_results_endpoint_success{key="buddy_heartbeat"}
+          query: gatus_results_endpoint_success{key="buddy_heartbeat-(buddy)"}
           valueExpr: 'result == 1.0 ? "up" : "down"'
           colorExpr: 'result == 1.0 ? "brightgreen" : "red"'
           icon: si:prometheus
