@@ -128,7 +128,7 @@ spec:
           query: gatus_results_endpoint_success{key="buddy_ping-(buddy)"}
           valueExpr: 'result == 1.0 ? "up" : "down"'
           colorExpr: 'result == 1.0 ? "brightgreen" : "red"'
-          icon: si:ubiquiti
+          icon: si:fritz
           style: for-the-badge
           title: Home Internet
 
