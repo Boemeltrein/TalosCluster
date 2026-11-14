@@ -79,24 +79,10 @@ spec:
       type: LoadBalancer
       loadBalancerIP: ${HEADLAMP_IP}
 
-    ingress:
+    httpRoute:
       enabled: true
-      annotations:
-        cert-manager.io/cluster-issuer: cloudflare
-        cert-manager.io/private-key-rotation-policy: Always
-      ingressClassName: internal
-      hosts:
-        - host: headlamp.${BASE_DOMAIN}
-          paths:
-            - pathType: Prefix
-              path: /
-              type: ImplementationSpecific
-              backend:
-                service:
-                  name: headlamp
-                  port:
-                    number: 80
-      tls:
-        - secretName: headlamp-tls-0
-          hosts:
-            - headlamp.${BASE_DOMAIN}
+      parentRefs:
+        - name: envoy-internal
+          namespace: envoy-gateway
+      hostnames:
+        - headlamp.${DOMAIN}
