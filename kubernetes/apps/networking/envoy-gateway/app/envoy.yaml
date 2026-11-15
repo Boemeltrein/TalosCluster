@@ -141,7 +141,7 @@ spec:
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
-        - ${PODNET}
+        - 172.16.0.0/16
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
