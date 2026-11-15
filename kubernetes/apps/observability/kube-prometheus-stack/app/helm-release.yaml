@@ -25,25 +25,18 @@ spec:
     
     alertmanager:
       enabled: true
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          cert-manager.io/cluster-issuer: cloudflare
-          cert-manager.io/private-key-rotation-policy: Always
-        hosts:
-          - alertmanager.${BASE_DOMAIN}
-        paths:
-          - /
-        pathType: Prefix
-        tls:
-          - secretName: alertmanager-general-tls
-            hosts:
-            - alertmanager.${BASE_DOMAIN}
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: envoy-internal
+              namespace: envoy-gateway
+          hostnames:
+            - alertmanager.${DOMAIN}
       alertmanagerSpec:
         alertmanagerConfiguration:
           name: alertmanager
-        externalUrl: https://alertmanager.${BASE_DOMAIN}
+        externalUrl: https://alertmanager.${DOMAIN}
         storage:
           volumeClaimTemplate:
             spec:
@@ -418,22 +411,16 @@ spec:
       kubeletEndpointSliceEnabled: true
 
     prometheus:
-      ingress:
-        enabled: true
-        ingressClassName: internal
-        annotations:
-          cert-manager.io/cluster-issuer: cloudflare
-          cert-manager.io/private-key-rotation-policy: Always
-        hosts:
-          - prometheus.${BASE_DOMAIN}
-        paths:
-          - /
-        pathType: Prefix
-        tls:
-          - secretName: prometheus-general-tls
-            hosts:
-              - prometheus.${BASE_DOMAIN}
+      route:
+        main:
+          enabled: true
+          parentRefs:
+            - name: envoy-internal
+              namespace: envoy-gateway
+          hostnames:
+            - prometheus.${DOMAIN}
       prometheusSpec:
+        externalUrl: https://prometheus.${DOMAIN}
         podMonitorSelectorNilUsesHelmValues: false
         probeSelectorNilUsesHelmValues: false
         ruleSelectorNilUsesHelmValues: false
