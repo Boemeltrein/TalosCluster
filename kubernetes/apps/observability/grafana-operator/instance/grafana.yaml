@@ -74,6 +74,7 @@ spec:
         - name: envoy-internal
           namespace: envoy-gateway
       hostnames:
+        # yaml-language-server-disable String does not match the pattern
         - grafana.${DOMAIN}
 
   persistentVolumeClaim:
