@@ -68,28 +68,13 @@ spec:
               persistentVolumeClaim:
                 claimName: grafana-pvc
 
-  ingress:
-    metadata:
-      annotations:
-        cert-manager.io/cluster-issuer: cloudflare
-        cert-manager.io/private-key-rotation-policy: Always
+  httpRoute:
     spec:
-      ingressClassName: internal
-      rules:
-        - host: grafana.${BASE_DOMAIN}
-          http:
-            paths:
-              - pathType: Prefix
-                path: /
-                backend:
-                  service:
-                    name: grafana-service
-                    port:
-                      number: 3000
-      tls:
-        - hosts:
-            - grafana.${BASE_DOMAIN}
-          secretName: grafana-tls-0
+      parentRefs:
+        - name: envoy-internal
+          namespace: envoy-gateway
+      hostnames:
+        - grafana.${DOMAIN}
 
   persistentVolumeClaim:
     spec:
