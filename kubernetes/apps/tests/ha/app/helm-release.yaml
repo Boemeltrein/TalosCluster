@@ -28,3 +28,51 @@ spec:
         integrations:
           metallb:
             enabled: true
+
+    configmap:
+      init:
+        enabled: true
+        data:
+          init.sh: |-
+            #!/bin/sh
+            {{- $haDBURL := (printf "%s?client_encoding=utf8" ($.Values.cnpg.main.creds.std | trimAll "\"")) }}
+            config="/config/configuration.yaml"
+            default="/config/init"
+            if [ ! -f "$config" ]; then
+              echo "File [$config] does NOT exist. Creating..."
+              cp "$default/configuration.yaml.default" "$config"
+            fi
+            if ! grep -q "recorder:" "$config"; then
+              echo "Section [recorder] does NOT exist in [$config]. Appending..."
+              echo "" >> "$config"
+              cat "$default/recorder.default" >> "$config"
+            fi
+
+            echo "Updating database URL"
+            yq -i '.recorder.db_url = "{{ $haDBURL }}"' "$config"
+            echo "Done"
+
+            echo "Creating include files..."
+            for include_file in groups.yaml automations.yaml scripts.yaml scenes.yaml; do
+              if [ ! -f "/config/$include_file" ]; then
+                echo "File [$include_file] missing. Creating"
+                touch "/config/$include_file"
+              fi
+            done
+          configuration.yaml.default: |-
+            # Configure a default setup of Home Assistant (frontend, api, etc)
+            default_config:
+
+            # Text to speech
+            tts:
+              - platform: google_translate
+
+            group: !include groups.yaml
+            automation: !include automations.yaml
+            script: !include scripts.yaml
+            scene: !include scenes.yaml
+          recorder.default: |-
+            recorder:
+              purge_keep_days: 30
+              commit_interval: 3
+              db_url: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
