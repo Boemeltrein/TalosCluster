@@ -50,7 +50,7 @@ data:
             subject: "group:minecraft"
           - domain:
               - "status.${DOMAIN}"
-              - "librespeed.${DOMAIN}"
+              - "libretest.${DOMAIN}"
             policy: one_factor
             subject: "group:apps"
       identity_providers:
