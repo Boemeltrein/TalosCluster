@@ -33,7 +33,10 @@ spec:
       enable: true
       enableService: true
       enableIngress: true
-      autoIngress: true 
+      enableHttproute: true
+      autoService: false
+      autoIngress: true
+      autoHttproute: true
 
     cnpg:
       main:
