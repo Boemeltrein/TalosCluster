@@ -13,7 +13,7 @@ spec:
     - flux-webhook.${DOMAIN}
   parentRefs:
     - name: envoy-external
-      namespace: network
+      namespace: envoy-gateway
   rules:
     - backendRefs:
         - name: webhook-receiver
