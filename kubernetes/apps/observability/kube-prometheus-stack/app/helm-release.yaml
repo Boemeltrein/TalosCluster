@@ -27,6 +27,9 @@ spec:
       enabled: true
       route:
         main:
+          annotations:
+            gatus.home-operations.com/endpoint: |
+              name: alertmanager        
           enabled: true
           parentRefs:
             - name: envoy-internal
@@ -413,6 +416,9 @@ spec:
     prometheus:
       route:
         main:
+          annotations:
+            gatus.home-operations.com/endpoint: |
+              name: prometheus        
           enabled: true
           parentRefs:
             - name: envoy-internal

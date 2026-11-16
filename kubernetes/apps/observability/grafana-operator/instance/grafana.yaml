@@ -69,6 +69,10 @@ spec:
                 claimName: grafana-pvc
 
   httpRoute:
+    metadata:
+      annotations:
+        gatus.home-operations.com/endpoint: |
+          name: grafana  
     spec:
       parentRefs:
         - name: envoy-internal

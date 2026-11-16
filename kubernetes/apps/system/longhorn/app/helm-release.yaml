@@ -48,6 +48,9 @@ spec:
         enabled: true
     httproute:
       enabled: true
+      annotations:
+        gatus.home-operations.com/endpoint: |
+          name: longhorn      
       parentRefs:
         - name: envoy-internal
           namespace: envoy-gateway
