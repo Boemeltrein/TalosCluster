@@ -58,7 +58,7 @@ data:
           hmac_secret: '{{ secret "/config/secret/hmac_secret" }}'
           jwks:
             - key: |
-                {{ secret "/config/secret/jwks_key.pem" | mindent 10 "|" | msquote }}
+                {{- secret "/config/secret/jwks_key.pem" | nindent 8 }}
           authorization_policies:
             apps:
               default_policy: 'deny'
