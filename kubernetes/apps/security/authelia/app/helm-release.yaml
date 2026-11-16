@@ -15,6 +15,10 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
+  valuesFrom:
+    - kind: ConfigMap
+      name: authelia-configfile
+      valuesKey: values.yaml 
   values:
     TZ: Europe/Amsterdam
 
@@ -42,14 +46,6 @@ spec:
               enabled: true
             src: #VolSync Source (Backup)
               enabled: true
-      configfile:
-        enabled: true
-        type: configmap
-        objectName: authelia-configfile  
-        expandObjectName: false
-        mountPath: /configuration.yaml
-        subPath: configuration.yaml
-        readOnly: true
       secrets:
         enabled: true
         type: secret
@@ -57,10 +53,6 @@ spec:
         expandObjectName: false
         mountPath: /config/secret
         readOnly: true
-    
-    secret:
-      authelia-configfile:
-        enabled: false
 
     cnpg:
       main:
