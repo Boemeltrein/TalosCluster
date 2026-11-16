@@ -27,23 +27,16 @@ spec:
     secret:
       existingSecret: konflate-secret
 
-    ingress:
+    httpRoute:
       enabled: true
-      className: external
       annotations:
-        cert-manager.io/cluster-issuer: cloudflare
-        cert-manager.io/private-key-rotation-policy: Always
         gatus.home-operations.com/endpoint: |-
           conditions: ["[STATUS] == 200"]
-      hosts:
-        - host: konflate.${DOMAIN}
-          paths:
-            - path: /
-              pathType: Prefix
-      tls:
-        - secretName: konflate-tls
-          hosts:
-            - konflate.${DOMAIN}
+      parentRefs:
+       - name: envoy-external
+         namespace: envoy-gateway
+      hostnames:
+        - konflate.${DOMAIN}
 
     persistence:
       enabled: true
