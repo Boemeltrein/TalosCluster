@@ -51,13 +51,6 @@ jobs:
             kubeconform
             kustomize
             yq
-      - name: Install GNU envsubst
-        shell: bash
-        run: |
-          if ! command -v envsubst >/dev/null 2>&1; then
-            sudo apt-get update
-            sudo apt-get install --yes --no-install-recommends gettext-base
-          fi
       - name: Run kubeconform
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
