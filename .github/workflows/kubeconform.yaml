@@ -46,6 +46,7 @@ jobs:
           install_args: >-
             kubeconform
             kustomize
+            yq
       - name: Run kubeconform
         shell: bash
         run: bash ./.github/scripts/kubeconform.sh ${{ env.KUBERNETES_DIR }}
