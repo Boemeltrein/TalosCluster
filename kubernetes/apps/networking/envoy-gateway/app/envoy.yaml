@@ -50,6 +50,11 @@ kind: Gateway
 metadata:
   name: envoy-external
   namespace: envoy-gateway
+  annotations:
+    gatus.home-operations.com/endpoint: |
+      group: external
+      client:
+        dns-resolver: "tcp://1.1.1.1:53" 
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -80,6 +85,14 @@ kind: Gateway
 metadata:
   name: envoy-internal
   namespace: envoy-gateway
+  annotations:
+    gatus.home-operations.com/endpoint: |
+      group: internal
+      client:
+        dns-resolver: "tcp://blocky-dns.blocky.svc.cluster.local:53"
+      ui:
+        hide-url: true
+        hide-hostname: true
 spec:
   gatewayClassName: envoy
   infrastructure:
