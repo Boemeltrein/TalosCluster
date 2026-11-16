@@ -141,7 +141,8 @@ spec:
   clientIPDetection:
     xForwardedFor:
       trustedCIDRs:
-        - 172.16.0.0/16
+        # yaml-language-server-disable String does not match the pattern
+        - ${PODNET}
   http2:
     onInvalidMessage: TerminateStream
   http3: {}
