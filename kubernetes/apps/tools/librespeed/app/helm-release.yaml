@@ -24,9 +24,8 @@ spec:
         parentRefs:
           - name: envoy-internal
             namespace: envoy-gateway
-            # sectionName: https
         hostnames: 
-          - libretest.${DOMAIN}
+          - librespeed.${DOMAIN}
 
     resources:
       requests:
