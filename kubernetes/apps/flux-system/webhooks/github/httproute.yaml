@@ -10,6 +10,7 @@ metadata:
       conditions: ["[STATUS] == 404"]
 spec:
   hostnames:
+    # yaml-language-server-disable String does not match the pattern
     - flux-webhook.${DOMAIN}
   parentRefs:
     - name: envoy-external
