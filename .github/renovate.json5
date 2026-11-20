@@ -1,38 +1,35 @@
 {
-  $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  
-  dependencyDashboardTitle: "Renovate Dashboard 🤖",
-  schedule: ["before 06:00 AM"],
-  rebaseWhen: "conflicted",
-  // prConcurrentLimit: 5,
-  // prHourlyLimit: 0,
-  // commitHourlyLimit: 0,
-
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  dependencyDashboard: {
+    title: 'Renovate Dashboard 🤖',
+  },
+  schedule: [
+    'before 06:00 AM',
+  ],
+  rebaseWhen: 'conflicted',
   extends: [
-    "config:recommended",
-    ":timezone(Europe/Amsterdam)",    
-    ":disableRateLimiting",
-    ":semanticCommits",
-    ":configMigration",
-    "helpers:pinGitHubActionDigests",
-    "github>Boemeltrein/TalosCluster//.github/renovate/customManagers.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/kinds.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/semanticCommits.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/labels.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/autoMerge.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/groups.json5",
-    "github>Boemeltrein/TalosCluster//.github/renovate/grafanaDashboards.json5"
+    'config:recommended',
+    ':timezone(Europe/Amsterdam)',
+    ':disableRateLimiting',
+    ':semanticCommits',
+    ':configMigration',
+    'helpers:pinGitHubActionDigests',
+    'github>Boemeltrein/TalosCluster//.github/renovate/customManagers.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/kinds.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/semanticCommits.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/labels.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/autoMerge.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/groups.json5',
+    'github>Boemeltrein/TalosCluster//.github/renovate/grafanaDashboards.json5',
   ],
-
   suppressNotifications: [
-    "prEditedNotification",
-    "prIgnoreNotification"
+    'prEditedNotification',
+    'prIgnoreNotification',
   ],
-
   ignorePaths: [
-    "**/*.sops.*",
-    "**/.archive/**",
-    "**/archive/**",
-    "**/resources/**"
-  ]
+    '**/*.sops.*',
+    '**/.archive/**',
+    '**/archive/**',
+    '**/resources/**',
+  ],
 }
