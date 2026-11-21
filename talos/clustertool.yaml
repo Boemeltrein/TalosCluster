@@ -37,6 +37,7 @@ bootstrap:
     - manifest: kubernetes/apps/system/longhorn/app/volumeSnapshotClass.yaml
     - chart: volsync
     - chart: cloudnative-pg
+    - chart: plugin-barman-cloud
     - chart: flux-operator
     - chart: flux-instance
       wait: false
