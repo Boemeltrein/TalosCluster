@@ -50,6 +50,7 @@ jobs:
         env:
           FLATE_SUPPLY: ./ci/flate/inputs.yaml
           FLATE_ALLOW_MISSING_KINDS: Secret
+          FLATE_API_VERSIONS: gateway.envoyproxy.io/v1alpha1/SecurityPolicy
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
           flate diff images -o json >> $GITHUB_OUTPUT

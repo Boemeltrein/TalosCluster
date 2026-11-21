@@ -365,6 +365,7 @@ RENDERED="$(mktemp)"
 helm template "$RELEASE_NAME" "$CHART_REF" \
   --version "$CHART_VERSION" \
   --namespace "$NAMESPACE" \
+  --api-versions gateway.envoyproxy.io/v1alpha1/SecurityPolicy \
   "${HELM_VALUES_ARGS[@]}" \
   > "$RENDERED"
 
