@@ -1,4 +1,5 @@
 ---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/trueforge-org/websites/main/truecharts/public/schemas/helm-release/32.2.1.schema.json
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
@@ -37,6 +38,11 @@ spec:
         gatewayNamespace: envoy-gateway
         hostnames:
           - librespeed.${DOMAIN}   
+        integrations:
+          envoy:
+            enabled: true
+            auth:
+              type: authelia
 
     persistence:
       config:
