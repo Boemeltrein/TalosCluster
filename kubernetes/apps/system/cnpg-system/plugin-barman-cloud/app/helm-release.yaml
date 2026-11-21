@@ -10,7 +10,7 @@ spec:
   dependsOn:
     - name: cloudnative-pg
     - name: cert-manager
-      namespace: cert-manager 
+      namespace: cert-manager
   chart:
     spec:
       chart: plugin-barman-cloud
