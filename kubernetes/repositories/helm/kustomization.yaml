@@ -10,6 +10,7 @@ resources:
   - bjw-s.yaml
   - cilium.yaml
   - cloudnative-pg.yaml
+  - cnpg.yaml
   - grafana-community.yaml
   - grafana.yaml
   - home-operations.yaml
