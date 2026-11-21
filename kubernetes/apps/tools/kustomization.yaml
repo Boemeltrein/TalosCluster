@@ -6,7 +6,7 @@ resources:
   - guacamole/ks.yaml
   - homepage/ks.yaml
   - it-tools/ks.yaml
-  - librespeed/ks.yaml
+  # - librespeed/ks.yaml
   - pgadmin/ks.yaml
   - signal-cli-rest-api/ks.yaml
   - speedtest-tracker/ks.yaml
