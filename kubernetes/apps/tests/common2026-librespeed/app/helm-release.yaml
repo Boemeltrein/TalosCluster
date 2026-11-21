@@ -43,7 +43,7 @@ spec:
             enabled: true
             auth:
               type: authelia
-              internalHost: authelia.authelia.svc.cluster.local:9091
+              internalHost: authelia.authelia:9091
 
     persistence:
       config:
