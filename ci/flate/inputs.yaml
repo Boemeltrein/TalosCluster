@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cluster-secrets
+  namespace: flux-system
+type: Opaque
+stringData:
+  DOMAIN: example.invalid
+  BASE_DOMAIN: example.invalid
+  EMAIL: ci@example.invalid
+  IP_BLOCKY: "192.0.2.10"
+  IP_HERMITCRAFT: "192.0.2.11"
+  IP_MINECRAFT: "192.0.2.12"
+  IP_PLEX: "192.0.2.13"
+  IP_TRUENASEXPORTER: "192.0.2.14"
+  MINIO_LICENCE: ci-dummy
+  CLOUDFLARE_TOKEN: "ci-dummy-cloudflare-token"
+  GATUS_WEBHOOK: "https://example.invalid/webhooks/gatus"
+  GATUS_BUDDY_ALERT_WEBHOOK: "https://example.invalid/webhooks/buddy"
+  GATUS_BUDDY_STATUS_HOSTNAME: "status.example.invalid"
+  GATUS_BUDDY_DDNS_HOSTNAME: "buddy.example.invalid"
+  GATUS_BUDDY_HEARTBEAT_TOKEN: "ci-dummy-heartbeat-token"  
+
+  # MinIO
+  S3_URL: "minio.example.invalid"
+  S3_BUCKET: "ci-minio"
+  S3_ACCESKEY: "ci-dummy-access-key"
+  S3_SECRETKEY: "ci-dummy-secret-key"
+  S3_ENCRKEY: "ci-dummy-encryption-key"
+
+  # Backblaze
+  S3_BLAZE_URL: "backblaze.example.invalid"
+  S3_BLAZE_BUCKET: "ci-backblaze"
+  S3_BLAZE_ACCESKEY: "ci-dummy-access-key"
+  S3_BLAZE_SECRETKEY: "ci-dummy-secret-key"
+  S3_BLAZE_ENCRKEY: "ci-dummy-encryption-key"
+
+  # Garage
+  S3_GARAGE_URL: "garage.example.invalid"
+  S3_GARAGE_BUCKET: "ci-garage"
+  S3_GARAGE_ACCESKEY: "ci-dummy-access-key"
+  S3_GARAGE_SECRETKEY: "ci-dummy-secret-key"
+  S3_GARAGE_ENCRKEY: "ci-dummy-encryption-key"
+
+  # RustFS
+  S3_RUSTFS_URL: "rustfs.example.invalid"
+  S3_RUSTFS_BUCKET: "ci-rustfs"
+  S3_RUSTFS_ACCESKEY: "ci-dummy-access-key"
+  S3_RUSTFS_SECRETKEY: "ci-dummy-secret-key"
+  S3_RUSTFS_ENCRKEY: "ci-dummy-encryption-key"
+
+  # AIStor
+  S3_AISTOR_URL: "aistor.example.invalid"
+  S3_AISTOR_BUCKET: "ci-aistor"
+  S3_AISTOR_ACCESKEY: "ci-dummy-access-key"
+  S3_AISTOR_SECRETKEY: "ci-dummy-secret-key"
+  S3_AISTOR_ENCRKEY: "ci-dummy-encryption-key"
