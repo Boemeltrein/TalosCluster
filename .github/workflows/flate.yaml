@@ -60,6 +60,7 @@ jobs:
           FLATE_OUTPUT: github
           FLATE_SUPPLY: ./ci/flate/inputs.yaml
           FLATE_ALLOW_MISSING_KINDS: Secret
+          FLATE_API_VERSIONS: gateway.envoyproxy.io/v1alpha1/SecurityPolicy
           KIND: ${{ matrix.kind }}
         run: |
           flate diff "$KIND" > "$KIND.diff"
