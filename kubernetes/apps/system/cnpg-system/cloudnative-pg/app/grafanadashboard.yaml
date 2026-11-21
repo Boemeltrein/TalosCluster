@@ -4,7 +4,7 @@ apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
   name: cloudnative-pg
-  namespace: cloudnative-pg
+  namespace: cnpg-system
 spec:
   allowCrossNamespaceImport: true
   instanceSelector:

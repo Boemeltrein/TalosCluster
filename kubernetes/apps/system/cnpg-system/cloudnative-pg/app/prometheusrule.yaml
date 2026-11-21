@@ -4,7 +4,7 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: cloudnative-pg-rules
-  namespace: cloudnative-pg
+  namespace: cnpg-system
 spec:
   groups:
     - name: cloudnative-pg.rules

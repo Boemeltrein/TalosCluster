@@ -3,23 +3,22 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cloudnative-pg
-  namespace: cloudnative-pg
+  name: plugin-barman-cloud
+  namespace: cnpg-system
 spec:
   interval: 1h
+  dependsOn:
+    - name: cloudnative-pg
+    - name: cert-manager
+      namespace: cert-manager 
   chart:
     spec:
-      chart: cloudnative-pg
-      version: 0.29.2
+      chart: plugin-barman-cloud
+      version: 0.9.0
       sourceRef:
         kind: HelmRepository
-        name: cloudnative-pg
+        name: cnpg
         namespace: flux-system
   values:
     crds:
       create: true
-    replicaCount: 1
-    monitoring:
-      podMonitorEnabled: true
-      grafanaDashboard:
-        create: false
