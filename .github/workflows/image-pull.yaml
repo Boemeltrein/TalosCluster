@@ -48,7 +48,8 @@ jobs:
       - name: Extract Images
         id: extract
         env:
-          FLATE_ALLOW_MISSING_SECRETS: true
+          FLATE_SUPPLY: ./ci/flate/inputs.yaml
+          FLATE_ALLOW_MISSING_KINDS: Secret
         run: |
           echo 'images<<EOF' >> $GITHUB_OUTPUT
           flate diff images -o json >> $GITHUB_OUTPUT
