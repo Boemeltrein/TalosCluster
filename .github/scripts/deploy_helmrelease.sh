@@ -136,15 +136,32 @@ install_dependency_crds() {
   echo "::endgroup::"
 }
 
+install_cert_manager() {
+  local helmrelease_path="kubernetes/apps/system/cert-manager/app/helm-release.yaml"
+
+  resolve_dependency_chart "$helmrelease_path"
+
+  echo "::group::🔐 Installing cert-manager (${DEPENDENCY_CHART_VERSION})..."
+  helm install cert-manager "$DEPENDENCY_CHART_REF" \
+    --version "$DEPENDENCY_CHART_VERSION" \
+    --namespace cert-manager \
+    --create-namespace \
+    --set crds.enabled=true \
+    --wait \
+    --timeout 5m
+  echo "🔐 Done installing cert-manager"
+  echo "::endgroup::"
+}
+
 install_cnpg_operator() {
-  local helmrelease_path="kubernetes/apps/system/cloudnative-pg/app/helm-release.yaml"
+  local helmrelease_path="kubernetes/apps/system/cnpg-system/cloudnative-pg/app/helm-release.yaml"
 
   resolve_dependency_chart "$helmrelease_path"
 
   echo "::group::🗄️ Installing CloudNativePG operator (${DEPENDENCY_CHART_VERSION})..."
   helm install cloudnative-pg "$DEPENDENCY_CHART_REF" \
     --version "$DEPENDENCY_CHART_VERSION" \
-    --namespace cloudnative-pg \
+    --namespace cnpg-system \
     --create-namespace \
     --set crds.create=true \
     --set monitoring.podMonitorEnabled=false \
@@ -355,7 +372,8 @@ helm template "$RELEASE_NAME" "$CHART_REF" \
 # Detect dependencies
 # --------------------------------------------------
 install_cnpg=false
-install_certmanager=false
+install_certmanager_crds=false
+install_certmanager_full=false
 install_prometheus=false
 install_metallb=false
 install_gateway=false
@@ -363,21 +381,28 @@ install_grafana=false
 install_nfd=false
 
 rendered_uses_api_group "postgresql.cnpg.io" && install_cnpg=true
-rendered_uses_api_group "cert-manager.io" && install_certmanager=true
+rendered_uses_api_group "cert-manager.io" && install_certmanager_crds=true
 rendered_uses_api_group "monitoring.coreos.com" && install_prometheus=true
 rendered_uses_api_group "metallb.io" && install_metallb=true
 rendered_uses_api_group "gateway.networking.k8s.io" && install_gateway=true
 rendered_uses_api_group "grafana.integreatly.org" && install_grafana=true
 rendered_uses_api_group "nfd.k8s-sigs.io" && install_nfd=true
 
+# Barman needs both operators running to use its CNPG integration and TLS certificates.
+if [[ "$CHART_NAME" == "plugin-barman-cloud" ]]; then
+  install_cnpg=true
+  install_certmanager_full=true
+fi
+
 echo "🔎 Dependencies:"
-echo "     CNPG:        $install_cnpg"
-echo "     CertManager: $install_certmanager"
-echo "     Prometheus:  $install_prometheus"
-echo "     MetalLB:     $install_metallb"
-echo "     Gateway API: $install_gateway"
-echo "     Grafana:     $install_grafana"
-echo "     NFD:         $install_nfd"
+echo "     CNPG:             $install_cnpg"
+echo "     CertManager CRDs: $install_certmanager_crds"
+echo "     CertManager full: $install_certmanager_full"
+echo "     Prometheus:       $install_prometheus"
+echo "     MetalLB:          $install_metallb"
+echo "     Gateway API:      $install_gateway"
+echo "     Grafana:          $install_grafana"
+echo "     NFD:              $install_nfd"
 
 # --------------------------------------------------
 # Install dependencies
@@ -387,7 +412,9 @@ if $install_cnpg; then
   install_cnpg_operator
 fi
 
-if $install_certmanager; then
+if $install_certmanager_full; then
+  install_cert_manager
+elif $install_certmanager_crds; then
   install_dependency_crds \
     "cert-manager" \
     "🔐" \
