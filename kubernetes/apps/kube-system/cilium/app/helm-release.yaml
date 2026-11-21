@@ -51,7 +51,6 @@ spec:
       automount:
         enabled: false
       hostRoot: /sys/fs/cgroup
-    enableRuntimeDeviceDetection: true
     endpointRoutes:
       enabled: true
     ipam:
