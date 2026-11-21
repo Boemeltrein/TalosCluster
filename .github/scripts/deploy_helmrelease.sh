@@ -366,7 +366,7 @@ helm template "$RELEASE_NAME" "$CHART_REF" \
   --version "$CHART_VERSION" \
   --namespace "$NAMESPACE" \
   "${HELM_VALUES_ARGS[@]}" \
-  > "$RENDERED" 2>/dev/null
+  > "$RENDERED"
 
 # --------------------------------------------------
 # Detect dependencies
