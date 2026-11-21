@@ -28,6 +28,7 @@ jobs:
           patterns: |
             kubernetes/**/*
             .github/workflows/flate.yaml
+            ci/flate/**/*
 
   flate:
     if: ${{ needs.filter.outputs.changed-files != '[]' }}
@@ -57,7 +58,8 @@ jobs:
         env:
           FLATE_PATH: ./kubernetes/flux-entry
           FLATE_OUTPUT: github
-          FLATE_ALLOW_MISSING_SECRETS: true
+          FLATE_SUPPLY: ./ci/flate/inputs.yaml
+          FLATE_ALLOW_MISSING_KINDS: Secret
           KIND: ${{ matrix.kind }}
         run: |
           flate diff "$KIND" > "$KIND.diff"
