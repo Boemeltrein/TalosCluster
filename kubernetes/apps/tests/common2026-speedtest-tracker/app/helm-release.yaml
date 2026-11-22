@@ -166,3 +166,8 @@ spec:
       requests:
         cpu: 10m
 
+    secret:
+      speedtest-tracker-secrets:
+        enabled: true
+        data:
+          APP_KEY: "base64:nej73il4Zfu9ol9g9Np/TKmmrnTL8YbOp6TXkf7KhG0="
