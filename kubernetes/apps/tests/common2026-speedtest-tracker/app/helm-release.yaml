@@ -3,8 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: speedtest-tracker
-  namespace: speedtest-tracker
+  name: speedtest-tracker-test
+  namespace: speedtest-tracker-test
 spec:
   interval: 1h
   chart:
@@ -73,22 +73,20 @@ spec:
           postgresqlUsername: speedtest-tracker
           postgresqlDatabase: speedtest-tracker
         operator:
+          # Change to recovery only when bootstrapping from a backup.
+          mode: standalone
           cluster:
             singleNode: true
-
-          # backups:
-          #   enabled: true
-          #   credentials: rustfs
-          #   retentionPolicy: "14d"
-
-          # monitoring:
-          #   enablePodMonitor: true
-
-          # # Enable only when bootstrapping from a backup.
+          monitoring:
+            enablePodMonitor: true
+          backups:
+            enabled: true
+            credentials: rustfs
+            retentionPolicy: "14d"
+          # Enable only when bootstrapping from a backup.
           # mode: recovery
-          # recovery:
-          #   method: object_store
-          #   credentials: rustfs
+          recovery:
+            credentials: rustfs
         
     securityContext:
       container:
