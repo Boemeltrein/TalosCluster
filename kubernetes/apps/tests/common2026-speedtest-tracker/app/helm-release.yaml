@@ -48,6 +48,7 @@ spec:
             group: "Network"
             widget:
               type: "speedtest"
+              version: 2
 
     persistence:
       varrun:
@@ -145,7 +146,8 @@ spec:
                 MAIL_FROM_ADDRESS: ""
                 MAIL_FROM_NAME: "Speedtest Tracker"
                 TELEGRAM_BOT_TOKEN: ""
-                CACHE_DRIVER: redis
+                # CACHE_DRIVER: redis <== DEPRICATED, use CACHE_STORE instead
+                CACHE_STORE: redis
                 REDIS_URL:
                   secretKeyRef:
                     expandObjectName: false
