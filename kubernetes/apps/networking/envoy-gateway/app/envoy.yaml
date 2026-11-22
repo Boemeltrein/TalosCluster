@@ -61,6 +61,9 @@ spec:
     annotations:
       metallb.io/ip-allocated-from-pool: main
       metallb.io/loadBalancerIPs: ${ENVOY_EXTERNAL_IP}
+  allowedListeners:
+    namespaces:
+      from: All      
   listeners:
     - name: http
       protocol: HTTP
@@ -99,6 +102,9 @@ spec:
     annotations:
       metallb.io/ip-allocated-from-pool: main
       metallb.io/loadBalancerIPs: ${ENVOY_INTERNAL_IP}
+  allowedListeners:
+    namespaces:
+      from: All      
   listeners:
     - name: http
       protocol: HTTP
