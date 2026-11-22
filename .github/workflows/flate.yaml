@@ -63,6 +63,7 @@ jobs:
           FLATE_API_VERSIONS: >-
             gateway.envoyproxy.io/v1alpha1/SecurityPolicy
             barmancloud.cnpg.io/v1/ObjectStore
+            gateway.networking.k8s.io/v1/ListenerSet
           KIND: ${{ matrix.kind }}
         run: |
           flate diff "$KIND" > "$KIND.diff"
