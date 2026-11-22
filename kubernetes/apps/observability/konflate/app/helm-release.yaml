@@ -24,7 +24,9 @@ spec:
       statusChecks: true
       prComments: true
       publicUrl: https://konflate.${DOMAIN}
-      helmApiVersions: gateway.envoyproxy.io/v1alpha1/SecurityPolicy
+      helmApiVersions: >-
+        gateway.envoyproxy.io/v1alpha1/SecurityPolicy
+        barmancloud.cnpg.io/v1/ObjectStore
     secret:
       existingSecret: konflate-secret
 
