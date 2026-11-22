@@ -48,6 +48,8 @@ spec:
     #           type: "speedtest"
 
     persistence:
+      varrun:
+        enabled: false    
       config:
         enabled: true
         mountPath: "/config"
@@ -59,30 +61,35 @@ spec:
         #       enabled: true
         #     src: #VolSync Source (Backup)
         #       enabled: true        
-      varrun:
-        enabled: false
 
     dependencies:
       valkey:
         enabled: true
 
-    cnpg:
-      main:
+      postgresql:
         enabled: true
-        user: speedtest-tracker
-        database: speedtest-tracker
-        cluster:
-          singleNode: true
-        # mode: recovery
-        # backups:
-        #   enabled: true
-        #   credentials: rustfs
-        #   retentionPolicy: "14d"
-        # recovery:
-        #   credentials: rustfs
-        # monitoring:
-        #   enablePodMonitor: true
+        mode: operator
+        depconfig:
+          postgresqlUsername: speedtest-tracker
+          postgresqlDatabase: speedtest-tracker
+        operator:
+          cluster:
+            singleNode: true
 
+          # backups:
+          #   enabled: true
+          #   credentials: rustfs
+          #   retentionPolicy: "14d"
+
+          # monitoring:
+          #   enablePodMonitor: true
+
+          # # Enable only when bootstrapping from a backup.
+          # mode: recovery
+          # recovery:
+          #   method: object_store
+          #   credentials: rustfs
+        
     securityContext:
       container:
         runAsNonRoot: false
@@ -117,15 +124,17 @@ spec:
                 DB_CONNECTION: pgsql
                 DB_HOST:
                   secretKeyRef:
-                    name: cnpg-main-urls
-                    key: host
+                    expandObjectName: false
+                    name: '{{ printf "%s-%s" .Release.Name "postgresqlcreds" }}'
+                    key: plainhost
                 DB_PORT: "5432"
-                DB_DATABASE: "{{ .Values.cnpg.main.database }}"
-                DB_USERNAME: "{{ .Values.cnpg.main.user }}"
+                DB_DATABASE: "{{ .Values.dependencies.postgresql.depconfig.postgresqlDatabase }}"
+                DB_USERNAME: "{{ .Values.dependencies.postgresql.depconfig.postgresqlUsername }}"
                 DB_PASSWORD:
                   secretKeyRef:
-                    name: cnpg-main-user
-                    key: password
+                    expandObjectName: false
+                    name: '{{ printf "%s-%s" .Release.Name "postgresqlcreds" }}'
+                    key: postgresql-password
                 APP_KEY:
                   secretKeyRef:
                     name: speedtest-tracker-secrets
