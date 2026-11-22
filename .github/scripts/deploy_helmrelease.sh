@@ -394,6 +394,7 @@ helm template "$RELEASE_NAME" "$CHART_REF" \
   --version "$CHART_VERSION" \
   --namespace "$NAMESPACE" \
   --api-versions gateway.envoyproxy.io/v1alpha1/SecurityPolicy \
+  --api-versions gateway.networking.k8s.io/v1/ListenerSet \
   "${HELM_VALUES_ARGS[@]}" \
   > "$RENDERED"
 
