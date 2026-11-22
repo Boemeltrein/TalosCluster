@@ -49,6 +49,8 @@ spec:
             widget:
               type: "speedtest"
               version: 2
+              # custom:
+              #   key: "${SPEEDTEST_TRACKER_TEST_API_KEY}"
 
     persistence:
       varrun:
