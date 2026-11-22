@@ -9,4 +9,4 @@ resources:
   # - librespeed/ks.yaml
   - pgadmin/ks.yaml
   - signal-cli-rest-api/ks.yaml
-  - speedtest-tracker/ks.yaml
+  # - speedtest-tracker/ks.yaml
