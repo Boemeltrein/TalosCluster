@@ -1,0 +1,159 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/trueforge-org/websites/main/truecharts/public/schemas/helm-release/32.2.1.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: speedtest-tracker
+  namespace: speedtest-tracker
+spec:
+  interval: 1h
+  chart:
+    spec:
+      chart: test-template
+      version: 22.0.2
+      sourceRef:
+        kind: HelmRepository
+        name: truecharts
+        namespace: flux-system
+  values:
+
+    image:
+      repository: ghcr.io/linuxserver/speedtest-tracker
+      pullPolicy: IfNotPresent
+      tag: 1.15.1@sha256:2bab9283fb51ac866048028516e542da3bdb7d1858fa2a6b2009972143716433
+
+    TZ: Europe/Amsterdam
+
+    service:
+      main:
+        ports:
+          main:
+            targetPort: 80
+            port: 9004
+
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     hosts:
+    #       - host: speedtest-tracker.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+    #       homepage:
+    #         enabled: true
+    #         group: "Network"
+    #         widget:
+    #           type: "speedtest"
+
+    persistence:
+      config:
+        enabled: true
+        mountPath: "/config"
+        # volsync:
+        #   - name: config
+        #     type: restic
+        #     credentials: rustfs
+        #     dest: #VolSync Destination (Restore)
+        #       enabled: true
+        #     src: #VolSync Source (Backup)
+        #       enabled: true        
+      varrun:
+        enabled: false
+
+    redis:
+      enabled: true
+      redisUsername: default
+
+    cnpg:
+      main:
+        enabled: true
+        user: speedtest-tracker
+        database: speedtest-tracker
+        cluster:
+          singleNode: true
+        # mode: recovery
+        # backups:
+        #   enabled: true
+        #   credentials: rustfs
+        #   retentionPolicy: "14d"
+        # recovery:
+        #   credentials: rustfs
+        # monitoring:
+        #   enablePodMonitor: true
+
+    securityContext:
+      container:
+        runAsNonRoot: false
+        readOnlyRootFilesystem: false
+        runAsUser: 0
+        runAsGroup: 0
+    workload:
+      main:
+        podSpec:
+          containers:
+            main:
+              securityContext:
+                capabilities:
+                  add:
+                    - SYS_CHROOT
+                    - KILL
+              probes:
+                liveness:
+                  enabled: true
+                  type: http
+                  path: /api/healthcheck
+                startup:
+                  enabled: true
+                  type: http
+                  path: /api/healthcheck
+                readiness:
+                  enabled: true
+                  type: http
+                  path: /api/healthcheck
+              env:
+                APP_URL: ""
+                DB_CONNECTION: pgsql
+                DB_HOST:
+                  secretKeyRef:
+                    name: cnpg-main-urls
+                    key: host
+                DB_PORT: "5432"
+                DB_DATABASE: "{{ .Values.cnpg.main.database }}"
+                DB_USERNAME: "{{ .Values.cnpg.main.user }}"
+                DB_PASSWORD:
+                  secretKeyRef:
+                    name: cnpg-main-user
+                    key: password
+                APP_KEY:
+                  secretKeyRef:
+                    name: speedtest-tracker-secrets
+                    key: APP_KEY
+                MAIL_MAILER: "smtp"
+                MAIL_PORT: 465
+                MAIL_USERNAME: ""
+                MAIL_PASSWORD: ""
+                MAIL_SCHEME: "SSL"
+                MAIL_FROM_ADDRESS: ""
+                MAIL_FROM_NAME: "Speedtest Tracker"
+                TELEGRAM_BOT_TOKEN: ""
+                CACHE_DRIVER: redis
+                REDIS_URL:
+                  secretKeyRef:
+                    expandObjectName: false
+                    name: '{{ printf "%s-%s" .Release.Name "rediscreds" }}'
+                    key: url
+                APP_NAME: "Speedtest Tracker"
+                PUBLIC_DASHBOARD: false
+                CHART_DATETIME_FORMAT: "d.m H:i"
+                DATETIME_FORMAT: "d.m.Y H:i"
+                SPEEDTEST_SCHEDULE: "0 * * * *"
+                PRUNE_RESULTS_OLDER_THAN: 90
+                DISPLAY_TIMEZONE: "Europe/Amsterdam"
+                SPEEDTEST_SERVERS: "52857"
+
+    resources:
+      requests:
+        cpu: 10m
+
