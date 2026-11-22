@@ -312,10 +312,38 @@ if yq -e '
   changed=true
 fi
 
-# Remove cnpg for ephemeral CI cluster
-if yq -e 'has("cnpg")' "$VALUES_FILE" >/dev/null 2>&1; then
-  yq -i 'del(.cnpg)' "$VALUES_FILE"
-  echo "      ⚠️ CNPG removed for CI"
+# Disable CNPG backups and recovery while preserving cluster settings
+
+# Legacy common: cnpg.<name>
+if yq -e '
+  (.cnpg // {}) | to_entries[]
+  | select(.value | type == "!!map")
+' "$VALUES_FILE" >/dev/null 2>&1; then
+  yq -i '
+    (.cnpg[] | select(type == "!!map")) |= (
+      .mode = "standalone" |
+      .backups = {"enabled": false} |
+      del(.recovery)
+    )
+  ' "$VALUES_FILE"
+
+  echo "      ⚠️ Legacy CNPG backups/recovery disabled for CI"
+  changed=true
+fi
+
+# Common2026: dependencies.postgresql.operator
+if yq -e '
+  .dependencies.postgresql | type == "!!map"
+' "$VALUES_FILE" >/dev/null 2>&1; then
+  yq -i '
+    .dependencies.postgresql.operator |= (
+      .mode = "standalone" |
+      .backups = {"enabled": false} |
+      del(.recovery)
+    )
+  ' "$VALUES_FILE"
+
+  echo "      ⚠️ PostgreSQL operator backups/recovery disabled for CI"
   changed=true
 fi
 
