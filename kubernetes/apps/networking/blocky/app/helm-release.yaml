@@ -147,79 +147,79 @@ spec:
           - name: tls_servername
             value: cloudflare-dns.com
 
-# -- Create a ClusterRole and ClusterRoleBinding
-# used by k8sgateway
-rbac:
-  main:
-    # -- Enables or disables the ClusterRole and ClusterRoleBinding
-    enabled: true
-    primary: true
-    clusterWide: true
-    # -- Set Rules on the ClusterRole
-    rules:
-      # General CRDs
-      - apiGroups:
-          - apiextensions.k8s.io
-        resources:
-          - customresourcedefinitions
-        verbs:
-          - get
-          - list
-          - watch
-      # Ingress
-      - apiGroups:
-          - extensions
-          - networking.k8s.io
-        resources:
-          - ingresses
-        verbs:
-          - list
-          - watch
-      # Service
-      - apiGroups:
-          - ""
-        resources:
-          - services
-          - namespaces
-        verbs:
-          - list
-          - watch
-      # EndpointSlices required by the Service watcher
-      - apiGroups:
-          - discovery.k8s.io
-        resources:
-          - endpointslices
-        verbs:
-          - list
-          - watch
-      # Gateway, ListenerSet, HTTPRoute, TLSRoute, GRPCRoute
-      - apiGroups:
-          - gateway.networking.k8s.io
-        resources:
-          - "*"
-        verbs:
-          - watch
-          - list
-      # DNSEndpoint
-      - apiGroups:
-          - externaldns.k8s.io
-        resources:
-          - dnsendpoints
-        verbs:
-          - get
-          - watch
-          - list
-      - apiGroups:
-          - externaldns.k8s.io
-        resources:
-          - dnsendpoints/status
-        verbs:
-          - "*"
-      # Node
-      - apiGroups:
-          - ""
-        resources:
-          - nodes
-        verbs:
-          - list
-          - watch
+    # -- Create a ClusterRole and ClusterRoleBinding
+    # used by k8sgateway
+    rbac:
+      main:
+        # -- Enables or disables the ClusterRole and ClusterRoleBinding
+        enabled: true
+        primary: true
+        clusterWide: true
+        # -- Set Rules on the ClusterRole
+        rules:
+          # General CRDs
+          - apiGroups:
+              - apiextensions.k8s.io
+            resources:
+              - customresourcedefinitions
+            verbs:
+              - get
+              - list
+              - watch
+          # Ingress
+          - apiGroups:
+              - extensions
+              - networking.k8s.io
+            resources:
+              - ingresses
+            verbs:
+              - list
+              - watch
+          # Service
+          - apiGroups:
+              - ""
+            resources:
+              - services
+              - namespaces
+            verbs:
+              - list
+              - watch
+          # EndpointSlices required by the Service watcher
+          - apiGroups:
+              - discovery.k8s.io
+            resources:
+              - endpointslices
+            verbs:
+              - list
+              - watch
+          # Gateway, ListenerSet, HTTPRoute, TLSRoute, GRPCRoute
+          - apiGroups:
+              - gateway.networking.k8s.io
+            resources:
+              - "*"
+            verbs:
+              - watch
+              - list
+          # DNSEndpoint
+          - apiGroups:
+              - externaldns.k8s.io
+            resources:
+              - dnsendpoints
+            verbs:
+              - get
+              - watch
+              - list
+          - apiGroups:
+              - externaldns.k8s.io
+            resources:
+              - dnsendpoints/status
+            verbs:
+              - "*"
+          # Node
+          - apiGroups:
+              - ""
+            resources:
+              - nodes
+            verbs:
+              - list
+              - watch
