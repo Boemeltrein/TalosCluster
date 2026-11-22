@@ -62,9 +62,9 @@ spec:
       varrun:
         enabled: false
 
-    redis:
-      enabled: true
-      redisUsername: default
+    dependencies:
+      valkey:
+        enabled: true
 
     cnpg:
       main:
@@ -142,7 +142,7 @@ spec:
                 REDIS_URL:
                   secretKeyRef:
                     expandObjectName: false
-                    name: '{{ printf "%s-%s" .Release.Name "rediscreds" }}'
+                    name: '{{ printf "%s-%s" .Release.Name "valkeycreds" }}'
                     key: url
                 APP_NAME: "Speedtest Tracker"
                 PUBLIC_DASHBOARD: false
