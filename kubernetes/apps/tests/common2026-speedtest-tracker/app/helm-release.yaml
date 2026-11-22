@@ -31,21 +31,23 @@ spec:
             targetPort: 80
             port: 9004
 
-    # ingress:
-    #   main:
-    #     enabled: true
-    #     ingressClassName: internal
-    #     hosts:
-    #       - host: speedtest-tracker.${BASE_DOMAIN}
-    #     integrations:
-    #       certManager:
-    #         enabled: true
-    #         certificateIssuer: cloudflare
-    #       homepage:
-    #         enabled: true
-    #         group: "Network"
-    #         widget:
-    #           type: "speedtest"
+    route:
+      main:
+        enabled: true
+        kind: HTTPRoute
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - speedtest-tracker-test.${BASE_DOMAIN}
+        integrations:
+          certManager:
+            enabled: true
+            certificateIssuer: cloudflare
+          homepage:
+            enabled: true
+            group: "Network"
+            widget:
+              type: "speedtest"
 
     persistence:
       varrun:
@@ -53,14 +55,14 @@ spec:
       config:
         enabled: true
         mountPath: "/config"
-        # volsync:
-        #   - name: config
-        #     type: restic
-        #     credentials: rustfs
-        #     dest: #VolSync Destination (Restore)
-        #       enabled: true
-        #     src: #VolSync Source (Backup)
-        #       enabled: true        
+        volsync:
+          - name: config
+            type: restic
+            credentials: rustfs
+            dest: #VolSync Destination (Restore)
+              enabled: true
+            src: #VolSync Source (Backup)
+              enabled: true        
 
     dependencies:
       valkey:
@@ -73,7 +75,7 @@ spec:
           postgresqlUsername: speedtest-tracker
           postgresqlDatabase: speedtest-tracker
         operator:
-          # Change to recovery only when bootstrapping from a backup.
+          # Change to "recovery", when bootstrapping from a backup.
           mode: standalone
           cluster:
             singleNode: true
@@ -83,8 +85,6 @@ spec:
             enabled: true
             credentials: rustfs
             retentionPolicy: "14d"
-          # Enable only when bootstrapping from a backup.
-          # mode: recovery
           recovery:
             credentials: rustfs
         
