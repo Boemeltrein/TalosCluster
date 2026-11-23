@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - aistor/ks.yaml
   - common2026-librespeed/ks.yaml
-  - common2026-speedtest-tracker/ks.yaml
+  # - common2026-speedtest-tracker/ks.yaml
