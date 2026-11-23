@@ -7,3 +7,4 @@ resources:
   - flux-instance.yaml
   - flux-operator.yaml
   - tuppr.yaml
+  - valkey-operator.yaml
