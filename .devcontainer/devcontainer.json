@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/devcontainers/spec/main/schemas/devContainer.schema.json",
   "name": "TalosCluster",
-  "image": "oci.trueforge.org/containerforge/devcontainer:4.1.1@sha256:2fec687e974810573e4116821f49cd934ea25abad605d0eb8e385c3d02d5c520",
+  "image": "oci.trueforge.org/containerforge/devcontainer:4.1.1@sha256:f065cddf9c80015b25fa2556be3db04258ae165c9eb38793e805df656828c1e2",
   "postStartCommand": "git config --global --add safe.directory ${containerWorkspaceFolder}",
   "customizations": {
     "vscode": {
