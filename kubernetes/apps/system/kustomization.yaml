@@ -14,4 +14,5 @@ resources:
   - renovate/ks.yaml
   - snapshot-controller/ks.yaml
   - system-upgrade
+  - valkey-operator/ks.yaml
   - volsync/ks.yaml
