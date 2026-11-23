@@ -3,8 +3,8 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: speedtest-tracker-test
-  namespace: speedtest-tracker-test
+  name: speedtrack
+  namespace: speedtrack
 spec:
   interval: 1h
   chart:
@@ -38,7 +38,7 @@ spec:
         gateway: envoy-internal
         gatewayNamespace: envoy-gateway
         hostnames:
-          - speedtest-tracker-test.${BASE_DOMAIN}
+          - speedtrack.${DOMAIN}
         integrations:
           certManager:
             enabled: true
@@ -70,6 +70,7 @@ spec:
     dependencies:
       valkey:
         enabled: true
+        mode: operator
 
       postgresql:
         enabled: true

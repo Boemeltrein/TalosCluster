@@ -172,6 +172,23 @@ install_cnpg_operator() {
   echo "::endgroup::"
 }
 
+install_valkey_operator() {
+  local helmrelease_path="kubernetes/apps/system/valkey-operator/app/helm-release.yaml"
+
+  resolve_dependency_chart "$helmrelease_path"
+
+  echo "::group::⚡ Installing Valkey operator (${DEPENDENCY_CHART_VERSION})..."
+  helm install valkey-operator "$DEPENDENCY_CHART_REF" \
+    --version "$DEPENDENCY_CHART_VERSION" \
+    --namespace valkey-operator \
+    --create-namespace \
+    --set metrics.serviceMonitor.enabled=false \
+    --wait \
+    --timeout 5m
+  echo "⚡ Done installing Valkey operator"
+  echo "::endgroup::"
+}
+
 rendered_uses_api_group() {
   local api_group="$1"
   API_GROUP="$api_group" yq ea -e \
@@ -409,6 +426,7 @@ install_metallb=false
 install_gateway=false
 install_grafana=false
 install_nfd=false
+install_valkey=false
 
 rendered_uses_api_group "postgresql.cnpg.io" && install_cnpg=true
 rendered_uses_api_group "cert-manager.io" && install_certmanager_crds=true
@@ -417,6 +435,7 @@ rendered_uses_api_group "metallb.io" && install_metallb=true
 rendered_uses_api_group "gateway.networking.k8s.io" && install_gateway=true
 rendered_uses_api_group "grafana.integreatly.org" && install_grafana=true
 rendered_uses_api_group "nfd.k8s-sigs.io" && install_nfd=true
+rendered_uses_api_group "valkey.io" && install_valkey=true
 
 # Barman needs both operators running to use its CNPG integration and TLS certificates.
 if [[ "$CHART_NAME" == "plugin-barman-cloud" ]]; then
@@ -433,6 +452,7 @@ echo "     MetalLB:          $install_metallb"
 echo "     Gateway API:      $install_gateway"
 echo "     Grafana:          $install_grafana"
 echo "     NFD:              $install_nfd"
+echo "     Valkey:           $install_valkey"
 
 # --------------------------------------------------
 # Install dependencies
@@ -489,6 +509,10 @@ if $install_nfd; then
     "node-feature-discovery" \
     "🖥️" \
     "kubernetes/apps/kube-system/node-feature-discovery/app/helm-release.yaml"
+fi
+
+if $install_valkey; then
+  install_valkey_operator
 fi
 
 # --------------------------------------------------
