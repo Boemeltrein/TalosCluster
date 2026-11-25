@@ -21,9 +21,8 @@ spec:
     route:
       main:
         enabled: true
-        parentRefs:
-          - name: envoy-internal
-            namespace: envoy-gateway
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         hostnames: 
           - librespeed.${DOMAIN}
 
