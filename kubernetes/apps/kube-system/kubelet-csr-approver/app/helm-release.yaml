@@ -15,4 +15,7 @@ spec:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
-  values: {}
+  values:
+    workload:
+      main:
+        replicas: 1

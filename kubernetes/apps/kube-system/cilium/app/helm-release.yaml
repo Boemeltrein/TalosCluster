@@ -48,7 +48,7 @@ spec:
           - SYS_ADMIN
           - SYS_RESOURCE
     cgroup:
-      automount:
+      autoMount:
         enabled: false
       hostRoot: /sys/fs/cgroup
     endpointRoutes:

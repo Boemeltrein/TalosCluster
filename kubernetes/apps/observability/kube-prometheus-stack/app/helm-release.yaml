@@ -432,7 +432,6 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
-        enableAdminAPI: true
         walCompression: true
         serviceDiscoveryRole: EndpointSlice
         enableFeatures:
