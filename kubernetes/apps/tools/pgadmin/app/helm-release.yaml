@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: pgadmin
-      version: 21.2.4
+      version: 22.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -36,7 +36,11 @@ spec:
             main:
               env:
                 PGADMIN_DEFAULT_EMAIL: "geheim@geheim.com"
-                PGADMIN_DEFAULT_PASSWORD: "SuperSuperGeheim"
+
+    secret:
+      env-secrets:
+        data:
+          PGADMIN_DEFAULT_PASSWORD: "SuperSuperGeheim"
 
     persistence:
       config:
