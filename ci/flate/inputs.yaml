@@ -20,7 +20,12 @@ stringData:
   GATUS_BUDDY_STATUS_HOSTNAME: "status.example.invalid"
   GATUS_BUDDY_DDNS_HOSTNAME: "buddy.example.invalid"
   GATUS_BUDDY_HEARTBEAT_TOKEN: "ci-dummy-heartbeat-token"  
-
+  RENOVATE_APP_ID: "123456"
+  RENOVATE_LICENSE_KEY: "ci-placeholder-license"
+  RENOVATE_APP_KEY: "ci-placeholder-app-key"
+  RENOVATE_WEBHOOK_SECRET: "ci-placeholder-webhook"
+  CLOUDFLARE_TUNNEL_TOKEN: "ci-placeholder-tunnel-token"
+  
   # MinIO
   S3_URL: "minio.example.invalid"
   S3_BUCKET: "ci-minio"
