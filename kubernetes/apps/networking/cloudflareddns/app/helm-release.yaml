@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: cloudflareddns
-      version: 15.1.11
+      version: 16.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -26,6 +26,9 @@ spec:
               env:
                 INTERVAL: 3600
                 UPDATE_IPV6: false
-                CF_APITOKEN: ${CLOUDFLARE_TOKEN}
                 CF_HOSTS: "wireguard.${DOMAIN},echo.${DOMAIN},minecraft.${DOMAIN},hermitcraft.${DOMAIN}"
  
+    secret:
+      env-secrets:
+        data:
+          CF_APITOKEN: ${CLOUDFLARE_TOKEN}

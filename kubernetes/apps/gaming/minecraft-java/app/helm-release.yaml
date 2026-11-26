@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: minecraft-java
-      version: 36.10.9
+      version: 37.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -153,6 +153,10 @@ spec:
         cpu: 1000m
         memory: 4Gi
 
+    secret:
+      env-secrets:
+        enabled: false
+    
     configmap:
       vanillatweaks:
         enabled: true

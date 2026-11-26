@@ -10,8 +10,9 @@ spec:
   chart:
     spec:
       chart: kubernetes-reflector
-      version: 10.1.12
+      version: 11.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
         namespace: flux-system
+  values: {}
