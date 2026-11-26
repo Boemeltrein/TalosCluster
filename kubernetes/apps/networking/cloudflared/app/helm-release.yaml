@@ -18,10 +18,7 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    workload:
-      main:
-        podSpec:
-          containers:
-            main:
-              env:
-                TUNNEL_TOKEN: "${CLOUDFLARE_TUNNEL_TOKEN}"
+    secret:
+      env-secrets:
+        data:
+          TUNNEL_TOKEN: "${CLOUDFLARE_TUNNEL_TOKEN}"
