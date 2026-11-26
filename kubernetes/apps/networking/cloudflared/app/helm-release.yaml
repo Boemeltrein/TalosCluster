@@ -21,4 +21,4 @@ spec:
     secret:
       env-secrets:
         data:
-          TUNNEL_TOKEN: "${CLOUDFLARE_TUNNEL_TOKEN}"
+          TUNNEL_TOKEN: ${CLOUDFLARE_TUNNEL_TOKEN}
