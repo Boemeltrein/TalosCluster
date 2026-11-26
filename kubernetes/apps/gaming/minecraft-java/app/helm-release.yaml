@@ -153,6 +153,10 @@ spec:
         cpu: 1000m
         memory: 4Gi
 
+    secret:
+      env-secrets:
+        enabled: false
+    
     configmap:
       vanillatweaks:
         enabled: true
