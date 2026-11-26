@@ -36,7 +36,11 @@ spec:
             main:
               env:
                 PGADMIN_DEFAULT_EMAIL: "geheim@geheim.com"
-                PGADMIN_DEFAULT_PASSWORD: "SuperSuperGeheim"
+
+    secret:
+      env-secrets:
+        data:
+          PGADMIN_DEFAULT_PASSWORD: "SuperSuperGeheim"
 
     persistence:
       config:
