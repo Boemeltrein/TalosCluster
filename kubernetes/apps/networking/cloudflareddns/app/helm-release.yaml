@@ -26,6 +26,9 @@ spec:
               env:
                 INTERVAL: 3600
                 UPDATE_IPV6: false
-                CF_APITOKEN: ${CLOUDFLARE_TOKEN}
                 CF_HOSTS: "wireguard.${DOMAIN},echo.${DOMAIN},minecraft.${DOMAIN},hermitcraft.${DOMAIN}"
  
+    secret:
+      env-secrets:
+        data:
+          CF_APITOKEN: ${CLOUDFLARE_TOKEN}
