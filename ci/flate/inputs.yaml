@@ -25,6 +25,8 @@ stringData:
   RENOVATE_APP_KEY: "ci-placeholder-app-key"
   RENOVATE_WEBHOOK_SECRET: "ci-placeholder-webhook"
   CLOUDFLARE_TUNNEL_TOKEN: "ci-placeholder-tunnel-token"
+  SPEEDTEST_TRACKER_APP_KEY: "ci-placeholder-speedtest-tracker"
+  ROMM_AUTH_SECRET_KEY: "ci-placeholder-romm-auth-secret-key"
   
   # MinIO
   S3_URL: "minio.example.invalid"
