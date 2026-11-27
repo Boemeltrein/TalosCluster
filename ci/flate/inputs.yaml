@@ -30,7 +30,10 @@ stringData:
   LLDAP_JWT_SECRET: "ci-placeholder-lldap-jwt-secret-0000"
   LLDAP_PASSWORD: "ci-placeholder-lldap-password"
   SMTP_PASSWORD: "ci-placeholder-smtp-password"
-    
+  AUTHELIA_SESSION_KEY: "ci-placeholder-authelia-session-key"
+  AUTHELIA_JWT_KEY: "ci-placeholder-authelia-jwt-secret"
+  AUTHELIA_ENCRYPTION_KEY: "ci-placeholder-authelia-encryption-key"
+
   # MinIO
   S3_URL: "minio.example.invalid"
   S3_BUCKET: "ci-minio"
