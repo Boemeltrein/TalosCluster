@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: blocky
-      version: 24.5.1
+      version: 25.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -114,15 +114,20 @@ spec:
     configmap:
       dashboard:
         enabled: false
+
+    secret:
       datasource:
         enabled: false
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+            singleNode: true
+          monitoring:
+            enablePodMonitor: true
 
     k8sgateway:
       # -- list of processed domains
