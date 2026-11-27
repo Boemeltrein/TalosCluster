@@ -21,22 +21,19 @@ spec:
     global:
       stopAll: false
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: external
-        hosts:
-          - host: dynmap.${DOMAIN}
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - dynmap.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          nginx:
+          envoy:
             enabled: true
             auth:
               type: "authelia"
               internalHost: "authelia.authelia.svc.cluster.local:9091"
-              externalHost: "auth.${DOMAIN}"
 
     persistence:
       dynmap:
@@ -47,4 +44,3 @@ spec:
         mountPath: /public
       config:
         enabled: false
-

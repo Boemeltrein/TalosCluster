@@ -28,26 +28,41 @@ spec:
             protocol: https
             port: 443
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-        hosts:
-          - host: truenas.${BASE_DOMAIN}
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - truenas.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             name: "TrueNAS"
             description: "Network Attached Storage"
             group: "Network"
-            icon: "https://avatars.githubusercontent.com/u/53482242" 
+            icon: "https://avatars.githubusercontent.com/u/53482242"
             widget:
               custom:
                 type: "truenas"
                 key: "${HP_API_TRUENAS}"
                 enablePools: "true"
+        rules:
+          - backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: ext-truenas-external-service
+
+    extraTpl:
+      - apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: Backend
+        metadata:
+          name: ext-truenas-external-service
+          namespace: '{{ .Release.Namespace }}'
+        spec:
+          type: KubernetesService
+          kubernetesService:
+            name: ext-truenas-external-service
+            port: 443
+          tls:
+            insecureSkipVerify: true

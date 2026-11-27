@@ -37,16 +37,13 @@ spec:
           monitoring:
             enablePodMonitor: true
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: guacamole.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - guacamole.${DOMAIN}
 
     guacamole:
       general:
@@ -56,7 +53,7 @@ spec:
         OPENID_JWKS_ENDPOINT: "https://auth.${DOMAIN}/jwks.json"
         OPENID_ISSUER: "https://auth.${DOMAIN}"
         OPENID_CLIENT_ID: "guacamole"
-        OPENID_REDIRECT_URI: "https://guacamole.${BASE_DOMAIN}"
+        OPENID_REDIRECT_URI: "https://guacamole.${DOMAIN}"
         OPENID_USERNAME_CLAIM_TYPE: preferred_username
         OPENID_GROUPS_CLAIM_TYPE: groups
         OPENID_SCOPE: openid profile groups email

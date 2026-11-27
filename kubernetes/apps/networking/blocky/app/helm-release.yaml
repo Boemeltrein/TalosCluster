@@ -18,21 +18,16 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         annotations:
           gatus.home-operations.com/endpoint: |
             path: ""
-        hosts:
-          - host: blocky.${BASE_DOMAIN}
-            paths:
-              - path: /
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        hostnames:
+          - blocky.${DOMAIN}
 
     service:    
       dns:

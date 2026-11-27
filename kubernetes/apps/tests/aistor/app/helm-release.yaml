@@ -20,26 +20,20 @@ spec:
       licence: "${MINIO_LICENCE}"
       rootUser: minio
       rootPassword: minio123
-      browserRedirectUrl: https://minio.${BASE_DOMAIN}
+      browserRedirectUrl: https://minio.${DOMAIN}
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: minio.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - minio.${DOMAIN}
       api:
         enabled: true
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         targetSelector:
           api: api
-        ingressClassName: internal
-        hosts:
-          - host: minioapi.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        hostnames:
+          - minioapi.${DOMAIN}

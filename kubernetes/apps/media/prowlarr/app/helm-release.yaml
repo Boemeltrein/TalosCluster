@@ -26,16 +26,14 @@ spec:
               env:
                 PROWLARR__SERVER__TRUSTEDNETWORKS: "172.16.0.0/16"     
      
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: prowlarr.${BASE_DOMAIN}
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - prowlarr.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             group: "Arr"

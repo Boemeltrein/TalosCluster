@@ -18,16 +18,13 @@ spec:
   values:
     TZ: Europe/Amsterdam
     
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: external
-        hosts:
-          - host: kromgo.${DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - kromgo.${DOMAIN}
 
     kromgo:
       defaults:

@@ -29,16 +29,14 @@ spec:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: sonarr.${BASE_DOMAIN}         
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - sonarr.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             group: "Arr"

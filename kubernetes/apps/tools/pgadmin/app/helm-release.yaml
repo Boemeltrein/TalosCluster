@@ -18,16 +18,13 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: pgadmin.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - pgadmin.${DOMAIN}
 
     workload:
       main:

@@ -18,16 +18,13 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: homepage.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - homepage.${DOMAIN}
 
     persistence:
       config:
@@ -43,15 +40,12 @@ spec:
     addons:
       codeserver:
         enabled: true
-        ingress:
+        route:
           enabled: true
-          ingressClassName: internal
-          hosts:
-            - host: cs-homepage.${BASE_DOMAIN}
-          integrations:
-            certManager:
-              enabled: true
-              certificateIssuer: cloudflare
+          gateway: envoy-internal
+          gatewayNamespace: envoy-gateway
+          hostnames:
+            - cs-homepage.${DOMAIN}
 
     workload:
       main:
@@ -60,7 +54,7 @@ spec:
           containers:
             main:
               env:
-                HOMEPAGE_ALLOWED_HOSTS: "homepage.${BASE_DOMAIN}"
+                HOMEPAGE_ALLOWED_HOSTS: "homepage.${DOMAIN}"
 
     resources:
       requests:

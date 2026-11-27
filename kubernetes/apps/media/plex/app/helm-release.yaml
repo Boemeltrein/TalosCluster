@@ -25,7 +25,8 @@ spec:
     plex:
       # User Defined
       serverIP: "${IP_PLEX}"
-      additionalAdvertiseURL: "" # https://${IP_PLEX}:32400, https://${DOMAIN}:443, https://${DOMAIN}:32400   <-- configured automaticly
+      # Preserve advertised URLs while the chart only derives them from ingress.
+      additionalAdvertiseURL: "https://plex.${DOMAIN}:443,https://plex.${DOMAIN}:32400"
       disableGDM: true
       requireHTTPS: true # First Deploy set to false, till remote acces is configured and working
 
@@ -37,26 +38,42 @@ spec:
           metallb:
             enabled: true
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 401"]
-        hosts:
-          - host: plex.${BASE_DOMAIN}
+        hostnames:
+          - plex.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             group: "Media"
             widget:
               custom:
                 key: "${HP_API_PLEX}"
+        rules:
+          - backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: plex
+
+    extraTpl:
+      - apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: Backend
+        metadata:
+          name: plex
+          namespace: '{{ .Release.Namespace }}'
+        spec:
+          type: KubernetesService
+          kubernetesService:
+            name: plex
+            port: 32400
+          tls:
+            insecureSkipVerify: true
 
     persistence:
       config:

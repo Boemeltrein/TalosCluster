@@ -41,16 +41,13 @@ spec:
         data:
           ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
   
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: romm.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - romm.${DOMAIN}
 
     persistence:
       config:

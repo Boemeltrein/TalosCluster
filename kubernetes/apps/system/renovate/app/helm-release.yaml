@@ -38,16 +38,13 @@ spec:
           MEND_RNV_GITHUB_APP_KEY: ${RENOVATE_APP_KEY}
           MEND_RNV_WEBHOOK_SECRET: ${RENOVATE_WEBHOOK_SECRET}
     
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: external
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 404"]
-        hosts:
-          - host: renovate.${DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        hostnames:
+          - renovate.${DOMAIN}
