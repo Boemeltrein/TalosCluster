@@ -128,7 +128,7 @@ spec:
     route:
       bluemap:
         enabled: true
-        gateway: envoy-internal
+        gateway: envoy-external
         gatewayNamespace: envoy-gateway
         primary: true
         targetSelector:

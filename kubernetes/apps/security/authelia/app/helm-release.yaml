@@ -28,7 +28,7 @@ spec:
     route:
       main:
         enabled: true
-        gateway: envoy-internal
+        gateway: envoy-external
         gatewayNamespace: envoy-gateway
         hostnames:
           - auth.${DOMAIN}
