@@ -18,6 +18,16 @@ spec:
   values:
     TZ: Europe/Amsterdam
 
+    service:
+      main:
+        type: ExternalIP
+        externalIP: "192.168.1.40"
+        useSlice: true
+        ports:
+          main:
+            protocol: https
+            port: 443
+
     route:
       main:
         enabled: true
