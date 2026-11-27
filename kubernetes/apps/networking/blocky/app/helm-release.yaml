@@ -117,12 +117,15 @@ spec:
       datasource:
         enabled: false
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+            singleNode: true
+          monitoring:
+            enablePodMonitor: true
 
     k8sgateway:
       # -- list of processed domains
