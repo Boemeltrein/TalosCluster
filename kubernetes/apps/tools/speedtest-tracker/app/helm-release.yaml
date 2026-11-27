@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: speedtest-tracker
-      version: 13.2.9
+      version: 14.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -34,7 +34,11 @@ spec:
                 PRUNE_RESULTS_OLDER_THAN: 90
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
                 SPEEDTEST_SERVERS: "52857"
-
+                CACHE_STORE: redis
+    
+    speedtestTracker:
+      appKey: ${SPEEDTEST_TRACKER_APP_KEY}
+      
     ingress:
       main:
         enabled: true
@@ -62,21 +66,22 @@ spec:
             src: #VolSync Source (Backup)
               enabled: true
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
-        backups:
-          enabled: true
-          credentials: rustfs
-          retentionPolicy: "14d"
-          # revision: "5"
-        recovery:
-          credentials: rustfs
-          # revision: "4"
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+            singleNode: true
+          mode: recovery
+          backups:
+            enabled: true
+            credentials: rustfs
+            retentionPolicy: "14d"
+          recovery:
+            credentials: rustfs
+          monitoring:
+            enablePodMonitor: true
 
     resources:
       requests:
