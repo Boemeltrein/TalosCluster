@@ -34,9 +34,13 @@ spec:
           containers:
             main:
               env:
-                ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
                 HASHEOUS_API_ENABLED: true
-
+                
+    secret:
+      env-secrets:
+        data:
+          ROMM_AUTH_SECRET_KEY: "${ROMM_AUTH_SECRET_KEY}"
+  
     ingress:
       main:
         enabled: true
