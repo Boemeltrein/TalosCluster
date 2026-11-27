@@ -28,17 +28,28 @@ spec:
             protocol: https
             port: 443
 
-    ingress:
+    # ingress:
+    #   main:
+    #     enabled: true
+    #     ingressClassName: internal
+    #     annotations:
+    #       nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+    #       gatus.home-operations.com/endpoint: |-
+    #         conditions: ["[STATUS] == 401"]
+    #     hosts:
+    #       - host: plugwise.${BASE_DOMAIN}
+    #     integrations:
+    #       certManager:
+    #         enabled: true
+    #         certificateIssuer: cloudflare
+       
+    route:
       main:
         enabled: true
-        ingressClassName: internal
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - plugwise.${DOMAIN}
         annotations:
-          nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 401"]
-        hosts:
-          - host: plugwise.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
