@@ -114,6 +114,8 @@ spec:
     configmap:
       dashboard:
         enabled: false
+
+    secret:
       datasource:
         enabled: false
 
