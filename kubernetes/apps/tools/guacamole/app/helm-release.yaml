@@ -26,6 +26,16 @@ spec:
         operator:
           cluster:
             instances: 1
+            singleNode: true
+          # mode: recovery
+          # backups:
+          #   enabled: true
+          #   credentials: rustfs
+          #   retentionPolicy: "14d"
+          # recovery:
+          #   credentials: rustfs
+          monitoring:
+            enablePodMonitor: true
 
     ingress:
       main:
