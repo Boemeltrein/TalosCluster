@@ -69,15 +69,13 @@ spec:
           cluster:
             instances: 1
             singleNode: true
-          mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+          mode: recovery
           backups:
             enabled: true
             credentials: rustfs
             retentionPolicy: "14d"
-            # revision: "5"
           recovery:
             credentials: rustfs
-            # revision: "4"
           monitoring:
             enablePodMonitor: true
 
