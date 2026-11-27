@@ -34,7 +34,11 @@ spec:
                 PRUNE_RESULTS_OLDER_THAN: 90
                 DISPLAY_TIMEZONE: "Europe/Amsterdam"
                 SPEEDTEST_SERVERS: "52857"
-
+                CACHE_STORE: redis
+    
+    speedtestTracker:
+      appKey: ${SPEEDTEST_TRACKER_APP_KEY}
+      
     ingress:
       main:
         enabled: true
