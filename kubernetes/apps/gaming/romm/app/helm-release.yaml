@@ -91,18 +91,21 @@ spec:
         type: emptyDir        
         mountPath: /etc/nginx/conf.d
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
-        backups:
-          enabled: true
-          credentials: rustfs
-          retentionPolicy: "14d"
-          # revision: "2"
-        recovery:
-          credentials: rustfs
-          # revision: "1"
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+            singleNode: true
+          mode: recovery   # Set to 'recovery' when recovery from S3, also change the revisions
+          backups:
+            enabled: true
+            credentials: rustfs
+            retentionPolicy: "14d"
+            # revision: "2"
+          recovery:
+            credentials: rustfs
+            # revision: "1"
+          monitoring:
+            enablePodMonitor: true
