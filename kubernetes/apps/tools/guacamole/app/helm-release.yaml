@@ -24,7 +24,6 @@ spec:
     dependencies:
       postgresql:
         operator:
-          pgVersion: 16
           cluster:
             instances: 1
 
