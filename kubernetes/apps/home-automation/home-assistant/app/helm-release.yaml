@@ -53,18 +53,21 @@ spec:
         type: device
         hostPath: /dev/serial/by-id/usb-FTDI_P1_Converter_Cable_A6X1Y2R3-if00-port0
 
-    cnpg:
-      main:
-        cluster:
-          singleNode: true
-        mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
-        backups:
-          enabled: true
-          credentials: rustfs
-          retentionPolicy: "14d"
-          # revision: "4"
-        recovery:
-          credentials: rustfs
-          # revision: "3"
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+            singleNode: true
+          mode: recovery # Set to 'recovery' when recovery from S3, also change the revisions
+          backups:
+            enabled: true
+            credentials: rustfs
+            retentionPolicy: "14d"
+            # revision: "4"
+          recovery:
+            credentials: rustfs
+            # revision: "3"
+          monitoring:
+            enablePodMonitor: true
