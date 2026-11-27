@@ -31,16 +31,23 @@ spec:
                 LLDAP_LDAP_BASE_DN: dc=${DN},dc=${DC}
                 LLDAP_LDAP_USER_DN: admin
                 LLDAP_LDAP_USER_EMAIL: admin@${DOMAIN}
-                LLDAP_LDAP_USER_PASS: ${LLDAP_PASSWORD}
                 LLDAP_SMTP_OPTIONS__ENABLE_PASSWORD_RESET: true
                 LLDAP_SMTP_OPTIONS__FROM: LLDAP Admin <no-reply@${DOMAIN}>
-                LLDAP_SMTP_OPTIONS__PASSWORD: ${SMTP_PASSWORD}
                 LLDAP_SMTP_OPTIONS__PORT: 465
                 LLDAP_SMTP_OPTIONS__REPLY_TO: Do not reply <no-reply@${DOMAIN}>
                 LLDAP_SMTP_OPTIONS__SERVER: ${SMTP_HOST}
                 LLDAP_SMTP_OPTIONS__SMTP_ENCRYPTION: TLS
                 LLDAP_SMTP_OPTIONS__USER: ${SMTP_USER}
                 LLDAP_key_file: /data/private_key
+
+    lldap:
+      jwtSecret: "${LLDAP_JWT_SECRET}"                
+
+    secret:
+      env-secrets:
+        data:
+          LLDAP_LDAP_USER_PASS: "${LLDAP_PASSWORD}"
+          LLDAP_SMTP_OPTIONS__PASSWORD: "${SMTP_PASSWORD}"
 
     ingress:
       main:
