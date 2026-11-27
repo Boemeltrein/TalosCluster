@@ -27,7 +27,10 @@ stringData:
   CLOUDFLARE_TUNNEL_TOKEN: "ci-placeholder-tunnel-token"
   SPEEDTEST_TRACKER_APP_KEY: "ci-placeholder-speedtest-tracker"
   ROMM_AUTH_SECRET_KEY: "ci-placeholder-romm-auth-secret-key"
-  
+  LLDAP_JWT_SECRET: "ci-placeholder-lldap-jwt-secret-0000"
+  LLDAP_PASSWORD: "ci-placeholder-lldap-password"
+  SMTP_PASSWORD: "ci-placeholder-smtp-password"
+    
   # MinIO
   S3_URL: "minio.example.invalid"
   S3_BUCKET: "ci-minio"
