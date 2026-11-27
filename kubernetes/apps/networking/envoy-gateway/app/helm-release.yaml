@@ -21,3 +21,5 @@ spec:
           kubernetes:
             deploy:
               type: GatewayNamespace
+        extensionApis:
+          enableBackend: true              
