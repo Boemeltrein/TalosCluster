@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: guacamole
-      version: 18.1.4
+      version: 19.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -20,6 +20,13 @@ spec:
 
     global:
       stopAll: false
+
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
 
     ingress:
       main:

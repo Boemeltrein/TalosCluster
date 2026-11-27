@@ -80,7 +80,7 @@ spec:
           expr: |
             (
               time() - max by (namespace) (
-                cnpg_collector_last_available_backup_timestamp{
+                barman_cloud_cloudnative_pg_io_last_available_backup_timestamp{
                   pod=~".*-[0-9]+$"
                 } > 0
               )
