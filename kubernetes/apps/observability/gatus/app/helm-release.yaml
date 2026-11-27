@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: gatus
-      version: 5.3.5
+      version: 6.0.0
       sourceRef:
         kind: HelmRepository
         name: truecharts
@@ -38,20 +38,25 @@ spec:
       autoIngress: true
       autoHttproute: true
 
-    cnpg:
-      main:
-        monitoring:
-          enablePodMonitor: true
+    dependencies:
+      postgresql:
+        operator:
+          pgVersion: 16
+          cluster:
+            instances: 1
+          monitoring:
+            enablePodMonitor: true
 
     configmap:
       config:
         enabled: true
         data:
           config.yaml: |
-            {{- if .Values.cnpg.main.enabled }}
+            {{- if .Values.dependencies.postgresql.enabled }}
             storage:
               type: postgres
-              path: {{ (printf "%s?client_encoding=utf8" (.Values.cnpg.main.creds.std | trimAll "\"")) | quote }}
+              # Build the env reference during Helm rendering to avoid Flux substitution.
+              path: {{ printf "%s{GATUS_DB_URL}?client_encoding=utf8" "$" | quote }}
             {{- end }}
             ui:
               title: Status | Gatus
@@ -104,7 +109,7 @@ spec:
                   - "[BODY].status == UP"
                 alerts:
                   - type: discord
-                  - minimum-reminder-interval: 12h
+                    minimum-reminder-interval: 12h
               - name: Ping (Buddy)
                 group: buddy
                 url: icmp://${GATUS_BUDDY_DDNS_HOSTNAME}
@@ -116,7 +121,7 @@ spec:
                   - "[CONNECTED] == true"
                 alerts:
                   - type: discord
-                  - minimum-reminder-interval: 12h
+                    minimum-reminder-interval: 12h
             external-endpoints:
               - name: Heartbeat (Buddy)
                 group: buddy
@@ -125,4 +130,4 @@ spec:
                   interval: 5m
                 alerts:
                   - type: discord
-                  - minimum-reminder-interval: 12h
+                    minimum-reminder-interval: 12h
