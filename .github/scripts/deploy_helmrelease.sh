@@ -515,6 +515,24 @@ if $install_valkey; then
   install_valkey_operator
 fi
 
+# Create extra resource namespaces that are not managed by this chart.
+echo "::group::📂 Preparing additional resource namespaces..."
+RESOURCE_NAMESPACES="$(
+  yq ea -r '
+    (([.metadata.namespace // ""] | unique) -
+      [select(.kind == "Namespace") | .metadata.name])
+    | .[] | select(. != "")
+  ' "$RENDERED"
+)"
+while IFS= read -r resource_namespace; do
+  [[ -z "$resource_namespace" || "$resource_namespace" == "$NAMESPACE" ]] && continue
+  kubectl create namespace "$resource_namespace" \
+    --dry-run=client \
+    --output=yaml \
+  | kubectl apply --filename -
+done <<< "$RESOURCE_NAMESPACES"
+echo "::endgroup::"
+
 # --------------------------------------------------
 # Deploy chart
 # --------------------------------------------------
