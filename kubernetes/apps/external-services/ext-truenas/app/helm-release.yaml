@@ -25,8 +25,8 @@ spec:
         useSlice: true
         ports:
           main:
-            protocol: http
-            port: 80
+            protocol: https
+            port: 443
 
     route:
       main:
@@ -47,22 +47,24 @@ spec:
                 type: "truenas"
                 key: "${HP_API_TRUENAS}"
                 enablePools: "true"
-    #     rules:
-    #       - backendRefs:
-    #           - group: gateway.envoyproxy.io
-    #             kind: Backend
-    #             name: ext-truenas-external-service
+        rules:
+          - backendRefs:
+              - group: gateway.envoyproxy.io
+                kind: Backend
+                name: ext-truenas-external-service
 
-    # extraTpl:
-    #   - apiVersion: gateway.envoyproxy.io/v1alpha1
-    #     kind: Backend
-    #     metadata:
-    #       name: ext-truenas-external-service
-    #       namespace: '{{ .Release.Namespace }}'
-    #     spec:
-    #       type: KubernetesService
-    #       kubernetesService:
-    #         name: ext-truenas-external-service
-    #         port: 443
-    #       tls:
-    #         insecureSkipVerify: true
+    extraTpl:
+      - apiVersion: gateway.envoyproxy.io/v1alpha1
+        kind: Backend
+        metadata:
+          name: ext-truenas-external-service
+          namespace: '{{ .Release.Namespace }}'
+        spec:
+          type: KubernetesService
+          kubernetesService:
+            name: ext-truenas-external-service
+            port: 443
+          appProtocols:
+            - gateway.envoyproxy.io/wss            
+          tls:
+            insecureSkipVerify: true
