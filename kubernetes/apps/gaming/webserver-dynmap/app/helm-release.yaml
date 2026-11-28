@@ -26,6 +26,10 @@ spec:
         enabled: true
         gateway: envoy-external
         gatewayNamespace: envoy-gateway
+        annotations:
+          gatus.home-operations.com/endpoint: |
+            conditions:
+              - "[STATUS] == 401"        
         hostnames:
           - dynmap.${DOMAIN}
         integrations:
