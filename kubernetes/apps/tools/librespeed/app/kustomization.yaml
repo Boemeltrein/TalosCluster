@@ -8,4 +8,3 @@ components:
 resources:
   - helm-release.yaml
   - namespace.yaml
-  - security_policy.yaml
