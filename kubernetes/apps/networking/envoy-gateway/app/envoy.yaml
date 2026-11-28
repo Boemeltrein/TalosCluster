@@ -55,6 +55,8 @@ metadata:
       group: external
       client:
         dns-resolver: "tcp://1.1.1.1:53" 
+      alerts:
+        - type: discord            
 spec:
   gatewayClassName: envoy
   infrastructure:
@@ -96,6 +98,8 @@ metadata:
       ui:
         hide-url: true
         hide-hostname: true
+      alerts:
+        - type: discord        
 spec:
   gatewayClassName: envoy
   infrastructure:
