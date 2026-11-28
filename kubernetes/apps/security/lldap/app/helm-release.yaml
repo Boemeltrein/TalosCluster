@@ -27,7 +27,7 @@ spec:
           containers:
             main:
               env:
-                LLDAP_HTTP_URL: https://lldap.${BASE_DOMAIN}
+                LLDAP_HTTP_URL: https://lldap.${DOMAIN}
                 LLDAP_LDAP_BASE_DN: dc=${DN},dc=${DC}
                 LLDAP_LDAP_USER_DN: admin
                 LLDAP_LDAP_USER_EMAIL: admin@${DOMAIN}
@@ -49,16 +49,13 @@ spec:
           LLDAP_LDAP_USER_PASS: "${LLDAP_PASSWORD}"
           LLDAP_SMTP_OPTIONS__PASSWORD: "${SMTP_PASSWORD}"
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: lldap.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - lldap.${DOMAIN}
 
     persistence:
       data:

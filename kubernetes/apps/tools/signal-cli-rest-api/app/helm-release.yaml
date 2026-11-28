@@ -45,19 +45,16 @@ spec:
               env:
                 AUTO_RECEIVE_SCHEDULE: 0 4 * * *
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
         annotations:
           gatus.home-operations.com/endpoint: |-
             conditions: ["[STATUS] == 404"]
-        hosts:
-          - host: signalapi.${BASE_DOMAIN}
-        integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
+        hostnames:
+          - signalapi.${DOMAIN}
 
     persistence:
       config:

@@ -24,7 +24,7 @@ spec:
           containers:
             main:
               env:
-                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${BASE_DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
+                SABNZBD__HOST_WHITELIST_ENTRIES: "sabnzbd.${DOMAIN}, sabnzbd.sabnzbd.svc, sabnzbd"
             exportarr:
               env:
                 ENABLE_ADDITIONAL_METRICS: true
@@ -32,16 +32,14 @@ spec:
     exportarr:
       apiKey: ${HP_API_SABNZBD}
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: sabnzbd.${BASE_DOMAIN}
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - sabnzbd.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             group: "Arr"

@@ -125,25 +125,22 @@ spec:
         type: configmap
         objectName: vanillatweaks
 
-    ingress:
+    route:
       bluemap:
         enabled: true
+        gateway: envoy-external
+        gatewayNamespace: envoy-gateway
         primary: true
-        ingressClassName: external
         targetSelector:
           bluemap: bluemap
-        hosts:
-          - host: bluemap.${DOMAIN}
+        hostnames:
+          - bluemap.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          nginx:
+          envoy:
             enabled: true
             auth:
               type: "authelia"
               internalHost: "authelia.authelia.svc.cluster.local:9091"
-              externalHost: "auth.${DOMAIN}"
 
     resources:
       limits:

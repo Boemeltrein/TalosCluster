@@ -39,16 +39,14 @@ spec:
     speedtestTracker:
       appKey: ${SPEEDTEST_TRACKER_APP_KEY}
       
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: internal
-        hosts:
-          - host: speedtest-tracker.${BASE_DOMAIN}
+        gateway: envoy-internal
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - speedtest-tracker.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
           homepage:
             enabled: true
             group: "Network"
@@ -85,4 +83,3 @@ spec:
     resources:
       requests:
         cpu: 10m
-

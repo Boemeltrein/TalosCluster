@@ -35,22 +35,19 @@ spec:
           main:
             port: 8080
 
-    ingress:
+    route:
       main:
         enabled: true
-        ingressClassName: external
-        hosts:
-          - host: mcstats.${DOMAIN}
+        gateway: envoy-external
+        gatewayNamespace: envoy-gateway
+        hostnames:
+          - mcstats.${DOMAIN}
         integrations:
-          certManager:
-            enabled: true
-            certificateIssuer: cloudflare
-          nginx:
+          envoy:
             enabled: true
             auth:
               type: "authelia"
               internalHost: "authelia.authelia.svc.cluster.local:9091"
-              externalHost: "auth.${DOMAIN}"
 
     mcstats:
       utopia:
